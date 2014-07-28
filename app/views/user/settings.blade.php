@@ -1,0 +1,1 @@
+/home/monero/app/views/user/settings.blade.php
