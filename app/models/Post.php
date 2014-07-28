@@ -11,14 +11,13 @@ class Post extends \Eloquent {
 		return $this->belongsTo('Thread');
 	}
 	
-	public function validate($input) {
+	public static function validate($input) {
 		$rules = array(
-		'thead_id'		=> 'required|exists:threads,id',
-		'user_id'		=> 'required|exists:users,id',
+		'thread_id'		=> 'required|exists:threads,id',
 		'title'			=> 'required',
 		'body'			=> 'required',
 		'parent_id'   	=> 'exists:posts,id',
 		);
-		return Validator::make($rules, $input);
+		return Validator::make($input, $rules);
 	}
 }

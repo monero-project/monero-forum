@@ -1,9 +1,20 @@
 <?php
 
-class PostsControlelr extends \BaseController {
+class PostsController extends \BaseController {
 
 	public function submit() {
+	
+		//TODO: Fix issue with posts removing their own linebreaks.
+		
 		$validator = Post::validate(Input::all());
+		
+		$thread = Thread::findOrFail(Input::get('thread_id'));
+		$thread_id = $thread->id;
+		$thread_slug = $thread->slug();
+		$forum_id = $thread->forum->id;
+		$forum_slug = $thread->forum->slug();
+		$posts = $thread->posts()->paginate(5);
+		
 		if (!$validator->fails())
 		{
 			$post = new Post();
@@ -17,10 +28,11 @@ class PostsControlelr extends \BaseController {
 				
 			$post->save();
 			
-			return View::make('content.post');
+			return Redirect::to($thread->permalink()));
 		}
+		
 		else
-			return View::make('content.post', array('errors' => $validator->messages()->all()));
+			return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
 	}
 
 }
