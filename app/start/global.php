@@ -87,3 +87,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/* Post Helpers File. Used for recursive functions and whatever else. */
+require app_path().'/post_helpers.php';

@@ -21,14 +21,14 @@ class PostsController extends \BaseController {
 			$post->user_id = Auth::user()->id;
 			$post->thread_id = Input::get('thread_id');
 			$post->title = Input::get('title');
-			$post->body = Input::get('body');
+			$post->body = Input::get('body');			
 			
-			if (Input::get('parent_id', false))
-				$post->parent_id = Input::get('parent_id');
+			if (Input::get('post_id', false))
+				$post->parent_id = Input::get('post_id');
 				
 			$post->save();
 			
-			return Redirect::to($thread->permalink()));
+			return Redirect::to($thread->permalink());
 		}
 		
 		else

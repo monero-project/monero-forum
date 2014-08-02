@@ -507,3 +507,7 @@ body {
 .btn-grey {
 	background: #505050;
 }
+
+.full-width {
+	width: 100%;
+}

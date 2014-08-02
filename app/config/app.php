@@ -8,9 +8,10 @@ return array(
 	|
 	*/
 	
-	'ratings_per_page' => 20,
-	'user_threads_per_page' => 20,
-	'user_posts_per_page' => 20,
+	'ratings_per_page' 			=> 20,
+	'user_threads_per_page' 	=> 20,
+	'user_posts_per_page' 		=> 20,
+	'thread_posts_per_page'		=> 10,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -132,6 +133,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
+		'VTalbot\Markdown\MarkdownServiceProvider',
 
 	),
 
@@ -199,6 +201,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'Markdown' 		  => 'VTalbot\Markdown\Facades\Markdown',
 
 	),
 
