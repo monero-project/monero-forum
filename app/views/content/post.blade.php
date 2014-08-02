@@ -1,4 +1,4 @@
-<div id="post-{{ $post->id }}" class="post col-lg-12">
+<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}">
 			<h4>{{ $post->title }}</h4>
 			<p class="post-meta"><a href="/user/{{ $post->user->id }}" target="_blank">{{ $post->user->username }}</a> posted this on {{ $post->created_at }}</p>
 			{{ Markdown::string(e($post->body)) }}
@@ -17,4 +17,4 @@
 			  @endif
 			</div>
 </div>
-{{ NULL; display_children($post->id, $thread_id, $level + 1) }}
+{{ display_children($post->id, $thread_id, $level + 1) }}

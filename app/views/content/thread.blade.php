@@ -47,7 +47,7 @@
 			  @endif
 			</div>
 	</div>
-	{{ NULL; display_children($post->id, $thread_id, 0) }}
+	{{ display_children($post->id, $thread_id, 1) }}
 	@endforeach
 	<hr>
 	@if(isset($errors) && sizeof($errors) > 0)
