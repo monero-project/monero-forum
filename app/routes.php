@@ -16,10 +16,13 @@ Route::get('/register',  array('before'  => 'guest', 'uses'  => 'UsersController
 Route::get('/logout',   array('before'  => 'auth',  'uses'  => 'UsersController@logout'));
 
 /*	Posts	*/
-Route::post('/posts/submit', 'PostsController@submit');
+Route::post('/posts/submit', array('before'  => 'auth',  'uses'  => 'PostsController@submit'));
+Route::post('/posts/update', array('before'  => 'auth',  'uses'  => 'PostsController@update'));
+Route::get('/posts/delete/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@delete'));
+Route::get('/posts/get/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@get'));
 
 /*	Ratings		*/
-Route::post('/ratings/rate', 'RatingsController@rate');
+Route::post('/ratings/rate', array('before'  => 'auth',  'uses'  => 'RatingsController@rate'));
 
 /*	API Layer	*/
 
