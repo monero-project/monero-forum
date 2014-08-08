@@ -11,7 +11,6 @@
             	{{ Form::hidden('email', $input['email'], array('class'=>'form-control', 'placeholder'=>'')) }}
             	{{ Form::hidden('password', $input['password'], array('class'=>'form-control', 'placeholder'=>'')) }}
             	{{ Form::hidden('password_confirmation', $input['password_confirmation'], array('class'=>'form-control', 'placeholder'=>'')) }}
-            	{{ Form::hidden('wot_register', $input['wot_register'], array('class'=>'form-control', 'placeholder'=>'')) }}
             	{{ Form::hidden('key', $input['key'], array('class'=>'form-control', 'placeholder'=>'')) }}
             <div class="form-group">
             	<label>Please decrypt the password located <a href="/keychain/message/{{{ $keyid }}}" target="_blank">here</a> and enter it below.</label>

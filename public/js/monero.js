@@ -1,6 +1,7 @@
 $('.reg-username').on('input', function() {
 	registration();
 });
+
 $('.wot_register_check').change(function() {
 	registration();
 	if ($('.wot_register_check').not(":checked")) {

@@ -6,9 +6,8 @@
     @if (Auth::check())
     	Hello, <a href="{{{ URL::to('/user/profile') }}}">{{{ Auth::user()->username }}}</a>! <a href="{{{ URL::to('logout') }}}">Logout</a>
     	<br>
-    	<a href="{{{ URL::to('/user/'.Auth::user()->id) }}}">{{{ Auth::user()->username }}}</a>
     @else
-    	Please <a href="#" data-toggle="modal" data-target="#loginModal">login</a> or <a href="#" data-toggle="modal" data-target="#registerModal">register</a>.
+    	Please <a href="/login" class="link-disabled login-modal">login</a> or <a href="/register" class="link-disabled" data-toggle="modal" data-target="#registerModal">register</a>.
     @endif
     </div>
 </div>

@@ -18,14 +18,21 @@ Route::get('/logout',   array('before'  => 'auth',  'uses'  => 'UsersController@
 /*	Posts	*/
 Route::post('/posts/submit', array('before'  => 'auth',  'uses'  => 'PostsController@submit'));
 Route::post('/posts/update', array('before'  => 'auth',  'uses'  => 'PostsController@update'));
+
+//AJAX calls
 Route::get('/posts/delete/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@delete'));
 Route::get('/posts/get/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@get'));
+
+//Standalone Pages for use when JS is disabled.
+Route::get('/posts/update/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getUpdatePage'));
+Route::get('/posts/delete/page/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getDeletePage'));
+Route::get('/posts/reply/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReplyPage'));
+Route::get('/posts/report/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReportPage'));
 
 /*	Ratings		*/
 Route::post('/ratings/rate', array('before'  => 'auth',  'uses'  => 'RatingsController@rate'));
 
-/*	API Layer	*/
-
+/*	Keychain Layer	*/
 Route::get('/keychain/exists/{username}', 'KeychainController@exists');
 Route::get('/keychain/message/{key_id}', 'KeychainController@message');
 Route::get('/keychain/sync/push/users', 'KeychainController@users');
@@ -35,11 +42,12 @@ Route::get('/keychain/sync/push/ratings', 'KeychainController@listRatings');
 Route::get('/keychain/ratings',  array('before'   => 'auth',  'uses'   => 'KeychainController@myRatings'));
 Route::get('/keychain/ratings/download', array('before' => 'auth', 'uses' => 'KeychainController@downloadRatings'));
 
+Route::get('/keychain/posts/get/{thread_id}/{posts_num}', 'PostsController@listPosts');
+
 /* Forum Structure */
 Route::get('/{forum_slug}/{forum_id}', 'ForumsController@index');
 Route::get('/{forum_slug}/{forum_id}/{thread_slug}/{thread_id}', 'ThreadsController@index');
 Route::get('/{forum_slug}/{forum_id}/{thread_slug}/{thread_id}/{post_slug}/{post_id}', 'PostsController@index');
-
 
 //Testing purposes
 Route::get('/do', 'KeychainController@action');

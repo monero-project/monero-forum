@@ -15,6 +15,10 @@ class Thread extends \Eloquent {
 		return $this->hasMany('Post');
 	}
 	
+	public function head() {
+		return Post::find($this->post_id);
+	}
+	
 	public function slug() {
 		$slug = $this->name;	
 		

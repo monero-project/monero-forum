@@ -33,9 +33,10 @@
             	<label>Confirm Password</label>
             	{{ Form::password('password_confirmation', array('class'=>'form-control', 'placeholder'=>'')) }}
             </div>
-            <div class="form-group reg-key" style="display: none;">
+            <div class="form-group reg-key">
             	<label>Key ID</label>
             	{{ Form::text('key', null, array('class'=>'form-control', 'placeholder'=>'785DEFB41BECA9ED')) }}
+            	<p class="help-block">Only fill this out if you are registering for the Web of Trust!</p>
             </div>
             <div class="checkbox wot_register">
 			    <label>
@@ -45,4 +46,8 @@
 	        <button type="submit" class="btn btn-success">Register</button>
 	      {{ Form::close() }}
 	</div>
+@stop
+
+@section('javascript')
+{{ HTML::script('js/register.js') }}
 @stop

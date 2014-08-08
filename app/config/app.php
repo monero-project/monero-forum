@@ -11,7 +11,7 @@ return array(
 	'ratings_per_page' 			=> 20,
 	'user_threads_per_page' 	=> 20,
 	'user_posts_per_page' 		=> 20,
-	'thread_posts_per_page'		=> 10,
+	'thread_posts_per_page'		=> 15,
 
 	/*
 	|--------------------------------------------------------------------------
