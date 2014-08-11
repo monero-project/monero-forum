@@ -2,6 +2,8 @@
 
 class Post extends \Eloquent {
 	protected $fillable = [];
+	protected $softDelete = true;
+	use SoftDeletingTrait;
 	
 	public function user() {
 		return $this->belongsTo('User');
@@ -11,20 +13,17 @@ class Post extends \Eloquent {
 		return $this->belongsTo('Thread');
 	}
 	
-	public function parent()
-	{
+	public function parent() {
 	    return $this->belongsTo('Post','parent_id');
 	}
 	
-	public function children()
-	{
+	public function children() {
 	    return $this->hasMany('Post','parent_id');
 	}
 	
 	public static function validate($input) {
 		$rules = array(
 		'thread_id'		=> 'required|exists:threads,id',
-		'title'			=> 'required',
 		'body'			=> 'required',
 		'parent_id'   	=> 'exists:posts,id',
 		);

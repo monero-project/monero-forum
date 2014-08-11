@@ -10,7 +10,9 @@ class ThreadsController extends \BaseController {
 		
 		$thread = Thread::findOrFail($thread_id);
 		
-		$posts = Post::where('thread_id', '=', $thread_id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('decay', 'DESC')->paginate($posts_per_page);
+		$posts = Post::withTrashed()->where('thread_id', '=', $thread_id)->whereNull('parent_id')->where('id', '<>', $thread->post_id);
+		
+		$posts = $posts->orderBy('weight', 'DESC')->paginate($posts_per_page);
 		
 		return View::make('content.thread', array('posts' => $posts, 'thread' => $thread));
 		

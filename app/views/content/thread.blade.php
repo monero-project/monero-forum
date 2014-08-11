@@ -13,9 +13,6 @@
 		<form role="form" action="/posts/submit" method="POST">
 		<input type="hidden" name="thread_id" value="{{ $thread->id }}">
 		  <div class="form-group">
-		    <input type="text" class="form-control" name="title" value="Re: {{ $thread->name }}">
-		  </div>
-		  <div class="form-group">
 		  	<textarea class="form-control" name="body" rows="6" placeholder="Your insightful masterpiece goes here..."></textarea>
 		  </div>
 		  <button type="submit" class="btn btn-success">Submit Reply</button>
@@ -24,7 +21,9 @@
 	</div>
 	</div>
 	<div class="col-lg-12 replies-list">
-		<h3 class="pull-left">Replies: {{ $thread->posts()->count() }}</h3>
+		<h3>Replies: {{ $thread->posts()->count() }} 
+		<span class="pull-right"><small>Hey! This page will never end! Just keep on scrolling to see more posts!</small></span>
+		</h3>
 	</div>
 	<div id="trunk">
 		{{ thread_posts($posts, $thread->id, 0) }}

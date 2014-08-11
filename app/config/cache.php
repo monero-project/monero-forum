@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'file',
+	'driver' => 'redis',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -58,23 +58,6 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Memcached Servers
-	|--------------------------------------------------------------------------
-	|
-	| Now you may specify an array of your Memcached servers that should be
-	| used when utilizing the Memcached cache driver. All of the servers
-	| should contain a value for "host", "port", and "weight" options.
-	|
-	*/
-
-	'memcached' => array(
-
-		array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 100),
-
-	),
-
-	/*
-	|--------------------------------------------------------------------------
 	| Cache Key Prefix
 	|--------------------------------------------------------------------------
 	|
@@ -84,6 +67,20 @@ return array(
 	|
 	*/
 
-	'prefix' => 'laravel',
+	'prefix' => 'monero',
+	
+	/*
+	|
+	| REDIS
+	|
+	*/
+	
+	'redis' => array(
+
+	    'cluster' => true,
+	
+	    'default' => array('host' => '127.0.0.1', 'port' => 6379),
+	
+	),
 
 );

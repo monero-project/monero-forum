@@ -2,6 +2,8 @@
 
 class Thread extends \Eloquent {
 	protected $fillable = [];
+	protected $softDelete = true;
+	use SoftDeletingTrait;
 	
 	public function user() {
 		return $this->belongsTo('User');
