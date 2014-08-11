@@ -18,7 +18,6 @@ class PostsController extends \BaseController {
 			$post = new Post();
 			$post->user_id = Auth::user()->id;
 			$post->thread_id = Input::get('thread_id');
-			$post->title = Input::get('title');
 			$post->body = Input::get('body');
 
 			if (Input::get('post_id', false))
@@ -61,7 +60,6 @@ class PostsController extends \BaseController {
 		{
 			$post = Post::findOrFail(Input::get('post_id'));
 
-			$post->title = Input::get('title');
 			$post->body = Input::get('body');
 
 			$post->save();

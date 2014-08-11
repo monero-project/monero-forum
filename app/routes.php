@@ -29,7 +29,10 @@ Route::get('/posts/delete/page/{post_id}', array('before'  => 'auth',  'uses'  =
 Route::get('/posts/reply/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReplyPage'));
 Route::get('/posts/report/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReportPage'));
 
-/*	Ratings		*/
+/*	Votes	*/
+Route::post('/votes/vote', array('before'	=>	'auth', 'uses'	=>	'VotesController@vote'));
+
+/*	Ratings	*/
 Route::post('/ratings/rate', array('before'  => 'auth',  'uses'  => 'RatingsController@rate'));
 
 /*	Keychain Layer	*/

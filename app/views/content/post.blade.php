@@ -6,6 +6,12 @@
 			@if ($post->children()->count() > 0)
 			 <small>Replies: {{ $post->children()->count() }}</small>
 			@endif
+			<a href="/" class="disabled-link" onclick="vote({{ $post->id }}, 'insightful')">
+				<button type="button" class="btn btn-default btn-xs pull-right insightful-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-up"></span> Insightful</button>
+			</a> 
+			<a href="/" class="disabled-link" onclick="vote({{ $post->id }}, 'irrelevant')">
+				<button type="button" class="btn btn-default btn-xs pull-right irrelevant-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-down"></span> Irrelevant</button>
+			</a>
 			</h4>
 			<p class="post-meta"><a href="/user/{{ $post->user->id }}" target="_blank">{{ $post->user->username }}</a> posted this on {{ $post->created_at }}</p>
 			<div class="post-content-{{ $post->id }}">
