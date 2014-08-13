@@ -57,6 +57,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasOne('GPG', 'username', 'nick');
 	}
 	
+	public function votes() {
+		return $this->belongsTo('Vote');
+	}
+	
 	/* Validator */
 	
 	public static function validate($input) {

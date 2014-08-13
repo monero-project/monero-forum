@@ -40,4 +40,13 @@ class Thread extends \Eloquent {
 	public function permalink() {
 		return "http://".$_SERVER['HTTP_HOST']."/".$this->forum->slug()."/".$this->forum->id."/".$this->slug()."/".$this->id;
 	}
+	
+	public static function validate($input) {
+		$rules = array(
+			'forum_id'		=> 'required|exists:forums,id',
+			'user_id'   	=> 'required|exists:users,id',
+			'name'			=> 'required',
+		);
+		return Validator::make($input, $rules);
+	}
 }

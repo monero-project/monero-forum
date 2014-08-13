@@ -27,4 +27,8 @@ class Forum extends \Eloquent {
 		return $slug;
 	}
 	
+	public function permalink() {
+		return "http://".$_SERVER['HTTP_HOST']."/".$this->slug()."/".$this->id;
+	}
+	
 }

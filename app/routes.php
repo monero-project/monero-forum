@@ -19,6 +19,10 @@ Route::get('/logout',   array('before'  => 'auth',  'uses'  => 'UsersController@
 Route::post('/posts/submit', array('before'  => 'auth',  'uses'  => 'PostsController@submit'));
 Route::post('/posts/update', array('before'  => 'auth',  'uses'  => 'PostsController@update'));
 
+/*	Threads	*/
+Route::get('/thread/create/{forum_id}', array('before'	=>	'auth', 'uses'	=>	'ThreadsController@create'));
+Route::post('/thread/create', array('before'	=>	'auth', 'uses'	=>	'ThreadsController@submitCreate'));
+
 //AJAX calls
 Route::get('/posts/delete/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@delete'));
 Route::get('/posts/get/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@get'));

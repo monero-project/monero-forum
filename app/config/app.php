@@ -4,14 +4,30 @@ return array(
 
 	/*
 	|
-	| Per Page Settings
+	| App Settings
 	|
 	*/
+	
+	/*	Per Page Settings	*/
 	
 	'ratings_per_page' 			=> 20,
 	'user_threads_per_page' 	=> 20,
 	'user_posts_per_page' 		=> 20,
 	'thread_posts_per_page'		=> 15,
+	
+	/*	Cache Settings	*/
+	
+	'cache_posts_for'			=> 0.1, //amount of time to cache the posts for users. Set in minutes.
+	
+	/*	Post Weight	*/
+	
+	'l1_weight'					=> 3, //amount of weight to add if poster is in L1 of trust.
+	'l2_weight'					=> 1, //amount of weight to add if poster is in L2 of trust.
+	'reply_weight'				=> 2, //amount of weight to add if the post just had a new reply.
+	'insightful_weight'			=> 1, //amount of weight to add if the post is voted as insightful.
+	'irrelevant_weight'			=> -1, //amount of weight to take away if the post is voted as irrelevant.
+
+	
 
 	/*
 	|--------------------------------------------------------------------------

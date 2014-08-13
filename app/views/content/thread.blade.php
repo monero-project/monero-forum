@@ -3,7 +3,7 @@
 @section('content')
 	<div class="col-lg-12">
 	<h1>{{{ $thread->name }}}</h1>
-	<p class="post-meta"><a href="/user/{{ $posts[0]->user->id }}" target="_blank">{{{ $thread->head()->user->username }}}</a> posted this on {{ $thread->head()->created_at }}</p>
+	<p class="post-meta"><a href="/user/{{ $thread->head()->user->id }}" target="_blank">{{{ $thread->head()->user->username }}}</a> posted this on {{ $thread->head()->created_at }}</p>
 	{{ Markdown::string(e($thread->head()->body)) }}
 	<hr>
 	@if (Auth::check())
@@ -21,14 +21,14 @@
 	</div>
 	</div>
 	<div class="col-lg-12 replies-list">
-		<h3>Replies: {{ $thread->posts()->count() }} 
+		<h3>Replies: {{ $thread->posts()->count() - 1 }} 
 		<span class="pull-right"><small>Hey! This page will never end! Just keep on scrolling to see more posts!</small></span>
 		</h3>
 	</div>
 	<div id="trunk">
 		{{ thread_posts($posts, $thread->id, 0) }}
 	</div>
-	{{ $posts->links() }}
+	{{ $links }}
 	<hr>
 	@if(isset($errors) && sizeof($errors) > 0)
 	<div class="alert alert-danger alert-dismissible" role="alert">
@@ -41,6 +41,7 @@
 @stop 
 
 @section('javascript')
+{{ HTML::script('js/jquery.masonry.min.js') }}
 {{ HTML::script('js/jquery.infinitescroll.min.js') }}
 {{ HTML::script('js/posts.js') }}
 @stop

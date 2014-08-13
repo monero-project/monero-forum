@@ -21,7 +21,14 @@ class PostsController extends \BaseController {
 			$post->body = Input::get('body');
 
 			if (Input::get('post_id', false))
+			{
 				$post->parent_id = Input::get('post_id');
+				
+				//add weight to parent.
+				$parent_post = Post::find(Input::get('post_id'));
+				$parent_post->weight += Config::get('app.reply_weight');
+				$parent_post->save();
+			}
 
 			$post->save();
 

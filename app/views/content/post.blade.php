@@ -6,11 +6,20 @@
 			@if ($post->children()->count() > 0)
 			 <small>Replies: {{ $post->children()->count() }}</small>
 			@endif
+			Weight: {{ $post->weight }}
 			<a href="/" class="disabled-link" onclick="vote({{ $post->id }}, 'insightful')">
-				<button type="button" class="btn btn-default btn-xs pull-right insightful-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-up"></span> Insightful</button>
+			@if (Vote::voted_insightful($post->id))
+			<button type="button" class="disabled btn btn-default btn-xs pull-right insightful-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-up"></span> Insightful</button>
+			@else
+			<button type="button" class="btn btn-default btn-xs pull-right insightful-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-up"></span> Insightful</button>
+			@endif
 			</a> 
 			<a href="/" class="disabled-link" onclick="vote({{ $post->id }}, 'irrelevant')">
-				<button type="button" class="btn btn-default btn-xs pull-right irrelevant-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-down"></span> Irrelevant</button>
+			@if (Vote::voted_irrelevant($post->id))
+			<button type="button" class="disabled btn btn-default btn-xs pull-right irrelevant-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-down"></span> Irrelevant</button>
+			@else
+			<button type="button" class="btn btn-default btn-xs pull-right irrelevant-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-down"></span> Irrelevant</button>
+			@endif
 			</a>
 			</h4>
 			<p class="post-meta"><a href="/user/{{ $post->user->id }}" target="_blank">{{ $post->user->username }}</a> posted this on {{ $post->created_at }}</p>

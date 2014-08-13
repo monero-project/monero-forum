@@ -29,4 +29,58 @@ class Post extends \Eloquent {
 		);
 		return Validator::make($input, $rules);
 	}
+	
+	//Weight accessor
+	
+	public function getWeightAttribute($value)
+    {
+    	if (Auth::check())
+    	{
+	    	$ratings = Auth::user()->ratings();
+						
+			//check if poster is in L1 of trust.
+			if ($ratings->where('rated_username', '=', $this->user->username)->first())
+				return $value + Config::get('app.l1_weight');
+			//check if poster is in L2 of trust.
+			foreach ($ratings as $rating)
+			{
+				if ($rating->rated_user->ratings->where('rated_username', '=', $this->user->username)->first())
+					return $value + Config::get('app.l2_weight');
+			}
+			
+			return $value;
+			
+		}
+		else
+		{
+			return $value;
+		}
+		
+    }
+    
+    public function setWeightAttribute($value)
+    {
+	    if (Auth::check())
+    	{
+	    	$ratings = Auth::user()->ratings();
+						
+			//check if poster is in L1 of trust.
+			if ($ratings->where('rated_username', '=', $this->user->username)->first())
+				return $this->attributes['weight'] = $value - Config::get('app.l1_weight');
+			//check if poster is in L2 of trust.
+			foreach ($ratings as $rating)
+			{
+				if ($rating->rated_user->ratings->where('rated_username', '=', $this->user->username)->first())
+				return $this->attributes['weight'] = $value - Config::get('app.l2_weight');
+			}	
+			
+			return $this->attributes['weight'] = $value;		
+		}
+		else
+		{
+			return $this->attributes['weight'] = $value;
+		}
+    }
+    
+    
 }
