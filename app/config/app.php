@@ -10,22 +10,34 @@ return array(
 	
 	/*	Per Page Settings	*/
 	
-	'ratings_per_page' 			=> 20,
-	'user_threads_per_page' 	=> 20,
-	'user_posts_per_page' 		=> 20,
-	'thread_posts_per_page'		=> 15,
+	'ratings_per_page' 					=> 20,
+	'user_threads_per_page' 			=> 20,
+	'user_posts_per_page' 				=> 20,
+	'thread_posts_per_page'				=> 15,
 	
 	/*	Cache Settings	*/
 	
-	'cache_posts_for'			=> 0.1, //amount of time to cache the posts for users. Set in minutes.
+	'cache_posts_for'					=> 0.1, //amount of minutes to cache the posts for users. Set in minutes.
+	'cache_latest_details_for'			=> 1, //amount of minutes to cache the latest details for.
 	
 	/*	Post Weight	*/
 	
-	'l1_weight'					=> 3, //amount of weight to add if poster is in L1 of trust.
-	'l2_weight'					=> 1, //amount of weight to add if poster is in L2 of trust.
-	'reply_weight'				=> 2, //amount of weight to add if the post just had a new reply.
-	'insightful_weight'			=> 1, //amount of weight to add if the post is voted as insightful.
-	'irrelevant_weight'			=> -1, //amount of weight to take away if the post is voted as irrelevant.
+	'base_weight'						=> 500, //the base weight of every post.
+	
+	'reply_weight'						=> 	2, //amount of weight to add if the post just had a new reply.
+	
+	'insightful_weight'					=> 	1, //amount of weight to add if the post is voted as insightful.
+	'irrelevant_weight'					=> -1, //amount of weight to take away if the post is voted as irrelevant.					
+	
+	'l1_post_weight'					=> 	250, //amount of weight to add if poster is in L1 of trust.
+	'l2_post_weight'					=> 	150, //amount of weight to add if poster is in L2 of trust.
+	'l3_post_weight'					=> 	50, //amount of weight to add if poster is in L3 of trust.
+	
+	'l1_vote_weight'					=> 	10, //amount of weight to add if voter is in L1 of trust.
+	'l2_vote_weight'					=> 	5, //amount of weight to add if voter is in L2 of trust.
+	'l3_vote_weight'					=> 	2, //amount of weight to add if voter is in L3 of trust.
+	
+	'decay_weight'						=> 	1, //amount of weight for a post to decay during each iteration of the decay.
 
 	
 

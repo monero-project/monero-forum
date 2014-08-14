@@ -21,6 +21,10 @@ class Post extends \Eloquent {
 	    return $this->hasMany('Post','parent_id');
 	}
 	
+	public function votes() {
+		return $this->hasMany('Vote');
+	}
+	
 	public static function validate($input) {
 		$rules = array(
 		'thread_id'		=> 'required|exists:threads,id',
@@ -34,51 +38,163 @@ class Post extends \Eloquent {
 	
 	public function getWeightAttribute($value)
     {
+    	$weight = $value;
+    	
     	if (Auth::check())
     	{
+    		//check if the poster is related to the logged in user in any way
+    		
 	    	$ratings = Auth::user()->ratings();
 						
 			//check if poster is in L1 of trust.
 			if ($ratings->where('rated_username', '=', $this->user->username)->first())
-				return $value + Config::get('app.l1_weight');
-			//check if poster is in L2 of trust.
-			foreach ($ratings as $rating)
 			{
-				if ($rating->rated_user->ratings->where('rated_username', '=', $this->user->username)->first())
-					return $value + Config::get('app.l2_weight');
+				$weight += Config::get('app.l1_post_weight');
+			}	
+			//check if poster is in L2 of trust.
+			else {
+				foreach ($ratings as $rating)
+				{
+					if ($rating->rated_user->ratings->where('rated_username', '=', $this->user->username)->first())
+					{
+						$weight += Config::get('app.l2_post_weight');
+					}	
+					//check if poster is in L3 of trust.
+					else
+					{
+						foreach ($rating->rated_user->ratings as $l3_rating)
+						{
+							if ($l3_rating->user->ratings->where('rated_username', '=', $this->user->username)->first())
+								$weight += Config::get('app.l3_post_weight');
+						}
+					}
+				}
 			}
 			
-			return $value;
+			//check if any of the voters are related to us in any way.
+			
+			$votes = $this->votes;
+			
+			if ($votes->count() > 0)
+			{
+				foreach ($votes as $vote)
+				{
+					//check L1 of votes.	
+					if ($ratings->where('rated_username', '=', $vote->user->username)->first())
+					{
+						$weight += Config::get('app.l1_vote_weight');
+					}
+					//check L2 of votes.
+					else {
+						foreach ($ratings as $rating)
+						{
+							if ($rating->rated_user->ratings->where('rated_username', '=', $vote->user->username)->first())
+							{
+								$weight += Config::get('app.l2_vote_weight');
+							}	
+							//check L3 of votes.
+							else
+							{
+								foreach ($rating->rated_user->ratings as $l3_rating)
+								{
+									if ($l3_rating->user->ratings->where('rated_username', '=', $vote->user->username)->first())
+										$weight += Config::get('app.l3_vote_weight');
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			return $weight;
 			
 		}
 		else
 		{
-			return $value;
+			return $weight;
 		}
 		
     }
     
+    //Weight mutator
+    
     public function setWeightAttribute($value)
     {
-	    if (Auth::check())
+    
+    	$weight = $value;
+    	
+    	if (Auth::check())
     	{
+    		//check if the poster is related to the logged in user in any way
+    		
 	    	$ratings = Auth::user()->ratings();
 						
 			//check if poster is in L1 of trust.
 			if ($ratings->where('rated_username', '=', $this->user->username)->first())
-				return $this->attributes['weight'] = $value - Config::get('app.l1_weight');
-			//check if poster is in L2 of trust.
-			foreach ($ratings as $rating)
 			{
-				if ($rating->rated_user->ratings->where('rated_username', '=', $this->user->username)->first())
-				return $this->attributes['weight'] = $value - Config::get('app.l2_weight');
+				$weight -= Config::get('app.l1_post_weight');
 			}	
+			//check if poster is in L2 of trust.
+			else {
+				foreach ($ratings as $rating)
+				{
+					if ($rating->rated_user->ratings->where('rated_username', '=', $this->user->username)->first())
+					{
+						$weight -= Config::get('app.l2_post_weight');
+					}	
+					//check if poster is in L3 of trust.
+					else
+					{
+						foreach ($rating->rated_user->ratings as $l3_rating)
+						{
+							if ($l3_rating->user->ratings->where('rated_username', '=', $this->user->username)->first())
+								$weight -= Config::get('app.l3_post_weight');
+						}
+					}
+				}
+			}
 			
-			return $this->attributes['weight'] = $value;		
+			//check if any of the voters are related to us in any way.
+			
+			$votes = $this->votes;
+			
+			if ($votes->count() > 0)
+			{
+				foreach ($votes as $vote)
+				{
+					//check L1 of votes.	
+					if ($ratings->where('rated_username', '=', $vote->user->username)->first())
+					{
+						$weight -= Config::get('app.l1_vote_weight');
+					}
+					//check L2 of votes.
+					else {
+						foreach ($ratings as $rating)
+						{
+							if ($rating->rated_user->ratings->where('rated_username', '=', $vote->user->username)->first())
+							{
+								$weight -= Config::get('app.l2_vote_weight');
+							}	
+							//check L3 of votes.
+							else
+							{
+								foreach ($rating->rated_user->ratings as $l3_rating)
+								{
+									if ($l3_rating->user->ratings->where('rated_username', '=', $vote->user->username)->first())
+										$weight -= Config::get('app.l3_vote_weight');
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			$this->attributes['weight'] = $weight;
+			
 		}
 		else
 		{
-			return $this->attributes['weight'] = $value;
+			$this->attributes['weight'] = $weight;
 		}
     }
     
