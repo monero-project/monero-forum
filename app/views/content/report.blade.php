@@ -1,0 +1,1 @@
+/home/monero/app/views/content/report.blade.php

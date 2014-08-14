@@ -1,0 +1,13 @@
+<?php $__env->startSection('content'); ?>
+<h1><?php echo $forum->name; ?></h1>
+<?php foreach($threads as $thread): ?>
+<h4><strong><a href="/<?php echo $forum->slug(); ?>/<?php echo $forum->id; ?>/<?php echo $thread->slug(); ?>/<?php echo $thread->id; ?>"><?php echo $thread->name; ?></a></strong><span class="pull-right"><small>Posted By: <?php echo $thread->user->username; ?></small></span></h4>
+<?php endforeach; ?>
+<div class="col-lg-12">
+	<?php echo $threads->links(); ?>
+</div>
+<div class="col-lg-12">
+<a href="/thread/create/<?php echo $forum->id; ?>"><button class="btn btn-primary pull-right">Create a Thread</button></a>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

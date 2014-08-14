@@ -1,0 +1,1 @@
+/home/monero/app/views/errors/permissions.blade.php

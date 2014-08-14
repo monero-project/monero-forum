@@ -1,0 +1,22 @@
+<?php $__env->startSection('content'); ?>
+	<div class="form-style">
+		<?php if(isset($errors) && sizeof($errors) > 0): ?>
+			<?php foreach($errors as $error): ?>
+			<h5><?php echo e($error); ?></h5>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<?php echo Form::open(array('url' => 'register')); ?>
+            	<?php echo Form::hidden('username', $input['username'], array('class'=>'form-control', 'placeholder'=>'')); ?>
+            	<?php echo Form::hidden('email', $input['email'], array('class'=>'form-control', 'placeholder'=>'')); ?>
+            	<?php echo Form::hidden('password', $input['password'], array('class'=>'form-control', 'placeholder'=>'')); ?>
+            	<?php echo Form::hidden('password_confirmation', $input['password_confirmation'], array('class'=>'form-control', 'placeholder'=>'')); ?>
+            	<?php echo Form::hidden('key', $input['key'], array('class'=>'form-control', 'placeholder'=>'')); ?>
+            <div class="form-group">
+            	<label>Please decrypt the password located <a href="/keychain/message/<?php echo e($keyid); ?>" target="_blank">here</a> and enter it below.</label>
+            	<?php echo Form::text('otcp', null, array('class'=>'form-control')); ?>
+            </div>
+	      <button type="submit" class="btn btn-success pull-right">Submit</button>
+	    <?php echo Form::close(); ?>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

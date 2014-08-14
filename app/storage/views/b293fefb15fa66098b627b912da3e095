@@ -1,0 +1,23 @@
+<?php $__env->startSection('content'); ?>
+<h1>Threads by <?php echo $user->username; ?></h1>
+<div class="table-responsive">
+	  <table class="table">
+      <thead>
+        <tr>
+          <th>Thread Name</th>
+        </tr>
+      </thead>
+      <tbody>
+      <?php foreach($threads as $thread): ?>
+        <tr>
+			<td>
+				<a href="<?php echo e($thread->permalink()); ?>"><?php echo e($thread->name); ?></a>
+			</td>
+        </tr>
+      <?php endforeach; ?>
+      </tbody>
+    </table>
+	</div>
+	<?php echo $threads->links(); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
