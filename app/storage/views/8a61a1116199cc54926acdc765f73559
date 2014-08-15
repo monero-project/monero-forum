@@ -10,9 +10,6 @@
 			<input type="hidden" name="post_id" value="<?php echo $post->id; ?>">
 			<input type="hidden" name="thread_id" value="<?php echo $post->thread->id; ?>">
 		  <div class="form-group">
-		    <input type="text" name="title" class="form-control" value="Re: <?php echo $post->title; ?>">
-		  </div>
-		  <div class="form-group">
 		    <textarea name="body" class="form-control" rows="5"></textarea>
 		  </div>
 		  <button type="submit" class="btn btn-success">Submit Reply</button>

@@ -1,14 +1,15 @@
 /* Main Elements */
 
 .post {
-	margin-bottom: 20px;
-	padding-bottom: 20px;
-	border-bottom: 1px dashed #f2f2f2;
-	
+	padding: 0;
 }
 
 .post-buttons {
 	margin-top: 20px;
+}
+
+.post-indent {
+	padding-left: 5px;
 }
 
 .post-reply-form, .post-edit-form {
@@ -30,7 +31,20 @@
 }
 
 .replies-list {
-	margin: 30px 0;
+	margin: 3px 0;
+}
+
+.replies-list {
+	background: #ffd781;
+	border: 1px solid #e9c372;
+	height: 47px;
+}
+
+.replies-list p {
+	line-height: 45px;
+	color: #505050;
+	font-size: 14px;
+	text-shadow: 0 1px #ffedc8;
 }
 
 .reply-body {
@@ -149,15 +163,202 @@
 	padding: 12% 0;
 }
 
+.post-meta {
+	font-size: 14px;
+}
+
+.post-meta .poster-name {
+	text-transform: none;
+	color: white;
+	padding-right: 10px;
+}
+
+.post-meta .post-date {
+	font-size: 12px;
+	color: #a5e1b8;
+	text-transform: none;
+	font-weight: normal;
+}
+
+.thread-block {
+	border-bottom: none;
+}
+
+.button-block {
+	padding: 0;
+}
+
+.reply-thread {
+	background: #ff4f41;
+	font-size: 15px;
+	color: white;
+	text-shadow: 0 1px #ff1814;
+	border: 0;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.reply-thread:hover {
+	background: #ff6e62;
+}
+
+.thread-block .post-block p {
+	padding: 10px;
+}
+
+.post-nav {
+	margin: 20px 0;
+	padding: 0;
+}
+
+.post-panel {
+	border: 1px solid #efefef;
+}
+
+.post-panel .panel-heading {
+	border-bottom: 1px solid #efefef;
+	border-radius: 1px;
+	background: #f7f7f7;
+	font-size: 14px;
+	color: #888888;
+}
+
+.post-panel .panel-heading a {
+	color: #5b9a6f;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+.post-panel .panel-heading .date {
+	color: #5b9a6f;
+	padding-right: 10px;
+}
+
+.post-panel .panel-heading small {
+	color: #797979;
+	font-size: 12px;
+}
+
+.dark-green {
+	color: #5b9a6f;
+}
+
+.post-panel .meta-buttons .btn {
+	height: 21px;
+	padding: 3 4px;
+	font-size: 10px;
+	margin-top: -3px;
+	background: white;
+	border: 1px solid #eaeaea;
+	border-radius: 2px;
+}
+
+.meta-buttons a {
+	padding-left: 2px !important;
+}
+
+.meta-buttons a:hover {
+	text-decoration: none;
+}
+
+/* Bootstrap Overrides */
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+	border: none;
+	border-bottom: 3px solid #5b9a6f;
+	line-height: 25px;
+	height: 42px;
+	color: #848484;
+}
+
+.nav-tabs>li>a {
+	background: none;
+	color: #848484;
+	margin: 0;
+	border: none;
+}
+
+.nav-tabs {
+	border: none;
+	background: url('/images/nav-tab.png');
+	background-repeat: repeat-x;
+	background-position: left bottom;
+}
+
+.nav-tabs>li>a:hover {
+	background: none;
+	border: none;
+	margin: 0;
+}
+
 /* Post Levels */
 
-.level-1 {
-	background: #f0f9ff;
+/* Level 1 */
+
+.level-1 .panel-heading {
+	background: #fff3ef;
 }
 
-.level-2 {
-	background: #fffff5;
+.level-1 .panel-body {
+	background: #fff9f7;
 }
+
+.level-1 .panel-heading a,
+.level-1 .dark-green,
+.level-1 .panel-heading .date {
+	color: #ff784e;
+}
+
+/* Level 2 */
+
+.level-2 .panel-heading {
+	background: #ffeeed;
+}
+
+.level-2 .panel-body {
+	background: #fff5f4;
+}
+
+.level-2 .panel-heading a,
+.level-2 .dark-green,
+.level-2 .panel-heading .date {
+	color: #ff4f41;
+}
+
+
+/* Level 3 */
+
+.level-3 .panel-heading {
+	background: #feecff;
+}
+
+.level-3 .panel-body {
+	background: #fff8ff;
+}
+
+.level-3 .panel-heading a,
+.level-3 .dark-green,
+.level-3 .panel-heading .date {
+	color: #6b0072;
+}
+
+/* Level 4 */
+
+.level-4 .panel-heading {
+	background: #ffeeed;
+}
+
+.level-4 .panel-body {
+	background: #fff5f4;
+}
+
+.level-4 .panel-heading a,
+.level-4 .dark-green,
+.level-4 .panel-heading .date {
+	color: #ff4f41;
+}
+
+
 
 /* Media Queries */
 @media (max-width: 992px) { 

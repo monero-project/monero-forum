@@ -14,7 +14,6 @@ $('#trunk').infinitescroll({
     $('#trunk').masonry( 'appended', $newElems, true);
 
 });
-
 var loadedAll = false;
 var replyOpen = false;
 
