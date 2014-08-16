@@ -2,29 +2,29 @@
 	<div id="post-<?php echo $post->id; ?>" class="post col-lg-12 level-<?php echo $level; ?>">
 		<div class="panel panel-default post-panel">
 		  <div class="panel-heading">
-		  			<span class="dark-green glyphicon glyphicon-user"></span> <a href="/user/<?php echo $post->user->id; ?>" target="_blank"><?php echo $post->user->username; ?></a> posted this on <span class="date"><?php echo $post->created_at; ?></span>
+		  			<span class="dark-green glyphicon glyphicon-user"></span> <a href="/user/<?php echo $post->user->id; ?>" target="_blank"><?php echo $post->user->username; ?></a> <span class="mobile-hide-text">posted this on</span> <span class="date"><?php echo $post->created_at; ?></span>
 		  			<?php if($post->children()->count() > 0): ?>
 					 <small>Replies: <?php echo $post->children()->count(); ?></small>
 					<?php endif; ?>
 					<?php if(Auth::check()): ?>
 		  			<span class="meta-buttons pull-right">
 						   <?php if(Auth::check()): ?>
-								<?php if(Auth::check()): ?>
-							<a href="/" class="disabled-link" onclick="vote(<?php echo $post->id; ?>, 'insightful')">
+							<?php if(Auth::check()): ?>
+							<a href="/votes/vote/?post_id=<?php echo $post->id; ?>&vote=insightful" class="disabled-link" onclick="vote(<?php echo $post->id; ?>, 'insightful')">
 								<?php if(Vote::voted_insightful($post->id)): ?>
 								<button type="button" class="disabled btn btn-default btn-xs insightful-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-up"></span> Insightful</button>
 								<?php else: ?>
 								<button type="button" class="btn btn-default btn-xs insightful-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-up"></span> Insightful</button>
 								<?php endif; ?>
 							</a> 
-							<a href="/" class="disabled-link" onclick="vote(<?php echo $post->id; ?>, 'irrelevant')">
+							<a href="/votes/vote/?post_id=<?php echo $post->id; ?>&vote=irrelevant" class="disabled-link" onclick="vote(<?php echo $post->id; ?>, 'irrelevant')">
 								<?php if(Vote::voted_irrelevant($post->id)): ?>
 								<button type="button" class="disabled btn btn-default btn-xs irrelevant-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-down"></span> Irrelevant</button>
 								<?php else: ?>
 								<button type="button" class="btn btn-default btn-xs irrelevant-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-down"></span> Irrelevant</button>
 								<?php endif; ?>
 							</a>
-					<?php endif; ?>
+							<?php endif; ?>
 						  <a href="/posts/reply/<?php echo $post->id; ?>" class="post-action-btn"><button type="button" onclick="post_reply(<?php echo $post->id; ?>, <?php echo $thread_id; ?>, '<?php echo $post->title; ?>')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-arrow-left"></span>
 			 Reply</button></a>
 			 			  <?php if($post->user->id != Auth::user()->id): ?>
@@ -38,12 +38,12 @@
 			 Delete</button></a>
 						  <?php endif; ?>
 						  <?php endif; ?>
-						  <?php if($post->children()->count() > 0): ?>
-							<span class="drawer-button drawer-buttons-<?php echo $post->id; ?>" style="display: none;"><span onClick="drawer_close(<?php echo $post->id; ?>)" class="glyphicon glyphicon-collapse-up"></span></span>
-						  <?php endif; ?>
-						</div>
-			  			</span>
 			  			<?php endif; ?>
+			  			<?php if($post->children()->count() > 0): ?>
+						<span class="drawer-button drawer-buttons-<?php echo $post->id; ?> pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_close(<?php echo $post->id; ?>)" class="glyphicon glyphicon-collapse-up"></span></span>
+						<?php endif; ?>
+			  			</span>
+		  </div>
 		  <div class="panel-body">
 		    <div class="post-content-<?php echo $post->id; ?>">
 				<?php if($post->trashed()): ?>
@@ -51,6 +51,45 @@
 				<?php else: ?>
 				<?php echo Markdown::string(e($post->body)); ?>
 				<?php endif; ?>
+				
+				<?php if(Auth::check()): ?>
+		  			<div class="mobile-meta-buttons">
+						   <?php if(Auth::check()): ?>
+							<?php if(Auth::check()): ?>
+							<a href="/votes/vote/?post_id=<?php echo $post->id; ?>&vote=insightful" class="disabled-link" onclick="vote(<?php echo $post->id; ?>, 'insightful')">
+								<?php if(Vote::voted_insightful($post->id)): ?>
+								<button type="button" class="disabled btn btn-default btn-xs insightful-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-up"></span> </button>
+								<?php else: ?>
+								<button type="button" class="btn btn-default btn-xs insightful-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-up"></span> </button>
+								<?php endif; ?>
+							</a> 
+							<a href="/votes/vote/?post_id=<?php echo $post->id; ?>&vote=irrelevant" class="disabled-link" onclick="vote(<?php echo $post->id; ?>, 'irrelevant')">
+								<?php if(Vote::voted_irrelevant($post->id)): ?>
+								<button type="button" class="disabled btn btn-default btn-xs irrelevant-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-down"></span> </button>
+								<?php else: ?>
+								<button type="button" class="btn btn-default btn-xs irrelevant-<?php echo $post->id; ?>"><span class="glyphicon glyphicon-thumbs-down"></span> </button>
+								<?php endif; ?>
+							</a>
+							<?php endif; ?>
+						  <a href="/posts/reply/<?php echo $post->id; ?>" class="post-action-btn"><button type="button" onclick="post_reply(<?php echo $post->id; ?>, <?php echo $thread_id; ?>, '<?php echo $post->title; ?>')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-arrow-left"></span>
+			 </button></a>
+			 			  <?php if($post->user->id != Auth::user()->id): ?>
+						  <a href="/posts/report/<?php echo $post->id; ?>" class="post-action-btn"><button type="button" onclick="post_flag(<?php echo $post->id; ?>)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-flag"></span>
+			 </button></a>
+			 			  <?php endif; ?>
+						  <?php if($post->user->id == Auth::user()->id): ?>
+						  <a href="/posts/update/<?php echo $post->id; ?>" class="post-action-btn"><button type="button" onclick="post_edit(<?php echo $post->id; ?>, <?php echo $thread_id; ?>, '<?php echo $post->title; ?>')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>
+			 </button></a>
+						  <a class="post-action-btn" href="/posts/delete/page/<?php echo $post->id; ?>"><button type="button" onclick="post_delete(<?php echo $post->id; ?>)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span>
+			 </button></a>
+						  <?php endif; ?>
+						  <?php endif; ?>
+			  			<?php endif; ?>
+			  			<?php if($post->children()->count() > 0): ?>
+						<span class="mobile-drawer drawer-button drawer-buttons-<?php echo $post->id; ?> pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_close(<?php echo $post->id; ?>)" class="glyphicon glyphicon-collapse-up"></span></span>
+						<?php endif; ?>
+			  </div>
+				
 			</div>
 		  </div>
 		</div>

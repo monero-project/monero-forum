@@ -4,6 +4,7 @@
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span><?php echo e($thread->name); ?> <p class="post-meta pull-right"><span class="glyphicon glyphicon-user"></span><a href="/user/<?php echo $thread->head()->user->id; ?>" class="poster-name" target="_blank"><?php echo e($thread->head()->user->username); ?></a> <span class="post-date">posted this on <?php echo $thread->head()->created_at; ?></span></p></h3>
 		  </div>
+		  <p class="mobile-post-meta"><a href="/user/<?php echo $thread->head()->user->id; ?>" class="poster-name" target="_blank"><?php echo e($thread->head()->user->username); ?></a> <span class="post-date"> | <?php echo $thread->head()->created_at; ?></span></p>
 		  <div class="panel-body">
 			  <div class="row post-block">
 				  <?php echo Markdown::string(e($thread->head()->body)); ?>
@@ -42,7 +43,9 @@
 		<div id="trunk">
 			<?php echo thread_posts($posts, $thread->id, 0); ?>
 		</div>
-		<?php echo $links; ?>
+		<div class="post-links">
+			<?php echo $links; ?>
+		</div>
 		<hr>
 		<?php if(isset($errors) && sizeof($errors) > 0): ?>
 		<div class="alert alert-danger alert-dismissible" role="alert">
@@ -56,7 +59,6 @@
 <?php $__env->stopSection(); ?> 
 
 <?php $__env->startSection('javascript'); ?>
-<?php echo HTML::script('js/jquery.masonry.min.js'); ?>
 <?php echo HTML::script('js/jquery.infinitescroll.min.js'); ?>
 <?php echo HTML::script('js/posts.js'); ?>
 <?php $__env->stopSection(); ?>

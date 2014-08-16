@@ -7,7 +7,7 @@
     	Welcome back, <a class="name" href="{{{ URL::to('/user/profile') }}}">{{{ Auth::user()->username }}}</a>. <a class="action-link" href="{{{ URL::to('logout') }}}">Logout</a>
     	<br>
     @else
-    	Please <a href="/login" class="link-disabled login-modal action-link">login</a> or <a href="/register" class="link-disabled action-link" data-toggle="modal" data-target="#registerModal">register</a>.
+    	Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
     @endif
     </div>
 </div>

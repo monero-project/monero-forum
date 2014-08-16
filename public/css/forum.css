@@ -55,6 +55,10 @@
 	float: right;
 }
 
+.post-links {
+	text-align: center;
+}
+
 /* Forum Blocks */
 
 .user-block {
@@ -94,7 +98,6 @@
 	text-shadow: 0 1px #2d6737;
 	border-radius: 2px;
 	border: none;
-	height: 45px;
 	line-height: 45px;
 }
 
@@ -189,17 +192,17 @@
 }
 
 .reply-thread {
-	background: #ff4f41;
+	background: #ff4f41 !important;
 	font-size: 15px;
+	text-shadow: 0 1px #ff1814 !important;
 	color: white;
-	text-shadow: 0 1px #ff1814;
 	border: 0;
 	font-weight: bold;
 	text-transform: uppercase;
 }
 
 .reply-thread:hover {
-	background: #ff6e62;
+	background: #ff6e62 !important;
 }
 
 .thread-block .post-block p {
@@ -261,6 +264,10 @@
 	text-decoration: none;
 }
 
+.replies-list b {
+	display: none;
+}
+
 /* Bootstrap Overrides */
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
@@ -289,6 +296,114 @@
 	background: none;
 	border: none;
 	margin: 0;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+	background-color: #5b9a6f;
+	font-weight: bold;
+}
+
+.btn-success {
+	background-color: #5b9a6f;
+	font-weight: bold;
+	text-shadow: 0 1px #2d6737;
+	border: none;
+}
+
+.btn {
+	border-radius: 2px;
+}
+
+.pagination>li>a:hover, .pagination>li>span:hover, .pagination>li>a:focus, .pagination>li>span:focus {
+	color: #5b9a6f;
+	font-weight: bold;
+}
+
+.thread-list .thread-col {
+	height: 60px;
+	overflow: hidden;
+	line-height: 60px;
+	border-top: 1px solid #f4f4f4;
+}
+
+.thread-list p {
+	line-height: 60px;
+	font-size: 12px;
+	color: #898989;
+	margin: 0;
+}
+
+.thread-list .thread-replies {
+	text-align: right;
+}
+
+.thread-list b {
+	color: #898989;
+}
+
+.create-thread {
+	border-radius: 2px;
+	background: white;
+	border: 1px solid #eaeaea;
+	color: #888;
+	text-transform: uppercase;
+}
+
+.create-thread:hover {
+	border-radius: 2px;
+	background: white;
+	border: 1px solid #eaeaea;
+	color: #888;
+}
+
+.thread-icon {
+	background: url('/images/icon_thread.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.thread-title {
+	color: #828282;
+	font-size: 16px;
+	text-transform: uppercase;
+	font-weight: bold;
+	line-height: 60px;
+}
+
+.thread-title:hover {
+	color: #828282;
+	font-size: 16px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.btn-danger {
+	background: #ff4f41;
+	text-shadow: 0 1px #ff1814;
+	font-weight: bold;
+	border: none;
+}
+
+.btn-danger:hover {
+	background: #ff6e62;
+}
+
+/* Mobile */
+
+.mobile-create {
+	display: none;
+}
+
+.mobile-post-meta {
+	display: none;
+}
+
+.mobile-meta-buttons {
+	display: none;
+}
+
+.mobile-meta-buttons .btn-xs {
+	margin-top: 3px;
 }
 
 /* Post Levels */
@@ -361,11 +476,62 @@
 
 
 /* Media Queries */
-@media (max-width: 992px) { 
+@media (max-width: 992px) {
+	.mobile-create {
+		display: block;
+		margin: 20px 0;
+	} 
+	
+	.mobile-post-meta {
+		display: block;
+	}
+
+	.post-meta {
+		display: none;
+	}
+		
+	.mobile-post-meta {
+		font-size: 12px;
+		text-align: left;
+		margin: 20px 10px;
+	}
+	
+	.mobile-post-meta a {
+		font-weight: bold;
+	}
+	
+	.normal-create {
+		display: none;
+	}
+	
+	.thread-icon {
+		display: none;
+	}
+	
+	.thread-list .thread-replies {
+		text-align: left;
+	}
+	
+	.thread-list p {
+		line-height: 20px;
+	}
+	
+	.thread-list .thread-title {
+		line-height: 20px;
+	}
 
 	.forum-block .forum-icon-active, 
 	.forum-block .forum-icon-inactive {
 		display: none;
+	}
+	
+	.thread-list .row {
+		margin: 20px 0;
+		padding: 0;
+	}
+	
+	.thread-list {
+		padding: 0;
 	}
 	
 	.forum-block {
@@ -387,5 +553,44 @@
 	
 	br {
 		display: block;
+	}
+	
+	.meta-buttons {
+		display: none;
+	}
+	
+	.mobile-hide-text {
+		display: none;
+	}
+	
+	.mobile-meta-buttons {
+		display: block;
+	}
+	
+	.post-indent {
+		padding: 0;
+	}
+	
+	.mobile-meta-buttons .btn-xs {
+		background: white;
+	}
+	
+	.replies-list {
+		height: auto;
+		overflow: auto;
+		padding-bottom: 20px;
+	}
+	
+	.replies-list p {
+		line-height: normal;
+		padding-top: 10px;
+	}
+	
+	.replies-list .pull-right {
+		float: none;
+	}
+	
+	.mobile-drawer {
+		margin-top: 5px;
 	}
 }

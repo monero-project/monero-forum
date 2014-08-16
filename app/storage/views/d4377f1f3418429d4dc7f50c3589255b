@@ -5,7 +5,7 @@
     	Welcome back, <a class="name" href="<?php echo e(URL::to('/user/profile')); ?>"><?php echo e(Auth::user()->username); ?></a>. <a class="action-link" href="<?php echo e(URL::to('logout')); ?>">Logout</a>
     	<br>
     <?php else: ?>
-    	Please <a href="/login" class="link-disabled login-modal action-link">login</a> or <a href="/register" class="link-disabled action-link" data-toggle="modal" data-target="#registerModal">register</a>.
+    	Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
     <?php endif; ?>
     </div>
 </div>

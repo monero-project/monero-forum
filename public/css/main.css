@@ -12,6 +12,10 @@ body {
 	color: #505050;
 }
 
+.container {
+	min-height: 100% !important;
+}
+
 /* HRs */
 
 hr {

@@ -11,7 +11,6 @@ $('#trunk').infinitescroll({
 }, function(newElements, data, url){
 
     var $newElems = $( newElements );
-    $('#trunk').masonry( 'appended', $newElems, true);
 
 });
 var loadedAll = false;
@@ -35,6 +34,7 @@ function init() {
 	$('.reply-cancel').show();
 	$('.hide').hide();
 	$('.pagination').hide();
+	$('.replies-list b').show();
 }
 
 //Post and thread manipulation
@@ -47,7 +47,7 @@ function thread_reply() {
 function post_reply(post_id, thread_id, post_title) {
 	if (!replyOpen)
 	{
-		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-reply-form post-reply-form-'+post_id+'" style="display: none;" action="/posts/submit" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" name="body" rows="6" placeholder="Your insightful masterpiece goes here..."></textarea></div><button type="submit" class="btn btn-success">Submit Reply</button><button type="button" onclick="cancel_post_reply('+post_id+')" class="btn btn-danger reply-cancel">Cancel</button></form>');
+		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-reply-form post-reply-form-'+post_id+'" style="display: none;" action="/posts/submit" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" name="body" rows="6" placeholder="Your insightful masterpiece goes here..."></textarea></div><button type="submit" class="btn btn-success btn-sm">Submit Reply</button><button type="button" onclick="cancel_post_reply('+post_id+')" class="btn btn-danger btn-sm reply-cancel" style="margin-left: 10px;">Cancel</button></form>');
 		$('.post-reply-form-'+post_id).slideDown();
 		replyOpen = true;
 	}
@@ -57,7 +57,7 @@ function post_edit(post_id, thread_id, post_title) {
 	if (!replyOpen)
 	{
 		get_post_content(post_id);
-		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-edit-form post-edit-form-'+post_id+'" style="display: none;" action="/posts/update" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" name="body" rows="6" >'+post_content+'</textarea></div><button type="submit" class="btn btn-success">Save</button><button type="button" onclick="cancel_post_edit('+post_id+')" class="btn btn-danger reply-cancel">Cancel</button></form>');
+		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-edit-form post-edit-form-'+post_id+'" style="display: none;" action="/posts/update" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" name="body" rows="6" >'+post_content+'</textarea></div><button type="submit" class="btn btn-sm btn-success">Save</button><button type="button" onclick="cancel_post_edit('+post_id+')" class="btn btn-danger btn-sm reply-cancel" style="margin-left: 10px;">Cancel</button></form>');
 		$('.post-edit-form-'+post_id).slideDown();
 		replyOpen = true;
 	}

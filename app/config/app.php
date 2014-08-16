@@ -14,6 +14,7 @@ return array(
 	'user_threads_per_page' 			=> 20,
 	'user_posts_per_page' 				=> 20,
 	'thread_posts_per_page'				=> 15,
+	'threads_per_page'					=> 15,
 	
 	/*	Cache Settings	*/
 	

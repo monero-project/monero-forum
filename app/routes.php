@@ -34,7 +34,8 @@ Route::get('/posts/reply/{post_id}', array('before'  => 'auth',  'uses'  => 'Pos
 Route::get('/posts/report/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReportPage'));
 
 /*	Votes	*/
-Route::post('/votes/vote', array('before'	=>	'auth', 'uses'	=>	'VotesController@vote'));
+Route::post('/votes/vote', array('before'	=>	'auth', 'uses'	=>	'VotesController@postVote'));
+Route::get('/votes/vote/', array('before'	=>	'auth', 'uses'	=>	'VotesController@getVote'));
 
 /*	Ratings	*/
 Route::post('/ratings/rate', array('before'  => 'auth',  'uses'  => 'RatingsController@rate'));

@@ -6,6 +6,7 @@
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>{{{ $thread->name }}} <p class="post-meta pull-right"><span class="glyphicon glyphicon-user"></span><a href="/user/{{ $thread->head()->user->id }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date">posted this on {{ $thread->head()->created_at }}</span></p></h3>
 		  </div>
+		  <p class="mobile-post-meta"><a href="/user/{{ $thread->head()->user->id }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date"> | {{ $thread->head()->created_at }}</span></p>
 		  <div class="panel-body">
 			  <div class="row post-block">
 				  {{ Markdown::string(e($thread->head()->body)) }}
@@ -44,7 +45,9 @@
 		<div id="trunk">
 			{{ thread_posts($posts, $thread->id, 0) }}
 		</div>
-		{{ $links }}
+		<div class="post-links">
+			{{ $links }}
+		</div>
 		<hr>
 		@if(isset($errors) && sizeof($errors) > 0)
 		<div class="alert alert-danger alert-dismissible" role="alert">
@@ -58,7 +61,6 @@
 @stop 
 
 @section('javascript')
-{{ HTML::script('js/jquery.masonry.min.js') }}
 {{ HTML::script('js/jquery.infinitescroll.min.js') }}
 {{ HTML::script('js/posts.js') }}
 @stop
