@@ -70,6 +70,8 @@ class Process
     /** @var ProcessPipes */
     private $processPipes;
 
+    private $latestSignal;
+
     private static $sigchild;
 
     /**
@@ -355,7 +357,7 @@ class Process
             usleep(1000);
         }
 
-        if ($this->processInformation['signaled']) {
+        if ($this->processInformation['signaled'] && $this->processInformation['termsig'] !== $this->latestSignal) {
             throw new RuntimeException(sprintf('The process has been signaled with signal "%s".', $this->processInformation['termsig']));
         }
 
@@ -782,7 +784,8 @@ class Process
                     throw new RuntimeException('Unable to kill the process');
                 }
             }
-            proc_terminate($this->process);
+            // given `SIGTERM` may not be defined and that `proc_terminate` uses the constant value and not the constant itself, we use the same here
+            $this->doSignal(15, false);
             do {
                 usleep(1000);
             } while ($this->isRunning() && microtime(true) < $timeoutMicro);
@@ -1238,8 +1241,8 @@ class Process
      */
     private function getDescriptors()
     {
-        $this->processPipes = new ProcessPipes($this->useFileHandles, $this->tty, $this->pty);
-        $descriptors = $this->processPipes->getDescriptors($this->outputDisabled);
+        $this->processPipes = new ProcessPipes($this->useFileHandles, $this->tty, $this->pty, $this->outputDisabled);
+        $descriptors = $this->processPipes->getDescriptors();
 
         if (!$this->useFileHandles && $this->enhanceSigchildCompatibility && $this->isSigchildEnabled()) {
             // last exit code is output on the fourth pipe and caught to work around --enable-sigchild
@@ -1416,6 +1419,7 @@ class Process
         $this->stdout = null;
         $this->stderr = null;
         $this->process = null;
+        $this->latestSignal = null;
         $this->status = self::STATUS_READY;
         $this->incrementalOutputOffset = 0;
         $this->incrementalErrorOutputOffset = 0;
@@ -1458,6 +1462,8 @@ class Process
 
             return false;
         }
+
+        $this->latestSignal = $signal;
 
         return true;
     }

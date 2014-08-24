@@ -7,8 +7,10 @@
     <title>Monero | Home</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    @yield('css')
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/forum.css" rel="stylesheet">
+    
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -42,6 +44,16 @@
       </div>
     </div>
     <div class="container main-content">
+    @if (Session::has('messages'))
+	<div class="row">
+		<div class="alert alert-info fade in" role="alert">
+	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	      @foreach(Session::get('messages') as $message)
+	      <b>{{ $message }}</b>
+	      @endforeach
+	    </div>
+	</div>
+	@endif
 		@yield('content')
     </div>
     <div class="footer">

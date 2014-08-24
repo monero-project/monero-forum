@@ -1,3 +1,68 @@
+v0.8.7 (2014-08-01)
+================================================================================
+
+- Added `3.0` in the server profiles aliases list for Redis 3.0. `2.8` is still
+  the default server profile and `dev` still targets Redis 3.0.
+
+- Added `COMMAND` to the server profile for Redis 2.8.
+
+- Switched internally to the `CLUSTER SLOTS` command instead of `CLUSTER NODES`
+  to fetch the updated slots map from redis-cluster. This change requires users
+  to upgrade Redis nodes to >= 3.0.0b7.
+
+- The updated slots map is now fetched automatically from redis-cluster upon the
+  first `-MOVED` response by default. This change makes it possible to feed the
+  client constructor with only a few nodes of the actual cluster composition,
+  without needing a more complex configuration.
+
+- Implemented support for `PING` in PUB/SUB loop for Redis >= 3.0.0b8.
+
+- The default client-side sharding strategy and the one for redis-cluster now
+  share the same implementations as they follow the same rules. One difference,
+  aside from the different hashing function used to calculate distribution, is
+  in how empty hash tags like {} are treated by redis-cluster.
+
+- __FIX__: the patch applied to fix #180 introduced a regression affecting read/
+  write timeouts in `Predis\Connection\PhpiredisStreamConnection`. Unfortunately
+  the only possible solution requires PHP 5.4+. On PHP 5.3, read/write timeouts
+  will be ignored from now on.
+
+
+v0.8.6 (2014-07-15)
+================================================================================
+
+- Redis 2.8 is now the default server profile as there are no changes that would
+  break compatibility with previous releases.
+
+- Added `PFADD`, `PFCOUNT`, `PFMERGE` to the server profile for Redis 2.8 for
+  handling the HyperLogLog data structure introduced in Redis 2.8.9.
+
+- Added `ZLEXCOUNT`, `ZRANGEBYLEX`, `ZREMRANGEBYLEX` to the server profile for
+  Redis 2.8 for handling lexicographic operations on members of sorted sets.
+
+- Added support for key hash tags when using redis-cluster (Redis 3.0.0b1).
+
+- __FIX__: minor tweaks to make Predis compatible with HHVM >= 2.4.0.
+
+- __FIX__: responses to `INFO` are now properly parsed and will not break when
+  redis sentinel is being used (ISSUE #154).
+
+- __FIX__: added missing support for `INCRBYFLOAT` in cluster and replication
+  configurations (ISSUE #159).
+
+- __FIX__: fix parsing of the output of `CLUSTER NODES` to fetch the slots map
+  from a node when redis-cluster has slaves in its configuration (ISSUE #165).
+
+- __FIX__: prevent a stack overflow when iterating over large Redis collections
+  using our abstraction for cursor-based iterators (ISSUE #182).
+
+- __FIX__: properly discards transactions when the server immediately returns an
+  error response (e.g. -OOM or -ERR on invalid arguments for a command) instead
+  of a +QUEUED response (ISSUE #187).
+
+- Upgraded to PHPUnit 4.* for the test suite.
+
+
 v0.8.5 (2014-01-16)
 ================================================================================
 

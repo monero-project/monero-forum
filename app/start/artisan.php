@@ -12,4 +12,5 @@
 */
 
 Artisan::add(new Decay);
+Artisan::add(new Roles);
 

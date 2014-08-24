@@ -2,14 +2,9 @@
 
 class HomeController extends \BaseController {
 
-	/**
-	 * Display the homepage
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
-		$categories = Category::all();
+		$categories = Category::orderBy('position', 'ASC')->get();
 		
 		return View::make('content.index', array('categories' => $categories));
 	}

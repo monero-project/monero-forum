@@ -28,8 +28,12 @@
 				  <p>{{ $forum->description }}</p>	  
 			  </div>
 			  <div class="col-md-3 forum-post">
-			  	<p class="stats-post-body">{{ e(str_limit($forum->latest_post()->body, 57, '...')) }}<br>
+			  	<p class="stats-post-body">
+			  	@if ($forum->latest_post())
+			  	{{ e(str_limit($forum->latest_post()->body, 57, '...')) }}
+			  	<br>
 				By: <b>{{ User::find($forum->latest_post()->user_id)->username }}</b>
+			  	@endif
 			  	</p>
 			  </div>
 			  <div class="col-md-2 forum-counts">

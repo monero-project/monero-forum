@@ -27,7 +27,8 @@
         "Illuminate\\View\\ViewServiceProvider",
         "Illuminate\\Workbench\\WorkbenchServiceProvider",
         "Way\\Generators\\GeneratorsServiceProvider",
-        "VTalbot\\Markdown\\MarkdownServiceProvider"
+        "VTalbot\\Markdown\\MarkdownServiceProvider",
+        "Zizaco\\Entrust\\EntrustServiceProvider"
     ],
     "eager": [
         "Illuminate\\Cookie\\CookieServiceProvider",
@@ -38,7 +39,8 @@
         "Illuminate\\View\\ViewServiceProvider",
         "Illuminate\\Workbench\\WorkbenchServiceProvider",
         "Way\\Generators\\GeneratorsServiceProvider",
-        "VTalbot\\Markdown\\MarkdownServiceProvider"
+        "VTalbot\\Markdown\\MarkdownServiceProvider",
+        "Zizaco\\Entrust\\EntrustServiceProvider"
     ],
     "deferred": {
         "artisan": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

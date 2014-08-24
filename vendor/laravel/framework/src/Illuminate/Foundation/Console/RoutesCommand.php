@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class RoutesCommand extends Command {
 
-    	/**
+	/**
 	 * The console command name.
 	 *
 	 * @var string
@@ -83,7 +83,7 @@ class RoutesCommand extends Command {
 	{
 		$results = array();
 
-		foreach($this->routes as $route)
+		foreach ($this->routes as $route)
 		{
 			$results[] = $this->getRouteInformation($route);
 		}

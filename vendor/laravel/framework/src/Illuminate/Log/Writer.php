@@ -112,8 +112,8 @@ class Writer {
 	/**
 	 * Register an error_log handler.
 	 *
-	 * @param  integer $messageType
 	 * @param  string  $level
+	 * @param  integer $messageType
 	 * @return void
 	 */
 	public function useErrorLog($level = 'debug', $messageType = ErrorLogHandler::OPERATING_SYSTEM)
@@ -128,7 +128,7 @@ class Writer {
 	/**
 	 * Get a defaut Monolog formatter instance.
 	 *
-	 * @return \Monolog\Formatters\LineFormatter
+	 * @return \Monolog\Formatter\LineFormatter
 	 */
 	protected function getDefaultFormatter()
 	{
@@ -180,7 +180,7 @@ class Writer {
 	 * Register a new callback handler for when
 	 * a log event is triggered.
 	 *
-	 * @param  Closure  $callback
+	 * @param  \Closure  $callback
 	 * @return void
 	 *
 	 * @throws \RuntimeException
@@ -269,10 +269,10 @@ class Writer {
 	 */
 	public function __call($method, $parameters)
 	{
-		$this->formatParameters($parameters);
-
 		if (in_array($method, $this->levels))
 		{
+			$this->formatParameters($parameters);
+
 			call_user_func_array(array($this, 'fireLogEvent'), array_merge(array($method), $parameters));
 
 			$method = 'add'.ucfirst($method);

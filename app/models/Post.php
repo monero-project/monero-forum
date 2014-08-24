@@ -25,6 +25,10 @@ class Post extends \Eloquent {
 		return $this->hasMany('Vote');
 	}
 	
+	public function flags() {
+		return $this->hasMany('Flag');
+	}
+	
 	public static function validate($input) {
 		$rules = array(
 		'thread_id'		=> 'required|exists:threads,id',

@@ -22,7 +22,7 @@ class Request extends SymfonyRequest {
 	/**
 	 * Return the Request instance.
 	 *
-	 * @return \Illuminate\Http\Request
+	 * @return $this
 	 */
 	public function instance()
 	{
@@ -214,7 +214,7 @@ class Request extends SymfonyRequest {
 	 */
 	public function all()
 	{
-		return array_merge_recursive($this->input(), $this->files->all());
+		return array_replace_recursive($this->input(), $this->files->all());
 	}
 
 	/**
@@ -514,6 +514,7 @@ class Request extends SymfonyRequest {
 	/**
 	 * Get the data format expected in the response.
 	 *
+	 * @param  string  $default
 	 * @return string
 	 */
 	public function format($default = 'html')
@@ -536,7 +537,7 @@ class Request extends SymfonyRequest {
 	{
 		if ($request instanceof static) return $request;
 
-		return with(new static)->duplicate(
+		return (new static)->duplicate(
 
 			$request->query->all(), $request->request->all(), $request->attributes->all(),
 

@@ -22,7 +22,7 @@ class MemcachedStore extends TaggableStore implements StoreInterface {
 	 * Create a new Memcached store.
 	 *
 	 * @param  \Memcached  $memcached
-	 * @param  string     $prefix
+	 * @param  string      $prefix
 	 * @return void
 	 */
 	public function __construct(Memcached $memcached, $prefix = '')
@@ -65,7 +65,7 @@ class MemcachedStore extends TaggableStore implements StoreInterface {
 	 *
 	 * @param  string  $key
 	 * @param  mixed   $value
-	 * @return void
+	 * @return int|bool
 	 */
 	public function increment($key, $value = 1)
 	{
@@ -77,7 +77,7 @@ class MemcachedStore extends TaggableStore implements StoreInterface {
 	 *
 	 * @param  string  $key
 	 * @param  mixed   $value
-	 * @return void
+	 * @return int|bool
 	 */
 	public function decrement($key, $value = 1)
 	{

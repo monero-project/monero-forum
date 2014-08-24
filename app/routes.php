@@ -1,7 +1,21 @@
 <?php
 Route::get('/', 'HomeController@index');
 
-/* User Controllers */
+/* Admin Panel */
+Route::get('/admin', 'AdminController@index');
+
+//Manage Content
+Route::get('/admin/manage/{content_type}', 'AdminController@manage');
+Route::get('/admin/create/{content_type}', 'AdminController@getCreate');
+Route::get('/admin/edit/{content_type}/{content_id}', 'AdminController@getEdit');
+Route::get('/admin/delete/{content_type}/{content_id}', 'AdminController@delete');
+
+Route::post('/admin/create', 'AdminController@postCreate');
+Route::post('/admin/edit', 'AdminController@postEdit');
+
+Route::get('/admin/flag/status/{flag_id}/{status}', 'AdminController@changeStatus');
+
+/* User Controller */
 Route::get('/user/profile', array('before'  => 'auth',  'uses'  => 'UsersController@self'));
 Route::get('/user/settings', 'UserController@settings');
 Route::get('/user/{user_id}', 'UsersController@profile');
@@ -31,7 +45,10 @@ Route::get('/posts/get/{post_id}', array('before'  => 'auth',  'uses'  => 'Posts
 Route::get('/posts/update/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getUpdatePage'));
 Route::get('/posts/delete/page/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getDeletePage'));
 Route::get('/posts/reply/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReplyPage'));
+
+//Reports
 Route::get('/posts/report/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReportPage'));
+Route::post('/posts/report/', array('before'  => 'auth',  'uses'  => 'PostsController@postReport'));
 
 /*	Votes	*/
 Route::post('/votes/vote', array('before'	=>	'auth', 'uses'	=>	'VotesController@postVote'));
@@ -59,3 +76,4 @@ Route::get('/{forum_slug}/{forum_id}/{thread_slug}/{thread_id}/{post_slug}/{post
 
 //Testing purposes
 Route::get('/do', 'KeychainController@action');
+Route::get('/oops', function() { return View::make('errors.permissions'); });

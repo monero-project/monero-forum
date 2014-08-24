@@ -8,6 +8,10 @@ return array(
 	|
 	*/
 	
+	/*	Admin List */
+	
+	'admins' 							=> array('fluffypony', 'nanotube'), 		//these admins will be appointed once roles are created.
+	
 	/*	Per Page Settings	*/
 	
 	'ratings_per_page' 					=> 20,
@@ -163,6 +167,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'VTalbot\Markdown\MarkdownServiceProvider',
+		'Zizaco\Entrust\EntrustServiceProvider',
 
 	),
 
@@ -231,6 +236,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Markdown' 		  => 'VTalbot\Markdown\Facades\Markdown',
+		'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
 
 	),
 

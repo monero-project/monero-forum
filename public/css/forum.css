@@ -88,11 +88,13 @@
 	font-weight: bold;
 }
 
-.category-block .panel-default {
+.category-block .panel-default,
+.admin-panel .panel-default {
 	border: none;
 }
 
-.category-block .panel-heading {
+.category-block .panel-heading,
+.admin-panel .panel-heading {
 	background: #5b9a6f;
 	color: white;
 	text-shadow: 0 1px #2d6737;
@@ -101,7 +103,8 @@
 	line-height: 45px;
 }
 
-.category-block .panel-title {
+.category-block .panel-title,
+.admin-panel .panel-title {
 	font-family: Arial;
 	font-size: 15px;
 	font-weight: bold;
@@ -109,13 +112,15 @@
 	text-transform: uppercase;
 }
 
-.category-block .panel-title .glyphicon {
+.category-block .panel-title .glyphicon,
+.admin-panel .panel-title .glyphicon {
 	color: white;
 	padding-right: 10px;
 	
 }
 
-.category-block .forum-info h4 a {
+.category-block .forum-info h4 a,
+.admin-panel .forum-info h4 a {
 	color: #828282;
 	font-size: 16px;
 	text-transform: uppercase;
@@ -323,7 +328,6 @@
 	height: 60px;
 	overflow: hidden;
 	line-height: 60px;
-	border-top: 1px solid #f4f4f4;
 }
 
 .thread-list p {
@@ -386,6 +390,12 @@
 
 .btn-danger:hover {
 	background: #ff6e62;
+}
+
+/* Reports */
+
+.report-post {
+	margin-bottom: 30px;
 }
 
 /* Mobile */
@@ -472,8 +482,6 @@
 .level-4 .panel-heading .date {
 	color: #ff4f41;
 }
-
-
 
 /* Media Queries */
 @media (max-width: 992px) {

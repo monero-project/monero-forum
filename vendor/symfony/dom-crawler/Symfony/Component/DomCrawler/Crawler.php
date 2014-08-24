@@ -674,8 +674,8 @@ class Crawler extends \SplObjectStorage
     {
         $translate = 'translate(@type, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")';
         $xpath = sprintf('descendant-or-self::input[((contains(%s, "submit") or contains(%s, "button")) and contains(concat(\' \', normalize-space(string(@value)), \' \'), %s)) ', $translate, $translate, static::xpathLiteral(' '.$value.' ')).
-                         sprintf('or (contains(%s, "image") and contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)) or @id="%s" or @name="%s"] ', $translate, static::xpathLiteral(' '.$value.' '), $value, $value).
-                         sprintf('| descendant-or-self::button[contains(concat(\' \', normalize-space(string(.)), \' \'), %s) or @id="%s" or @name="%s"]', static::xpathLiteral(' '.$value.' '), $value, $value);
+                         sprintf('or (contains(%s, "image") and contains(concat(\' \', normalize-space(string(@alt)), \' \'), %s)) or @id=%s or @name=%s] ', $translate, static::xpathLiteral(' '.$value.' '), static::xpathLiteral($value), static::xpathLiteral($value)).
+                         sprintf('| descendant-or-self::button[contains(concat(\' \', normalize-space(string(.)), \' \'), %s) or @id=%s or @name=%s]', static::xpathLiteral(' '.$value.' '), static::xpathLiteral($value), static::xpathLiteral($value));
 
         return $this->filterRelativeXPath($xpath);
     }
@@ -889,7 +889,7 @@ class Crawler extends \SplObjectStorage
                 $expression = $nonMatchingExpression;
             } elseif (0 === strpos($expression, 'descendant::')) {
                 $expression = 'descendant-or-self::' . substr($expression, strlen('descendant::'));
-            } elseif (0 !== strpos($expression, 'descendant-or-self::')) {
+            } elseif (!preg_match('/^(ancestor|ancestor-or-self|attribute|child|descendant-or-self|following|following-sibling|parent|preceding|preceding-sibling|self)::/', $expression)) {
                 $expression = 'self::' .$expression;
             }
             $expressions[] = $parenthesis.$expression;

@@ -111,6 +111,7 @@ class UsersController extends BaseController {
 							$user->key_id = $key_id;
 							$user->fingerprint = $gpg->import($pubkey)['fingerprint'];
 							$user->save();
+							$user->roles()->attach(1);
 							Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
 							
 							return Redirect::to('/?regSuccess');
@@ -127,6 +128,7 @@ class UsersController extends BaseController {
 					$user->email = Input::get('email');
 					$user->in_wot = 0;
 					$user->save();
+					$user->roles()->attach(1);
 					Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
 					return Redirect::to('/');
 				}

@@ -125,7 +125,24 @@ class PostsController extends \BaseController {
 	}
 
 	public function getReportPage($post_id) {
-		return View::make('content.report');
+		$post = Post::findOrFail($post_id);
+		return View::make('content.report', array('post' => $post));
+	}
+	
+	public function postReport() {
+		$validator = Flag::validate(Input::all());
+		if (!$validator->fails())
+		{
+			$report = new Flag();
+			$report->user_id = Auth::user()->id;
+			$report->post_id = Input::get('post_id');
+			$report->comment = Input::get('comment');
+			$report->save();
+			return Redirect::to(URL::previous())->with('messages', array('You have successfully reported this post!'));
+		}
+		else {
+			return Redirect::to(URL::previous())->with('messages', array('You cannot report this post!'));
+		}
 	}
 
 	//Refresh and Load More

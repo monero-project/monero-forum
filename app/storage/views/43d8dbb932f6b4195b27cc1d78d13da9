@@ -7,8 +7,10 @@
     <title>Monero | Home</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <?php echo $__env->yieldContent('css'); ?>
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/forum.css" rel="stylesheet">
+    
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -42,6 +44,16 @@
       </div>
     </div>
     <div class="container main-content">
+    <?php if(Session::has('messages')): ?>
+	<div class="row">
+		<div class="alert alert-info fade in" role="alert">
+	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	      <?php foreach(Session::get('messages') as $message): ?>
+	      <b><?php echo $message; ?></b>
+	      <?php endforeach; ?>
+	    </div>
+	</div>
+	<?php endif; ?>
 		<?php echo $__env->yieldContent('content'); ?>
     </div>
     <div class="footer">
@@ -64,10 +76,12 @@
 	        <h4 class="modal-title" id="registerModal">Register</h4>
 	      </div>
 	      <?php echo Form::open(array('url' => 'register')); ?>
+
 	      <div class="modal-body">
             <div class="form-group">
             	<label>Username</label>
             	<?php echo Form::text('username', null, array('class'=>'form-control reg-username', 'placeholder'=>'')); ?>
+
             </div>
             <div class="form-group username-alert" style="display: none;">
             	<div class="alert alert-warning alert-dismissible" role="alert">
@@ -78,18 +92,22 @@
             <div class="form-group">
             	<label>Email</label>
             	<?php echo Form::email('email', null, array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>      
             <div class="form-group">
             	<label>Password</label>
             	<?php echo Form::password('password', array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>
             <div class="form-group">
             	<label>Confirm Password</label>
             	<?php echo Form::password('password_confirmation', array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>
             <div class="form-group reg-key" style="display: none;">
             	<label>Key ID</label>
             	<?php echo Form::text('key', null, array('class'=>'form-control', 'placeholder'=>'785DEFB41BECA9ED')); ?>
+
             </div>
             <div class="checkbox wot_register">
 			    <label>
@@ -102,6 +120,7 @@
 	        <button type="submit" class="btn btn-success">Register</button>
 	      </div>
 	      <?php echo Form::close(); ?>
+
 	    </div>
 	  </div>
 	</div>
@@ -113,14 +132,17 @@
 	        <h4 class="modal-title" id="loginModal">Login</h4>
 	      </div>
 	      <?php echo Form::open(array('url' => 'login')); ?>
+
 	      <div class="modal-body">
             <div class="form-group">
             	<label>Username</label>
             	<?php echo Form::text('username', null, array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>     
             <div class="form-group">
             	<label>Password</label>
             	<?php echo Form::password('password', array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>
           </div>
 	      <div class="modal-footer">
@@ -128,6 +150,7 @@
 	        <button type="submit" class="btn btn-success">Login</button>
 	      </div>
 	      <?php echo Form::close(); ?>
+
 	    </div>
 	  </div>
 	</div>
@@ -145,4 +168,5 @@
 </html>
 <?php if(Auth::check()): ?>
 <?php echo NULL; Auth::user()->touch(); ?>
+
 <?php endif; ?>

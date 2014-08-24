@@ -26,8 +26,13 @@
 				  <p><?php echo $forum->description; ?></p>	  
 			  </div>
 			  <div class="col-md-3 forum-post">
-			  	<p class="stats-post-body"><?php echo e(str_limit($forum->latest_post()->body, 57, '...')); ?><br>
+			  	<p class="stats-post-body">
+			  	<?php if($forum->latest_post()): ?>
+			  	<?php echo e(str_limit($forum->latest_post()->body, 57, '...')); ?>
+
+			  	<br>
 				By: <b><?php echo User::find($forum->latest_post()->user_id)->username; ?></b>
+			  	<?php endif; ?>
 			  	</p>
 			  </div>
 			  <div class="col-md-2 forum-counts">
