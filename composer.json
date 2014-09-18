@@ -8,7 +8,8 @@
 		"way/generators": "2.*",
 		"fzaninotto/faker": "v1.3.0",
 		"vtalbot/markdown": "1.5",
-		"zizaco/entrust": "1.2.*@dev"
+		"zizaco/entrust": "1.2.*@dev",
+		"intervention/image": "2.*"
 	},
 	"autoload": {
 		"classmap": [
