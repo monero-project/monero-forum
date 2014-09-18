@@ -99,7 +99,7 @@ class UsersController extends BaseController {
 						$key = Key::where('key_id', '=', $key_id)->orderBy('created_at')->first();
 
 						$hash = $key->password;
-						if (Hash::check("forum.monero:".Input::get('otcp')."\n", $hash))
+						if (Hash::check(Input::get('otcp')."\n", $hash))
 						{
 
 							//get the fingerprint for insertion into the table.
