@@ -6,7 +6,7 @@ class ForumsController extends \BaseController {
 	{
 		$threads = Thread::where('forum_id', '=', $forum_id)->orderBy('updated_at', 'DESC')->paginate(Config::get('app.threads_per_page'));
 		$forum = Forum::findOrFail($forum_id);
-		return View::make('content.forum', array('threads' => $threads, 'forum' => $forum));
+		return View::make('content.forum', array('threads' => $threads, 'forum' => $forum, 'title' => 'Monero | '.$forum->name));
 	}
 
 }

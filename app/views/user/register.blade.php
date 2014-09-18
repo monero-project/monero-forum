@@ -1,5 +1,7 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb('Register') }}
 	<div class="form-style">
 @if (isset($errors) && sizeof($errors) > 0)
 		<div class="alert alert-danger alert-dismissible" role="alert">

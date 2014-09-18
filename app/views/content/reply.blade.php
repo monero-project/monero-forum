@@ -1,5 +1,9 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb($post->thread->forum->name, $post->thread->forum->permalink()) }}
+{{ Breadcrumbs::addCrumb($post->thread->name, $post->thread->permalink()) }}
+{{ Breadcrumbs::addCrumb('Reply') }}
 	<div class="col-lg-12 reply-body">
 		<p class="post-meta"><a href="/user/{{ $post->user->id }}" target="_blank">{{{ $post->user->username }}}</a> posted this on {{ $post->created_at }}</p>
 		{{ Markdown::string(e($post->body)) }}
@@ -10,7 +14,7 @@
 			<input type="hidden" name="post_id" value="{{ $post->id }}">
 			<input type="hidden" name="thread_id" value="{{ $post->thread->id }}">
 		  <div class="form-group">
-		    <textarea name="body" class="form-control" rows="5">{{{ Input::old('body') }}}</textarea>
+		    <textarea name="body" class="form-control markdown-insert" rows="5">{{{ Input::old('body') }}}</textarea>
 		  </div>
 		  <button name="submit" type="submit" class="btn btn-success">Submit Reply</button>
 		  <button name="preview" class="btn btn-success">Preview</button>

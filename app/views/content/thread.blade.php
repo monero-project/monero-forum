@@ -1,6 +1,9 @@
 @extends('master')
 
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb($thread->forum->name, $thread->forum->permalink()) }}
+{{ Breadcrumbs::addCrumb($thread->name, $thread->permalink()) }}
 	<div class="row category-block">    
 		<div class="panel panel-default thread-block">
 		  <div class="panel-heading">
@@ -58,11 +61,13 @@
 			</h3>
 		</div>
 		<div class="col-lg-12 post-nav">
+		<!--
 			<ul class="nav nav-tabs" role="tablist">
 			  <li class="active"><a href="#">All</a></li>
 			  <li><a href="#">Insightful</a></li>
 			  <li><a href="#">Irrelevant</a></li>
 			</ul>
+		-->
 		</div>
 		<div id="trunk">
 			{{ thread_posts($posts, $thread->id, 0) }}
@@ -89,6 +94,7 @@
 {{ HTML::script('js/posts.js') }}
 {{ HTML::script('js/js-markdown-extra.js') }}
 {{ HTML::script('js/preview.js') }}
+{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
 <script type="text/javascript">
     $(function () {
         $("[data-toggle='tooltip']").tooltip();

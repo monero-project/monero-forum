@@ -1,5 +1,9 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb($post->thread->forum->name, $post->thread->forum->permalink()) }}
+{{ Breadcrumbs::addCrumb($post->thread->name, $post->thread->permalink()) }}
+{{ Breadcrumbs::addCrumb('Report') }}
 <div class="row report-post">
 	<div class="col-md-12">
 		{{ Markdown::string(e($post->body)) }}

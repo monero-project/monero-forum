@@ -1,6 +1,7 @@
 @extends('master')
 
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
 <div class="row category-block">    
 @foreach ($categories as $category)
 @if (Visibility::check('category', $category->id))

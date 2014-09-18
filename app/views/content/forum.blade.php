@@ -1,6 +1,8 @@
 @extends('master')
 
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb($forum->name, $forum->permalink()) }}
 @if (Visibility::check('forum', $forum->id))
 <div class="row category-block">   
 <div class="panel panel-default">

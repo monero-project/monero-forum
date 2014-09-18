@@ -29,7 +29,8 @@
         "Way\\Generators\\GeneratorsServiceProvider",
         "VTalbot\\Markdown\\MarkdownServiceProvider",
         "Zizaco\\Entrust\\EntrustServiceProvider",
-        "Intervention\\Image\\ImageServiceProvider"
+        "Intervention\\Image\\ImageServiceProvider",
+        "Creitive\\Breadcrumbs\\BreadcrumbsServiceProvider"
     ],
     "eager": [
         "Illuminate\\Cookie\\CookieServiceProvider",
@@ -42,7 +43,8 @@
         "Way\\Generators\\GeneratorsServiceProvider",
         "VTalbot\\Markdown\\MarkdownServiceProvider",
         "Zizaco\\Entrust\\EntrustServiceProvider",
-        "Intervention\\Image\\ImageServiceProvider"
+        "Intervention\\Image\\ImageServiceProvider",
+        "Creitive\\Breadcrumbs\\BreadcrumbsServiceProvider"
     ],
     "deferred": {
         "artisan": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
@@ -53,6 +55,7 @@
         "cache.store": "Illuminate\\Cache\\CacheServiceProvider",
         "memcached.connector": "Illuminate\\Cache\\CacheServiceProvider",
         "command.cache.clear": "Illuminate\\Cache\\CacheServiceProvider",
+        "command.cache.table": "Illuminate\\Cache\\CacheServiceProvider",
         "command.session.database": "Illuminate\\Session\\CommandsServiceProvider",
         "command.command.make": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
         "composer": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",

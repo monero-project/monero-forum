@@ -48,22 +48,24 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::missing(function($exception)
+App::missing(function($e)
 {
-    return "Oops. Looks like we 404'd :(";
+    return View::make('errors.404', array('title' => 'Monero | Page not found. Error: 404'));
 });
 
-App::error(function(Exception $exception, $code)
-{
-	Log::error($exception);
-});
-
-App::error(function(ModelNotFoundException $e) {
-	echo $e->getMessage();
+App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+	Log::error('404: '.$e);
+	return View::make('errors.404', array('title' => 'Monero | Page not found. Error: 404'));
 });
 
 App::error(function(ReflectionException $e) {
-	echo $e->getMessage();
+	Log::error('902: '.$e);
+	return View::make('errors.902', array('title' => 'Monero | Internal Error. Error: 902'));
+});
+
+App::error(function(Exception $e, $code)
+{
+	Log::error($e);
 });
 
 /*
@@ -117,6 +119,14 @@ Event::listen('auth.login', function($user)
 		$user->save(); 
 		$log->save();
 });	
+
+Event::listen('auth.logout', function($user)
+{
+
+	$user->gpg_auth = 0;
+	$user->save();
+
+});
 
 /* Post Helpers File. Used for recursive functions and whatever else. */
 require app_path().'/post_helpers.php';

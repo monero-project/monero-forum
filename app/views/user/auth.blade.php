@@ -1,5 +1,7 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb('Authentication') }}
 	<div class="form-style">
 		@if (isset($errors) && sizeof($errors) > 0)
 			@foreach($errors as $error)

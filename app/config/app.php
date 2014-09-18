@@ -174,6 +174,7 @@ return array(
 		'VTalbot\Markdown\MarkdownServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Creitive\Breadcrumbs\BreadcrumbsServiceProvider',
 
 	),
 
@@ -244,6 +245,7 @@ return array(
 		'Markdown' 		  => 'VTalbot\Markdown\Facades\Markdown',
 		'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
 		'Image' => 'Intervention\Image\Facades\Image',
+		'Breadcrumbs' => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
 	),
 
 );

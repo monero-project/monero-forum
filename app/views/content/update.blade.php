@@ -1,5 +1,9 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb($post->thread->forum->name, $post->thread->forum->permalink()) }}
+{{ Breadcrumbs::addCrumb($post->thread->name, $post->thread->permalink()) }}
+{{ Breadcrumbs::addCrumb('Update Post') }}
 	<div class="col-lg-12 reply-body">
 		@if ($post->id == $post->thread->head()->id)
 		<h1>Editing thread: {{ $post->thread->name }}</h1>

@@ -1,5 +1,8 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb($forum->name, $forum->permalink()) }}
+{{ Breadcrumbs::addCrumb('Create a thread') }}
 	<div class="row">
 		<div class="col-lg-12">
 			<h1>Create a Thread</h1>

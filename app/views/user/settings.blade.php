@@ -1,5 +1,7 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb('Settings') }}
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="row">

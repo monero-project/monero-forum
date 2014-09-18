@@ -2,29 +2,50 @@
 
 class UsersController extends BaseController {
 
+	public function getGPGAuth() {
+		return View::make('user.gpg_auth');
+	}
+	
+	public function gpgAuth() {
+
+		$key_id = Auth::user()->key_id;
+				
+		$key = Key::where('key_id', '=', $key_id)->orderBy('created_at')->first();
+		$hash = $key->password;	
+
+		if (Hash::check(Input::get('otcp')."\n", $hash))
+		{
+			$user = Auth::user();
+			$user->gpg_auth = 1;
+			$user->save();	
+		}
+			
+		return Redirect::to('/');
+	}
+
 	public function login() {
 	
-	$remember = false;
-	
-	if (Input::get('remember_me') == 'on') $remember = true;
+		$remember = false;
 		
-	if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), $remember))
-	{
-		$user = Auth::user();
-		$user->last_login = new DateTime();
-		
-		
-		if (Input::get('remember_for') != NULL && Input::get('remember_for') != '') 
-			$user->remember_for = Input::get('remember_for');
-					
-		$user->save();
-		
-		return Redirect::to(URL::previous());
-	}
-	else
-	{
-		return View::make('user.login', array('errors' => array('Wrong username or password')));
-	}
+		if (Input::get('remember_me') == 'on') $remember = true;
+			
+		if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), $remember))
+		{
+			$user = Auth::user();
+			$user->last_login = new DateTime();
+			
+			
+			if (Input::get('remember_for') != NULL && Input::get('remember_for') != '') 
+				$user->remember_for = Input::get('remember_for');
+						
+			$user->save();
+			
+			return Redirect::to(URL::previous());
+		}
+		else
+		{
+			return View::make('user.login', array('errors' => array('Wrong username or password')));
+		}
 	}
 
 	public function register() {
@@ -181,11 +202,11 @@ class UsersController extends BaseController {
 	}
 
 	public function showLogin() {
-		return View::make('user.login');
+		return View::make('user.login', array('title' => 'Monero | User Login'));
 	}
 
 	public function showRegister() {
-		return View::make('user.register');
+		return View::make('user.register', array('title' => 'Monero | User Registration'));
 	}
 
 	public function logout() {
@@ -197,18 +218,18 @@ class UsersController extends BaseController {
 		$user = User::where('username', $username)->firstOrFail();
 		$ratings = $user->rated()->orderBy('created_at', 'desc')->paginate(10);
 		if ($user)
-			return View::make('user.profile', array('user' => $user, 'ratings' => $ratings));
+			return View::make('user.profile', array('user' => $user, 'ratings' => $ratings, 'title' => 'Monero | User &raquo; '.$user->username));
 		else
-			return View::make('user.notfound');
+			return View::make('errors.404');
 	}
 	
 	public function self() {
 		$user = Auth::user();
 		$ratings = $user->rated()->orderBy('created_at', 'desc')->paginate(10);
 		if ($user)
-			return View::make('user.profile', array('user' => $user, 'self' => true, 'ratings' => $ratings));
+			return View::make('user.profile', array('user' => $user, 'self' => true, 'ratings' => $ratings, 'title' => 'Monero | User &raquo; '.$user->username));
 		else
-			return View::make('user.notfound');
+			return View::make('errors.404');
 	}
 	
 	public function ratings($user_id, $rating_way, $rating_type) {
@@ -234,7 +255,7 @@ class UsersController extends BaseController {
 				$ratings = $user->ratings()->whereRaw('rating > 0')->orderBy('created_at', 'desc')->paginate($ratings_pp);
 			else $ratings = $user->ratings()->orderBy('created_at', 'desc')->paginate($ratings_pp);
 		}
-		return View::make('user.ratings', array('ratings' => $ratings, 'user' => $user));
+		return View::make('user.ratings', array('ratings' => $ratings, 'user' => $user, 'title' => 'Monero | '.$user->username.' ratings'));
 	}
 	
 	public function threads($user_id) {
@@ -256,7 +277,7 @@ class UsersController extends BaseController {
 	}
 	
 	public function settings() {
-		return View::make('user.settings', array('user' => Auth::user()));
+		return View::make('user.settings', array('user' => Auth::user(), 'title' => 'Monero | User Settings'));
 	}
 	
 	public function settingsSave() {

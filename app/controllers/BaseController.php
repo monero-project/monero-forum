@@ -10,10 +10,31 @@ class BaseController extends Controller {
 	 * @return void
 	 */
 	protected function setupLayout()
-	{		
+	{	
 		if(Auth::check())
 		{
-			$user = Auth::user();
+			$user = Auth::user();			
+			if (!$user->gpg_auth && Route::getCurrentRoute()->getPath() != 'gpg-auth' && !str_contains(Route::getCurrentRoute()->getPath() ,'keychain/message')  && $user->in_wot)
+			{
+				$otcp = "forum.monero:".str_random(40)."\n";
+				
+				$key_id = $user->key_id;
+				
+				putenv("GNUPGHOME=/tmp");
+				$gpg = new gnupg();
+				$gpg->addencryptkey($user->fingerprint);
+				$message = $gpg->encrypt($otcp);
+				
+				$userkey = new Key();
+				$userkey->key_id = $key_id;
+				$userkey->password = Hash::make($otcp);
+				$userkey->message = $message;
+				$userkey->save();
+				
+				
+				header('Location: /gpg-auth');
+			}
+			
 		    if ($user->remember_for && $user->remember_for != 0)
 		    {
 		    	$last_login = $user->last_login;

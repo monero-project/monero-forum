@@ -37,6 +37,8 @@ Route::post('/register',  array('before' => 'guest',  'uses'  => 'UsersControlle
 Route::get('/login',   array('before'  => 'guest', 'uses'  => 'UsersController@showLogin'));
 Route::get('/register',  array('before'  => 'guest', 'uses'  => 'UsersController@showRegister'));
 Route::get('/logout',   array('before'  => 'auth',  'uses'  => 'UsersController@logout'));
+Route::post('/gpg-auth',   array('before'  => 'auth',  'uses'  => 'UsersController@gpgAuth'));
+Route::get('/gpg-auth',   array('before'  => 'auth',  'uses'  => 'UsersController@getGPGAuth'));
 
 /*	Posts	*/
 Route::post('/posts/submit', array('before'  => 'auth',  'uses'  => 'PostsController@submit'));

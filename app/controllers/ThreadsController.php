@@ -36,12 +36,12 @@ class ThreadsController extends \BaseController {
 			$posts['links'] = $paginated->links();
 		}
 		
-		return View::make('content.thread', array('posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread));
+		return View::make('content.thread', array('posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | '.$thread->forum->name.' &raquo; '.$thread->name));
 	}
 	
 	public function create($forum_id) {
 		$forum = Forum::findOrFail($forum_id);
-		return View::make('content.createThread', array('forum' => $forum));
+		return View::make('content.createThread', array('forum' => $forum, 'title' => 'Monero | Creating a thread in '.$forum->name));
 	}
 	
 	public function submitCreate() {
@@ -86,7 +86,7 @@ class ThreadsController extends \BaseController {
 				$post->save();		
 			}
 			else
-				return View::make('content.createThread', array('forum' => $forum, 'errors' => $validator->messages()->all()));
+				return View::make('content.createThread', array('title' => 'Monero | Creating a thread in '.$forum->name,'forum' => $forum, 'errors' => $validator->messages()->all()));
 			
 			$thread->post_id = $post->id;
 			
@@ -95,7 +95,7 @@ class ThreadsController extends \BaseController {
 			return Redirect::to($thread->permalink());
 		}
 		else 
-			return View::make('content.createThread', array('forum' => $forum, 'errors' => $validator->messages()->all()));
+			return View::make('content.createThread', array('title' => 'Monero | Create a thread '.$forum->name,'forum' => $forum, 'errors' => $validator->messages()->all()));
 	}
 	else {
 		return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
@@ -119,7 +119,7 @@ class ThreadsController extends \BaseController {
 			return Redirect::to($thread->forum->permalink())->with('messages', array('The thread has been deleted.'));
 		}
 		else {
-			return View::make('errors.permissions');
+			return View::make('errors.permissions', array('title' => 'Monero | Page not found. Error: 404'));
 		}
 	}
 

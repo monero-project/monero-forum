@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Monero | Home</title>
+    <title>@if(isset($title)){{ $title }}@else{{ 'Monero | Forum' }}@endif</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
@@ -32,12 +32,14 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <!--
             <li><a class="yellow" href="#">Home</a></li>
             <li><a class="purple" href="#">Blog</a></li>
             <li><a class="red" href="#">Price Chart</a></li>
             <li><a class="orange" href="#">Getting Started</a></li>
             <li><a class="softyellow" href="#">Downloads</a></li>
             <li><a class="green" href="#">Contact</a></li>
+            -->
           </ul>
         </div>
       </div>
@@ -72,6 +74,10 @@
 	    	Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
 	    @endif
 	    </div>
+	</div>
+	<div class="row">
+		{{ Breadcrumbs::addCssClasses('breadcrumb') }}
+		{{ Breadcrumbs::render() }}
 	</div>
 		@yield('content')
     </div>

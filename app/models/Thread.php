@@ -38,7 +38,7 @@ class Thread extends \Eloquent {
 	}
 	
 	public function permalink() {
-		return "http://".$_SERVER['HTTP_HOST']."/".$this->forum->slug()."/".$this->forum->id."/".$this->slug()."/".$this->id;
+		return "http://".$_SERVER['HTTP_HOST']."/".$this->forum->id."/".$this->forum->slug()."/".$this->id."/".$this->slug();
 	}
 	
 	public static function validate($input) {

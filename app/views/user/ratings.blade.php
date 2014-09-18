@@ -1,5 +1,7 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb('Ratings') }}
 <h1>Ratings of {{ $user->username }}</h1>
 <div class="table-responsive">
 	  <table class="table">

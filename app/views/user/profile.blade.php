@@ -1,5 +1,7 @@
 @extends('master')
 @section('content')
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb($user->username) }}
 	<h1>
 	@if ($user->in_wot)
 	<span class="label label-success">{{{ $user->username }}}</span>
