@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Register The Laravel Class Loader
@@ -46,6 +48,11 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
+App::missing(function($exception)
+{
+    return "Oops. Looks like we 404'd :(";
+});
+
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
@@ -87,6 +94,29 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|
+|	Event Listeners
+|
+*/
+
+Event::listen('auth.login', function($user)
+{		
+
+		//logging user logins. IPs and User Agents.
+		
+    	$log = new Access();
+		
+		$log->user_id 		= $user->id;
+		$log->ip 	  		= Request::getClientIp();
+		$log->user_agent	= Request::server('HTTP_USER_AGENT');
+		
+		$user->last_login 	= new DateTime();
+		 
+		$user->save(); 
+		$log->save();
+});	
 
 /* Post Helpers File. Used for recursive functions and whatever else. */
 require app_path().'/post_helpers.php';

@@ -49,7 +49,7 @@ class VotesController extends \BaseController {
 			$the_vote = Input::get('vote');
 		}
 		else
-			return Redirect::to(URL::previous());
+			return Redirect::to(URL::previous())->with('errors', array('Sorry, we could not add your vote.'));
 		
 		$vote = Vote::whereRaw('user_id = ? AND post_id = ?', array(Auth::user()->id, Input::get('post_id')))->first();
 		if(!$vote)
@@ -78,7 +78,7 @@ class VotesController extends \BaseController {
 		$vote->save();
 		$post->save();
 				
-		return Redirect::to(URL::previous());
+		return Redirect::to(URL::previous())->with('messages', array('Awesome, your vote has been cast!'));
 	}
 
 }

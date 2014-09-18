@@ -49,7 +49,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'monero',
+			'database'  => 'monero-private',
 			'username'  => 'root',
 			'password'  => 'isis123@@',
 			'charset'   => 'utf8',

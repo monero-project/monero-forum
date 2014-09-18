@@ -2,7 +2,7 @@
 
 class ThreadsController extends \BaseController {
 		
-	public function index($forum_slug, $forum_id, $thread_slug, $thread_id)
+	public function index($forum_id, $forum_slug, $thread_id, $thread_slug)
 	{
 		$posts_per_page = Config::get('app.thread_posts_per_page');
 		
@@ -46,6 +46,9 @@ class ThreadsController extends \BaseController {
 	
 	public function submitCreate() {
 	
+	if(is_string(Input::get('submit')))
+	{
+			
 		$forum = Forum::findOrFail(Input::get('forum_id'));
 		
 		$data = array(
@@ -93,6 +96,31 @@ class ThreadsController extends \BaseController {
 		}
 		else 
 			return View::make('content.createThread', array('forum' => $forum, 'errors' => $validator->messages()->all()));
+	}
+	else {
+		return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
+	}
+	}
+	
+	public function delete($thread_id) {
+	
+		$thread = Thread::findOrFail($thread_id);
+		
+		if (Auth::check() && Auth::user()->id == $thread->user->id)
+		{
+			
+			foreach ($thread->posts as $post)
+			{
+				$post->delete();
+			}
+			
+			$thread->delete();
+			
+			return Redirect::to($thread->forum->permalink())->with('messages', array('The thread has been deleted.'));
+		}
+		else {
+			return View::make('errors.permissions');
+		}
 	}
 
 }

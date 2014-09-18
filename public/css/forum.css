@@ -1,5 +1,9 @@
 /* Main Elements */
 
+body {
+	padding-top: 0;
+}
+
 .post {
 	padding: 0;
 }
@@ -9,7 +13,7 @@
 }
 
 .post-indent {
-	padding-left: 5px;
+	padding-left: 10px;
 }
 
 .post-reply-form, .post-edit-form {
@@ -273,6 +277,24 @@
 	display: none;
 }
 
+.content-control {
+	display: none;
+	cursor: hand;
+}
+
+.thread-controls {
+	margin-bottom: 20px;
+}
+
+.thread-controls .glyphicon {
+	color: #FFF;
+	margin-right: 10px;
+}
+
+.post-breadcrumbs {
+	margin-left: 0px;
+}
+
 /* Bootstrap Overrides */
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
@@ -369,7 +391,6 @@
 .thread-title {
 	color: #828282;
 	font-size: 16px;
-	text-transform: uppercase;
 	font-weight: bold;
 	line-height: 60px;
 }
@@ -377,7 +398,6 @@
 .thread-title:hover {
 	color: #828282;
 	font-size: 16px;
-	text-transform: uppercase;
 	font-weight: bold;
 }
 
@@ -390,6 +410,46 @@
 
 .btn-danger:hover {
 	background: #ff6e62;
+}
+
+.post-breadcrumbs {
+	color: #787878;
+	font-size: 16px;
+}
+
+.post-breadcrumbs .glyphicon {
+	font-size: 12px;
+}
+
+.post-breadcrumbs a {
+	color: #5b9a6f;
+}
+
+.content-preview {
+	padding: 15px;
+}
+
+.content-preview .preview-window {
+	border: 1px solid #cccccc;
+	padding: 20px;
+}
+
+.public-email {
+	padding-right: 15px;
+}
+
+a.board-meta {
+	color: #898989;
+}
+
+.profile-picture-sm {
+	margin-right: 10px;
+	height: 24px;
+	width: 24px;
+}
+
+a.meta-permalink {
+	padding: 0 !important;
 }
 
 /* Reports */
@@ -414,73 +474,6 @@
 
 .mobile-meta-buttons .btn-xs {
 	margin-top: 3px;
-}
-
-/* Post Levels */
-
-/* Level 1 */
-
-.level-1 .panel-heading {
-	background: #fff3ef;
-}
-
-.level-1 .panel-body {
-	background: #fff9f7;
-}
-
-.level-1 .panel-heading a,
-.level-1 .dark-green,
-.level-1 .panel-heading .date {
-	color: #ff784e;
-}
-
-/* Level 2 */
-
-.level-2 .panel-heading {
-	background: #ffeeed;
-}
-
-.level-2 .panel-body {
-	background: #fff5f4;
-}
-
-.level-2 .panel-heading a,
-.level-2 .dark-green,
-.level-2 .panel-heading .date {
-	color: #ff4f41;
-}
-
-
-/* Level 3 */
-
-.level-3 .panel-heading {
-	background: #feecff;
-}
-
-.level-3 .panel-body {
-	background: #fff8ff;
-}
-
-.level-3 .panel-heading a,
-.level-3 .dark-green,
-.level-3 .panel-heading .date {
-	color: #6b0072;
-}
-
-/* Level 4 */
-
-.level-4 .panel-heading {
-	background: #ffeeed;
-}
-
-.level-4 .panel-body {
-	background: #fff5f4;
-}
-
-.level-4 .panel-heading a,
-.level-4 .dark-green,
-.level-4 .panel-heading .date {
-	color: #ff4f41;
 }
 
 /* Media Queries */
@@ -601,4 +594,47 @@
 	.mobile-drawer {
 		margin-top: 5px;
 	}
+}
+
+/* Post Odd */
+
+.odd .panel-heading {
+	background: #5b9a6f;
+	border-bottom: 1px solid #fff;
+	text-shadow: 0 1px #2c4e37;
+}
+
+.odd .panel-default {
+	border: 1px solid #fff;
+}
+
+.odd .panel-body {
+	background: #dce9e0;
+}
+
+.odd .date {
+	font-weight: bold;
+}
+
+.odd .panel-heading a,
+.odd .dark-green,
+.odd .panel-heading .date,
+.odd .mobile-hide-text,
+.odd .content-control span,
+.odd .drawer-button span {
+	color: #fff !important;
+	
+}
+
+.odd .panel-heading,
+.odd small {
+	color: #f4f4f4 !important;
+}
+
+/* Markdown Fixes */
+
+.markdown-responsive {
+	max-width:100% !important;
+    height:auto;
+    display:block;
 }

@@ -11,6 +11,7 @@
 <div class="row">
 	<form role="form" action="/posts/report" method="POST">
 	<input type="hidden" name="post_id" value="{{ $post->id }}">
+	<input type="hidden" name="page" value="{{ $page_number }}">
 	  <div class="form-group">
 	    <label>Description</label>
 	    <textarea class="form-control" placeholder="Why are you flagging this post?" name="comment"></textarea>

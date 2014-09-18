@@ -11,7 +11,6 @@
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/forum.css" rel="stylesheet">
     
-
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -20,7 +19,7 @@
 
   <body>
 
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,12 +47,32 @@
 	<div class="row">
 		<div class="alert alert-info fade in" role="alert">
 	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-	      @foreach(Session::get('messages') as $message)
+	      @foreach(Session::pull('messages') as $message)
 	      <b>{{ $message }}</b>
 	      @endforeach
 	    </div>
 	</div>
 	@endif
+	@if (Session::has('errors'))
+	<div class="row">
+		<div class="alert alert-danger fade in" role="alert">
+	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	      @foreach(Session::pull('errors') as $error)
+	      <b>{{ $error }}</b>
+	      @endforeach
+	    </div>
+	</div>
+	@endif
+	<div class="row">
+	    <div class="col-lg-12 user-block">
+	    @if (Auth::check())
+	    	Welcome back, <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+	    	<br>
+	    @else
+	    	Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
+	    @endif
+	    </div>
+	</div>
 		@yield('content')
     </div>
     <div class="footer">

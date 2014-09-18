@@ -14,14 +14,23 @@ Route::post('/admin/create', 'AdminController@postCreate');
 Route::post('/admin/edit', 'AdminController@postEdit');
 
 Route::get('/admin/flag/status/{flag_id}/{status}', 'AdminController@changeStatus');
+Route::get('/admin/access/{username}', 'AdminController@accessLog');
+
+//Flush Cache
+Route::get('/admin/cache/flush', 'AdminController@flush');
 
 /* User Controller */
 Route::get('/user/profile', array('before'  => 'auth',  'uses'  => 'UsersController@self'));
 Route::get('/user/settings', 'UserController@settings');
-Route::get('/user/{user_id}', 'UsersController@profile');
+Route::get('/user/{username}', 'UsersController@profile');
 Route::get('/user/{user_id}/posts', 'UsersController@posts');
 Route::get('/user/{user_id}/threads', 'UsersController@threads');
 Route::get('/user/{user_id}/{rating_way}/{rating_type}', 'UsersController@ratings');
+
+//User settings
+Route::get('/user/settings', array('before' => 'auth', 'uses' => 'UsersController@settings'));
+Route::post('/user/upload/profile', array('before' => 'auth', 'uses' => 'UsersController@uploadProfile'));
+Route::post('/user/settings/save', array('before' => 'auth', 'uses' => 'UsersController@settingsSave'));
 
 Route::post('/login',   array('before'  => 'guest', 'uses'  => 'UsersController@login'));
 Route::post('/register',  array('before' => 'guest',  'uses'  => 'UsersController@register'));
@@ -36,18 +45,19 @@ Route::post('/posts/update', array('before'  => 'auth',  'uses'  => 'PostsContro
 /*	Threads	*/
 Route::get('/thread/create/{forum_id}', array('before'	=>	'auth', 'uses'	=>	'ThreadsController@create'));
 Route::post('/thread/create', array('before'	=>	'auth', 'uses'	=>	'ThreadsController@submitCreate'));
+Route::get('/thread/delete/{thread_id}', array('before'	=>	'auth', 'uses'	=>	'ThreadsController@delete'));
 
 //AJAX calls
 Route::get('/posts/delete/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@delete'));
 Route::get('/posts/get/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@get'));
 
-//Standalone Pages for use when JS is disabled.
+//Standalone Pages
 Route::get('/posts/update/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getUpdatePage'));
 Route::get('/posts/delete/page/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getDeletePage'));
 Route::get('/posts/reply/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReplyPage'));
 
 //Reports
-Route::get('/posts/report/{post_id}', array('before'  => 'auth',  'uses'  => 'PostsController@getReportPage'));
+Route::get('/posts/report/{post_id}/{page_number}', array('before'  => 'auth',  'uses'  => 'PostsController@getReportPage'));
 Route::post('/posts/report/', array('before'  => 'auth',  'uses'  => 'PostsController@postReport'));
 
 /*	Votes	*/
@@ -70,10 +80,6 @@ Route::get('/keychain/ratings/download', array('before' => 'auth', 'uses' => 'Ke
 Route::get('/keychain/posts/get/{thread_id}/{posts_num}', 'PostsController@listPosts');
 
 /* Forum Structure */
-Route::get('/{forum_slug}/{forum_id}', 'ForumsController@index');
-Route::get('/{forum_slug}/{forum_id}/{thread_slug}/{thread_id}', 'ThreadsController@index');
-Route::get('/{forum_slug}/{forum_id}/{thread_slug}/{thread_id}/{post_slug}/{post_id}', 'PostsController@index');
-
-//Testing purposes
-Route::get('/do', 'KeychainController@action');
-Route::get('/oops', function() { return View::make('errors.permissions'); });
+Route::get('/{forum_id}/{forum_slug}', 'ForumsController@index');
+Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}', 'ThreadsController@index');
+Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}/{post_id}/{post_slug}', 'PostsController@index');

@@ -62,13 +62,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsTo('Vote');
 	}
 	
+	public function access() {
+		return $this->hasMany('Access');
+	}
+	
 	/* Validator */
 	
 	public static function validate($input) {
 		$rules = array(
 			'username'	=>	"required|alpha_dash|unique:users",
 			'email'		=>	"required|email|unique:users",
-			'password'	=>	"required|confirmed"					
+			'password'	=>	"required|confirmed",
+			'key'		=> 	"unique:users,key_id",					
 		);
 		return Validator::make($input, $rules);
 	}
@@ -76,7 +81,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/* Generators */
 	
 	public function profile() {
-		return '<a href="/user/'.$this->id.'">'.$this->username.'</a>';
+		return '<a href="/user/'.$this->username.'">'.$this->username.'</a>';
 	}
 
 }

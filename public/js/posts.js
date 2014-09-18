@@ -22,6 +22,7 @@ init();
 $('.post-action-btn').click(function(e) {
 		e.preventDefault();
 });
+
 $('.disabled-link').click(function(e) {
 		e.preventDefault();
 });
@@ -35,6 +36,8 @@ function init() {
 	$('.hide').hide();
 	$('.pagination').hide();
 	$('.replies-list b').show();
+	$('.content-control').show();
+	$('.hidden-post-content').hide();
 }
 
 //Post and thread manipulation
@@ -47,9 +50,17 @@ function thread_reply() {
 function post_reply(post_id, thread_id, post_title) {
 	if (!replyOpen)
 	{
-		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-reply-form post-reply-form-'+post_id+'" style="display: none;" action="/posts/submit" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" name="body" rows="6" placeholder="Your insightful masterpiece goes here..."></textarea></div><button type="submit" class="btn btn-success btn-sm">Submit Reply</button><button type="button" onclick="cancel_post_reply('+post_id+')" class="btn btn-danger btn-sm reply-cancel" style="margin-left: 10px;">Cancel</button></form>');
+		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-reply-form post-reply-form-'+post_id+'" style="display: none;" action="/posts/submit" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" name="body" id="reply-body" rows="6" placeholder="Your insightful masterpiece goes here..."></textarea></div><button type="submit" class="btn btn-success btn-sm" name="submit">Submit Reply</button><button type="button" onclick="cancel_post_reply('+post_id+')" class="btn btn-danger btn-sm reply-cancel" style="margin-left: 10px;">Cancel</button><div class="row content-preview"><div class="col-lg-12 preview-window-reply">Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!</div></div></form>');
 		$('.post-reply-form-'+post_id).slideDown();
 		replyOpen = true;
+		
+		$('#reply-body').change(function(){
+			$('.preview-window-reply').html(Markdown($('#reply-body').val()));
+		});
+		
+		$('#reply-body').keyup(function(){
+			$('.preview-window-reply').html(Markdown($('#reply-body').val()));
+		});
 	}
 }
 
@@ -57,9 +68,17 @@ function post_edit(post_id, thread_id, post_title) {
 	if (!replyOpen)
 	{
 		get_post_content(post_id);
-		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-edit-form post-edit-form-'+post_id+'" style="display: none;" action="/posts/update" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" name="body" rows="6" >'+post_content+'</textarea></div><button type="submit" class="btn btn-sm btn-success">Save</button><button type="button" onclick="cancel_post_edit('+post_id+')" class="btn btn-danger btn-sm reply-cancel" style="margin-left: 10px;">Cancel</button></form>');
+		$('#post-'+post_id).append('<form role="form" class="col-lg-12 post-edit-form post-edit-form-'+post_id+'" style="display: none;" action="/posts/update" method="POST"><input type="hidden" name="post_id" value="'+post_id+'"><input type="hidden" name="thread_id" value="'+thread_id+'"><div class="form-group"><textarea class="form-control" id="reply-edit" name="body" rows="6" >'+post_content+'</textarea></div><button type="submit" class="btn btn-sm btn-success" name="submit">Save</button><button type="button" onclick="cancel_post_edit('+post_id+')" class="btn btn-danger btn-sm reply-cancel" style="margin-left: 10px;">Cancel</button><div class="row content-preview"><div class="col-lg-12 preview-window-edit">Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!</div></div></form>');
 		$('.post-edit-form-'+post_id).slideDown();
 		replyOpen = true;
+		
+		$('#reply-edit').change(function(){
+			$('.preview-window-edit').html(Markdown($('#reply-edit').val()));
+		});
+		
+		$('#reply-edit').keyup(function(){
+			$('.preview-window-edit').html(Markdown($('#reply-edit').val()));
+		});
 	}
 }
 
@@ -110,11 +129,6 @@ function drawer_close(drawer_id) {
 	});
 }
 
-function post_flag(post_id)
-{
-	alert('dirty snitch.');
-}
-
 var post_content = null;
 
 function get_post_content(post_id)
@@ -133,6 +147,22 @@ function get_post_content(post_id)
 	    	post_content = 'Oops! There was an error trying to edit your post!';
 	    
 	});
+}
+
+// Content Control
+
+function content_hide(post_id)
+{
+	$('.content-control-'+post_id).html('<span onclick="content_show('+post_id+')">[ + ]</span>');
+	$('.content-block-'+post_id).slideUp();
+	drawer_close(post_id);
+}
+
+function content_show(post_id)
+{
+	$('.content-control-'+post_id).html('<span onclick="content_hide('+post_id+')">[ - ]</span>');
+	$('.content-block-'+post_id).slideDown();
+	drawer_open(post_id);
 }
 
 // Voting

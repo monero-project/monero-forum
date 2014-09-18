@@ -28,7 +28,7 @@ class Forum extends \Eloquent {
 	}
 	
 	public function permalink() {
-		return "http://".$_SERVER['HTTP_HOST']."/".$this->slug()."/".$this->id;
+		return "http://".$_SERVER['HTTP_HOST']."/".$this->id."/".$this->slug();
 	}
 	
 	public function latest_post() {
@@ -41,6 +41,7 @@ class Forum extends \Eloquent {
 						->where('forums.id', '=', $forum->id)
 						->join('threads', 'forums.id', '=', 'threads.forum_id')
 						->join('posts', 'threads.id', '=', 'posts.thread_id')
+						->whereNull('posts.deleted_at')
 						->orderBy('posts.created_at', 'DESC')
 						->first();
 				});
@@ -67,9 +68,29 @@ class Forum extends \Eloquent {
 						->where('forums.id', '=', $forum->id)
 						->join('threads', 'forums.id', '=', 'threads.forum_id')
 						->join('posts', 'threads.id', '=', 'posts.thread_id')
+						->whereNull('posts.deleted_at')
 						->count();
 				});
 		return $count;
+	}
+	
+	public function latest_thread() {
+	
+		$key = 'forum_latest_thread_'.$this->id;
+		
+		$forum = $this;
+		
+		$thread = Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+				{
+				return DB::table('forums')
+						->where('forums.id', '=', $forum->id)
+						->join('threads', 'forums.id', '=', 'threads.forum_id')
+						->whereNull('threads.deleted_at')
+						->orderBy('threads.updated_at', 'DESC')
+						->first();
+				});
+
+		return $thread;
 	}
 	
 }

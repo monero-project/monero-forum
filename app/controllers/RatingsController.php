@@ -25,10 +25,10 @@ class RatingsController extends \BaseController {
 			$rating->notes = Input::get('notes');
 			$rating->save();
 			
-			return Redirect::to(URL::previous());
+			return Redirect::to(URL::previous())->with('messages', array('Rating successful!'));
 		}
 		else {
-			return 'error';
+			return Redirect::to(URL::previous())->with('errors', array('Rating failed!'));
 		}
 	}
 

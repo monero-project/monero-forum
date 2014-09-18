@@ -3,7 +3,9 @@
 class PostsController extends \BaseController {
 
 	public function submit() {
-
+	
+	if(is_string(Input::get('submit')))
+	{
 		$validator = Post::validate(Input::all());
 
 		$thread = Thread::findOrFail(Input::get('thread_id'));
@@ -32,7 +34,10 @@ class PostsController extends \BaseController {
 				$parent_post->save();
 				*/
 			}
-
+			
+			$thread->touch(); //update the updated_at value to bump the thread up.
+			$thread->save();
+			
 			$post->save();
 
 			return Redirect::to($thread->permalink());
@@ -40,6 +45,10 @@ class PostsController extends \BaseController {
 
 		else
 			return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
+	}
+	else {
+		return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
+	}
 	}
 
 	public function delete($post_id) {
@@ -57,28 +66,34 @@ class PostsController extends \BaseController {
 	}
 
 	public function update() {
-		$validator = Post::validate(Input::all());
-
-		$thread = Thread::findOrFail(Input::get('thread_id'));
-		$thread_id = $thread->id;
-		$thread_slug = $thread->slug();
-		$forum_id = $thread->forum->id;
-		$forum_slug = $thread->forum->slug();
-		$posts = $thread->posts();
-
-		if (!$validator->fails())
+		if(is_string(Input::get('submit')))
 		{
-			$post = Post::findOrFail(Input::get('post_id'));
-
-			$post->body = Input::get('body');
-
-			$post->save();
-
-			return Redirect::to($thread->permalink());
+			$validator = Post::validate(Input::all());
+	
+			$thread = Thread::findOrFail(Input::get('thread_id'));
+			$thread_id = $thread->id;
+			$thread_slug = $thread->slug();
+			$forum_id = $thread->forum->id;
+			$forum_slug = $thread->forum->slug();
+			$posts = $thread->posts();
+	
+			if (!$validator->fails())
+			{
+				$post = Post::findOrFail(Input::get('post_id'));
+	
+				$post->body = Input::get('body');
+	
+				$post->save();
+	
+				return Redirect::to($thread->permalink());
+			}
+	
+			else
+				return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
 		}
-
-		else
-			return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
+		else {
+			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
+		}
 	}
 
 	public function get($post_id) {
@@ -124,11 +139,12 @@ class PostsController extends \BaseController {
 		}
 	}
 
-	public function getReportPage($post_id) {
+	public function getReportPage($post_id, $page_number) {
 		$post = Post::findOrFail($post_id);
-		return View::make('content.report', array('post' => $post));
+		return View::make('content.report', array('post' => $post, 'page_number' => $page_number));
 	}
 	
+	//report noob.
 	public function postReport() {
 		$validator = Flag::validate(Input::all());
 		if (!$validator->fails())
@@ -136,6 +152,7 @@ class PostsController extends \BaseController {
 			$report = new Flag();
 			$report->user_id = Auth::user()->id;
 			$report->post_id = Input::get('post_id');
+			$report->link 	 = Post::findOrFail(Input::get('post_id'))->thread->permalink()."?page=".Input::get('page')."&noscroll=1#post-".Input::get('post_id'); 
 			$report->comment = Input::get('comment');
 			$report->save();
 			return Redirect::to(URL::previous())->with('messages', array('You have successfully reported this post!'));

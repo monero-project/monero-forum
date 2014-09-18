@@ -1,6 +1,7 @@
 @extends('master')
 
 @section('content')
+@if (Visibility::check('forum', $forum->id))
 <div class="row category-block">   
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -13,13 +14,11 @@
   <div class="panel-body thread-list">
     @foreach ($threads as $thread)
     <div class="row">
-	    <div class="col-md-1 thread-col thread-icon">
-	    </div>
-	    <div class="col-md-5">
-	    	<a class="thread-title" href="/{{ $forum->slug() }}/{{ $forum->id }}/{{ $thread->slug() }}/{{ $thread->id }}">{{ $thread->name }}</a>
+	    <div class="col-md-6">
+	    	<a class="thread-title" href="/{{ $forum->id }}/{{ $forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}">{{ $thread->name }}</a>
 	    </div>
 		<div class="col-md-4">
-		<p>Author: <b>{{ $thread->user->username }}</b>, {{ $thread->created_at }}</p>
+		<p>Author: <b><a class="board-meta" href="/user/{{ $thread->user->username }}">{{ $thread->user->username }}</a></b>, {{ $thread->created_at }}</p>
 		</div>
 		<div class="col-md-2 thread-replies">
 			<p>Replies: <b>{{ $thread->posts()->count() - 1 }}</b></p>
@@ -32,4 +31,7 @@
 <div class="post-links">
 	{{ $threads->links() }}
 </div>
+@else
+{{ App::abort(404); }}
+@endif
 @stop

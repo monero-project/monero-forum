@@ -2,7 +2,7 @@
 
 class ForumsController extends \BaseController {
 
-	public function index($forum_slug, $forum_id)
+	public function index($forum_id, $forum_slug)
 	{
 		$threads = Thread::where('forum_id', '=', $forum_id)->orderBy('updated_at', 'DESC')->paginate(Config::get('app.threads_per_page'));
 		$forum = Forum::findOrFail($forum_id);

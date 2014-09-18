@@ -22,8 +22,6 @@ class KeychainController extends \BaseController {
 		return View::make('user.message', array('message' => $key->message));
 	}
 
-	//This should probably go into another controller or this controller should be renamed into something more sensible. Or we can just call it the Keychain API.
-
 	public function users()
 	{
 		$users = User::where('in_wot', '=', 1)->get();
@@ -63,11 +61,14 @@ class KeychainController extends \BaseController {
 		$user->delete();
 	}
 
-	public function pullRatings() {
+	public static function pullRatings() {
 		$user = Auth::user();
 		if ($user->in_wot) {
 			$otc_user = OTC_User::find($user->username);
-
+			
+			if (!$otc_user)
+				return 'true'; //return error if no ratings exist for that user.
+			
 			//get the ratings that are newer than the last pull we've made
 			$ratings =  OTC_Rating::whereRaw('rated_user_id = ? OR rater_user_id = ? AND created_at >= ?', array($otc_user->id, $otc_user->id, strtotime($user->last_pull)))->get();
 						

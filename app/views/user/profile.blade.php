@@ -1,5 +1,4 @@
 @extends('master')
-
 @section('content')
 	<h1>
 	@if ($user->in_wot)
@@ -7,11 +6,29 @@
 	@else
 	{{{ $user->username }}}
 	@endif
-	Rating: {{{ $user->rated->sum('rating') }}}
 	@if (isset($self) && $self && $user->in_wot)
 		<button type="button" class="btn btn-success pull-right" onclick="syncWoT()">Sync with WoT</button>
 	@endif
 	</h1>
+	<div class="row">
+		<div class="col-md-6">
+			<img src="/uploads/profile/{{{ $user->profile_picture }}}">
+		</div>
+		<div class="col-md-6">
+		<h2>User Details</h2>
+			<ul>
+			@if ($user->monero_address != NULL)
+				<li>Monero Address: {{{ $user->monero_address }}}</li>
+			@endif
+			@if ($user->website != NULL)
+				<li>Website Address: <a href="{{{ $user->website }}}" rel="nofollow" target="_blank">{{{ $user->website }}}</a></li>
+			@endif
+			@if ($user->email_public == true)
+				<li>Email: {{ HTML::obfuscate($user->email) }}</li>
+			@endif
+			</ul>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-md-6">
 			<h2>Forum Activity</h2>

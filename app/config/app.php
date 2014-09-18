@@ -10,7 +10,7 @@ return array(
 	
 	/*	Admin List */
 	
-	'admins' 							=> array('fluffypony', 'nanotube'), 		//these admins will be appointed once roles are created.
+	'admins' 							=> array('fluffypony', 'Edvinas'), 		//these admins will be appointed once roles are created.
 	
 	/*	Per Page Settings	*/
 	
@@ -28,6 +28,7 @@ return array(
 	/*	Post Weight	*/
 	
 	'base_weight'						=> 500, //the base weight of every post.
+	'hidden_weight'						=> 400, //hide posts under this weight.
 	
 	'reply_weight'						=> 	2, //amount of weight to add if the post just had a new reply.
 	
@@ -43,6 +44,10 @@ return array(
 	'l3_vote_weight'					=> 	2, //amount of weight to add if voter is in L3 of trust.
 	
 	'decay_weight'						=> 	1, //amount of weight for a post to decay during each iteration of the decay.
+	
+	/* Other Settings */
+	
+	'project_dir' 						=> '/home/monero-private/',
 
 	
 
@@ -70,7 +75,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://monero.fluxministry.com',
+	'url' => 'http://monero-testing.fluxministry.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -168,6 +173,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'VTalbot\Markdown\MarkdownServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 
 	),
 
@@ -237,7 +243,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Markdown' 		  => 'VTalbot\Markdown\Facades\Markdown',
 		'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
-
+		'Image' => 'Intervention\Image\Facades\Image',
 	),
 
 );

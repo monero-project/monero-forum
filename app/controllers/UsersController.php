@@ -3,10 +3,28 @@
 class UsersController extends BaseController {
 
 	public function login() {
-		if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true))
-			return Redirect::to(URL::previous());
-		else
-			return View::make('user.login', array('errors' => array('Wrong username or password')));
+	
+	$remember = false;
+	
+	if (Input::get('remember_me') == 'on') $remember = true;
+		
+	if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), $remember))
+	{
+		$user = Auth::user();
+		$user->last_login = new DateTime();
+		
+		
+		if (Input::get('remember_for') != NULL && Input::get('remember_for') != '') 
+			$user->remember_for = Input::get('remember_for');
+					
+		$user->save();
+		
+		return Redirect::to(URL::previous());
+	}
+	else
+	{
+		return View::make('user.login', array('errors' => array('Wrong username or password')));
+	}
 	}
 
 	public function register() {
@@ -19,7 +37,7 @@ class UsersController extends BaseController {
 				if (!Input::get('otcp'))
 				{
 					$key = GPG::find(Input::get('username'));
-					$otcp = str_random(40)."\n"; //generate a random password of 40 chars.
+					$otcp = "forum.monero:".str_random(40)."\n"; //generate a random password of 40 chars.
 
 					if ($key)
 					{
@@ -81,7 +99,7 @@ class UsersController extends BaseController {
 						$key = Key::where('key_id', '=', $key_id)->orderBy('created_at')->first();
 
 						$hash = $key->password;
-						if (Hash::check(Input::get('otcp')."\n", $hash))
+						if (Hash::check("forum.monero:".Input::get('otcp')."\n", $hash))
 						{
 
 							//get the fingerprint for insertion into the table.
@@ -111,8 +129,18 @@ class UsersController extends BaseController {
 							$user->key_id = $key_id;
 							$user->fingerprint = $gpg->import($pubkey)['fingerprint'];
 							$user->save();
-							$user->roles()->attach(1);
+							$member = \Role::where('name', 'Member')->get()->first();
+							$user->roles()->attach($member);
+							foreach (Config::get('app.admins') as $config_admin)
+							{
+								if ($user->username == $config_admin)
+								{
+									$admin = \Role::where('name', 'Admin')->get()->first();
+									$user->roles()->attach($admin);
+								}
+							}
 							Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
+							KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
 							
 							return Redirect::to('/?regSuccess');
 						}
@@ -128,8 +156,18 @@ class UsersController extends BaseController {
 					$user->email = Input::get('email');
 					$user->in_wot = 0;
 					$user->save();
-					$user->roles()->attach(1);
+					$member = \Role::where('name', 'Member')->get()->first();
+					$user->roles()->attach($member);
+					foreach (Config::get('app.admins') as $config_admin)
+					{
+						if ($user->username == $config_admin)
+						{
+							$admin = \Role::where('name', 'Admin')->get()->first();
+							$user->roles()->attach($admin);
+						}
+					}
 					Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
+					KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
 					return Redirect::to('/');
 				}
 			else {
@@ -155,8 +193,8 @@ class UsersController extends BaseController {
 		return Redirect::to('/');
 	}
 
-	public function profile($user_id) {
-		$user = User::find($user_id);
+	public function profile($username) {
+		$user = User::where('username', $username)->firstOrFail();
 		$ratings = $user->rated()->orderBy('created_at', 'desc')->paginate(10);
 		if ($user)
 			return View::make('user.profile', array('user' => $user, 'ratings' => $ratings));
@@ -215,6 +253,98 @@ class UsersController extends BaseController {
 		$posts = $user->posts()->paginate($per_page);
 		
 		return View::make('user.posts', array('posts' => $posts, 'user' => $user));
+	}
+	
+	public function settings() {
+		return View::make('user.settings', array('user' => Auth::user()));
+	}
+	
+	public function settingsSave() {
+		
+		$user = Auth::user();
+		$errors = array();
+		
+		//update email if email field has been changed.
+		if (Input::get('email') != $user->email)
+		{
+			$check_email = Validator::make(
+				array('email' => Input::get('email')),
+				array('email' => 'required|email|unique:users')
+			);
+			//check if email is valid.
+			if (!$check_email->fails())
+				$user->email = Input::get('email');
+			else
+				$errors[] = 'Wrong email format or already in use.';
+		}
+		
+		//update Monero Address if not empty or null.
+		if (Input::has('monero_address') && Input::get('monero_address') != '')
+		{
+			if (substr(Input::get('monero_address'), 0, 1) == 4 && strlen(Input::get('monero_address')) > 60)
+				$user->monero_address = Input::get('monero_address');
+			else
+				$errors[] = 'Incorrect Monero address format!';
+		}
+			
+		//update Website if not empty or null.
+		if (Input::has('website') && Input::get('website') != '')
+			$user->website = Input::get('website');
+			
+		//update email visibility if not empty or null.
+		if (Input::has('email_public') && Input::get('email_public') == 'on')
+			$user->email_public = 1;
+		else
+			$user->email_public = 0;
+			
+		//check if a password has been entered
+		if (Input::has('password') && Input::get('password') != '')
+		{
+			$check_password = Validator::make(
+				array(
+					'password' => Input::get('password'),
+					'password_confirmation' => Input::get('password_confirmation')
+				),
+				array(
+					'password' => 'required|confirmed'
+				)
+			);
+			if (!$check_password->fails())
+				$user->password = Hash::make(Input::get('password'));
+			else
+				$errors[] = 'Password mistmatch.';
+		}
+		
+		$user->save();
+		
+		if (sizeof($errors) > 0)
+			return Redirect::to(URL::previous())->with('errors', $errors);
+		else
+			return Redirect::to(URL::previous())->with('messages', array('Profile successfully updated.'));
+	}
+	
+	public function uploadProfile() {
+			
+			$user = Auth::user();
+			
+			$mime = Input::file('profile')->getMimeType();
+
+			if (!($mime == "image/jpeg" || $mime == "image/png") || !Input::file('profile')->isValid()) {
+				return Redirect::to('/user/settings')->with('errors', array('Wrong image type!'));
+			} else {				
+				$fileName = $user->username;
+				
+				$extension = Input::file('profile')->getClientOriginalExtension();
+
+				Input::file('profile')->move('uploads/profile', $fileName.".".$extension);
+				Image::make('uploads/profile/'.$fileName.'.'.$extension)->resize(150, 150)->save('uploads/profile/'.$fileName.'.'.$extension);
+				Image::make('uploads/profile/'.$fileName.'.'.$extension)->resize(24, 24)->save('uploads/profile/small_'.$fileName.'.'.$extension);
+
+				$user->profile_picture = $fileName.".".$extension;
+				$user->save();
+
+				return Redirect::to('/user/settings')->with('messages', array('Picture uploaded!'));
+			}
 	}
 
 }

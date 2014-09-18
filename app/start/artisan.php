@@ -12,5 +12,4 @@
 */
 
 Artisan::add(new Decay);
-Artisan::add(new Roles);
-
+Artisan::add(new OTCUpdate);

@@ -35,7 +35,7 @@
             </div>
             <div class="form-group reg-key">
             	<label>Key ID</label>
-            	{{ Form::text('key', null, array('class'=>'form-control', 'placeholder'=>'785DEFB41BECA9ED')) }}
+            	{{ Form::text('key', null, array('class'=>'form-control')) }}
             	<p class="help-block">Only fill this out if you are registering for the Web of Trust!</p>
             </div>
             <div class="checkbox wot_register">

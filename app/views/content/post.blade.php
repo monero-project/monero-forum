@@ -1,12 +1,35 @@
 <div class="post-indent">
-	<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}">
+	@if ($level % 2 == 0)
+		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}">
+	@else
+		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}">
+	@endif
+		<div class="row post-breadcrumbs">
+		@foreach (array_reverse($breadcrumbs) as $key => $breadcrumb)
+			<a href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" 
+			title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a> 
+			@if (sizeof($breadcrumbs)-1 != $key)
+			<span class="glyphicon glyphicon-chevron-right"></span> 
+			@endif
+		@endforeach
+		</div>
 		<div class="panel panel-default post-panel">
 		  <div class="panel-heading">
-		  			<span class="dark-green glyphicon glyphicon-user"></span> <a href="/user/{{ $post->user->id }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
+		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
+		  			<small>
 		  			@if ($post->children()->count() > 0)
-					 <small>Replies: {{ $post->children()->count() }}</small>
+					 Replies: {{ $post->children()->count() }} | 
 					@endif
-					@if (Auth::check())
+					Weight: {{ $post->weight }} | <a class="meta-permalink" href='{{ $post->thread->permalink()."?page=".Input::get('page')."&noscroll=1#post-".$post->id }}'>Link</a>
+					</small>
+					 <small class="content-control content-control-{{ $post->id }}">
+						 @if ($post->weight < Config::get('app.hidden_weight'))
+						 	<span onclick="content_show({{ $post->id }})">[ + ]</span>
+						 @else
+						 	<span onclick="content_hide({{ $post->id }})">[ - ]</span>
+						 @endif
+					 </small>
+					@if (Auth::check() && !$post->deleted_at)
 		  			<span class="meta-buttons pull-right">
 						   @if (Auth::check())
 							@if (Auth::check())
@@ -28,8 +51,13 @@
 						  <a href="/posts/reply/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_reply({{ $post->id }}, {{ $thread_id }}, '{{ $post->title }}')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-arrow-left"></span>
 			 Reply</button></a>
 			 			  @if ($post->user->id != Auth::user()->id)
-						  <a href="/posts/report/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_flag({{ $post->id }})" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-flag"></span>
+			 			  	@if(Input::has('page'))
+			 			  		<a href="/posts/report/{{ $post->id }}/{{ Input::get('page') }}"><button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-flag"></span>
 			 Flag</button></a>
+			 				@else
+			 					<a href="/posts/report/{{ $post->id }}/1"><button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-flag"></span>
+			 Flag</button></a>
+			 				@endif
 			 			  @endif
 						  @if ($post->user->id == Auth::user()->id)
 						  <a href="/posts/update/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_edit({{ $post->id }}, {{ $thread_id }}, '{{ $post->title }}')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>
@@ -44,7 +72,11 @@
 						@endif
 			  			</span>
 		  </div>
-		  <div class="panel-body">
+		  @if ($post->weight < Config::get('app.hidden_weight'))
+		  <div class="panel-body content-block-{{ $post->id }} hidden-post-content">
+		  @else
+		  <div class="panel-body content-block-{{ $post->id }}">
+		  @endif
 		    <div class="post-content-{{ $post->id }}">
 				@if ($post->trashed())
 				<p><em>[deleted]</em></p>
@@ -74,8 +106,12 @@
 						  <a href="/posts/reply/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_reply({{ $post->id }}, {{ $thread_id }}, '{{ $post->title }}')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-arrow-left"></span>
 			 </button></a>
 			 			  @if ($post->user->id != Auth::user()->id)
-						  <a href="/posts/report/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_flag({{ $post->id }})" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-flag"></span>
-			 </button></a>
+			 			  	@if (!Input::has('page'))
+			 			  		<a href="/posts/report/{{ $post->id }}/1" class="post-action-btn"><button type="button" onclick="post_flag({{ $post->id }})" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-flag"></span>
+			 			  	@else
+			 			  		<a href="/posts/report/{{ $post->id }}/{{ Input::get('page') }}" class="post-action-btn"><button type="button" onclick="post_flag({{ $post->id }})" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-flag"></span>
+			 				@endif
+			 				</button></a>
 			 			  @endif
 						  @if ($post->user->id == Auth::user()->id)
 						  <a href="/posts/update/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_edit({{ $post->id }}, {{ $thread_id }}, '{{ $post->title }}')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>
@@ -86,10 +122,13 @@
 						  @endif
 			  			@endif
 			  			@if ($post->children()->count() > 0)
+			  				@if ($post->weight < Config::get('app.hidden_weight'))
 						<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_close({{ $post->id }})" class="glyphicon glyphicon-collapse-up"></span></span>
+							@else
+						<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_open({{ $post->id }})" class="glyphicon glyphicon-collapse-down"></span></span>
+							@endif
 						@endif
-			  </div>
-				
+			  </div>				
 			</div>
 		  </div>
 		</div>
