@@ -19,6 +19,12 @@ Route::get('/admin/access/{username}', 'AdminController@accessLog');
 //Flush Cache
 Route::get('/admin/cache/flush', 'AdminController@flush');
 
+/* Mod Actions */
+
+//Move Thread
+Route::get('/mod/move/thread/{thread_id}', 'ModController@getMove');
+Route::post('/mod/move/thread/', 'ModController@postMove');
+
 /* User Controller */
 Route::get('/user/profile', array('before'  => 'auth',  'uses'  => 'UsersController@self'));
 Route::get('/user/settings', 'UserController@settings');

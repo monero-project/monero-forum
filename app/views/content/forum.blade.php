@@ -17,7 +17,11 @@
     @foreach ($threads as $thread)
     <div class="row">
 	    <div class="col-md-6">
-	    	<a class="thread-title" href="/{{ $forum->id }}/{{ $forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}">{{ $thread->name }}</a>
+	    	@if ($thread->moved && $forum->id != $thread->forum->id)
+	    	<a class="thread-title" href="/{{ $thread->forum->id }}/{{ $thread->forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}"><small>Moved to: {{ $thread->forum->name }}</small>
+	    	@else
+	    	<a class="thread-title" href="/{{ $forum->id }}/{{ $forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}">
+	    	@endif {{ $thread->name }}</a>
 	    </div>
 		<div class="col-md-4">
 		<p>Author: <b><a class="board-meta" href="/user/{{ $thread->user->username }}">{{ $thread->user->username }}</a></b>, {{ $thread->created_at }}</p>

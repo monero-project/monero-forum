@@ -147,10 +147,12 @@ body {
 }
 
 .forum-block .forum-icon-active {
-	background-image: url('/images/icon_post_active.png');
+	text-align: center;
 	height: 100%;
-	background-repeat: no-repeat;
-	background-position: center center;
+	width: 100%;
+	line-height: 100%;
+	font-size: 40px;
+	color: #5b9a6f;
 }
 
 .forum-block p {
@@ -597,6 +599,24 @@ a.meta-permalink {
 	
 	.mobile-drawer {
 		margin-top: 5px;
+	}
+}
+
+.user-block-mobile {
+	display: none;
+}
+
+@media (max-width: 380px) {
+	.user-block-mobile {
+		display: block;
+	}
+	.user-block-mobile-disable {
+		display: none;
+	}
+	
+	.form-style {
+		width: 100%;
+		min-width: inherit;
 	}
 }
 

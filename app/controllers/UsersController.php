@@ -10,7 +10,7 @@ class UsersController extends BaseController {
 
 		$key_id = Auth::user()->key_id;
 				
-		$key = Key::where('key_id', '=', $key_id)->orderBy('created_at')->first();
+		$key = Key::where('key_id', '=', $key_id)->orderBy('created_at', 'DESC')->firstOrFail();
 		$hash = $key->password;	
 
 		if (Hash::check(Input::get('otcp')."\n", $hash))

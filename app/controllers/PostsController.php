@@ -4,6 +4,12 @@ class PostsController extends \BaseController {
 
 	public function submit() {
 	
+	$thread = Thread::findOrFail(Input::get('thread_id'));
+	$forum = Forum::findOrFail($thread->forum->id);
+	
+	if(($forum->lock == 2 && (!Auth::user()->hasRole('Admin'))
+			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
+	
 	if(is_string(Input::get('submit')))
 	{
 		$validator = Post::validate(Input::all());
@@ -124,7 +130,13 @@ class PostsController extends \BaseController {
 	}
 
 	public function getReplyPage($post_id) {
+		
 		$post = Post::findOrFail($post_id);
+		$forum = $post->thread->forum;
+		
+		if(($forum->lock == 2 && (!Auth::user()->hasRole('Admin'))
+				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
+			
 		return View::make('content.reply', array('post' => $post));
 	}
 
@@ -144,7 +156,6 @@ class PostsController extends \BaseController {
 		return View::make('content.report', array('post' => $post, 'page_number' => $page_number));
 	}
 	
-	//report noob.
 	public function postReport() {
 		$validator = Flag::validate(Input::all());
 		if (!$validator->fails())

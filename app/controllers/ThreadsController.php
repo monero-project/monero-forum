@@ -40,16 +40,26 @@ class ThreadsController extends \BaseController {
 	}
 	
 	public function create($forum_id) {
+		
 		$forum = Forum::findOrFail($forum_id);
+		
+		if($forum->lock != 0 && !Auth::user()->hasRole('Admin'))
+			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));	
+			
 		return View::make('content.createThread', array('forum' => $forum, 'title' => 'Monero | Creating a thread in '.$forum->name));
 	}
 	
 	public function submitCreate() {
 	
+	$forum = Forum::findOrFail(Input::get('forum_id'));
+	
+	//check the lock
+	if($forum->lock != 0 && !Auth::user()->hasRole('Admin'))
+			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));	
+
+	
 	if(is_string(Input::get('submit')))
 	{
-			
-		$forum = Forum::findOrFail(Input::get('forum_id'));
 		
 		$data = array(
 			'forum_id'	=>	Input::get('forum_id'),

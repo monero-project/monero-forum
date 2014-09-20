@@ -13,7 +13,8 @@
 		  @foreach ($category->forums as $forum)
 		  @if (Visibility::check('forum', $forum->id))
 		  <div class="row forum-block">
-			  <div class="col-md-1 forum-icon-active">
+			  <div class="col-md-1">
+			  	<span class="forum-icon-active glyphicon glyphicon-comment"></span>
 			  </div>
 			  <div class="col-md-6 forum-info">
 				  <h4><a href="/{{ $forum->id }}/{{ $forum->slug() }}">{{ $forum->name }}</a></h4>

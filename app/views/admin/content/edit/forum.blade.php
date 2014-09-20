@@ -32,6 +32,25 @@
 				 	<label>Visible to</label>
 				 	{{ Form::select('visibility[]', Role::lists('name','id'), $visible_to, array('multiple', 'class' => 'form-control',)) }}
 				 </div>
+				 <div class="form-group">
+				 	<label>Forum Lock</label>
+				 	<br>
+				 	<div class="radio">
+					 	<label>
+						  <input type="radio" name="lock" value="0" checked> No Lock
+						</label>
+				 	</div>
+				 	<div class="radio">
+						<label>
+						  <input type="radio" name="lock" value="1"> Soft Lock <small>no threads by non-admins / moderators, posts allowed</small>
+						</label>
+				 	</div>
+				 	<div class="radio">
+						<label>
+						  <input type="radio" name="lock" value="2"> Hard Lock <small>no threads or posts by non-admins / moderators</small>
+						</label>
+				 	</div>
+				 </div>
 				 <button type="submit" class="btn btn-md btn-success">Save</button><a href="/admin/delete/forum/{{ $forum->id }}"><button type="button" class="btn btn-md btn-danger">Delete</button></a>
 			  {{ Form::close() }}
 	  </div>

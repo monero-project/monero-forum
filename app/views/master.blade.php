@@ -22,26 +22,28 @@
     <div class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
+          <!--
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><img src="/images/logo.png" class="logo"></a>
+          -->
+          <a class="navbar-brand" href="/"><img src="/images/logo.svg" class="logo"></a>
         </div>
+        <!--
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <!--
             <li><a class="yellow" href="#">Home</a></li>
             <li><a class="purple" href="#">Blog</a></li>
             <li><a class="red" href="#">Price Chart</a></li>
             <li><a class="orange" href="#">Getting Started</a></li>
             <li><a class="softyellow" href="#">Downloads</a></li>
             <li><a class="green" href="#">Contact</a></li>
-            -->
           </ul>
         </div>
+        -->
       </div>
     </div>
     <div class="container main-content">
@@ -68,13 +70,20 @@
 	<div class="row">
 	    <div class="col-lg-12 user-block">
 	    @if (Auth::check())
-	    	Welcome back, <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+	    	Hello, <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link user-block-mobile-disable" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
 	    	<br>
 	    @else
 	    	Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
 	    @endif
 	    </div>
 	</div>
+	@if (Auth::check())
+	<div class="row">
+	    <div class="col-lg-12 user-block user-block-mobile">
+	    	<a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+	    </div>
+	</div>	
+	@endif
 	<div class="row">
 		{{ Breadcrumbs::addCssClasses('breadcrumb') }}
 		{{ Breadcrumbs::render() }}
@@ -84,10 +93,7 @@
     <div class="footer">
       <div class="container">
         <p>
-          Copyright &copy; <strong>Monero.cc</strong> 
-          <img src="/images/social_fb.png">
-          <img src="/images/social_twitter.png">
-          <img src="/images/social_rss.png">
+          Copyright &copy; <strong>The Monero Project</strong> 
         </p>
       </div>
     </div>

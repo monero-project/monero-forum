@@ -10,7 +10,9 @@ class BaseController extends Controller {
 	 * @return void
 	 */
 	protected function setupLayout()
-	{	
+	{
+		//start events.
+			
 		if(Auth::check())
 		{
 			$user = Auth::user();			

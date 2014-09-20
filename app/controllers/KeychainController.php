@@ -18,7 +18,7 @@ class KeychainController extends \BaseController {
 
 	public function message($key_id)
 	{
-		$key = Key::where('key_id', '=', $key_id)->firstOrFail();
+		$key = Key::where('key_id', '=', $key_id)->orderBy('created_at', 'DESC')->firstOrFail();
 		return View::make('user.message', array('message' => $key->message));
 	}
 
@@ -54,11 +54,6 @@ class KeychainController extends \BaseController {
 				echo json_encode($sync_user);
 			}
 		}
-	}
-
-	public function action() {
-		$user = GPG::find('testdude3');
-		$user->delete();
 	}
 
 	public static function pullRatings() {

@@ -23,6 +23,10 @@
 			<a href="/thread/delete/{{ $thread->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
 			<a href="/posts/update/{{ $thread->head()->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
 		@endif
+		@if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Moderator'))
+			<a href="/mod/move/thread/{{ $thread->id }}"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-share-alt"></span> Move</button></a>
+			<a href="/mod/delete/thread/{{ $thread->id }}"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
+		@endif
 	</div>
 	@endif
 	

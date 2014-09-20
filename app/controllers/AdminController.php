@@ -41,6 +41,7 @@ class AdminController extends \BaseController {
 			$forum->position = Input::get('position');
 			$forum->category_id = Input::get('category_id');
 			$forum->description = Input::get('description');
+			$forum->lock = Input::get('lock');
 			$forum->save();
 			
 			return Redirect::to('/admin')->with('messages', array('Forum created successfully.'));
@@ -169,6 +170,7 @@ class AdminController extends \BaseController {
 			$forum->position = Input::get('position');
 			$forum->category_id = Input::get('category_id');
 			$forum->description = Input::get('description');
+			$forum->lock = Input::get('lock');
 			$forum->save();
 			
 			//clear all the visibility rules
