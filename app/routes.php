@@ -22,8 +22,11 @@ Route::get('/admin/cache/flush', 'AdminController@flush');
 /* Mod Actions */
 
 //Move Thread
-Route::get('/mod/move/thread/{thread_id}', 'ModController@getMove');
-Route::post('/mod/move/thread/', 'ModController@postMove');
+Route::get('/mod/move/thread/{thread_id}', array('before' => 'mod', 'uses' => 'ModController@getMove'));
+Route::post('/mod/move/thread/', array('before' => 'mod', 'uses' => 'ModController@postMove'));
+
+//Deletes
+Route::get('/mod/delete/{content_type}/{content_id}', array('before' => 'mod', 'uses' => 'ModController@delete'));
 
 /* User Controller */
 Route::get('/user/profile', array('before'  => 'auth',  'uses'  => 'UsersController@self'));

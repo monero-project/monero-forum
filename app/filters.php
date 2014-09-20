@@ -94,5 +94,12 @@ Route::filter('csrf', function()
 |	Roles and Permissions filters
 |
 */
-
 Entrust::routeNeedsPermission('admin*', 'admin_panel', View::make('errors.permissions'));
+
+Route::filter('moderator', function()
+{
+    if (! Entrust::hasRole('Moderator') ) // Checks the current user
+    {
+        App::abort(404);
+    }
+});

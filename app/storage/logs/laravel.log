@@ -22699,3 +22699,212 @@ Stack trace:
 #11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #12 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
 #13 {main} [] []
+[2014-09-20 13:56:16] production.ERROR: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Forum].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ForumsController.php(8): Illuminate\Database\Eloquent\Model::findOrFail('images')
+#1 [internal function]: ForumsController->index('images', 'sort_both.png')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ForumsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ForumsControlle...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('images', 'sort_both.png')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 13:56:16] production.ERROR: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Forum].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ForumsController.php(8): Illuminate\Database\Eloquent\Model::findOrFail('images')
+#1 [internal function]: ForumsController->index('images', 'sort_asc.png')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ForumsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ForumsControlle...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('images', 'sort_asc.png')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 13:58:02] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function permalink() on a non-object' in /home/monero-private/app/storage/views/16349b4fd8096183e6d7a2cee6a65764:25
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-09-20 13:58:24] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function permalink() on a non-object' in /home/monero-private/app/storage/views/16349b4fd8096183e6d7a2cee6a65764:25
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-09-20 13:58:29] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function permalink() on a non-object' in /home/monero-private/app/storage/views/16349b4fd8096183e6d7a2cee6a65764:25
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-09-20 13:59:28] production.ERROR: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Thread].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ThreadsController.php(9): Illuminate\Database\Eloquent\Model::findOrFail('15')
+#1 [internal function]: ThreadsController->index('3', 'forum-and-websi...', '15', 'sdfsdfsdf')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ThreadsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ThreadsControll...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('3', 'forum-and-websi...', '15', 'sdfsdfsdf')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 14:00:04] production.ERROR: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Thread].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ThreadsController.php(9): Illuminate\Database\Eloquent\Model::findOrFail('15')
+#1 [internal function]: ThreadsController->index('3', 'forum-and-websi...', '15', 'sdfsdfsdf')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ThreadsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ThreadsControll...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('3', 'forum-and-websi...', '15', 'sdfsdfsdf')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 14:00:11] production.ERROR: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Thread].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ThreadsController.php(9): Illuminate\Database\Eloquent\Model::findOrFail('15')
+#1 [internal function]: ThreadsController->index('3', 'forum-and-websi...', '15', 'sdfsdfsdf')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ThreadsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ThreadsControll...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('3', 'forum-and-websi...', '15', 'sdfsdfsdf')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 14:08:57] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected end of file' in /home/monero-private/app/storage/views/98d75ea5469118b0bfd9ad535685cb42:137
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-09-20 14:09:03] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected end of file' in /home/monero-private/app/storage/views/98d75ea5469118b0bfd9ad535685cb42:139
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2014-09-20 14:15:08] production.ERROR: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Forum].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ForumsController.php(8): Illuminate\Database\Eloquent\Model::findOrFail('images')
+#1 [internal function]: ForumsController->index('images', 'sort_both.png')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ForumsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ForumsControlle...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('images', 'sort_both.png')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 14:15:08] production.ERROR: 404: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Forum].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ForumsController.php(8): Illuminate\Database\Eloquent\Model::findOrFail('images')
+#1 [internal function]: ForumsController->index('images', 'sort_both.png')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ForumsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ForumsControlle...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('images', 'sort_both.png')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 14:15:08] production.ERROR: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Forum].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ForumsController.php(8): Illuminate\Database\Eloquent\Model::findOrFail('images')
+#1 [internal function]: ForumsController->index('images', 'sort_asc.png')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ForumsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ForumsControlle...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('images', 'sort_asc.png')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2014-09-20 14:15:08] production.ERROR: 404: exception 'Illuminate\Database\Eloquent\ModelNotFoundException' with message 'No query results for model [Forum].' in /home/monero-private/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:674
+Stack trace:
+#0 /home/monero-private/app/controllers/ForumsController.php(8): Illuminate\Database\Eloquent\Model::findOrFail('images')
+#1 [internal function]: ForumsController->index('images', 'sort_asc.png')
+#2 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#3 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('index', Array)
+#4 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(ForumsController), Object(Illuminate\Routing\Route), 'index')
+#5 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(962): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'ForumsControlle...', 'index')
+#6 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}('images', 'sort_asc.png')
+#7 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#8 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1028): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#9 /home/monero-private/vendor/laravel/framework/src/Illuminate/Routing/Router.php(996): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(777): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(747): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 /home/monero-private/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /home/monero-private/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /home/monero-private/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []

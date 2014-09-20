@@ -31,8 +31,10 @@
 					 </small>
 					@if (Auth::check() && !$post->deleted_at)
 		  			<span class="meta-buttons pull-right">
+		  				   @if (Auth::check() && (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Moderator')))
+		  				   	<a href="/mod/delete/post/{{ $post->id }}"><button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Mod Delete</button></a>
+		  				   @endif
 						   @if (Auth::check())
-							@if (Auth::check())
 							<a href="/votes/vote/?post_id={{ $post->id }}&vote=insightful" class="disabled-link" onclick="vote({{ $post->id }}, 'insightful')">
 								@if (Vote::voted_insightful($post->id))
 								<button type="button" class="disabled btn btn-default btn-xs insightful-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-up"></span> Insightful</button>
@@ -47,7 +49,6 @@
 								<button type="button" class="btn btn-default btn-xs irrelevant-{{ $post->id }}"><span class="glyphicon glyphicon-thumbs-down"></span> Irrelevant</button>
 								@endif
 							</a>
-							@endif
 						  <a href="/posts/reply/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_reply({{ $post->id }}, {{ $thread_id }}, '{{ $post->title }}')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-arrow-left"></span>
 			 Reply</button></a>
 			 			  @if ($post->user->id != Auth::user()->id)

@@ -17,4 +17,49 @@ class ModController extends \BaseController {
 		return View::make('mod.move', array('thread' => $thread));
 	}
 	
+	public function delete($content_type, $content_id) {
+		if ($content_type == 'thread')
+		{
+			$thread = Thread::findOrFail($content_id);
+			
+			foreach($thread->posts as $post)
+			{
+				$post->delete();
+			}
+			
+			$thread->delete();
+
+			Cache::flush();
+			
+			return Redirect::to('/')->with('messages', array('Forum deleted.'));
+		}
+		else if ($content_type == 'post')
+		{
+			$post = Post::findOrFail($content_id);
+			if($post->thread->head()->id == $post->id)
+			{
+				foreach($post->thread->posts as $thread_post)
+				{
+					$thread_post->delete();
+				}
+				$post->thread->delete();
+			}
+			
+			foreach($post->flags as $flag)
+			{
+				$flag->delete();
+			}
+			
+			$post->delete();
+
+			Cache::flush();
+
+			return Redirect::to('/')->with('messages', array('Post deleted.'));
+		}
+		else {
+			return App::abort(403);
+		}
+	}
+
+	
 }

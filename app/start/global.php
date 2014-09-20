@@ -47,7 +47,6 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 | shown, which includes a detailed stack trace during debug.
 |
 */
-/*
 App::missing(function($e)
 {
     return View::make('errors.404', array('title' => 'Monero | Page not found. Error: 404'));
@@ -62,7 +61,6 @@ App::error(function(ReflectionException $e) {
 	Log::error('902: '.$e);
 	return View::make('errors.902', array('title' => 'Monero | Internal Error. Error: 902'));
 });
-*/
 App::error(function(Exception $e, $code)
 {
 	Log::error($e);
