@@ -9629,3 +9629,6 @@
 109.144.182.43 - - [19/Sep/2014:06:39:21 -0700] "GET /apple-touch-icon.png HTTP/1.1" 500 44800 "-" "Coda/3410 CFNetwork/673.4 Darwin/13.3.0 (x86_64) (MacBookPro9%2C2)"
 5.255.253.152 - - [19/Sep/2014:09:25:20 -0700] "GET /robots.txt HTTP/1.1" 200 24 "-" "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"
 5.255.253.152 - - [19/Sep/2014:22:14:08 -0700] "GET /robots.txt HTTP/1.1" 200 24 "-" "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)"
+31.55.118.98 - - [20/Sep/2014:16:17:59 -0700] "GET / HTTP/1.1" 500 44485 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.77.4 (KHTML, like Gecko)"
+31.55.118.98 - - [20/Sep/2014:16:18:02 -0700] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 500 44828 "-" "Coda/3410 CFNetwork/673.4 Darwin/13.3.0 (x86_64) (MacBookPro9%2C2)"
+31.55.118.98 - - [20/Sep/2014:16:18:02 -0700] "GET /apple-touch-icon.png HTTP/1.1" 500 44798 "-" "Coda/3410 CFNetwork/673.4 Darwin/13.3.0 (x86_64) (MacBookPro9%2C2)"

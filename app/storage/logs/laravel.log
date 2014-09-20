@@ -22908,3 +22908,7 @@ Stack trace:
 #16 /home/monero-private/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(643): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #17 /home/monero-private/public/index.php(49): Illuminate\Foundation\Application->run()
 #18 {main} [] []
+[2014-09-20 23:16:06] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected 'return' (T_RETURN)' in /home/monero-private/app/controllers/PostsController.php:11
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []

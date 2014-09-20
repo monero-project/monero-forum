@@ -7,7 +7,7 @@ class PostsController extends \BaseController {
 	$thread = Thread::findOrFail(Input::get('thread_id'));
 	$forum = Forum::findOrFail($thread->forum->id);
 	
-	if(($forum->lock == 2 && (!Auth::user()->hasRole('Admin'))
+	if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
 			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
 	
 	if(is_string(Input::get('submit')))
@@ -134,7 +134,7 @@ class PostsController extends \BaseController {
 		$post = Post::findOrFail($post_id);
 		$forum = $post->thread->forum;
 		
-		if(($forum->lock == 2 && (!Auth::user()->hasRole('Admin'))
+		if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
 				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
 			
 		return View::make('content.reply', array('post' => $post));
