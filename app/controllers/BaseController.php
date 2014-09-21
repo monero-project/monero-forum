@@ -15,7 +15,8 @@ class BaseController extends Controller {
 			
 		if(Auth::check())
 		{
-			$user = Auth::user();			
+			$user = Auth::user();	
+				
 			if (!$user->gpg_auth && Route::getCurrentRoute()->getPath() != 'gpg-auth' && !str_contains(Route::getCurrentRoute()->getPath() ,'keychain/message')  && $user->in_wot)
 			{
 				$otcp = "forum.monero:".str_random(40)."\n";

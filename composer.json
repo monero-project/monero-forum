@@ -10,7 +10,8 @@
 		"vtalbot/markdown": "1.5",
 		"zizaco/entrust": "1.2.*@dev",
 		"intervention/image": "2.*",
-		"creitive/breadcrumbs": "dev-master"
+		"creitive/breadcrumbs": "dev-master",
+		"guzzlehttp/guzzle": "~4.0"
 	},
 	"autoload": {
 		"classmap": [

@@ -11,6 +11,7 @@
 				<div class="col-md-8">
 					<h2>Hello {{{ $user->username }}}!</h2>
 					<p>This is your personal profile settings page.</p>
+					<a href="/user/settings/add-key"><button class="btn btn-sm btn-info">Add or change your GPG Key</button></a>
 				</div>
 			</div>
 			<h2>User Details</h2>

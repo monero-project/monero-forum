@@ -34,6 +34,12 @@ class UsersController extends BaseController {
 			$user = Auth::user();
 			$user->last_login = new DateTime();
 			
+			if (!$user->confirmed)
+			{
+				Auth::logout();
+				return View::make('user.login', array('errors' => array('Your account is inactive.')));
+			}
+			
 			
 			if (Input::get('remember_for') != NULL && Input::get('remember_for') != '') 
 				$user->remember_for = Input::get('remember_for');
@@ -149,9 +155,16 @@ class UsersController extends BaseController {
 							$user->in_wot = 1;
 							$user->key_id = $key_id;
 							$user->fingerprint = $gpg->import($pubkey)['fingerprint'];
+							$user->confirmation_code = str_random(20);
 							$user->save();
 							$member = \Role::where('name', 'Member')->get()->first();
 							$user->roles()->attach($member);
+							$data = array('user' => $user);
+							Mail::send('emails.auth.welcome', $data, function($message) use($user)
+							{
+							    $message->from('hello@monero.com', 'The Monero Project - Welcome to our forums!');		
+							    $message->to($user->email);
+							});
 							foreach (Config::get('app.admins') as $config_admin)
 							{
 								if ($user->username == $config_admin)
@@ -162,8 +175,8 @@ class UsersController extends BaseController {
 							}
 							Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
 							KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
-							
-							return Redirect::to('/?regSuccess');
+							Auth::logout();
+							return Redirect::to('/?regSuccess')->with('messages', array('Registration complete. Please check your email and activate your account.'));
 						}
 						else
 							return View::make('user.auth', array('input' => Input::all(), 'message' => $key->message, 'keyid' => $key_id, 'errors' => array('Wrong decrypted message.')));
@@ -176,8 +189,16 @@ class UsersController extends BaseController {
 					$user->username = Input::get('username');
 					$user->email = Input::get('email');
 					$user->in_wot = 0;
+					$user->confirmation_code = str_random(20);
 					$user->save();
+					$data = array('user' => $user);
 					$member = \Role::where('name', 'Member')->get()->first();
+					Mail::send('emails.auth.welcome', $data, function($message) use($user)
+					{
+					    $message->from('hello@monero.com', 'The Monero Project - Welcome to our forums!');		
+					    $message->to($user->email);
+					});
+
 					$user->roles()->attach($member);
 					foreach (Config::get('app.admins') as $config_admin)
 					{
@@ -189,7 +210,8 @@ class UsersController extends BaseController {
 					}
 					Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
 					KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
-					return Redirect::to('/');
+					Auth::logout();
+					return Redirect::to('/')->with('messages', array('Registration complete. Please check your email and activate your account.'));
 				}
 			else {
 				return View::make('user.register', array('errors' => array('The person with this username is already registered in the Web of Trust. Please try a different username.')));
@@ -366,6 +388,114 @@ class UsersController extends BaseController {
 
 				return Redirect::to('/user/settings')->with('messages', array('Picture uploaded!'));
 			}
+	}
+	
+	public function getAddGPG() {
+		return View::make('user.settings.add-key');
+	}
+	
+	public function postAddGPGKey() {
+		if (Input::has('key_id'))
+		{
+			$key_id = Input::get('key_id');
+			
+			$key_exists = User::where('key_id', $key_id)->first();
+			if ($key_exists)
+				return Redirect::to(URL::previous())->with('errors', array('The key already exists.'));
+							
+			$pubkey = @file_get_contents('http://pgp.mit.edu/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
+			if (str_contains($pubkey, 'No results found'))
+			{
+				$pubkey = @file_get_contents('https://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
+			}
+			if (str_contains($pubkey, 'No results found'))
+			{
+				return Redirect::to(URL::previous())->with('errors', array('The key you have provided does not exist!'));
+			}
+	
+	
+			if ($pubkey === false)
+				return Redirect::to(URL::previous())->with('errors', array('The key you have provided does not exist!')); //if the server returns something weird, there's a 99% chance that the key is in wrong format.
+				
+			$otcp = "forum.monero:".str_random(40)."\n";
+				
+			putenv("GNUPGHOME=/tmp");
+			$gpg = new gnupg();
+			$fingerprint = $gpg->import($pubkey)['fingerprint'];
+			$gpg->addencryptkey($fingerprint);
+			$message = $gpg->encrypt($otcp);
+	
+			$oldKey = Key::where('key_id', '=', Input::get('key'))->orderBy('created_at')->first();
+	
+			if ($oldKey)
+				$oldKey->delete();
+				
+			$userkey = new Key();
+			$userkey->key_id = $key_id;
+			$userkey->password = Hash::make($otcp);
+			$userkey->message = $message;
+			$userkey->save();
+			
+			return View::make('user.settings.decrypt-message', array('key_id' => $key_id, 'fingerprint' => $fingerprint));
+		}
+		else
+			return Redirect::to(URL::previous())->with('errors', array('The Key ID is invalid.'));
+	}
+	
+	public function postGPGDecrypt() {
+		if (Input::has('otcp') && Input::has('key_id') && Input::has('fingerprint'))
+		{
+			$key_id = Input::get('key_id');
+			$key = Key::where('key_id', '=', $key_id)->orderBy('created_at')->first();
+			
+			$key_exists = User::where('key_id', $key_id)->first();
+			if ($key_exists)
+				return Redirect::to(URL::previous())->with('errors', array('The key already exists.'));
+			
+			$hash = $key->password;
+			if (Hash::check(Input::get('otcp')."\n", $hash))
+			{
+				$user = Auth::user();
+				
+				$user->in_wot = 1;
+				$user->key_id = $key_id;
+				$user->fingerprint = Input::get('fingerprint');
+				
+				$user->save();
+				
+				return Redirect::to('/user/settings')->with('messages', array('GPG key added successfully.'));
+			}
+		}
+		else
+			return Redirect::to(URL::previous())->with('errors', array('Looks like you have not entered all of the required data.'));
+	}
+	
+	public function accountInactive() {
+		return View::make('errors.confirmed');
+	}
+	
+	public function getActivate($user_id ,$code) {
+		if ($code == User::findOrFail($user_id)->confirmation_code)
+		{
+			$user = User::findOrFail($user_id);
+			$user->confirmed = 1;
+			$user->save();
+			
+			return Redirect::to('/')->with('messages', array('User activated successfully. You can now log in.'));
+		}
+		else {
+			return Redirect::to('/')->with('messages', array('Wrong activation key.'));
+		}
+	}
+	
+	public function getResend($user_id) {
+		$user = User::findOrFail($user_id);
+		$data = array('user' => $user);
+		Mail::send('emails.auth.welcome', $data, function($message) use($user)
+		{
+		    $message->from('hello@monero.com', 'The Monero Project - Welcome to our forums!');		
+		    $message->to($user->email);
+		});
 	}
 
 }
