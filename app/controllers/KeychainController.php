@@ -132,7 +132,7 @@ class KeychainController extends \BaseController {
 			$push_rating = array();
 			foreach ($ratings as $key => $rating)
 			{
-				if (OTC_User::find($rating->rated_username)) {
+ 				if (OTC_User::find($rating->rated_username)) {
 					//check if rating exists in the current database. Laravel is unhappy if created_at is bound
 						$rating_exists = OTC_Rating::whereRaw("rater_user_id = ? and rated_user_id = ? and created_at LIKE '%".strtotime($rating->created_at)."%'",
 							array(

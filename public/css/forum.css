@@ -304,8 +304,7 @@ body {
 }
 
 p code {
-	display: block;
-	padding: 10px;
+	padding: 3px;
 	margin: 0 0 10.5px;
 	font-size: 14px;
 	line-height: 1.42857143;

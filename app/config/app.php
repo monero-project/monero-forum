@@ -48,6 +48,12 @@ return array(
 	/* Other Settings */
 	
 	'project_dir' 						=> '/home/monero-private/',
+	
+	/* Email Settings */
+	
+	'from_email'						=> 'noreply@monero.cc',
+	'from_name'							=> 'The Monero Project',
+	'welcome_email_subject'				=> 'Welcome to the Monero Forums',
 
 	
 

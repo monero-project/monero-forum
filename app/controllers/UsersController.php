@@ -162,8 +162,8 @@ class UsersController extends BaseController {
 							$data = array('user' => $user);
 							Mail::send('emails.auth.welcome', $data, function($message) use($user)
 							{
-							    $message->from('hello@monero.com', 'The Monero Project - Welcome to our forums!');		
-							    $message->to($user->email);
+							    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
+							    $message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
 							});
 							foreach (Config::get('app.admins') as $config_admin)
 							{
@@ -195,8 +195,8 @@ class UsersController extends BaseController {
 					$member = \Role::where('name', 'Member')->get()->first();
 					Mail::send('emails.auth.welcome', $data, function($message) use($user)
 					{
-					    $message->from('hello@monero.com', 'The Monero Project - Welcome to our forums!');		
-					    $message->to($user->email);
+					    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
+					    $message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
 					});
 
 					$user->roles()->attach($member);
@@ -493,8 +493,8 @@ class UsersController extends BaseController {
 		$data = array('user' => $user);
 		Mail::send('emails.auth.welcome', $data, function($message) use($user)
 		{
-		    $message->from('hello@monero.com', 'The Monero Project - Welcome to our forums!');		
-		    $message->to($user->email);
+		    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
+		    $message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
 		});
 	}
 
