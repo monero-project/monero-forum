@@ -62,7 +62,6 @@
 		<div class="col-lg-12 replies-list">
 			<p>Replies: <b>{{ $thread->posts()->count() - 1 }}</b>
 			<span class="pull-right"><b>Hey! This page will never end! Just keep on scrolling to see more posts!</b></span></p>
-			</h3>
 		</div>
 		<div class="col-lg-12 post-nav">
 		<!--

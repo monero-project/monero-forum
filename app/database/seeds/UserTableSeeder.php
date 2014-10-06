@@ -7,6 +7,8 @@ class UserTableSeeder extends Seeder {
 
 	public function run()
 	{
+		Eloquent::unguard();
+		
 		$faker = Faker::create();
 
 		for ($i = 0; $i < 300; $i++)

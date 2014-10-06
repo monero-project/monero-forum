@@ -19,9 +19,8 @@ class PostsTableSeeder extends Seeder {
 			  $post = Post::create(array(
 			    'user_id' => $user->id,
 			    'thread_id' => $thread->id,
-			    'title'	=>	$faker->bs,
 			    'body' => $faker->text,
-			    'decay'	=> 0
+			    'weight'	=> 500
 			  ));
 			}
 		}

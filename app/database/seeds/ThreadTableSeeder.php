@@ -7,6 +7,8 @@ class ThreadTableSeeder extends Seeder {
 
 	public function run()
 	{
+		Eloquent::unguard();
+		
 		$faker = Faker::create();
 		$forums = Forum::all();
 		foreach($forums as $forum)
@@ -20,6 +22,14 @@ class ThreadTableSeeder extends Seeder {
 			    'user_id' => $user->id,
 			    'forum_id' => $forum->id
 			  ));
+			  $post = Post::create(array(
+			    'user_id' => $user->id,
+			    'thread_id' => $thread->id,
+			    'body' => $faker->text,
+			    'weight'	=> 500
+			  ));
+			  $thread->post_id = $post->id;
+			  $thread->save();
 			}
 		}
 	}
