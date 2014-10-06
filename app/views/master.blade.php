@@ -67,6 +67,23 @@
 	    </div>
 	</div>
 	@endif
+	<!--
+	<div class="row search-bar">
+        {{ Form::open(array('url' => '/search')) }}
+        <div class="col-lg-6 right-float">
+		    <div class="input-group">
+		      <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
+		      <span class="input-group-addon">
+		        <input type="checkbox" name="closed_location"> This location
+		      </span>
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
+		      </span>
+		    </div>
+		</div>
+        {{ Form::close() }}
+	</div>
+	-->
 	<div class="row">
 	    <div class="col-lg-12 user-block">
 	    @if (Auth::check())

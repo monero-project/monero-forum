@@ -21,6 +21,10 @@ class Thread extends \Eloquent {
 		return Post::find($this->post_id);
 	}
 	
+	public function post() {
+		return $this->belongsTo('Post');
+	}
+	
 	public function slug() {
 		$slug = $this->name;	
 		

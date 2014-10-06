@@ -54,6 +54,7 @@ return array(
 	'from_email'						=> 'noreply@monero.cc',
 	'from_name'							=> 'The Monero Project',
 	'welcome_email_subject'				=> 'Welcome to the Monero Forums',
+	'recovery_email_subject'			=> 'Password Recovery',
 
 	
 
@@ -181,6 +182,7 @@ return array(
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Creitive\Breadcrumbs\BreadcrumbsServiceProvider',
+		'Roumen\Feed\FeedServiceProvider',
 
 	),
 
@@ -252,6 +254,7 @@ return array(
 		'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
 		'Image' => 'Intervention\Image\Facades\Image',
 		'Breadcrumbs' => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
+		'Feed' => 'Roumen\Feed\Facades\Feed',
 	),
 
 );

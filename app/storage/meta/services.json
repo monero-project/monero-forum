@@ -30,7 +30,8 @@
         "VTalbot\\Markdown\\MarkdownServiceProvider",
         "Zizaco\\Entrust\\EntrustServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
-        "Creitive\\Breadcrumbs\\BreadcrumbsServiceProvider"
+        "Creitive\\Breadcrumbs\\BreadcrumbsServiceProvider",
+        "Roumen\\Feed\\FeedServiceProvider"
     ],
     "eager": [
         "Illuminate\\Cookie\\CookieServiceProvider",
@@ -44,7 +45,8 @@
         "VTalbot\\Markdown\\MarkdownServiceProvider",
         "Zizaco\\Entrust\\EntrustServiceProvider",
         "Intervention\\Image\\ImageServiceProvider",
-        "Creitive\\Breadcrumbs\\BreadcrumbsServiceProvider"
+        "Creitive\\Breadcrumbs\\BreadcrumbsServiceProvider",
+        "Roumen\\Feed\\FeedServiceProvider"
     ],
     "deferred": {
         "artisan": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

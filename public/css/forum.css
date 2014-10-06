@@ -63,6 +63,14 @@ body {
 	text-align: center;
 }
 
+.right-float {
+	float: right;
+}
+
+.left-float {
+	float: left;
+}
+
 /* Forum Blocks */
 
 .user-block {
@@ -74,6 +82,19 @@ body {
 	margin-bottom: 20px;
 	height: 40px;
 	line-height: 40px;
+}
+
+.search-bar {
+	padding-bottom: 20px;	
+}
+
+.search-text {
+	 border-top-left-radius: 2px;
+	 border-bottom-left-radius: 2px;
+}
+
+.search-bar .col-lg-6 {
+	padding: 0;
 }
 
 .user-block .action-link {

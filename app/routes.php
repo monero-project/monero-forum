@@ -1,6 +1,10 @@
 <?php
 Route::get('/', 'HomeController@index');
 
+/* Search */
+
+Route::post('/search', 'SearchController@search');
+
 /* Admin Panel */
 Route::get('/admin', 'AdminController@index');
 
@@ -31,13 +35,18 @@ Route::get('/mod/delete/{content_type}/{content_id}', array('before' => 'mod', '
 /* User Controller */
 Route::get('/user/profile', array('before'  => 'auth',  'uses'  => 'UsersController@self'));
 Route::get('/user/settings', 'UserController@settings');
+Route::get('/user/forgot-password', 'UsersController@getForgotPassword');
+Route::post('/user/forgot-password', 'UsersController@postForgotPassword');
 Route::get('/user/settings/add-key', array('before'  => 'auth',  'uses'  => 'UsersController@getAddGPG'));
 Route::post('/user/settings/add-gpg', array('before'  => 'auth',  'uses'  => 'UsersController@postAddGPGKey'));
 Route::post('/user/settings/gpg-decrypt', array('before'  => 'auth',  'uses'  => 'UsersController@postGPGDecrypt'));
 Route::get('/user/settings/confirmation/inactive', array('before'  => 'auth',  'uses'  => 'UsersController@accountInactive'));
 Route::get('/user/activate/{user_id}/{code}', 'UsersController@getActivate');
 Route::get('/user/activate/resend/{user_id}', 'UsersController@getResend');
+Route::get('/user/recover/{user_id}/{recovery_token}', 'UsersController@getChangePassword');
+Route::post('/user/recover/', 'UsersController@postChangePassword');
 Route::get('/user/{username}', 'UsersController@profile');
+Route::get('/user/{username}/feed', 'FeedsController@userFeed');
 Route::get('/user/{user_id}/posts', 'UsersController@posts');
 Route::get('/user/{user_id}/threads', 'UsersController@threads');
 Route::get('/user/{user_id}/{rating_way}/{rating_type}', 'UsersController@ratings');
@@ -98,5 +107,7 @@ Route::get('/keychain/posts/get/{thread_id}/{posts_num}', 'PostsController@listP
 
 /* Forum Structure */
 Route::get('/{forum_id}/{forum_slug}', 'ForumsController@index');
+Route::get('/{forum_id}/{forum_slug}/feed', 'FeedsController@forumFeed');
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}', 'ThreadsController@index');
+Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}/feed', 'FeedsController@threadFeed');
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}/{post_id}/{post_slug}', 'PostsController@index');

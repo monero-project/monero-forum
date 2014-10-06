@@ -81,7 +81,7 @@ class UsersController extends BaseController {
 					$pubkey = @file_get_contents('http://pgp.mit.edu/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
 					if (str_contains($pubkey, 'No results found'))
 					{
-						$pubkey = @file_get_contents('https://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
+						$pubkey = @file_get_contents('http://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
 					}
 					if (str_contains($pubkey, 'No results found'))
 					{
@@ -133,7 +133,7 @@ class UsersController extends BaseController {
 							$pubkey = @file_get_contents('http://pgp.mit.edu/pks/lookup?op=get&search=0x'.$key_id);
 							if (str_contains($pubkey, 'No results found'))
 							{
-								$pubkey = @file_get_contents('https://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id);
+								$pubkey = @file_get_contents('http://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id);
 							}
 							if (str_contains($pubkey, 'No results found'))
 							{
@@ -406,7 +406,7 @@ class UsersController extends BaseController {
 			$pubkey = @file_get_contents('http://pgp.mit.edu/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
 			if (str_contains($pubkey, 'No results found'))
 			{
-				$pubkey = @file_get_contents('https://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
+				$pubkey = @file_get_contents('http://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
 			}
 			if (str_contains($pubkey, 'No results found'))
 			{
@@ -496,6 +496,112 @@ class UsersController extends BaseController {
 		    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
 		    $message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
 		});
+	}
+	
+	public function getForgotPassword() {
+		return View::make('user.password.remind');
+	}
+	
+	public function postForgotPassword() {
+		
+		if (Input::has('email') && Input::get('email') != '')
+			$email = Input::get('email');
+		else
+			return View::make('user.password.remind')->with('errors', array('Looks like you left the email field empty.'));
+		
+		$user = User::where('email', $email)->first();
+		
+		if ($user)
+		{
+			$recovery_token = str_random(62);
+			
+			$user->recovery_token = $recovery_token;
+			$user->save();
+			
+			$data = array('user' =>	$user);
+			
+			Mail::send('emails.auth.recover', $data, function($message) use($user)
+			{
+			    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
+			    $message->to($user->email)->subject(Config::get('app.recovery_email_subject'));
+			});
+			
+		}
+		
+		return Redirect::to(URL::previous())->with('messages', array('You should receive an email with the instructions on how to change your password shortly.'));
+	}
+	
+	public function getChangePassword($user_id, $recovery_token) {
+		$user = User::findOrFail($user_id);
+		
+		if($user->recovery_token == $recovery_token)
+		{
+			if ($user->in_wot)
+			{
+				$key_id = $user->key_id;
+				
+				$otcp = "forum.monero:".str_random(40)."\n";
+					
+				putenv("GNUPGHOME=/tmp");
+				$gpg = new gnupg();
+				$fingerprint = $user->fingerprint;
+				$gpg->addencryptkey($fingerprint);
+				$message = $gpg->encrypt($otcp);
+		
+				$oldKey = Key::where('key_id', '=', Input::get('key'))->orderBy('created_at')->first();
+		
+				if ($oldKey)
+					$oldKey->delete();
+					
+				$userkey = new Key();
+				$userkey->key_id = $key_id;
+				$userkey->password = Hash::make($otcp);
+				$userkey->message = $message;
+				$userkey->save();
+			}
+			return View::make('user.password.change', array('user' => $user, 'recovery_token' => $recovery_token));
+		}
+		else
+			return View::make('errors.404');
+	}
+	
+	public function postChangePassword() {
+		$recovery_token = Input::get('recovery_token');
+		$user = User::findOrFail(Input::get('user_id'));
+		
+		$gpg_auth = true;
+		
+		if ($user->in_wot)
+		{
+			$otcp = Input::get('otcp');
+			
+			$key_id = $user->key_id;
+			$key = Key::where('key_id', '=', $key_id)->orderBy('created_at', 'DESC')->first();
+			
+			$hash = $key->password;
+			
+			if (Hash::check($otcp."\n", $hash))
+				$gpg_auth = true;
+			else
+				return Redirect::to(URL::previous())->with('errors', array('We could not confirm that you own this GPG key. Please try again.'));
+		}
+		
+		if ($gpg_auth)
+		{
+			$password = Input::get('password');
+			$password_c = Input::get('password_confirmation');
+			
+			if ($password = $password_c)
+			{
+				$user->password = Hash::make($password);
+				$user->save();
+
+				return Redirect::to('/')->with('messages', array('Password changed successfully. You can now log in!'));
+			}
+			else
+				return Redirect::to(URL::previous())->with('errors', array('Looks like the passwords did not match!'));
+		}
+		
 	}
 
 }

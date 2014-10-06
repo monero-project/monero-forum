@@ -40,6 +40,7 @@
             </div>
 	      <button type="submit" class="btn btn-success pull-right">Login</button>
 	    {{ Form::close() }}
-	    <p class="helpblock">Don't have an account yet? <a href="/register">Register!</a></p>
+	    <p class="helpblock">Don't have an account yet? <a href="/register">Register!</a> | <a href="/user/forgot-password">Forgot password?</a>
+	    </p>
 	</div>
 @stop

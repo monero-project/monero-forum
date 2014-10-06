@@ -58,8 +58,9 @@ App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
 });
 
 App::error(function(ReflectionException $e) {
-	Log::error('902: '.$e);
-	return View::make('errors.902', array('title' => 'Monero | Internal Error. Error: 902'));
+	Log::error($e);
+	//Log::error('902: '.$e);
+	//return View::make('errors.902', array('title' => 'Monero | Internal Error. Error: 902'));
 });
 App::error(function(Exception $e, $code)
 {
