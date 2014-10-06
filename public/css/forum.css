@@ -28,6 +28,12 @@ body {
 	padding: 0;
 }
 
+li.monero-address {
+	 word-wrap: break-word;
+     white-space: -moz-pre-wrap;
+     white-space: pre-wrap;
+}
+
 /* Helpers */
 
 .thread .pagination {

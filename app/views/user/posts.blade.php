@@ -8,7 +8,6 @@
       <thead>
         <tr>
           <th>Thread</th>
-          <th>Post Title</th>
           <th>Post Excerpt</th>
         </tr>
       </thead>
@@ -17,9 +16,6 @@
         <tr>
 			<td>
 				<a href="{{{ $post->thread->permalink() }}}">{{{ $post->thread->name }}}</a>
-			</td>
-			<td>
-				{{{ $post->title }}}
 			</td>
 			<td>
 				{{{ str_limit($post->body, 100, '...') }}}

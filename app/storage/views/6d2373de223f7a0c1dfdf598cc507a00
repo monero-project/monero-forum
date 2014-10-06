@@ -1,4 +1,8 @@
 <?php $__env->startSection('content'); ?>
+<?php echo Breadcrumbs::addCrumb('Home', '/'); ?>
+
+<?php echo Breadcrumbs::addCrumb('Register'); ?>
+
 	<div class="form-style">
 <?php if(isset($errors) && sizeof($errors) > 0): ?>
 		<div class="alert alert-danger alert-dismissible" role="alert">
@@ -10,9 +14,11 @@
 		</div>
 <?php endif; ?>
 		<?php echo Form::open(array('url' => 'register')); ?>
+
             <div class="form-group">
             	<label>Username</label>
             	<?php echo Form::text('username', null, array('class'=>'form-control reg-username', 'placeholder'=>'')); ?>
+
             </div>
             <div class="form-group username-alert" style="display: none;">
             	<div class="alert alert-warning alert-dismissible" role="alert">
@@ -23,18 +29,22 @@
             <div class="form-group">
             	<label>Email</label>
             	<?php echo Form::email('email', null, array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>      
             <div class="form-group">
             	<label>Password</label>
             	<?php echo Form::password('password', array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>
             <div class="form-group">
             	<label>Confirm Password</label>
             	<?php echo Form::password('password_confirmation', array('class'=>'form-control', 'placeholder'=>'')); ?>
+
             </div>
             <div class="form-group reg-key">
             	<label>Key ID</label>
-            	<?php echo Form::text('key', null, array('class'=>'form-control', 'placeholder'=>'785DEFB41BECA9ED')); ?>
+            	<?php echo Form::text('key', null, array('class'=>'form-control')); ?>
+
             	<p class="help-block">Only fill this out if you are registering for the Web of Trust!</p>
             </div>
             <div class="checkbox wot_register">
@@ -44,10 +54,12 @@
 			</div>
 	        <button type="submit" class="btn btn-success">Register</button>
 	      <?php echo Form::close(); ?>
+
 	</div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('javascript'); ?>
 <?php echo HTML::script('js/register.js'); ?>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

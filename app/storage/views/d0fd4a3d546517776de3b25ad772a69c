@@ -1,11 +1,14 @@
 <?php $__env->startSection('content'); ?>
+<?php echo Breadcrumbs::addCrumb('Home', '/'); ?>
+
+<?php echo Breadcrumbs::addCrumb('Posts'); ?>
+
 <h1>Posts by <?php echo $user->username; ?></h1>
 <div class="table-responsive">
 	  <table class="table">
       <thead>
         <tr>
           <th>Thread</th>
-          <th>Post Title</th>
           <th>Post Excerpt</th>
         </tr>
       </thead>
@@ -16,10 +19,8 @@
 				<a href="<?php echo e($post->thread->permalink()); ?>"><?php echo e($post->thread->name); ?></a>
 			</td>
 			<td>
-				<?php echo e($post->title); ?>
-			</td>
-			<td>
 				<?php echo e(str_limit($post->body, 100, '...')); ?>
+
 			</td>
         </tr>
       <?php endforeach; ?>
@@ -27,5 +28,6 @@
     </table>
 	</div>
 	<?php echo $posts->links(); ?>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

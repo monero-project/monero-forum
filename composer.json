@@ -11,7 +11,8 @@
 		"zizaco/entrust": "1.2.*@dev",
 		"intervention/image": "2.*",
 		"creitive/breadcrumbs": "dev-master",
-		"guzzlehttp/guzzle": "~4.0"
+		"guzzlehttp/guzzle": "~4.0",
+		"roumen/feed": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

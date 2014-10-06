@@ -1,15 +1,38 @@
 <?php $__env->startSection('content'); ?>
+<?php echo Breadcrumbs::addCrumb('Home', '/'); ?>
+
+<?php echo Breadcrumbs::addCrumb($user->username); ?>
+
 	<h1>
 	<?php if($user->in_wot): ?>
 	<span class="label label-success"><?php echo e($user->username); ?></span>
 	<?php else: ?>
 	<?php echo e($user->username); ?>
+
 	<?php endif; ?>
-	Rating: <?php echo e($user->rated->sum('rating')); ?>
 	<?php if(isset($self) && $self && $user->in_wot): ?>
 		<button type="button" class="btn btn-success pull-right" onclick="syncWoT()">Sync with WoT</button>
 	<?php endif; ?>
 	</h1>
+	<div class="row">
+		<div class="col-md-6">
+			<img src="/uploads/profile/<?php echo e($user->profile_picture); ?>">
+		</div>
+		<div class="col-md-6">
+		<h2>User Details</h2>
+			<ul>
+			<?php if($user->monero_address != NULL): ?>
+				<li class="monero-address">Monero Address: <?php echo e($user->monero_address); ?></li>
+			<?php endif; ?>
+			<?php if($user->website != NULL): ?>
+				<li>Website Address: <a href="<?php echo e($user->website); ?>" rel="nofollow" target="_blank"><?php echo e($user->website); ?></a></li>
+			<?php endif; ?>
+			<?php if($user->email_public == true): ?>
+				<li>Email: <?php echo HTML::obfuscate($user->email); ?></li>
+			<?php endif; ?>
+			</ul>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-md-6">
 			<h2>Forum Activity</h2>

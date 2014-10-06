@@ -4,14 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Monero | Home</title>
+    <title><?php if(isset($title)): ?><?php echo $title; ?><?php else: ?><?php echo 'Monero | Forum'; ?><?php endif; ?></title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <?php echo $__env->yieldContent('css'); ?>
     <link href="/css/main.css" rel="stylesheet">
     <link href="/css/forum.css" rel="stylesheet">
     
-
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -20,17 +19,20 @@
 
   <body>
 
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
+          <!--
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><img src="/images/logo.png" class="logo"></a>
+          -->
+          <a class="navbar-brand" href="/"><img src="/images/logo.svg" class="logo"></a>
         </div>
+        <!--
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a class="yellow" href="#">Home</a></li>
@@ -41,6 +43,7 @@
             <li><a class="green" href="#">Contact</a></li>
           </ul>
         </div>
+        -->
       </div>
     </div>
     <div class="container main-content">
@@ -48,21 +51,70 @@
 	<div class="row">
 		<div class="alert alert-info fade in" role="alert">
 	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-	      <?php foreach(Session::get('messages') as $message): ?>
+	      <?php foreach(Session::pull('messages') as $message): ?>
 	      <b><?php echo $message; ?></b>
 	      <?php endforeach; ?>
 	    </div>
 	</div>
 	<?php endif; ?>
+	<?php if(Session::has('errors')): ?>
+	<div class="row">
+		<div class="alert alert-danger fade in" role="alert">
+	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	      <?php foreach(Session::pull('errors') as $error): ?>
+	      <b><?php echo $error; ?></b>
+	      <?php endforeach; ?>
+	    </div>
+	</div>
+	<?php endif; ?>
+	<!--
+	<div class="row search-bar">
+        <?php echo Form::open(array('url' => '/search')); ?>
+
+        <div class="col-lg-6 right-float">
+		    <div class="input-group">
+		      <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
+		      <span class="input-group-addon">
+		        <input type="checkbox" name="closed_location"> This location
+		      </span>
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
+		      </span>
+		    </div>
+		</div>
+        <?php echo Form::close(); ?>
+
+	</div>
+	-->
+	<div class="row">
+	    <div class="col-lg-12 user-block">
+	    <?php if(Auth::check()): ?>
+	    	Hello, <a class="name" href="<?php echo URL::to('/user/profile'); ?>"><?php echo e(Auth::user()->username); ?></a>. <a class="action-link user-block-mobile-disable" href="<?php echo URL::to('/user/settings'); ?>"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link user-block-mobile-disable" href="<?php echo URL::to('logout'); ?>" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+	    	<br>
+	    <?php else: ?>
+	    	Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
+	    <?php endif; ?>
+	    </div>
+	</div>
+	<?php if(Auth::check()): ?>
+	<div class="row">
+	    <div class="col-lg-12 user-block user-block-mobile">
+	    	<a class="action-link" href="<?php echo URL::to('/user/settings'); ?>"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="<?php echo URL::to('logout'); ?>" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+	    </div>
+	</div>	
+	<?php endif; ?>
+	<div class="row">
+		<?php echo Breadcrumbs::addCssClasses('breadcrumb'); ?>
+
+		<?php echo Breadcrumbs::render(); ?>
+
+	</div>
 		<?php echo $__env->yieldContent('content'); ?>
     </div>
     <div class="footer">
       <div class="container">
         <p>
-          Copyright &copy; <strong>Monero.cc</strong> 
-          <img src="/images/social_fb.png">
-          <img src="/images/social_twitter.png">
-          <img src="/images/social_rss.png">
+          Copyright &copy; <strong>The Monero Project</strong> 
         </p>
       </div>
     </div>

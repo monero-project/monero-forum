@@ -20,7 +20,7 @@
 		<h2>User Details</h2>
 			<ul>
 			@if ($user->monero_address != NULL)
-				<li>Monero Address: {{{ $user->monero_address }}}</li>
+				<li class="monero-address">Monero Address: {{{ $user->monero_address }}}</li>
 			@endif
 			@if ($user->website != NULL)
 				<li>Website Address: <a href="{{{ $user->website }}}" rel="nofollow" target="_blank">{{{ $user->website }}}</a></li>

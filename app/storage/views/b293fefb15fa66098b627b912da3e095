@@ -1,4 +1,8 @@
 <?php $__env->startSection('content'); ?>
+<?php echo Breadcrumbs::addCrumb('Home', '/'); ?>
+
+<?php echo Breadcrumbs::addCrumb('Threads'); ?>
+
 <h1>Threads by <?php echo $user->username; ?></h1>
 <div class="table-responsive">
 	  <table class="table">
@@ -19,5 +23,6 @@
     </table>
 	</div>
 	<?php echo $threads->links(); ?>
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

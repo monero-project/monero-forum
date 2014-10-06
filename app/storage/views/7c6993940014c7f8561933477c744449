@@ -1,4 +1,9 @@
 <?php $__env->startSection('content'); ?>
+<?php echo Breadcrumbs::addCrumb('Home', '/'); ?>
+
+<?php echo Breadcrumbs::addCrumb($forum->name, $forum->permalink()); ?>
+
+<?php if(Visibility::check('forum', $forum->id)): ?>
 <div class="row category-block">   
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -11,13 +16,15 @@
   <div class="panel-body thread-list">
     <?php foreach($threads as $thread): ?>
     <div class="row">
-	    <div class="col-md-1 thread-col thread-icon">
-	    </div>
-	    <div class="col-md-5">
-	    	<a class="thread-title" href="/<?php echo $forum->slug(); ?>/<?php echo $forum->id; ?>/<?php echo $thread->slug(); ?>/<?php echo $thread->id; ?>"><?php echo $thread->name; ?></a>
+	    <div class="col-md-6">
+	    	<?php if($thread->moved && $forum->id != $thread->forum->id): ?>
+	    	<a class="thread-title" href="/<?php echo $thread->forum->id; ?>/<?php echo $thread->forum->slug(); ?>/<?php echo $thread->id; ?>/<?php echo $thread->slug(); ?>"><small>Moved to: <?php echo $thread->forum->name; ?></small>
+	    	<?php else: ?>
+	    	<a class="thread-title" href="/<?php echo $forum->id; ?>/<?php echo $forum->slug(); ?>/<?php echo $thread->id; ?>/<?php echo $thread->slug(); ?>">
+	    	<?php endif; ?> <?php echo $thread->name; ?></a>
 	    </div>
 		<div class="col-md-4">
-		<p>Author: <b><?php echo $thread->user->username; ?></b>, <?php echo $thread->created_at; ?></p>
+		<p>Author: <b><a class="board-meta" href="/user/<?php echo $thread->user->username; ?>"><?php echo $thread->user->username; ?></a></b>, <?php echo $thread->created_at; ?></p>
 		</div>
 		<div class="col-md-2 thread-replies">
 			<p>Replies: <b><?php echo $thread->posts()->count() - 1; ?></b></p>
@@ -29,6 +36,11 @@
 </div>
 <div class="post-links">
 	<?php echo $threads->links(); ?>
+
 </div>
+<?php else: ?>
+<?php echo App::abort(404);; ?>
+
+<?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
