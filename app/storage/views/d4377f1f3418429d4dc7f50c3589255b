@@ -24,7 +24,7 @@
 			  	<?php if($forum->latest_post()): ?>
 			  	<a class="board-meta" href="<?php echo Thread::find($forum->latest_thread()->id)->permalink(); ?>"><?php echo e(str_limit($forum->latest_thread()->name, 57, '...')); ?></a>
 			  	<br>
-				By: <b><a class="board-meta" href="/user/<?php echo User::find($forum->latest_thread()->user_id)->username; ?>"><?php echo User::find($forum->latest_post()->user_id)->username; ?></a></b>
+				By: <b><a class="board-meta" href="/user/<?php echo User::find($forum->latest_thread()->user_id)->username; ?>"><?php echo User::find($forum->latest_thread()->user_id)->username; ?></a></b>
 			  	<?php endif; ?>
 			  	</p>
 			  </div>

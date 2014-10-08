@@ -55,6 +55,10 @@ return array(
 	'from_name'							=> 'The Monero Project',
 	'welcome_email_subject'				=> 'Welcome to the Monero Forums',
 	'recovery_email_subject'			=> 'Password Recovery',
+	
+	/* GPG Settings */
+	
+	'max_gpg_entry'						=> 5, //number of times to try and hit the key servers before asking the user to upload a key instead.
 
 	
 
@@ -82,7 +86,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://monero-testing.fluxministry.com',
+	'url' => 'https://forum.monero.cc',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -251,10 +255,10 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Markdown' 		  => 'VTalbot\Markdown\Facades\Markdown',
-		'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
-		'Image' => 'Intervention\Image\Facades\Image',
-		'Breadcrumbs' => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
-		'Feed' => 'Roumen\Feed\Facades\Feed',
+		'Entrust'    	  => 'Zizaco\Entrust\EntrustFacade',
+		'Image'			  => 'Intervention\Image\Facades\Image',
+		'Breadcrumbs'	  => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
+		'Feed'   		  => 'Roumen\Feed\Facades\Feed',
 	),
 
 );

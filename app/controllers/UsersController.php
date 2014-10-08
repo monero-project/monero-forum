@@ -76,21 +76,15 @@ class UsersController extends BaseController {
 						}
 					else
 						return View::make('user.register', array('errors' => array('Looks like you forgot to input the Key ID.')));
-
-					//Search for the pubkey in all the registers.
-					$pubkey = @file_get_contents('http://pgp.mit.edu/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
-					if (str_contains($pubkey, 'No results found'))
-					{
-						$pubkey = @file_get_contents('http://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
-					}
-					if (str_contains($pubkey, 'No results found'))
-					{
+						
+					//get public key and deal with errors.	
+					$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
+					if ($pubkey == -1)
 						return View::make('user.register', array('errors' => array('The key you have provided does not exist!')));
-					}
-
-
-					if ($pubkey === false)
-						return View::make('user.register', array('errors' => array('The key format you have provided is wrong.'))); //if the server returns something weird, there's a 99% chance that the key is in wrong format.
+					else if ($pubkey == -2)
+						return View::make('user.register', array('errors' => array('The key format you have provided is wrong!')));
+					else if ($pubkey == -3)
+						return View::make('user.register', array('errors' => array('Looks like something went wrong with retrieving your key. Please try again later.')));
 
 					putenv("GNUPGHOME=/tmp");
 					$gpg = new gnupg();
@@ -129,20 +123,14 @@ class UsersController extends BaseController {
 						if (Hash::check(Input::get('otcp')."\n", $hash))
 						{
 
-							//get the fingerprint for insertion into the table.
-							$pubkey = @file_get_contents('http://pgp.mit.edu/pks/lookup?op=get&search=0x'.$key_id);
-							if (str_contains($pubkey, 'No results found'))
-							{
-								$pubkey = @file_get_contents('http://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id);
-							}
-							if (str_contains($pubkey, 'No results found'))
-							{
+							//get public key and deal with errors.	
+							$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
+							if ($pubkey == -1)
 								return View::make('user.register', array('errors' => array('The key you have provided does not exist!')));
-							}
-
-							if ($pubkey === false)
-								return View::make('user.register', array('errors' => array('The key format you have provided is wrong.')));
-
+							else if ($pubkey == -2)
+								return View::make('user.register', array('errors' => array('The key format you have provided is wrong!')));
+							else if ($pubkey == -3)
+								return View::make('user.register', array('errors' => array('Looks like something went wrong with retrieving your key. Please try again later.')));
 
 							putenv("GNUPGHOME=/tmp");
 							$gpg = new gnupg();
@@ -403,19 +391,14 @@ class UsersController extends BaseController {
 			if ($key_exists)
 				return Redirect::to(URL::previous())->with('errors', array('The key already exists.'));
 							
-			$pubkey = @file_get_contents('http://pgp.mit.edu/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
-			if (str_contains($pubkey, 'No results found'))
-			{
-				$pubkey = @file_get_contents('http://hkps.pool.sks-keyservers.net/pks/lookup?op=get&search=0x'.$key_id); //prevent from file_get_contents from erroring out and screwing up the registration proccess.
-			}
-			if (str_contains($pubkey, 'No results found'))
-			{
+			//get public key and deal with errors.	
+			$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
+			if ($pubkey == -1)
 				return Redirect::to(URL::previous())->with('errors', array('The key you have provided does not exist!'));
-			}
-	
-	
-			if ($pubkey === false)
-				return Redirect::to(URL::previous())->with('errors', array('The key you have provided does not exist!')); //if the server returns something weird, there's a 99% chance that the key is in wrong format.
+			else if ($pubkey == -2)
+				return Redirect::to(URL::previous())->with('errors', array('The key format you have provided is wrong!'));
+			else if ($pubkey == -3)
+				return Redirect::to(URL::previous())->with('errors', array('Looks like something went wrong with retrieving your key. Please try again later.'));
 				
 			$otcp = "forum.monero:".str_random(40)."\n";
 				

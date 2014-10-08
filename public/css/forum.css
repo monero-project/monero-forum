@@ -40,6 +40,10 @@ li.monero-address {
 	float: right;
 }
 
+.alert b {
+	color: white;
+}
+
 .replies-list {
 	margin: 3px 0;
 }

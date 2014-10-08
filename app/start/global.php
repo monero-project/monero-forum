@@ -18,7 +18,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/commands',
 	app_path().'/controllers',
 	app_path().'/models',
-	app_path().'/database/seeds',
+	app_path().'/database/seeds'
 
 ));
 
@@ -129,3 +129,5 @@ Event::listen('auth.logout', function($user)
 
 /* Post Helpers File. Used for recursive functions and whatever else. */
 require app_path().'/post_helpers.php';
+/* GPG helper file */
+require app_path().'/libraries/lib.gpg.php';

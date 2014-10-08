@@ -25,7 +25,7 @@
 			  	@if ($forum->latest_post())
 			  	<a class="board-meta" href="{{ Thread::find($forum->latest_thread()->id)->permalink() }}">{{ e(str_limit($forum->latest_thread()->name, 57, '...')) }}</a>
 			  	<br>
-				By: <b><a class="board-meta" href="/user/{{ User::find($forum->latest_thread()->user_id)->username }}">{{ User::find($forum->latest_post()->user_id)->username }}</a></b>
+				By: <b><a class="board-meta" href="/user/{{ User::find($forum->latest_thread()->user_id)->username }}">{{ User::find($forum->latest_thread()->user_id)->username }}</a></b>
 			  	@endif
 			  	</p>
 			  </div>
