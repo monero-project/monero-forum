@@ -1,7 +1,20 @@
 <?php
 
 class PostsController extends \BaseController {
-
+	
+	public function getProxyImage() {
+		if (Input::has('link'))
+		{
+			$url = urldecode(Input::get('link'));
+			$image = Image::make($url);
+			return $image->response();
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	public function submit() {
 	
 	$thread = Thread::findOrFail(Input::get('thread_id'));

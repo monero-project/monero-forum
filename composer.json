@@ -7,7 +7,6 @@
 		"laravel/framework": "4.2.*",
 		"way/generators": "2.*",
 		"fzaninotto/faker": "v1.3.0",
-		"vtalbot/markdown": "1.5",
 		"zizaco/entrust": "1.2.*@dev",
 		"intervention/image": "2.*",
 		"creitive/breadcrumbs": "dev-master",

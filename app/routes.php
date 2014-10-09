@@ -1,8 +1,11 @@
 <?php
 Route::get('/', 'HomeController@index');
 
-/* Search */
+/* Image Proxy */
 
+Route::get('/get/image/', 'PostsController@getProxyImage');
+
+/* Search */
 Route::post('/search', 'SearchController@search');
 
 /* Admin Panel */
