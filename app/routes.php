@@ -44,6 +44,7 @@ Route::get('/user/settings/add-key', array('before'  => 'auth',  'uses'  => 'Use
 Route::post('/user/settings/add-gpg', array('before'  => 'auth',  'uses'  => 'UsersController@postAddGPGKey'));
 Route::post('/user/settings/gpg-decrypt', array('before'  => 'auth',  'uses'  => 'UsersController@postGPGDecrypt'));
 Route::get('/user/settings/confirmation/inactive', array('before'  => 'auth',  'uses'  => 'UsersController@accountInactive'));
+Route::get('/user/settings/delete/picture', array('before'  => 'auth',  'uses'  => 'UsersController@deleteProfile'));
 Route::get('/user/activate/{user_id}/{code}', 'UsersController@getActivate');
 Route::get('/user/activate/resend/{user_id}', 'UsersController@getResend');
 Route::get('/user/recover/{user_id}/{recovery_token}', 'UsersController@getChangePassword');

@@ -89,6 +89,10 @@ li.monero-address {
 	float: left;
 }
 
+.btn-right {
+	margin-left: 5px;
+}
+
 /* Forum Blocks */
 
 .user-block {

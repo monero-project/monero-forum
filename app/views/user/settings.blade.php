@@ -80,7 +80,8 @@
 					<input type="file" class="file-inputs" name="profile" title="Choose a picture.">
 					<p class="helpblock">The picture has to be 150 x 150 pixels in size. If it is bigger than that, it will be resized.</p>
 				</div>
-				<button class="btn btn-sm btn-success pull-right" type="submit" name="submit">Upload</button>
+				<a href="/user/settings/delete/picture"><button type="button" class="btn btn-sm btn-danger pull-right btn-right">Delete</button></a>
+				<button class="btn btn-sm btn-success pull-right btn-right" type="submit" name="submit">Upload</button>
 			{{ Form::close() }}
 		</div>
 	</div>

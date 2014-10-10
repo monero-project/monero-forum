@@ -363,7 +363,18 @@ class UsersController extends BaseController {
 			if (!($mime == "image/jpeg" || $mime == "image/png") || !Input::file('profile')->isValid()) {
 				return Redirect::to('/user/settings')->with('errors', array('Wrong image type!'));
 			} else {				
-				$fileName = $user->username;
+			
+				//generate new filename
+				$fileName = $user->username.time();
+				
+				//get the old file name and remove it.
+				$oldfile = $user->profile_picture;
+				
+				if ($oldfile != 'no_picture.jpg')
+				{
+					@unlink('uploads/profile/'.$oldfile);
+					@unlink('uploads/profile/small_'.$oldfile);
+				}
 				
 				$extension = Input::file('profile')->getClientOriginalExtension();
 
@@ -376,6 +387,24 @@ class UsersController extends BaseController {
 
 				return Redirect::to('/user/settings')->with('messages', array('Picture uploaded!'));
 			}
+	}
+	
+	public function deleteProfile() {
+		$user = Auth::user();
+		
+		//get the old file name and remove it.
+		$oldfile = $user->profile_picture;
+		
+		if ($oldfile != 'no_picture.jpg')
+		{
+			@unlink('uploads/profile/'.$oldfile);
+			@unlink('uploads/profile/small_'.$oldfile);
+		}
+		
+		$user->profile_picture = 'no_picture.jpg';
+		$user->save();
+		
+		return Redirect::to(URL::previous())->with('messages', array('Profile picture removed successfully!'));
 	}
 	
 	public function getAddGPG() {
