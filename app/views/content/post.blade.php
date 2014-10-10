@@ -5,8 +5,11 @@
 		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}">
 	@endif
 		<div class="row post-breadcrumbs">
+		@if (sizeof($breadcrumbs) != 0)
+			<span class="reply-to"> Reply to: </span>
+		@endif
 		@foreach (array_reverse($breadcrumbs) as $key => $breadcrumb)
-			<a href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" 
+			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" 
 			title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a> 
 			@if (sizeof($breadcrumbs)-1 != $key)
 			<span class="glyphicon glyphicon-chevron-right"></span> 
@@ -68,9 +71,7 @@
 						  @endif
 						 @endif
 			  			@endif
-			  			@if ($post->children()->count() > 0)
-						<span class="drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_close({{ $post->id }})" class="glyphicon glyphicon-collapse-up"></span></span>
-						@endif
+
 			  			</span>
 		  </div>
 		  @if ($post->weight < Config::get('app.hidden_weight'))
@@ -125,9 +126,9 @@
 			   @endif 
 			  			@if ($post->children()->count() > 0) {{-- ends --}}
 			  				@if ($post->weight < Config::get('app.hidden_weight'))
-						<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_close({{ $post->id }})" class="glyphicon glyphicon-collapse-up"></span></span>
+			  				<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_open({{ $post->id }})" class="glyphicon glyphicon-collapse-down"></span></span>
 							@else
-						<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_open({{ $post->id }})" class="glyphicon glyphicon-collapse-down"></span></span>
+							<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_close({{ $post->id }})" class="glyphicon glyphicon-collapse-up"></span></span>
 							@endif
 						@endif {{-- ends --}}				
 			</div>

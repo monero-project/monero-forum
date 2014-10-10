@@ -3,6 +3,16 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
+	"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/SkepticalHippo/markdown"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/SkepticalHippo/php-markdown"
+        }
+    ],
 	"require": {
 		"laravel/framework": "4.2.*",
 		"way/generators": "2.*",
@@ -11,7 +21,9 @@
 		"intervention/image": "2.*",
 		"creitive/breadcrumbs": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
-		"roumen/feed": "dev-master"
+		"roumen/feed": "dev-master",
+		"vtalbot/markdown": "dev-master",
+		"michelf/php-markdown": "dev-lib"
 	},
 	"autoload": {
 		"classmap": [

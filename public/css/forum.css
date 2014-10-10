@@ -36,6 +36,14 @@ li.monero-address {
 
 /* Helpers */
 
+.reply-to {
+	font-size: 14px;
+}
+
+.post-crumb {
+	font-size: 14px;
+}
+
 .thread .pagination {
 	float: right;
 }
