@@ -22,9 +22,7 @@ function get_pubkey($key_id, $retry = false)
 	{
 		return -2;
 	}
-	
-	exit (var_dump($pubkey));
-	
+		
 	//give it a couple of tries before showing an error and asking to try again.
 	if ($pubkey === false)
 	{
