@@ -8,7 +8,7 @@
 		@if (sizeof($breadcrumbs) != 0)
 			<span class="reply-to"> Reply to: </span>
 		@endif
-		@foreach (array_reverse($breadcrumbs) as $key => $breadcrumb)
+		@foreach (($breadcrumbs) as $key => $breadcrumb)
 			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" 
 			title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a> 
 			@if (sizeof($breadcrumbs)-1 != $key)

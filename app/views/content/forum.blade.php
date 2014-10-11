@@ -18,10 +18,10 @@
     <div class="row">
 	    <div class="col-md-6">
 	    	@if ($thread->moved && $forum->id != $thread->forum->id)
-	    	<a class="thread-title" href="/{{ $thread->forum->id }}/{{ $thread->forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}"><small>Moved to: {{ $thread->forum->name }}</small>
+	    	<a class="thread-title" alt="{{{ $thread->name }}}" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->name }}}" href="/{{ $thread->forum->id }}/{{ $thread->forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}"><small>{{{ str_limit('Moved to:'. $thread->forum->name, 50, ' [...]') }}}</small>
 	    	@else
-	    	<a class="thread-title" href="/{{ $forum->id }}/{{ $forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}">
-	    	@endif {{ $thread->name }}</a>
+	    	<a class="thread-title" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->name }}}" href="/{{ $forum->id }}/{{ $forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}">
+	    	@endif {{{ str_limit($thread->name, 50, ' [...]') }}}</a>
 	    </div>
 		<div class="col-md-4">
 		<p>Author: <b><a class="board-meta" href="/user/{{ $thread->user->username }}">{{ $thread->user->username }}</a></b>, {{ $thread->created_at }}</p>
@@ -40,4 +40,12 @@
 @else
 {{ App::abort(404); }}
 @endif
+@stop
+
+@section('javascript')
+<script type="text/javascript">
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+    });
+</script>
 @stop
