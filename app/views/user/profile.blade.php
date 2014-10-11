@@ -20,13 +20,13 @@
 		<h2>User Details</h2>
 			<ul>
 			@if ($user->monero_address != NULL)
-				<li class="monero-address">Monero Address: {{{ $user->monero_address }}}</li>
+				<li class="user-details">Monero Address: {{{ $user->monero_address }}}</li>
 			@endif
 			@if ($user->website != NULL)
-				<li>Website Address: <a href="{{{ $user->website }}}" rel="nofollow" target="_blank">{{{ $user->website }}}</a></li>
+				<li class="user-details">Website Address: <a href="{{{ $user->website }}}" rel="nofollow" target="_blank">{{{ $user->website }}}</a></li>
 			@endif
 			@if ($user->email_public == true)
-				<li>Email: {{ HTML::obfuscate($user->email) }}</li>
+				<li class="user-details">Email: {{ HTML::obfuscate($user->email) }}</li>
 			@endif
 			</ul>
 		</div>
