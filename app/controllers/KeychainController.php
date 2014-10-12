@@ -11,7 +11,8 @@ class KeychainController extends \BaseController {
 	{
 		$gpg = GPG::find($username);
 		if($gpg)
-			return 'true';
+			return 'false';
+			//return 'true';
 		else
 			return 'false';
 	}

@@ -60,17 +60,25 @@ class UsersController extends BaseController {
 
 		if (!$validator->fails()) {
 
-			if (Input::get('wot_register') || GPG::find(Input::get('username'))) {
+			if (Input::get('wot_register')) {
 				if (!Input::get('otcp'))
 				{
-					$key = GPG::find(Input::get('username'));
+					/*
+					|
+					|	This has the WoT checks disabled temporarily.
+					|	Does not attempt to retrieve a key from the WoT database. Uses the field data instead.
+					|
+					*/
+					
+					//$key = GPG::find(Input::get('username'));
 					$otcp = "forum.monero:".str_random(40)."\n"; //generate a random password of 40 chars.
 
-					if ($key)
+					/*if ($key)
 					{
 						$key_id = $key->keyid;
 					}
-					else if (Input::get('key'))
+					else */
+					if (Input::get('key'))
 						{
 							$key_id = Input::get('key');
 						}
@@ -106,13 +114,15 @@ class UsersController extends BaseController {
 				}
 				else if (Input::get('otcp'))
 					{
-						$key = GPG::find(Input::get('username'));
+						/*$key = GPG::find(Input::get('username'));
 
 						if ($key)
 						{
 							$key_id = $key->keyid;
 						}
-						else if (Input::get('key'))
+						else 
+						*/
+						if (Input::get('key'))
 							{
 								$key_id = Input::get('key');
 							}
@@ -171,7 +181,7 @@ class UsersController extends BaseController {
 					}
 
 			}
-			else if (!GPG::find(Input::get('username'))) {
+			else {
 					$user = new User();
 					$user->password = Hash::make(Input::get('password'));
 					$user->username = Input::get('username');
@@ -201,9 +211,9 @@ class UsersController extends BaseController {
 					Auth::logout();
 					return Redirect::to('/')->with('messages', array('Registration complete. Please check your email and activate your account.'));
 				}
-			else {
+			/*else {
 				return View::make('user.register', array('errors' => array('The person with this username is already registered in the Web of Trust. Please try a different username.')));
-			}
+			}*/
 		}
 		else {
 			return View::make('user.register', array('errors' => $validator->messages()->all()));
