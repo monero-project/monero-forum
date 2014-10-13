@@ -60,28 +60,53 @@ class UsersController extends BaseController {
 
 		if (!$validator->fails()) {
 
-			if (Input::get('wot_register')) {
+			if (Input::get('wot_register') || GPG::find(Input::get('username'))) {
 				if (!Input::get('otcp'))
 				{
-					/*
-					|
-					|	This has the WoT checks disabled temporarily.
-					|	Does not attempt to retrieve a key from the WoT database. Uses the field data instead.
-					|
-					*/
 					
-					//$key = GPG::find(Input::get('username'));
+					$key = GPG::find(Input::get('username'));
 					$otcp = "forum.monero:".str_random(40)."\n"; //generate a random password of 40 chars.
 
-					/*if ($key)
+					if ($key && $key->keyid)
 					{
 						$key_id = $key->keyid;
 					}
-					else */
-					if (Input::get('key'))
+					else if ($key && !$key->keyid)
+					{
+						//if the user is in the WoT OTC and has no key_id, then he is probably using BTC auth. Still allow for him to register.
+						$user = new User();
+						$user->password = Hash::make(Input::get('password'));
+						$user->username = Input::get('username');
+						$user->email = Input::get('email');
+						$user->in_wot = 1;
+						$user->confirmation_code = str_random(20);
+						$user->save();
+						
+						$member = \Role::where('name', 'Member')->get()->first();
+						$user->roles()->attach($member);
+						$data = array('user' => $user);
+						Mail::send('emails.auth.welcome', $data, function($message) use($user)
 						{
-							$key_id = Input::get('key');
+						    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
+						    $message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
+						});
+						foreach (Config::get('app.admins') as $config_admin)
+						{
+							if ($user->username == $config_admin)
+							{
+								$admin = \Role::where('name', 'Admin')->get()->first();
+								$user->roles()->attach($admin);
+							}
 						}
+						Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
+						KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
+						Auth::logout();
+						return Redirect::to('/?regSuccess')->with('messages', array('Registration complete. Please check your email and activate your account.'));
+					}
+					else if (Input::get('key'))
+					{
+						$key_id = Input::get('key');
+					}
 					else
 						return View::make('user.register', array('errors' => array('Looks like you forgot to input the Key ID.')));
 						
@@ -104,7 +129,7 @@ class UsersController extends BaseController {
 					if ($oldKey)
 						$oldKey->delete();
 
-					$userkey = new key();
+					$userkey = new Key();
 					$userkey->key_id = $key_id;
 					$userkey->password = Hash::make($otcp);
 					$userkey->message = $message;
@@ -114,18 +139,16 @@ class UsersController extends BaseController {
 				}
 				else if (Input::get('otcp'))
 					{
-						/*$key = GPG::find(Input::get('username'));
+						$key = GPG::find(Input::get('username'));
 
-						if ($key)
+						if ($key && $key->keyid)
 						{
 							$key_id = $key->keyid;
 						}
-						else 
-						*/
-						if (Input::get('key'))
-							{
-								$key_id = Input::get('key');
-							}
+						else if (Input::get('key'))
+						{
+							$key_id = Input::get('key');
+						}
 
 						$key = Key::where('key_id', '=', $key_id)->orderBy('created_at')->first();
 
@@ -181,7 +204,7 @@ class UsersController extends BaseController {
 					}
 
 			}
-			else {
+			else if (!GPG::find(Input::get('username'))) {
 					$user = new User();
 					$user->password = Hash::make(Input::get('password'));
 					$user->username = Input::get('username');
@@ -211,9 +234,9 @@ class UsersController extends BaseController {
 					Auth::logout();
 					return Redirect::to('/')->with('messages', array('Registration complete. Please check your email and activate your account.'));
 				}
-			/*else {
+			else {
 				return View::make('user.register', array('errors' => array('The person with this username is already registered in the Web of Trust. Please try a different username.')));
-			}*/
+			}
 		}
 		else {
 			return View::make('user.register', array('errors' => $validator->messages()->all()));
@@ -558,7 +581,7 @@ class UsersController extends BaseController {
 		
 		if($user->recovery_token == $recovery_token)
 		{
-			if ($user->in_wot)
+			if ($user->in_wot && $user->key_id)
 			{
 				$key_id = $user->key_id;
 				
@@ -593,7 +616,7 @@ class UsersController extends BaseController {
 		
 		$gpg_auth = true;
 		
-		if ($user->in_wot)
+		if ($user->in_wot && $user->key_id)
 		{
 			$otcp = Input::get('otcp');
 			
