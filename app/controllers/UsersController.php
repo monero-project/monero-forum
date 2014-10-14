@@ -533,15 +533,26 @@ class UsersController extends BaseController {
 		}
 	}
 	
-	public function getResend($user_id) {
-		$user = User::findOrFail($user_id);
-		$data = array('user' => $user);
-		Mail::send('emails.auth.welcome', $data, function($message) use($user)
-		{
-		    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
-		    $message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
-		});
+	public function getResend() {
+		return View::make('user.resend');
 	}
+	
+	public function postResend() {
+		$email = Input::get('email');
+		$user = User::where('email', $email)->where('confirmed', 0)->first();
+		if ($user)
+		{
+			$data = array('user' => $user);
+			Mail::send('emails.auth.welcome', $data, function($message) use($user)
+			{
+			    $message->from(Config::get('app.from_email'), Config::get('app.from_name'));		
+			    $message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
+			});
+		}
+		return Redirect::to('/')->with('messages', array('Your activation email has been re-sent. Please check your email!'));
+	}
+	
+	
 	
 	public function getForgotPassword() {
 		return View::make('user.password.remind');
@@ -554,7 +565,7 @@ class UsersController extends BaseController {
 		else
 			return View::make('user.password.remind')->with('errors', array('Looks like you left the email field empty.'));
 		
-		$user = User::where('email', $email)->first();
+		$user = User::where('email', $email)->where('confirmed', 1)->first();
 		
 		if ($user)
 		{

@@ -2,7 +2,6 @@
 Route::get('/', 'HomeController@index');
 
 /* Image Proxy */
-
 Route::get('/get/image/', 'PostsController@getProxyImage');
 
 /* Search */
@@ -40,6 +39,8 @@ Route::get('/user/profile', array('before'  => 'auth',  'uses'  => 'UsersControl
 Route::get('/user/settings', 'UserController@settings');
 Route::get('/user/forgot-password', 'UsersController@getForgotPassword');
 Route::post('/user/forgot-password', 'UsersController@postForgotPassword');
+Route::get('/user/resend-activation', 'UsersController@getResend');
+Route::post('/user/resend-activation/', 'UsersController@postResend');
 Route::get('/user/settings/add-key', array('before'  => 'auth',  'uses'  => 'UsersController@getAddGPG'));
 Route::post('/user/settings/add-gpg', array('before'  => 'auth',  'uses'  => 'UsersController@postAddGPGKey'));
 Route::post('/user/settings/gpg-decrypt', array('before'  => 'auth',  'uses'  => 'UsersController@postGPGDecrypt'));

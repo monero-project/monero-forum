@@ -196,6 +196,11 @@ class AdminController extends \BaseController {
 			$user = User::findOrFail(Input::get('id'));
 			$user->username = Input::get('username');
 			$user->email = Input::get('email');
+						
+			if (Input::get('confirmed') == 'on')
+				$user->confirmed = 1;
+			else
+				$user->confirmed = 0;
 			
 			if (Input::has('key_id'))
 				$user->key_id = Input::get('key_id');

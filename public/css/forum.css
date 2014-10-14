@@ -34,6 +34,10 @@ li.user-details {
 
 /* Helpers */
 
+.white-glyph {
+	color: white;
+}
+
 .reply-to {
 	font-size: 14px;
 }

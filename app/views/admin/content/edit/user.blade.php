@@ -13,6 +13,15 @@
 			  {{ Form::open(array('url' => '/admin/edit')) }}
 			  	 <input type="hidden" name="type" value="user">
 			  	 <input type="hidden" name="id" value="{{ $user->id }}">
+			  	 <div class="checkbox">
+					<label>
+					  @if ($user->confirmed)
+					  <input type="checkbox" name="confirmed" checked> User Active
+					  @else
+					  <input type="checkbox" name="confirmed"> User Active
+					  @endif
+					</label>
+				 </div>
 			  	 <div class="form-group">
 				    <label>Username</label>
 				    <input type="text" class="form-control" name="username" value="{{ $user->username }}">

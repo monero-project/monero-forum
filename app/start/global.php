@@ -110,7 +110,12 @@ Event::listen('auth.login', function($user)
     	$log = new Access();
 		
 		$log->user_id 		= $user->id;
-		$log->ip 	  		= Request::getClientIp();
+		
+		if (Request::header('X-Forwarded-For') != NULL)
+			$log->ip = Request::header('X-Forwarded-For');
+		else
+			$log->ip = Request::getClientIp();
+		
 		$log->user_agent	= Request::server('HTTP_USER_AGENT');
 		
 		$user->last_login 	= new DateTime();
