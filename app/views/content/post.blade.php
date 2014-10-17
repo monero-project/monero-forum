@@ -9,11 +9,7 @@
 			<span class="reply-to"> Reply to: </span>
 		@endif
 		@foreach (($breadcrumbs) as $key => $breadcrumb)
-			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" 
-			title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a> 
-			@if (sizeof($breadcrumbs)-1 != $key)
-			<span class="glyphicon glyphicon-chevron-right"></span> 
-			@endif
+			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a>@if (sizeof($breadcrumbs)-1 != $key)<span class="glyphicon glyphicon-chevron-right reply-bullet"></span>@endif
 		@endforeach
 		</div>
 		<div class="panel panel-default post-panel">

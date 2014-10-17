@@ -34,6 +34,10 @@ li.user-details {
 
 /* Helpers */
 
+.reply-bullet {
+	margin-left: 4px;
+}
+
 .white-glyph {
 	color: white;
 }
