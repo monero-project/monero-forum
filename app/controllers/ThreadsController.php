@@ -27,6 +27,23 @@ class ThreadsController extends \BaseController {
 			    
 				return ['list' => $paginated->getItems(), 'links' => (string) $paginated->links()];
 			});
+			
+			//register the thread as viewed at X time.
+			
+			//check if the thread has been viewed
+			$view = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread_id)->first();
+			if ($view)
+			{
+				$view->touch(); //update timestamp
+			}
+			else 
+			{
+				//create new viewing entry. updated_at = last view, created_at = first view.
+				$view = new ThreadView();
+				$view->user_id = Auth::user()->id;
+				$view->thread_id = $thread_id;
+				$view->save();
+			}
 		}
 		//else just get the default posts with the default weight
 		else
