@@ -1,8 +1,16 @@
 <div class="post-indent">
 	@if ($level % 2 == 0)
+		@if (Auth::check() && $post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at)
+		<div id="post-{{ $post->id }}" class="post col-lg-12 post-unread level-{{ $level }}">
+		@else
 		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}">
+		@endif
 	@else
+		@if (Auth::check() && $post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at)
+		<div id="post-{{ $post->id }}" class="post col-lg-12 odd post-unread-odd level-{{ $level }}">
+		@else
 		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}">
+		@endif
 	@endif
 		<div class="row post-breadcrumbs">
 		@if (sizeof($breadcrumbs) != 0)
