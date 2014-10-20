@@ -1,8 +1,8 @@
 @extends('master')
 @section('content')
 {{ Breadcrumbs::addCrumb('Home', '/') }}
-{{ Breadcrumbs::addCrumb($post->thread->forum->name, $post->thread->forum->permalink()) }}
-{{ Breadcrumbs::addCrumb($post->thread->name, $post->thread->permalink()) }}
+{{ Breadcrumbs::addCrumb(e($post->thread->forum->name), $post->thread->forum->permalink()) }}
+{{ Breadcrumbs::addCrumb(e($post->thread->name), $post->thread->permalink()) }}
 {{ Breadcrumbs::addCrumb('Reply') }}
 	<div class="col-lg-12 reply-body">
 		<p class="post-meta"><a href="/user/{{ $post->user->id }}" target="_blank">{{{ $post->user->username }}}</a> posted this on {{ $post->created_at }}</p>

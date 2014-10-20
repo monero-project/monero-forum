@@ -2,8 +2,8 @@
 
 @section('content')
 {{ Breadcrumbs::addCrumb('Home', '/') }}
-{{ Breadcrumbs::addCrumb($thread->forum->name, $thread->forum->permalink()) }}
-{{ Breadcrumbs::addCrumb($thread->name, $thread->permalink()) }}
+{{ Breadcrumbs::addCrumb(e($thread->forum->name), $thread->forum->permalink()) }}
+{{ Breadcrumbs::addCrumb(e($thread->name), $thread->permalink()) }}
 	<div class="row category-block">    
 		<div class="panel panel-default thread-block">
 		  <div class="panel-heading">
