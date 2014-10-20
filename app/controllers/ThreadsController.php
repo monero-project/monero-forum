@@ -85,7 +85,7 @@ class ThreadsController extends \BaseController {
 		);
 		$validator = Thread::validate($data);
 		
-		if (!$validator->fails())
+		if (!$validator->fails() && Input::get('body') != '')
 		{
 			$thread = new Thread();
 			
@@ -112,9 +112,10 @@ class ThreadsController extends \BaseController {
 				
 				$post->save();		
 			}
-			else
-				return View::make('content.createThread', array('title' => 'Monero | Creating a thread in '.$forum->name,'forum' => $forum, 'errors' => $validator->messages()->all()));
-			
+			else {
+                Thread::find($thread->id)->forceDelete(); //delete the created thread if something somewhere goes terribly wrong.
+                return View::make('content.createThread', array('title' => 'Monero | Creating a thread in ' . $forum->name, 'forum' => $forum, 'errors' => $validator->messages()->all()));
+            }
 			$thread->post_id = $post->id;
 			
 			$thread->save();
