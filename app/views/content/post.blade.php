@@ -1,8 +1,8 @@
 <?php
-
+/*
 try {
 
-
+*/
 ?>
 <div class="post-indent">
 	@if ($level % 2 == 0)
@@ -152,9 +152,10 @@ try {
 	{{ display_posts($post->id, $thread_id, $level + 1) }}
 </div>
 <?php
+/*
 }
 catch(Exception $e)
 {
     var_dump("Error:".$e->getMessage().":".$e->getLine().":".$e->getCode());
-}
+}*/
 ?>
