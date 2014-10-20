@@ -1,3 +1,9 @@
+<?php
+
+try {
+
+
+?>
 <div class="post-indent">
 	@if ($level % 2 == 0)
 		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}">
@@ -12,7 +18,15 @@
 			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a>@if (sizeof($breadcrumbs)-1 != $key)<span class="glyphicon glyphicon-chevron-right reply-bullet"></span>@endif
 		@endforeach
 		</div>
-		@if (!$post->deleted_at && Auth::check() && $post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at)
+		@if (
+		!$post->deleted_at
+		&&
+		Auth::check()
+		&&
+		ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()
+		&&
+		$post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at
+		)
 		<div class="panel panel-default post-panel post-unread">
 		@else
 		<div class="panel panel-default post-panel">
@@ -137,3 +151,10 @@
 	</div>
 	{{ display_posts($post->id, $thread_id, $level + 1) }}
 </div>
+<?php
+}
+catch(Exception $e)
+{
+    var_dump("Error:".$e->getMessage().":".$e->getLine().":".$e->getCode());
+}
+?>

@@ -19,7 +19,7 @@ App::before(function($request)
 
 App::after(function($request, $response)
 {
-	if (Auth::check() && Route::currentRouteName() == 'threadView') {
+	if (Auth::check() && Route::currentRouteName() == 'threadView' && !Input::has('page')) {
         $thread_id = Session::pull('thread_id');
         //register the thread as viewed at X time.
 
