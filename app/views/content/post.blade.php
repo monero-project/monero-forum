@@ -1,16 +1,8 @@
 <div class="post-indent">
 	@if ($level % 2 == 0)
-		@if (Auth::check() && $post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at)
-		<div id="post-{{ $post->id }}" class="post col-lg-12 post-unread level-{{ $level }}">
-		@else
 		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}">
-		@endif
 	@else
-		@if (Auth::check() && $post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at)
-		<div id="post-{{ $post->id }}" class="post col-lg-12 odd post-unread-odd level-{{ $level }}">
-		@else
 		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}">
-		@endif
 	@endif
 		<div class="row post-breadcrumbs">
 		@if (sizeof($breadcrumbs) != 0)
@@ -20,7 +12,11 @@
 			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a>@if (sizeof($breadcrumbs)-1 != $key)<span class="glyphicon glyphicon-chevron-right reply-bullet"></span>@endif
 		@endforeach
 		</div>
+		@if (Auth::check() && $post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at)
+		<div class="panel panel-default post-panel post-unread">
+		@else
 		<div class="panel panel-default post-panel">
+		@endif
 		  <div class="panel-heading">
 		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
 		  			<small>

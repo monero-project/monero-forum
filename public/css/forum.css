@@ -717,8 +717,8 @@ a.meta-permalink {
 	color: #f4f4f4 !important;
 }
 
-.post-unread-odd, .post-undread {
-	border: 100px solid #FFCC00;
+.post-unread-odd, .post-unread {
+	border: 1px solid #ffcb05;
 }
 
 /* Markdown Fixes */
