@@ -14,7 +14,21 @@
 		  @if (Visibility::check('forum', $forum->id))
 		  <div class="row forum-block">
 			  <div class="col-md-1">
+			  @if(
+			  Auth::check()
+              &&
+              $forum->latest_post()
+              &&
+              $forum->latest_thread()
+              &&
+              ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()
+			  &&
+			  $forum->latest_post()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()->updated_at
+			  )
 			  	<span class="forum-icon-active glyphicon glyphicon-comment"></span>
+			  @else
+			    <span class="forum-icon-active glyphicon glyphicon-comment forum-read"></span>
+			  @endif
 			  </div>
 			  <div class="col-md-6 forum-info">
 				  <h4><a href="/{{ $forum->id }}/{{ $forum->slug() }}">{{ $forum->name }}</a></h4>
