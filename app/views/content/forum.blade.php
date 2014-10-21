@@ -24,12 +24,14 @@
 	    	    Auth::check()
 	    	    &&
 	    	    (
+	    	    (
 	    	    ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()
 	    	    &&
 	    	    $thread->posts()->orderBy('created_at', 'DESC')->first()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()->updated_at
 	    	    )
 	    	    ||
 	    	    !ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()
+	    	    )
 	    	    )
 	    	    <img src="/images/icon_thread_new.png">
 	            @else
