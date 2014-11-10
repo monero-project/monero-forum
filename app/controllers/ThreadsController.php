@@ -103,6 +103,23 @@ class ThreadsController extends \BaseController {
 			$thread->post_id = $post->id;
 			
 			$thread->save();
+
+            //nuke the cached item if a thread is posted. Or create one.
+            $key = 'forum_latest_thread_'.$thread->forum_id;
+            if (Cache::has($key)) {
+                Cache::forget($key);
+            }
+            else {
+                Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+                {
+                    return DB::table('forums')
+                        ->where('forums.id', '=', $forum->id)
+                        ->join('threads', 'forums.id', '=', 'threads.forum_id')
+                        ->whereNull('threads.deleted_at')
+                        ->orderBy('threads.updated_at', 'DESC')
+                        ->first();
+                });
+            }
 			
 			return Redirect::to($thread->permalink());
 		}
@@ -135,4 +152,33 @@ class ThreadsController extends \BaseController {
 		}
 	}
 
+    public function allRead() {
+        $forums = Forum::all();
+        foreach ($forums as $forum)
+        {
+            $threads = $forum->threads;
+            foreach ($threads as $thread)
+            {
+               $view = new ThreadView();
+               $view->user_id = Auth::user()->id;
+               $view->thread_id = $thread->id;
+               $view->save();
+            }
+        }
+        return Redirect::to(URL::previous())->with('messages', array('All forums have been marked as read!'));
+    }
+
+    public function allForumRead($forum_id) {
+        $forum = Forum::findOrFail($forum_id);
+        $threads = $forum->threads;
+        foreach ($threads as $thread)
+        {
+            $view = new ThreadView();
+            $view->user_id = Auth::user()->id;
+            $view->thread_id = $thread->id;
+            $view->save();
+        }
+
+        return Redirect::to(URL::previous())->with('messages', array('All threads have been marked as read!'));
+    }
 }

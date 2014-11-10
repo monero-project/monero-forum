@@ -59,6 +59,27 @@ class PostsController extends \BaseController {
 			
 			$post->save();
 
+            //nuke the cache for thread on new post.
+
+            $forum = Forum::findOrFail($thread->forum_id);
+
+            $key = 'forum_latest_post_'.$forum->id;
+
+            if (Cache::has($key)) {
+                Cache::forget($key);
+            }
+            else {
+                Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+                {
+                    return DB::table('forums')
+                        ->where('forums.id', '=', $forum->id)
+                        ->join('threads', 'forums.id', '=', 'threads.forum_id')
+                        ->join('posts', 'threads.id', '=', 'posts.thread_id')
+                        ->whereNull('posts.deleted_at')
+                        ->count();
+                });
+            }
+
 			return Redirect::to($thread->permalink());
 		}
 

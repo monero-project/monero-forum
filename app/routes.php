@@ -56,10 +56,14 @@ Route::get('/user/{user_id}/posts', 'UsersController@posts');
 Route::get('/user/{user_id}/threads', 'UsersController@threads');
 Route::get('/user/{user_id}/{rating_way}/{rating_type}', 'UsersController@ratings');
 
-//User settings
+/*User settings*/
 Route::get('/user/settings', array('before' => 'auth', 'uses' => 'UsersController@settings'));
 Route::post('/user/upload/profile', array('before' => 'auth', 'uses' => 'UsersController@uploadProfile'));
 Route::post('/user/settings/save', array('before' => 'auth', 'uses' => 'UsersController@settingsSave'));
+
+//Mark all as read
+Route::get('/users/action/allread', array('before' => 'auth', 'uses' => 'ThreadsController@allRead'));
+Route::get('/users/action/allread/{forum_id}', array('before' => 'auth', 'uses' => 'ThreadsController@allForumRead'));
 
 Route::post('/login',   array('before'  => 'guest', 'uses'  => 'UsersController@login'));
 Route::post('/register',  array('before' => 'guest',  'uses'  => 'UsersController@register'));
