@@ -197,11 +197,11 @@ li.user-details {
 
 .forum-block .forum-icon-active {
 	text-align: center;
-	height: 100%;
-	width: 100%;
 	line-height: 100%;
-	font-size: 40px;
+	font-size: 36px;
 	color: #5b9a6f;
+	margin-top: 20px;
+	margin-left: 15px;
 }
 
 .forum-block p {

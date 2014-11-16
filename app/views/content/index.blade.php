@@ -14,18 +14,8 @@
 		  @if (Visibility::check('forum', $forum->id))
 		  <div class="row forum-block">
 			  <div class="col-md-1">
-			  @if(
-			  Auth::check()
-              &&
-              $forum->latest_post()
-              &&
-              $forum->latest_thread()
-              &&
-              ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()
-			  &&
-			  $forum->latest_post()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()->updated_at
-			  )
-			  	<span class="forum-icon-active glyphicon glyphicon-comment"></span>
+			  @if($forum->new_posts)
+			  	<span class="forum-icon-active glyphicon glyphicon-comment" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $forum->unread_posts }}}" ></span>
 			  @else
 			    <span class="forum-icon-active glyphicon glyphicon-comment forum-read"></span>
 			  @endif
@@ -45,7 +35,7 @@
 			  </div>
 			  <div class="col-md-2 forum-counts">
 			  	<p><b>{{ $forum->thread_count() }}</b> threads<br>
-			  	<b>{{ $forum->reply_count() }}</b> replies</p>
+			  	<b>{{ $forum->reply_count() - 1 }}</b> replies</p>
 			  </div>
 		  </div>
 		  @endif
@@ -55,4 +45,13 @@
 @endif
 @endforeach
 </div>
+@stop
+
+
+@section('javascript')
+<script type="text/javascript">
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+    });
+</script>
 @stop

@@ -92,5 +92,55 @@ class Forum extends \Eloquent {
 
 		return $thread;
 	}
+
+	public function getNewPostsAttribute() {
+		if (Auth::check())
+		{
+			$key = 'user_'.Auth::user()->id.'_forum_'.$this->id.'_new_threads';
+			$forum = $this;
+			$newPosts = Cache::remember($key, '1', function() use ($forum)
+					{					  		
+					  	return (
+			                $forum->latest_post()
+			                &&
+			                $forum->latest_thread()
+			                &&
+			                ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()
+						    &&
+						    $forum->latest_post()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()->updated_at
+						);
+				});
+			return $newPosts;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function getUnreadPostsAttribute() {
+		if (Auth::check())
+		{
+			$key = 'user_'.Auth::user()->id.'_forum_'.$this->id.'_unread_threads';
+			$forum = $this;
+			$unreadPosts = Cache::remember($key, '1', function() use ($forum)
+					{
+							$count = 0;
+					  		
+					  		foreach ($forum->threads as $thread)
+					  		{
+					  			if ($thread->new_posts)
+					  			{
+					  				$count++;
+					  			}
+					  		}
+
+							return $count;
+					});
+			return $unreadPosts;
+		}
+		else {
+			return 0;
+		}
+	}
 	
 }

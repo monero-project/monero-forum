@@ -20,20 +20,8 @@
 	    	@if ($thread->moved && $forum->id != $thread->forum->id)
 	    	<a class="thread-title" alt="{{{ $thread->name }}}" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->name }}}" href="/{{ $thread->forum->id }}/{{ $thread->forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}"><small>{{{ str_limit('Moved to:'. $thread->forum->name, 50, ' [...]') }}}</small>
 	    	@else
-	    	    @if (
-	    	    Auth::check()
-	    	    &&
-	    	    (
-	    	    (
-	    	    ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()
-	    	    &&
-	    	    $thread->posts()->orderBy('created_at', 'DESC')->first()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()->updated_at
-	    	    )
-	    	    ||
-	    	    !ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()
-	    	    )
-	    	    )
-	    	    <img src="/images/icon_thread_new.png">
+	    	    @if ( $thread->new_posts )
+	    	    <img data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->unread_posts }}}" src="/images/icon_thread_new.png">
 	            @else
 	    	    <img src="/images/icon_thread.png">
 	    	    @endif
