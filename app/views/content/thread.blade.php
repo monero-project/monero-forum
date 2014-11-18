@@ -65,7 +65,7 @@
 		</div>
 		<div class="col-lg-12 post-nav">
 			<ul class="nav nav-tabs" role="tablist">
-			  <li class="active"><a href="#">Popular</a></li>
+			  <li><a href="{{ $thread->permalink() }}">Popular</a></li>
 			  <li><a href="?sort=date_desc">Latest</a></li>
 			  <li><a href="?sort=date_asc">Oldest</a></li>
 			</ul>
