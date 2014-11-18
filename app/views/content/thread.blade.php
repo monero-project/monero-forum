@@ -64,13 +64,11 @@
 			<span class="pull-right"><b>Hey! This page will never end! Just keep on scrolling to see more posts!</b></span></p>
 		</div>
 		<div class="col-lg-12 post-nav">
-		<!--
 			<ul class="nav nav-tabs" role="tablist">
-			  <li class="active"><a href="#">All</a></li>
-			  <li><a href="#">Insightful</a></li>
-			  <li><a href="#">Irrelevant</a></li>
+			  <li class="active"><a href="#">Popular</a></li>
+			  <li><a href="?sort=date_desc">Latest</a></li>
+			  <li><a href="?sort=date_asc">Oldest</a></li>
 			</ul>
-		-->
 		</div>
 		<div id="trunk">
 			{{ thread_posts($posts, $thread->id, 0) }}

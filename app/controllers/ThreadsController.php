@@ -21,12 +21,12 @@ class ThreadsController extends \BaseController {
 					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'ASC')->paginate($posts_per_page);
 					break;
 				default:
-					//in case of some weird input.
+					//in case of some weird input, throw 404.
 					App::abort(404);
 					break;
 			}
 			$posts['list'] = $paginated->getItems();
-			$posts['links'] = $paginated->links();
+			$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 		}
 		//if no sorting options found, sort by weight.
 		else
