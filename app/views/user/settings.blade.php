@@ -92,19 +92,31 @@
 			{{ Form::open(array('url' => '/user/settings/view/save')) }}
 				<div class="radio">
 				  <label>
+				  	@if ($user->default_sort == 'weight')
+				    <input type="radio" name="forum_view" value="weight" checked>
+				    @else
 				    <input type="radio" name="forum_view" value="weight">
+				    @endif
 				    Weight
 				  </label>
 				</div>
 				<div class="radio">
 				  <label>
+				  	@if ($user->default_sort == 'date_desc')
+				    <input type="radio" name="forum_view" value="date_desc" checked>
+				    @else
 				    <input type="radio" name="forum_view" value="date_desc">
+				    @endif
 				    Latest
 				  </label>
 				</div>
 				<div class="radio">
 				  <label>
-				    <input type="radio" name="forum_view" value="date_asc">
+				  	@if ($user->default_sort == 'date_desc')
+				    <input type="radio" name="forum_view" value="date_asc" checked>
+				    @else
+					<input type="radio" name="forum_view" value="date_asc">
+				    @endif
 				    Oldest
 				  </label>
 				</div>

@@ -10,7 +10,7 @@ class ThreadsController extends \BaseController {
 
 		//TODO: Sort by vote? 
 		//check if sorting filter is being applied, if not, fallback to checking whether user has preferences set.
-		if (Input::has('sort') || (Auth::check() && Auth::user()->default_sort != 'weight'))
+		if ((Input::has('sort')) || (Auth::check() && Auth::user()->default_sort != 'weight'))
 		{
 			
 			if (Input::has('sort'))
@@ -21,17 +21,46 @@ class ThreadsController extends \BaseController {
 			switch ($sort) {
 				case 'date_desc':
 					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'DESC')->paginate($posts_per_page);
+					$posts['list'] = $paginated->getItems();
+					$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 					break;
 				case 'date_asc':
 					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'ASC')->paginate($posts_per_page);
+					$posts['list'] = $paginated->getItems();
+					$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
+					break;
+				case 'weight':
+					//if user is authenticated, cache the query
+					if (Auth::check())
+					{
+						$cache_key = 'user_'.Auth::user()->id.'_thread_'.$thread->id.'_page_'.Input::get('page', 1);
+						$posts = Cache::remember($cache_key, Config::get('app.cache_posts_for'), function() use ($thread, $posts_per_page)
+						{	
+							$temp_posts = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->get();
+							$temp_posts = $temp_posts->sortBy('weight')->reverse();
+							$count = $temp_posts->count();
+							
+							$pagination = App::make('paginator');
+						    $page = $pagination->getCurrentPage($count);
+						    $items = $temp_posts->slice(($page - 1) * $posts_per_page, $posts_per_page)->all();
+						    $paginated = $pagination->make($items, $count, $posts_per_page);
+						    
+							return ['list' => $paginated->getItems(), 'links' => (string) $paginated->appends(array('sort' => Input::get('sort')))->links()];
+						});
+					}
+					//else just get the default posts with the default weight
+					else
+					{
+						$paginated = Post::withTrashed()->where('thread_id', '=', $thread_id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('weight', 'DESC')->paginate($posts_per_page);
+						$posts['list'] = $paginated->getItems();
+						$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
+					}
 					break;
 				default:
 					//in case of some weird input, throw 404.
 					App::abort(404);
 					break;
 			}
-			$posts['list'] = $paginated->getItems();
-			$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 		}
 		//if no sorting options found, sort by weight.
 		else
