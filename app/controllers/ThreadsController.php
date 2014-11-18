@@ -9,10 +9,15 @@ class ThreadsController extends \BaseController {
 		$thread = Thread::findOrFail($thread_id);
 
 		//TODO: Sort by vote? 
-		//check sorting options
-		if (Input::has('sort'))
+		//check if sorting filter is being applied, if not, fallback to checking whether user has preferences set.
+		if (Input::has('sort') || (Auth::check() && Auth::user()->default_sort != 'weight'))
 		{
-			$sort = Input::get('sort');
+			
+			if (Input::has('sort'))
+				$sort = Input::get('sort');
+			else
+				$sort = Auth::user()->default_sort;
+
 			switch ($sort) {
 				case 'date_desc':
 					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'DESC')->paginate($posts_per_page);
