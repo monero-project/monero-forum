@@ -7,33 +7,56 @@ class ThreadsController extends \BaseController {
 		$posts_per_page = Config::get('app.thread_posts_per_page');
 		
 		$thread = Thread::findOrFail($thread_id);
-				
-		//if user is authenticated, cache the query
-		if (Auth::check())
+
+		//TODO: Sort by vote? 
+		//check sorting options
+		if (Input::has('sort'))
 		{
-			$cache_key = 'user_'.Auth::user()->id.'_thread_'.$thread->id.'_page_'.Input::get('page', 1);
-			$posts = Cache::remember($cache_key, Config::get('app.cache_posts_for'), function() use ($thread, $posts_per_page)
-			{	
-				//do not touch. might explode.
-				
-				$temp_posts = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->get();
-				$temp_posts = $temp_posts->sortBy('weight')->reverse();
-				$count = $temp_posts->count();
-				
-				$pagination = App::make('paginator');
-			    $page = $pagination->getCurrentPage($count);
-			    $items = $temp_posts->slice(($page - 1) * $posts_per_page, $posts_per_page)->all();
-			    $paginated = $pagination->make($items, $count, $posts_per_page);
-			    
-				return ['list' => $paginated->getItems(), 'links' => (string) $paginated->links()];
-			});
-		}
-		//else just get the default posts with the default weight
-		else
-		{
-			$paginated = Post::withTrashed()->where('thread_id', '=', $thread_id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('weight', 'DESC')->paginate($posts_per_page);
+			$sort = Input::get('sort');
+			switch ($sort) {
+				case 'date_desc':
+					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'DESC')->paginate($posts_per_page);
+					break;
+				case 'date_asc':
+					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'ASC')->paginate($posts_per_page);
+					break;
+				default:
+					//in case of some weird input.
+					App::abort(404);
+					break;
+			}
 			$posts['list'] = $paginated->getItems();
 			$posts['links'] = $paginated->links();
+		}
+		//if no sorting options found, sort by weight.
+		else
+		{
+			//if user is authenticated, cache the query
+			if (Auth::check())
+			{
+				$cache_key = 'user_'.Auth::user()->id.'_thread_'.$thread->id.'_page_'.Input::get('page', 1);
+				$posts = Cache::remember($cache_key, Config::get('app.cache_posts_for'), function() use ($thread, $posts_per_page)
+				{	
+					//do not touch. might explode.
+					$temp_posts = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->get();
+					$temp_posts = $temp_posts->sortBy('weight')->reverse();
+					$count = $temp_posts->count();
+					
+					$pagination = App::make('paginator');
+				    $page = $pagination->getCurrentPage($count);
+				    $items = $temp_posts->slice(($page - 1) * $posts_per_page, $posts_per_page)->all();
+				    $paginated = $pagination->make($items, $count, $posts_per_page);
+				    
+					return ['list' => $paginated->getItems(), 'links' => (string) $paginated->links()];
+				});
+			}
+			//else just get the default posts with the default weight
+			else
+			{
+				$paginated = Post::withTrashed()->where('thread_id', '=', $thread_id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('weight', 'DESC')->paginate($posts_per_page);
+				$posts['list'] = $paginated->getItems();
+				$posts['links'] = $paginated->links();
+			}
 		}
 
         Session::put('thread_id', $thread_id);
@@ -51,84 +74,84 @@ class ThreadsController extends \BaseController {
 	}
 	
 	public function submitCreate() {
-	
-	$forum = Forum::findOrFail(Input::get('forum_id'));
-	
-	//check the lock
-	if($forum->lock != 0 && !Auth::user()->hasRole('Admin'))
-			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));	
+		
+		$forum = Forum::findOrFail(Input::get('forum_id'));
+		
+		//check the lock
+		if($forum->lock != 0 && !Auth::user()->hasRole('Admin'))
+				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));	
 
-	
-	if(is_string(Input::get('submit')))
-	{
 		
-		$data = array(
-			'forum_id'	=>	Input::get('forum_id'),
-			'user_id'	=>  Auth::user()->id,
-			'name'		=>  Input::get('name')
-		);
-		$validator = Thread::validate($data);
-		
-		if (!$validator->fails() && Input::get('body') != '')
+		if(is_string(Input::get('submit')))
 		{
-			$thread = new Thread();
-			
-			$thread->name = Input::get('name');
-			$thread->user_id = Auth::user()->id;
-			$thread->forum_id = Input::get('forum_id');
-			$thread->post_id = 0;
-			$thread->save();
 			
 			$data = array(
-				'thread_id'	=>	$thread->id,
-				'body'		=>	Input::get('body')
+				'forum_id'	=>	Input::get('forum_id'),
+				'user_id'	=>  Auth::user()->id,
+				'name'		=>  Input::get('name')
 			);
+			$validator = Thread::validate($data);
 			
-			$validator = Post::validate($data);
-			
-			if (!$validator->fails())
+			if (!$validator->fails() && Input::get('body') != '')
 			{
-				$post = new Post();
+				$thread = new Thread();
 				
-				$post->user_id		= Auth::user()->id;
-				$post->thread_id	= $thread->id;
-				$post->body			= Input::get('body');
+				$thread->name = Input::get('name');
+				$thread->user_id = Auth::user()->id;
+				$thread->forum_id = Input::get('forum_id');
+				$thread->post_id = 0;
+				$thread->save();
 				
-				$post->save();		
-			}
-			else {
-                Thread::find($thread->id)->forceDelete(); //delete the created thread if something somewhere goes terribly wrong.
-                return View::make('content.createThread', array('title' => 'Monero | Creating a thread in ' . $forum->name, 'forum' => $forum, 'errors' => $validator->messages()->all()));
-            }
-			$thread->post_id = $post->id;
-			
-			$thread->save();
+				$data = array(
+					'thread_id'	=>	$thread->id,
+					'body'		=>	Input::get('body')
+				);
+				
+				$validator = Post::validate($data);
+				
+				if (!$validator->fails())
+				{
+					$post = new Post();
+					
+					$post->user_id		= Auth::user()->id;
+					$post->thread_id	= $thread->id;
+					$post->body			= Input::get('body');
+					
+					$post->save();		
+				}
+				else {
+	                Thread::find($thread->id)->forceDelete(); //delete the created thread if something somewhere goes terribly wrong.
+	                return View::make('content.createThread', array('title' => 'Monero | Creating a thread in ' . $forum->name, 'forum' => $forum, 'errors' => $validator->messages()->all()));
+	            }
+				$thread->post_id = $post->id;
+				
+				$thread->save();
 
-            //nuke the cached item if a thread is posted. Or create one.
-            $key = 'forum_latest_thread_'.$thread->forum_id;
-            if (Cache::has($key)) {
-                Cache::forget($key);
-            }
-            else {
-                Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
-                {
-                    return DB::table('forums')
-                        ->where('forums.id', '=', $forum->id)
-                        ->join('threads', 'forums.id', '=', 'threads.forum_id')
-                        ->whereNull('threads.deleted_at')
-                        ->orderBy('threads.updated_at', 'DESC')
-                        ->first();
-                });
-            }
-			
-			return Redirect::to($thread->permalink());
+	            //nuke the cached item if a thread is posted. Or create one.
+	            $key = 'forum_latest_thread_'.$thread->forum_id;
+	            if (Cache::has($key)) {
+	                Cache::forget($key);
+	            }
+	            else {
+	                Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+	                {
+	                    return DB::table('forums')
+	                        ->where('forums.id', '=', $forum->id)
+	                        ->join('threads', 'forums.id', '=', 'threads.forum_id')
+	                        ->whereNull('threads.deleted_at')
+	                        ->orderBy('threads.updated_at', 'DESC')
+	                        ->first();
+	                });
+	            }
+				
+				return Redirect::to($thread->permalink());
+			}
+			else 
+				return View::make('content.createThread', array('title' => 'Monero | Create a thread '.$forum->name,'forum' => $forum, 'errors' => $validator->messages()->all()));
 		}
-		else 
-			return View::make('content.createThread', array('title' => 'Monero | Create a thread '.$forum->name,'forum' => $forum, 'errors' => $validator->messages()->all()));
-	}
-	else {
-		return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
-	}
+		else {
+			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
+		}
 	}
 	
 	public function delete($thread_id) {
