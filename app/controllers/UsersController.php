@@ -40,7 +40,6 @@ class UsersController extends BaseController {
 				return View::make('user.login', array('errors' => array('Your account is inactive.')));
 			}
 			
-			
 			if (Input::get('remember_for') != NULL && Input::get('remember_for') != '') 
 				$user->remember_for = Input::get('remember_for');
 						
@@ -658,6 +657,23 @@ class UsersController extends BaseController {
 				return Redirect::to(URL::previous())->with('errors', array('Looks like the passwords did not match!'));
 		}
 		
+	}
+
+	public function viewSave() {
+		
+		$user = Auth::user();
+		if (Input::has('forum_view'))
+		{
+			$sort = Input::get('forum_view');
+			$user->default_sort = $sort;
+			$user->save();
+
+			return Redirect::to(URL::previous())->with('messages', array('Forum view settings saved successfully'));
+		}
+		else 
+		{
+			return Redirect::to(URL::previous())->with('errors', array('Settings could not be saved.'));
+		}
 	}
 
 }

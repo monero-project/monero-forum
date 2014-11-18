@@ -41,6 +41,7 @@ Route::get('/user/forgot-password', 'UsersController@getForgotPassword');
 Route::post('/user/forgot-password', 'UsersController@postForgotPassword');
 Route::get('/user/resend-activation', 'UsersController@getResend');
 Route::post('/user/resend-activation/', 'UsersController@postResend');
+Route::post('/user/settings/view/save', array('before'  => 'auth',  'uses'  => 'UsersController@viewSave'));
 Route::get('/user/settings/add-key', array('before'  => 'auth',  'uses'  => 'UsersController@getAddGPG'));
 Route::post('/user/settings/add-gpg', array('before'  => 'auth',  'uses'  => 'UsersController@postAddGPGKey'));
 Route::post('/user/settings/gpg-decrypt', array('before'  => 'auth',  'uses'  => 'UsersController@postGPGDecrypt'));

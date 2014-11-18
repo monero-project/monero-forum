@@ -85,6 +85,33 @@
 			{{ Form::close() }}
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h2>Forum View</h2>
+			<label>Sort posts by:</label>
+			{{ Form::open(array('url' => '/user/settings/view/save')) }}
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="forum_view" value="weight">
+				    Weight
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="forum_view" value="date_desc">
+				    Latest
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="forum_view" value="date_asc">
+				    Oldest
+				  </label>
+				</div>
+				{{ Form::submit('Save', array('class' => 'btn btn-success btn-sm pull-right')) }}
+			{{ Form::close() }}
+		</div>
+	</div>
 @stop
 
 @section('javascript')
