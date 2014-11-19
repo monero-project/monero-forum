@@ -214,6 +214,17 @@ class ThreadsController extends \BaseController {
         $forums = Forum::all();
         foreach ($forums as $forum)
         {
+        	$keyNewThreads = 'user_'.Auth::user()->id.'_forum_'.$forum->id.'_new_threads';
+        	$keyUnreadThreads = 'user_'.Auth::user()->id.'_forum_'.$forum->id.'_unread_threads';
+
+        	//nuke cache if there are any items in the cache.
+        	
+        	if (Cache::has($keyNewThreads))
+        		Cache::forget($keyNewThreads);
+
+        	if (Cache::has($keyUnreadThreads))
+        		Cache::forget($keyUnreadThreads);
+
             $threads = $forum->threads;
             foreach ($threads as $thread)
             {
