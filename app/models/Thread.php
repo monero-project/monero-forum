@@ -61,15 +61,15 @@ class Thread extends \Eloquent {
 	    	    &&
 	    	    (
 	    	    (
-	    	    ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()
+	    	    ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first()
 	    	    &&
 	    	    $thread->posts()->orderBy('created_at', 'DESC')->first()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()->updated_at
 	    	    )
 	    	    ||
-	    	    !ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()
+	    	    !ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first()
 	    	    )
 	   	) {
-			return ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first();
+			return ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first();
 		}
 		else {
 			return false;
@@ -78,7 +78,7 @@ class Thread extends \Eloquent {
 
 	public function getUnreadPostsAttribute() {
 		$thread = $this;
-		if (Auth::check() && ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first())
+		if (Auth::check() && ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first())
 		{
 			$lastView = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first();
 			$lastView = $lastView->updated_at;

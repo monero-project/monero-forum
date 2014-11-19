@@ -732,3 +732,7 @@ a.meta-permalink {
     height:auto;
     display:block;
 }
+
+.mark-read {
+	margin-right: 10px;
+}

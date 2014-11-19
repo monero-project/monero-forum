@@ -10,7 +10,7 @@ class PostsTableSeeder extends Seeder {
 		Eloquent::unguard();
 		
 		$faker = Faker::create();
-			foreach(Thread::all() as $thread)
+		foreach(Thread::all() as $thread)
 		{
 			$rand = rand(300, 350);
 			for ($i = 0; $i < $rand; $i++)
@@ -23,6 +23,8 @@ class PostsTableSeeder extends Seeder {
 			    'weight'	=> 500
 			  ));
 			}
+			$thread->touch();
+			$thread->save();
 		}
 	}
 

@@ -8,6 +8,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <h1 class="panel-title"><span class="glyphicon glyphicon-list"></span> {{ $forum->name }} <a class="pull-right normal-create" href="/thread/create/{{ $forum->id }}"><button class="btn btn-xs create-thread btn-primary pull-right">Create a Thread</button></a>
+    <a href="/users/action/allread/{{ $forum->id }}" alt="Mark forum as read" class="pull-right normal-create"><button class="btn btn-xs create-thread btn-primary pull-right mark-read">Mark as Read</button></a>
 	</h1>
   </div>
   <div class="row mobile-create">

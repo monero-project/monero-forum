@@ -87,7 +87,10 @@
 	<div class="row">
 	    <div class="col-lg-12 user-block">
 	    @if (Auth::check())
-	    	Hello, <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link user-block-mobile-disable" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+	    	Hello, 
+            <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> 
+            <a class="action-link user-block-mobile-disable" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read"><span class="glyphicon glyphicon-book"></span></a> 
+            <a class="action-link user-block-mobile-disable" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
 	    	<br>
 	    @else
 	    	Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
@@ -97,7 +100,7 @@
 	@if (Auth::check())
 	<div class="row">
 	    <div class="col-lg-12 user-block user-block-mobile">
-	    	<a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+	    	<a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read"><span class="glyphicon glyphicon-book"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
 	    </div>
 	</div>	
 	@endif
@@ -114,85 +117,7 @@
         </p>
       </div>
     </div>
-    
-    @if(!Auth::check())
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title" id="registerModal">Register</h4>
-	      </div>
-	      {{ Form::open(array('url' => 'register')) }}
-	      <div class="modal-body">
-            <div class="form-group">
-            	<label>Username</label>
-            	{{ Form::text('username', null, array('class'=>'form-control reg-username', 'placeholder'=>'')) }}
-            </div>
-            <div class="form-group username-alert" style="display: none;">
-            	<div class="alert alert-warning alert-dismissible" role="alert">
-				  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				  It looks like this username is already taken in the Web of Trust. In order to use this name, you will have to confirm your ownership of the name with the key belonging to this user.
-				</div>
-            </div>          
-            <div class="form-group">
-            	<label>Email</label>
-            	{{ Form::email('email', null, array('class'=>'form-control', 'placeholder'=>'')) }}
-            </div>      
-            <div class="form-group">
-            	<label>Password</label>
-            	{{ Form::password('password', array('class'=>'form-control', 'placeholder'=>'')) }}
-            </div>
-            <div class="form-group">
-            	<label>Confirm Password</label>
-            	{{ Form::password('password_confirmation', array('class'=>'form-control', 'placeholder'=>'')) }}
-            </div>
-            <div class="form-group reg-key" style="display: none;">
-            	<label>Key ID</label>
-            	{{ Form::text('key', null, array('class'=>'form-control', 'placeholder'=>'785DEFB41BECA9ED')) }}
-            </div>
-            <div class="checkbox wot_register">
-			    <label>
-			      <input type="checkbox" name="wot_register" class="wot_register_check"> <small>(Optional)</small> Register in the Web of Trust? Requires GPG / PGP
-			    </label>
-			</div>
-          </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="submit" class="btn btn-success">Register</button>
-	      </div>
-	      {{ Form::close() }}
-	    </div>
-	  </div>
-	</div>
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        <h4 class="modal-title" id="loginModal">Login</h4>
-	      </div>
-	      {{ Form::open(array('url' => 'login')) }}
-	      <div class="modal-body">
-            <div class="form-group">
-            	<label>Username</label>
-            	{{ Form::text('username', null, array('class'=>'form-control', 'placeholder'=>'')) }}
-            </div>     
-            <div class="form-group">
-            	<label>Password</label>
-            	{{ Form::password('password', array('class'=>'form-control', 'placeholder'=>'')) }}
-            </div>
-          </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="submit" class="btn btn-success">Login</button>
-	      </div>
-	      {{ Form::close() }}
-	    </div>
-	  </div>
-	</div>
-    @else
-    @endif
+
     @yield('modals') 
 
     <!-- JS -->

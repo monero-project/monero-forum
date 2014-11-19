@@ -210,31 +210,58 @@ class ThreadsController extends \BaseController {
 	}
 
     public function allRead() {
+        
         $forums = Forum::all();
         foreach ($forums as $forum)
         {
             $threads = $forum->threads;
             foreach ($threads as $thread)
             {
-               $view = new ThreadView();
-               $view->user_id = Auth::user()->id;
-               $view->thread_id = $thread->id;
-               $view->save();
+               $thread_id = $thread->id;
+
+	            $view = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread_id)->first();
+
+		        if ($view)
+		        {
+		            $view->touch(); //update timestamp
+		        }
+		        else
+		        {
+		            //create new viewing entry. updated_at = last view, created_at = first view.
+		            $view = new ThreadView();
+		            $view->user_id = Auth::user()->id;
+		            $view->thread_id = $thread_id;
+		            $view->save();
+		        }
             }
         }
         return Redirect::to(URL::previous())->with('messages', array('All forums have been marked as read!'));
     }
 
     public function allForumRead($forum_id) {
+        
         $forum = Forum::findOrFail($forum_id);
         $threads = $forum->threads;
+
         foreach ($threads as $thread)
         {
-            $view = new ThreadView();
-            $view->user_id = Auth::user()->id;
-            $view->thread_id = $thread->id;
-            $view->save();
-        }
+        	$thread_id = $thread->id;
+
+            $view = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread_id)->first();
+
+	        if ($view)
+	        {
+	            $view->touch(); //update timestamp
+	        }
+	        else
+	        {
+	            //create new viewing entry. updated_at = last view, created_at = first view.
+	            $view = new ThreadView();
+	            $view->user_id = Auth::user()->id;
+	            $view->thread_id = $thread_id;
+	            $view->save();
+	        }
+    	}
 
         return Redirect::to(URL::previous())->with('messages', array('All threads have been marked as read!'));
     }
