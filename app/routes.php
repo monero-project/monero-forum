@@ -115,6 +115,8 @@ Route::get('/keychain/ratings/download', array('before' => 'auth', 'uses' => 'Ke
 
 Route::get('/keychain/posts/get/{thread_id}/{posts_num}', 'PostsController@listPosts');
 
+Route::get('/keychain/trust/{level}/{id}', 'KeychainController@trust');
+
 /* Forum Structure */
 Route::get('/{forum_id}/{forum_slug}', 'ForumsController@index');
 Route::get('/{forum_id}/{forum_slug}/feed', 'FeedsController@forumFeed');

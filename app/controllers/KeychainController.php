@@ -188,4 +188,39 @@ class KeychainController extends \BaseController {
 			return 'false';
 	}
 
+	// Show the trusted people on various levels.
+	public function trust($level, $id) {
+		$user = User::findOrFail($id);
+		$users = array();
+		switch ($level)
+		{
+			//people who are trusted directly.
+			case '1':
+				$rated = $user->ratings;
+				return $rated;
+				foreach ($rated as $l1_user)
+					$users[] = $l1_user->rated_username;
+				break;
+			
+			//people who are trusted by the people the user trusts.
+			case '2':
+				$rated = $user->ratings;
+				foreach($rated as $l1_user)
+				{
+					$users[$l1_user->rated_username] = array();
+					$l1_user = User::findUsername($l1_user->rated_username);
+					if ($l1_user) {
+						foreach($l1_user->ratings as $l2_user)
+						{
+							$users[$l1_user->username][$l2_user->rated_username] = '';
+						}
+					}
+				}
+				break;
+			default:
+				break;
+		}
+		return json_encode($users);
+	}
+
 }

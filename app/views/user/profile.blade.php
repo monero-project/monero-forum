@@ -4,13 +4,16 @@
 {{ Breadcrumbs::addCrumb($user->username) }}
 	<h1>
 	@if ($user->in_wot)
-	<span class="label label-success">{{{ $user->username }}}</span>
+	<span class="label label-success" id="username">{{{ $user->username }}}</span>
 	@else
-	{{{ $user->username }}}
+	<span id="username">{{{ $user->username }}}</span>
 	@endif
 	@if (isset($self) && $self && $user->in_wot)
 		<button type="button" class="btn btn-success pull-right" onclick="syncWoT()">Sync with WoT</button>
 	@endif
+	<span id="user_id" style="display: none">
+		{{ $user->id }}
+	</span>
 	</h1>
 	<div class="row">
 		<div class="col-md-6">
@@ -121,6 +124,8 @@
 @stop
 
 @section('javascript')
-<script src="/js/relationships.js"></script>
 <script src="/js/arbor.js"></script>
+<script src="/js/graphics.js"></script>
+<script src="/js/renderer.js"></script>
+<script src="/js/relationships.js"></script>
 @stop

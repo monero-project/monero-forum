@@ -84,4 +84,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return '<a href="/user/'.$this->username.'">'.$this->username.'</a>';
 	}
 
+	/* Find by Username */
+
+	public static function findUsername($username) {
+		return User::where('username', $username)->first();
+	}
+
 }
