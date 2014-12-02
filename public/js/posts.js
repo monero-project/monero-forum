@@ -5,8 +5,15 @@ $('#trunk').infinitescroll({
     itemSelector    : ".post-batch",
     debug           : false,
     dataType        : 'html',
+    animate			: false,
     path: function(index) {
-        return "?page=" + index;
+    	var sort = get_url_param('sort');
+    	if (sort !== '') {	
+        	return "?page=" + index + '&sort=' +sort;
+    	}
+    	else {
+			return "?page=" + index;
+    	}
     }
 }, function(newElements, data, url){
 
@@ -194,3 +201,11 @@ function vote(post_id, vote) {
 $('.edit-submit').click(function() {
 	$(".post-edit-form").ajaxSubmit({url: '/posts/update', type: 'post'});
 });
+
+//For getting the URL params.
+function get_url_param(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

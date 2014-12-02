@@ -54,4 +54,25 @@ function thread_posts($posts, $thread_id, $level) {
 	return $post_list.'</div>';
 }
 
+function unthreaded_posts($posts, $thread_id) {
+	$post_list = '<div class="post-batch">';
+	foreach ($posts as $key => $post)
+	{
+		$post_obj = Post::where('id',$post['id'])->first();
+		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count() > 0))
+		{
+			if ($key % 2 == 0)
+			{
+				$level = 0;
+			}
+			else
+			{
+				$level = 1;
+			}
+			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => array()));
+		}
+	}
+	return $post_list.'</div>';
+}
+
 ?>

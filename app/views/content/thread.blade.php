@@ -72,7 +72,13 @@
 			</ul>
 		</div>
 		<div id="trunk">
-			{{ thread_posts($posts, $thread->id, 0) }}
+			@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && Auth::check() && Auth::user()->default_sort == 'weight'))
+				{{ thread_posts($posts, $thread->id, 0) }}
+			@elseif (Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight')
+				{{ unthreaded_posts($posts, $thread->id) }}
+			@else
+				{{ thread_posts($posts, $thread->id, 0) }}
+			@endif
 		</div>
 		<div class="post-links">
 			{{ $links }}

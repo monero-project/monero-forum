@@ -20,12 +20,12 @@ class ThreadsController extends \BaseController {
 
 			switch ($sort) {
 				case 'date_desc':
-					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'DESC')->paginate($posts_per_page);
+					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->where('id', '<>', $thread->post_id)->orderBy('created_at', 'DESC')->paginate($posts_per_page);
 					$posts['list'] = $paginated->getItems();
 					$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 					break;
 				case 'date_asc':
-					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('created_at', 'ASC')->paginate($posts_per_page);
+					$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->where('id', '<>', $thread->post_id)->orderBy('created_at', 'ASC')->paginate($posts_per_page);
 					$posts['list'] = $paginated->getItems();
 					$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 					break;
