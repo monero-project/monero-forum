@@ -43,6 +43,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function pushed_ratings() {
 		return $this->hasMany('Pushed_Rating');
 	}
+
+	public function messages() {
+		if (Auth::check())
+		{
+			$user = Auth::user();
+			$messages = Message::where('receiver_id', $user->id)->orWhere('sender_id', $user->id)->whereNull('parent_id')->get();
+			return $messages;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public function received_messages() {
+		return $this->hasMany('Message', 'receiver_id', 'user_id')->whereNull();
+	}
+
+	public function sent_messages() {
+		return $this->hasMany('Message', 'sender_id', 'user_id');
+	}
 	
 	/* Relationships with Bitcoin OTC */
 	
