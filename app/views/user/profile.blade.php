@@ -67,12 +67,14 @@
 			</ul>
 		</div>
 	</div>
+	<!--
 	<div class="row">
 		<div class="col-md-12">
 			<h2>Relationships</h2>
 			<canvas id="viewport" class="relationships" height="600" width="800"></canvas>
 		</div>
 	</div>
+	-->
 	@if (Auth::check() && $user->id != Auth::user()->id)
 	<h2>Rate {{{ $user->username }}}</h2>
 	<form role="form" method="post" action="/ratings/rate">
