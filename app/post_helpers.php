@@ -59,17 +59,30 @@ function unthreaded_posts($posts, $thread_id) {
 	foreach ($posts as $key => $post)
 	{
 		$post_obj = Post::where('id',$post['id'])->first();
+		
+		$breadcrumbs = array();
+		$i = 0;
+		$upper_post = false;
+		
+		if ($post_obj->parent_id != NULL)
+		{
+			$upper_post = Post::find($post_obj->parent_id);
+			if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count() > 0))
+				$breadcrumbs[] = $upper_post;
+		}
+		
+		while ($upper_post && $i < 5)
+		{
+			$upper_post = Post::find($upper_post->parent_id);
+			if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count() > 0))
+				$breadcrumbs[] = $upper_post;
+			$i++;
+		}
+
 		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count() > 0))
 		{
-			if ($key % 2 == 0)
-			{
-				$level = 0;
-			}
-			else
-			{
-				$level = 1;
-			}
-			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => array()));
+			$level = 0;
+			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs));
 		}
 	}
 	return $post_list.'</div>';

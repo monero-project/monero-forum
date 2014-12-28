@@ -35,7 +35,7 @@
 			  </div>
 			  <div class="col-md-2 forum-counts">
 			  	<p><b>{{ $forum->thread_count() }}</b> threads<br>
-			  	<b>{{ $forum->reply_count() - 1 }}</b> replies</p>
+			  	<b>{{ $forum->reply_count() }}</b> replies</p>
 			  </div>
 		  </div>
 		  @endif

@@ -96,16 +96,16 @@
 @stop 
 
 @section('javascript')
-@if(!Input::has('noscroll'))
-{{ HTML::script('js/jquery.infinitescroll.min.js') }}
-@endif
-{{ HTML::script('js/posts.js') }}
-{{ HTML::script('js/js-markdown-extra.js') }}
-{{ HTML::script('js/preview.js') }}
-{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
-<script type="text/javascript">
-    $(function () {
-        $("[data-toggle='tooltip']").tooltip();
-    });
-</script>
+	@if(!Input::has('noscroll'))
+	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
+	@endif
+	{{ HTML::script('js/posts.js') }}
+	{{ HTML::script('js/js-markdown-extra.js') }}
+	{{ HTML::script('js/preview.js') }}
+	{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
+	<script type="text/javascript">
+	    $(function () {
+	        $("[data-toggle='tooltip']").tooltip();
+	    });
+	</script>
 @stop
