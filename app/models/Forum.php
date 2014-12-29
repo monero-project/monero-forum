@@ -71,6 +71,7 @@ class Forum extends \Eloquent {
 						->whereNull('posts.deleted_at')
 						->count();
 				});
+		$count = $count - $this->thread_count();
 		return $count;
 	}
 	

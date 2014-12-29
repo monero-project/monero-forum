@@ -1,8 +1,5 @@
 @extends('master')
 @section('content')
-	<p>{{ $debug['query'] }}</p>
-	@foreach($debug['results'] as $result)
-	<pre>{{ var_dump($result) }}</pre>
+	<pre>{{ var_dump($results) }}</pre>
 	<hr>
-	@endforeach
 @stop

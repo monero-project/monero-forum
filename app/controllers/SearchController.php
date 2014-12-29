@@ -144,7 +144,7 @@ class SearchController extends BaseController {
 				'query'	  => $search_query->toSql()
 			);
 			
-			return View::make('search.debug', array('debug' => $return_data));
+			//return View::make('search.debug', array('results' => $results));
 			
 			
 			return View::make('search.results', array('results' => $results));

@@ -83,7 +83,7 @@
 		</div>
         {{ Form::close() }}
 	</div>
-	-->
+  -->
 	<div class="row">
 	    <div class="col-lg-12 user-block">
 	    @if (Auth::check())
