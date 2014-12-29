@@ -42,6 +42,16 @@ p, .main-content, li {
 	color: #787878;
 }
 
+/* Edit the numbered spacing here. */
+.lower-list .numbered p {
+	padding-bottom: 10%;
+}
+
+.lower-list h2 {
+	padding-bottom: 60px;
+	margin-top: 10px;
+}
+
 .kicks {
 	color: #ff6c3c;
 }
@@ -52,16 +62,41 @@ p, .main-content, li {
 
 .info-boxes h2 {
 	margin-top: 0;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
+	display: inline-block;
+	padding-left: 10px;
+	line-height: 58px;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.monero-news a {
+	color: #505050;
+	font-weight: bold;
+}
+
+.monero-news .news-title {
+	color: #5b9a6f;
+}
+
+.monero-news .news-text {
+	color: #505050;
 }
 
 .box-green h2 {
 	color: #fff;
 	margin: 0;
+	margin-bottom: 20px;
+	line-height: 30px;
+	padding-left: 20px;
+	display: inline;
 }
 
 .box-green p {
 	color: #b7ffce;
+	padding-top: 20px;
 }
 
 .announcements {
@@ -80,6 +115,28 @@ p, .main-content, li {
     background-position: 0px 5px; 
     padding-left: 22px; 
     margin-bottom: 12px;
+}
+
+ul.purple {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.purple li {
+	background-image: url('../images/bullett.png');
+    background-repeat: no-repeat;
+    background-position: 0px 5px; 
+    padding-left: 15px; 
+    margin-bottom: 12px;
+}
+
+ul.purple strong {
+	text-transform: uppercase;
+}
+
+ul.purple em {
+	font-style: normal;
 }
 
 h2 .purple-kicks {
@@ -117,33 +174,50 @@ h2.inline {
 	text-align: center;
 }
 
+.download-links {
+	line-height: 40px;
+	font-size: 18px !important;
+}
+
+.download-links-container {
+	padding-top: 20px;
+}
+
 /* Buttons */
 
 a.btn {
+	font-weight: bold;
 	color: #ffd781;
-	font-size: 18px;
+	font-size: 14px;
+}
+
+a.btn:hover {
+	text-shadow: 0 1px #ff3d22;
 }
 
 .bottom-boxes .btn-grey {
-	color: #ffd781;
-	height: 60px;
-	padding: 0 40px;
-	margin-top: 60px;
-	line-height: 60px;
-	font-weight: bold;
+	color: #fff;
+	height: 40px;
+	padding: 0 11px;
+	line-height: 40px;
 }
 
-.bottom-boxes .glyphicon {
-	color: #ffd781;
-	margin-right: 16px;
-	margin-left: -10px;
-	font-size: 24px;
-	vertical-align: text-bottom;
+.icon_download {
+	margin-top: -3px;
+	padding-right: 7px;
 }
 
 .bottom-boxes .btn-grey:hover {
 	background: #ff6c3c;
 	transition: all 0.3s linear;
+}
+
+.other-links {
+	padding-top: 30px;
+}
+
+.other-links a {
+	color: #ff6c3c;
 }
 
 /* Main */
@@ -162,6 +236,10 @@ body {
 		
 }
 
+.body-language {
+	background: #313131;
+}
+
 .navbar {
 	background: #313131;
 	border-bottom: 5px solid #505050;
@@ -169,6 +247,27 @@ body {
 	font-weight: bold;
 	margin: 0;
 }
+
+.navbar .caret {
+	color: #fff;
+}
+
+.navbar .caret {
+	color: #fff;
+}
+
+.dropdown-menu {
+	border-radius: 0;
+}
+
+.navbar-nav .open .dropdown-menu {
+	background-color: #fff;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+	background-color: #fff;
+}
+
 
 .navbar-default .navbar-nav > li > a {
 	color: #FFF;
@@ -223,6 +322,11 @@ body {
     text-align: center;
 }
 
+.logo {
+	width: 115px;
+	height: 30px;
+}
+
 .main-content {
 	background: #fff;
 	min-height: 300px;
@@ -239,17 +343,27 @@ body {
 	padding-top: 90px;
 }
 
+.info-boxes .monero-info {
+	padding-right: 120px;
+}
+
+.info-boxes .monero-news {
+	padding-right: 90px;
+}
+
 .box-green {
 	background: #5b9a6f;
 	min-height: 245px;
 	margin: 0 auto;
-	margin-top: 80px;
+	margin-top: 40px;
 	margin-bottom: 80px;
 }
 
 .box-green .inside {
-	padding-top: 80px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	height: 245px;
+	padding-right: 30px;
 }
 
 .lower-list {
@@ -284,6 +398,7 @@ body {
 
 .footer p strong {
 	color: #ffe00a;
+	margin-right: 5%;
 }
 
 .footer .container {
@@ -311,11 +426,96 @@ body {
 }
 
 .box-green .left-border {
-	border-left: 2px dashed #7dbf98;
+	border-left: 3px solid #FFF;
 }
 
 .box-green .right-border {
-	border-right: 2px dashed #7dbf98;
+	border-right: 3px solid #FFF;
+}
+
+.navbar-default .navbar-toggle {
+	border-color: #fff;
+	margin-top: 20px;
+	border-radius: 0;
+}
+
+.navbar-default .navbar-toggle:hover, 
+.navbar-default .navbar-toggle:active, 
+.navbar-default .navbar-toggle:focus {
+	background-color: #fff;
+	margin-top: 20px;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+}
+
+.navbar-default .navbar-toggle:hover .icon-bar, 
+.navbar-default .navbar-toggle:active .icon-bar, 
+.navbar-default .navbar-toggle:focus .icon-bar {
+	background-color: #313131;
+}
+
+.navbar-nav.navbar-right:last-child {
+	margin: -1px -15px 0 -15px;
+}
+
+/* Icons */
+
+.icon {
+	float: left;
+	padding-right: 20px;
+}
+
+.lower-list-content .icon {
+	padding-right: 10px;
+	margin-top: -15px;
+	margin-left: -60px;
+}
+
+.green-icon, .inline-icon {
+	max-width:100% !important;
+    height:auto;
+    display:inline;
+    margin-top: -10px;
+}
+
+/* Buttons */
+
+.btn-grey {
+	background: #505050;
+}
+
+
+/* Flags */
+
+.flag-select {
+	padding: 50% 0;
+}
+
+.flag-select h3 {
+	margin: 0;
+}
+
+.flag-select li a {
+	line-height: 50px;
+	padding: 10px 20px;
+	color: #898989;
+}
+
+.flag-select img {
+	margin-right: 20px;
+	border-radius: 100px;
+	border: 5px solid #DBDBDB;
+}
+
+.flag-select a:hover {
+	background-color: #ff6c3c !important;
+	color: #fff;
+}
+
+.flag-select a:hover img {
+	border: 5px solid #FFF;
 }
 
 @media (max-width: 768px) {
@@ -325,13 +525,23 @@ body {
 	}
 }
 
+@media (max-width: 600px) {
+	.bottom-boxes h2 {
+		font-size: 22px;
+		display: block;
+		text-align: right;
+	}
+}
+
 @media (max-width: 480px) {
 	.bottom-boxes {
 		padding: 80px 0;
 	}
 
 	.bottom-boxes h2 {
-		font-size: 20px;
+		font-size: 22px;
+		display: block;
+		text-align: right;
 	}
 
 	.hide-breaks {
@@ -344,7 +554,7 @@ body {
 		display: none;
 	}
 	.box-green .left-border {
-	border-left: none;
+		border-left: none;
 	}
 
 	.box-green .right-border {
@@ -356,7 +566,7 @@ body {
 	.box-green .inside {
 		padding-top: 30px;
 		padding-bottom: 30px;
-		height: 120px;
+		max-height: 230px;
 	}
 	.info-boxes .col-md-3 {
 		text-align: center;
@@ -366,6 +576,49 @@ body {
 		max-width: none;
 		padding-bottom: 30px;
 	}
+	.monero-info, .monero-news {
+		padding-right: 5px !important;
+	}
+	.monero-info {
+		padding-bottom: 40px;
+	}
+	.info-boxes h2  {
+		font-size: 18px;
+	}
+	.lower-list h2  {
+		font-size: 24px;
+		display: block;
+	}
+	.lower-list .icon {
+		display: block;
+	}
+	.lower-list {
+		padding: 0;
+	}
+	.purple br {
+		display: block;
+	}
+	.footer p {
+		color: #fff;
+		font-size: 14px;
+	}
+	.flag-select {
+		padding: 5% 0;
+	}
+
+}
+
+@media (min-width: 991px) and (max-width: 1200px) {
+	
+	.box-green .inside {
+		height: 300px;
+		margin-bottom: 0;
+	}
+
+	.monero-news, .monero-info {
+		padding-right: 0 !important;
+	}
+
 }
 
 @media (max-width: 1200px) {
@@ -462,58 +715,56 @@ body {
 
 }
 
-.navbar-default .navbar-toggle {
-	border-color: #fff;
-	margin-top: 20px;
-	border-radius: 0;
+@media (max-width: 400px) {
+	.download-links span {
+		display: block;
+	}
+	.download-links {
+		text-align: center;
+	}
+	.download-links .pull-right {
+		float: none !important;
+	}
+	.other-links br {
+		display: block;
+	}
 }
 
-.navbar-default .navbar-toggle:hover, 
-.navbar-default .navbar-toggle:active, 
-.navbar-default .navbar-toggle:focus {
-	background-color: #fff;
-	margin-top: 20px;
+@media (max-width: 380px) {
+	.footer img {
+		display: none;
+	}
+	.lower-list h2 {
+		text-align: right;
+	}
 }
 
-.navbar-default .navbar-toggle .icon-bar {
-	background-color: #fff;
+@media (max-width: 360px) {
+	.info-boxes h2 {
+		font-size: 16px !important;
+		line-height: normal;
+	}
+	.info-boxes .inline-icon {
+		height: 30px;
+	}
+	.box-green .inside {
+		height: inherit;
+		max-height: none;
+	}
+	.info-boxes li {
+		background-image: none;
+		padding-left: 0;
+	}
+	.purple li strong {
+		display: block;
+	}
 }
 
-.navbar-default .navbar-toggle:hover .icon-bar, 
-.navbar-default .navbar-toggle:active .icon-bar, 
-.navbar-default .navbar-toggle:focus .icon-bar {
-	background-color: #313131;
-}
-
-.navbar-nav.navbar-right:last-child {
-	margin: -1px -15px 0 -15px;
-}
-
-/* Icons */
-
-.icon {
-	float: left;
-	padding-right: 20px;
-}
-
-.lower-list-content .icon {
-	padding-right: 10px;
-	margin-top: -15px;
-	margin-left: -60px;
-}
-
-.green-icon {
-	max-width:100% !important;
-    height:auto;
-    display:block;
-}
-
-/* Buttons */
-
-.btn-grey {
-	background: #505050;
-}
-
-.full-width {
-	width: 100%;
+@media (max-width: 320px) {
+	.info-boxes .inline-icon {
+		display: none;
+	}
+	.footer img {
+		display: none;
+	}
 }
