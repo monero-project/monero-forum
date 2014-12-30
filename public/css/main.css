@@ -26,7 +26,7 @@ hr {
 }
 
 hr {
-	margin-top: 60px;
+	margin-top: 30px;
 }
 
 /* Text/Fonts */
@@ -228,9 +228,8 @@ body {
 }
 
 .logo {
-		margin-top: 6%;
-		width: 115px;
-		height: 30px;
+		width: 70%;
+		height: 70%;
 }
 
 .code-message {
@@ -327,14 +326,14 @@ body {
 	background: #fff;
 	min-height: 300px;
 	padding: 0 55px;
-	padding-top: 55px;  padding-bottom: 55px;}
+}
 
 .icon-large {
 	font-size: 100px;
 }
 
 .info-boxes {
-	padding-top: 90px;
+	padding-top: 40px;
 }
 
 .info-boxes .monero-info {
@@ -349,8 +348,8 @@ body {
 	background: #5b9a6f;
 	min-height: 245px;
 	margin: 0 auto;
-	margin-top: 40px;
-	margin-bottom: 80px;
+	margin-top: 30px;
+	margin-bottom: 50px;
 }
 
 .box-green .inside {
@@ -373,7 +372,7 @@ body {
 }
 
 .bottom-boxes {
-	padding : 80px 60px;
+	padding : 30px 60px;
 }
 
 .footer {
