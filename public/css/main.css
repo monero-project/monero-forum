@@ -6,7 +6,7 @@
 */
 
 body {
-	padding-top: 80px;
+	padding-top: 60px;
 }
 
 * {
@@ -245,7 +245,7 @@ body {
 .navbar {
 	background: #313131;
 	border-bottom: 5px solid #505050;
-	height: 80px;
+	height: 60px;
 	font-weight: bold;
 	margin: 0;
 }
@@ -274,11 +274,11 @@ body {
 .navbar-default .navbar-nav > li > a {
 	color: #FFF;
 	background-color: #313131;
-	height: 75px;
+	height: 55px;
 	border-left: 1px solid #505050;
 	text-align: center;
 	padding: 0 30px;
-	line-height: 75px;
+	line-height: 55px;
 	min-width: 115px;
 }
 
@@ -318,8 +318,8 @@ body {
 .navbar-default .navbar-brand:focus {
 	background-color: #fff;
 	padding: 0;
-	line-height: 75px;
-	height: 80px;
+	line-height: 55px;
+	height: 60px;
 	width: 195px;
 	text-align: center;
 }
@@ -684,7 +684,7 @@ body {
 	.navbar {
 		background: #313131;
 		border-bottom: 5px solid #505050;
-		height: 80px;
+		height: 60px;
 		font-weight: bold;
 		margin: 0;
 	}
