@@ -43,7 +43,7 @@
 @stop
 
 @section('javascript')
-	<script src="/js/jquery.dataTables.min.js"></script>
+	<script src="//static.monero.cc/js/jquery.dataTables.min.js"></script>
 	<script>
 		$(document).ready(function(){
 		    $('table').dataTable();

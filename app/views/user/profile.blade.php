@@ -126,8 +126,8 @@
 @stop
 
 @section('javascript')
-<script src="/js/arbor.js"></script>
-<script src="/js/graphics.js"></script>
-<script src="/js/renderer.js"></script>
-<script src="/js/relationships.js"></script>
+<script src="//static.monero.cc/js/arbor.js"></script>
+<script src="//static.monero.cc/js/graphics.js"></script>
+<script src="//static.monero.cc/js/renderer.js"></script>
+<script src="//static.monero.cc/js/relationships.js"></script>
 @stop

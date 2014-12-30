@@ -6,14 +6,14 @@
 
     <title>@if(isset($title)){{ $title }}@else{{ 'Monero | Forum' }}@endif</title>
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//static.monero.cc/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
-    <link href="/css/main.css" rel="stylesheet">
-    <link href="/css/forum.css" rel="stylesheet">
+    <link href="//static.monero.cc/css/main.css" rel="stylesheet">
+    <link href="//static.monero.cc/css/forum.css" rel="stylesheet">
     
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="//static.monero.cc/js/html5shiv.js"></script>
+      <script src="//static.monero.cc/js/respond.min.js"></script>
     <![endif]-->
   </head>
 
@@ -30,7 +30,7 @@
             <span class="icon-bar"></span>
           </button>
           -->
-          <a class="navbar-brand" href="/"><img src="/images/logo.svg" class="logo"></a>
+          <a class="navbar-brand" href="/"><img src="//static.monero.cc/images/logo.svg" class="logo"></a>
         </div>
         <!--
         <div class="navbar-collapse collapse">
@@ -121,9 +121,9 @@
     @yield('modals') 
 
     <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/monero.js"></script>
+    <script src="//static.monero.cc/js/jquery.min.js"></script>
+    <script src="//static.monero.cc/js/bootstrap.min.js"></script>
+    <script src="//static.monero.cc/js/monero.js"></script>
     @yield('javascript')
     
   </body>

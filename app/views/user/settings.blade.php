@@ -127,7 +127,7 @@
 @stop
 
 @section('javascript')
-<script src="/js/bootstrap.file-input.js"></script>
+<script src="//static.monero.cc/js/bootstrap.file-input.js"></script>
 <script>
 $('.file-inputs').bootstrapFileInput();
 </script>
