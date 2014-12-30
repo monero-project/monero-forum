@@ -325,7 +325,7 @@ body {
 .main-content {
 	background: #fff;
 	min-height: 300px;
-	padding: 0 55px;
+	padding: 20px 55px;
 }
 
 .icon-large {
@@ -333,7 +333,7 @@ body {
 }
 
 .info-boxes {
-	padding-top: 40px;
+	padding-top: 20px;
 }
 
 .info-boxes .monero-info {
