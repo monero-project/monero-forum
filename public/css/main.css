@@ -227,9 +227,9 @@ body {
 }
 
 .logo {
-	margin-top: 6%;
-	height: 70%;
-	width: 70%;
+        margin-top: 6%;
+        width: 115px;
+        height: 30px;
 }
 
 .code-message {
@@ -320,11 +320,6 @@ body {
     height: 80px;
     width: 195px;
     text-align: center;
-}
-
-.logo {
-	width: 115px;
-	height: 30px;
 }
 
 .main-content {
