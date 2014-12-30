@@ -695,6 +695,62 @@ body {
 		padding-top: 20px;
 	}
 
+	.navbar-default .navbar-toggle {
+		border-color: #fff;
+		margin-top: 20px;
+		border-radius: 0;
+	}
+
+	.navbar-default .navbar-toggle:hover, 
+	.navbar-default .navbar-toggle:active, 
+	.navbar-default .navbar-toggle:focus {
+		background-color: #fff;
+		margin-top: 20px;
+	}
+
+	.navbar-default .navbar-toggle .icon-bar {
+		background-color: #fff;
+	}
+
+	.navbar-default .navbar-toggle:hover .icon-bar, 
+	.navbar-default .navbar-toggle:active .icon-bar, 
+	.navbar-default .navbar-toggle:focus .icon-bar {
+		background-color: #313131;
+	}
+
+	.navbar-nav.navbar-right:last-child {
+		margin: -1px -15px 0 -15px;
+	}
+
+	/* Icons */
+
+	.icon {
+		float: left;
+		padding-right: 20px;
+	}
+
+	.lower-list-content .icon {
+		padding-right: 10px;
+		margin-top: -15px;
+		margin-left: -60px;
+	}
+
+	.green-icon {
+		max-width:100% !important;
+		height:auto;
+		display:block;
+	}
+
+	/* Buttons */
+
+	.btn-grey {
+		background: #505050;
+	}
+
+	.full-width {
+		width: 100%;
+	}
+
 }
 
 @media (max-width: 400px) {
