@@ -9,8 +9,18 @@ class ThreadsController extends \BaseController {
 		$thread = Thread::findOrFail($thread_id);
 
 		//get current user role
-		$roles = Auth::user()->roles;
-
+		if(Auth::check())
+		{
+			$roles = Auth::user()->roles;
+		}
+		//if the user is a guest, artificually assign him a "role"
+		else
+		{
+			$roles = array(
+				0 => new stdClass(),
+			);
+			$roles[0]->id = Role::where('name', 'Guest')->first()->id;
+		}
 
 		//cache this for performance?
 		foreach($roles as $role)
