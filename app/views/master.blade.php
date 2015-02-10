@@ -67,7 +67,7 @@
 	    </div>
 	</div>
 	@endif
-	<!--
+
 	<div class="row search-bar">
         {{ Form::open(array('url' => '/search')) }}
         <div class="col-lg-6 right-float">
@@ -83,7 +83,7 @@
 		</div>
         {{ Form::close() }}
 	</div>
-  -->
+ 
 	<div class="row">
 	    <div class="col-lg-12 user-block">
 	    @if (Auth::check())

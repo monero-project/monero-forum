@@ -64,7 +64,7 @@ function unthreaded_posts($posts, $thread_id) {
 		$i = 0;
 		$upper_post = false;
 		
-		if ($post_obj->parent_id != NULL)
+		if ($post_obj && $post_obj->parent_id != NULL)
 		{
 			$upper_post = Post::find($post_obj->parent_id);
 			if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count() > 0))
