@@ -319,4 +319,15 @@ class ThreadsController extends \BaseController {
 
         return Redirect::to(URL::previous())->with('messages', array('All threads have been marked as read!'));
     }
+
+	//shortlink for threads
+	//only redirects the user to the proper page
+	//does not render the actrual page.
+
+	public function indexShort($id) {
+		$thread = Thread::findOrFail($id);
+		$forum = Forum::findOrFail($thread->forum_id);
+
+		return Redirect::route('threadView', array($forum->id, $forum->slug(), $id, $thread->slug()));
+	}
 }

@@ -6,148 +6,89 @@ class SearchController extends BaseController {
 		if (Input::has('query'))
 		{
 			$query = strtolower(Input::get('query')); //search is CI
-			
-			//start the database chain
-			$search_query = DB::table('threads')
-			->join('posts', 'threads.post_id', '=', 'posts.id')
-			->join('users', 'threads.user_id', '=', 'users.id')
-			->join('forums', 'threads.forum_id', '=', 'forums.id')
-			->join('categories', 'forums.category_id', '=', 'categories.id')
+
+			$search_query = DB::table('posts')
+			->leftJoin('threads', 'posts.thread_id', '=', 'threads.id')
+			->leftJoin('users', 'threads.user_id', '=', 'users.id')
+			->leftJoin('forums', 'threads.forum_id', '=', 'forums.id')
+			->leftJoin('categories', 'forums.category_id', '=', 'categories.id')
 			->select(
-				'users.id as user_id', 
-				'posts.id as post_id', 
-				'forums.id as forum_id', 
-				'users.username as username', 
-				'posts.created_at as created_at', 
+				'users.id as user_id',
+				'posts.id as post_id',
+				'forums.id as forum_id',
+				'users.username as username',
+				'posts.created_at as created_at',
 				'categories.id as category_id',
 				'posts.body as body',
 				'threads.name as name',
 				'threads.id as id',
 				'users.profile_picture as profile_picture'
-			);
-			
-			//strip the query and add
-			
-			$chain = array();
-			
-			//scan through ANDs
-			$ANDs = explode(' [and]', $query);
-			foreach ($ANDs as $and) {
-				//search the AND for ORs
-				$ORs = explode(' [or]', $and);
-				//only loop through if the arrray is bigger than 1 element (actually has an OR inside it).
-				if (sizeof($ORs) > 1)
+			)
+			->whereNull('posts.deleted_at');
+
+			preg_match_all('/(\S*(:(".*?")))|(\S*(:\S*))|or|and/', $query, $chips);
+
+			$chips = $chips[0];
+
+			foreach ($chips as $key => $chip)
+			{
+				//examine the chip
+				if(str_contains($chip, ':'))
 				{
-					foreach ($ORs as $or)
-					{
-						$chain[] = array(
-							'value'	   => $or,
-							'operator' => 'or'
-						);
+					$explosions = explode(':', $chip, 2);
+					$column = $explosions[0];
+					$text = str_replace('"', "", $explosions[1]);
+
+					$is_or = $key != 0 && $chip[$key-1] == 'or'; //check if is previous word is or
+
+					//have to check every possible search key,
+					//because cannot let people enter random stuff into the query.
+					switch($column) {
+						case 'title':
+							if($is_or)
+								$search_query = $search_query->orWhere('threads.name', 'LIKE', '%'.$text.'%');
+							else
+								$search_query = $search_query->where('threads.name', 'LIKE', '%'.$text.'%');
+							break;
+						case 'body':
+							if($is_or)
+								$search_query = $search_query->orWhere('posts.body', 'LIKE', '%'.$text.'%');
+							else
+								$search_query = $search_query->where('posts.body', 'LIKE', '%'.$text.'%');
+							break;
+						case 'author':
+							if($is_or)
+								$search_query = $search_query->orWhere('users.username', 'LIKE', '%'.$text.'%');
+							else
+								$search_query = $search_query->where('users.username', 'LIKE', '%'.$text.'%');
+							break;
+						default:
+							//if there is no column given, clean the chip and match with title or body
+							//TODO: possibly implement HAVING for better results.
+							$term = str_replace('"', "", $chip);
+							if($is_or)
+								$search_query = $search_query->orWhere('posts.body', 'LIKE', '%'.$term.'%')->orWhere('threads.name', 'LIKE', '%'.$term.'%');
+							else
+								$search_query = $search_query->where('posts.body', 'LIKE', '%'.$term.'%')->orWhere('threads.name', 'LIKE', '%'.$term.'%');
+							break;
 					}
 				}
-				else
-				{
-					$chain[] = array(
-							'value'	   => $and,
-							'operator' => 'and'
-						);
+				else {
+					//run as raw query, without building
+					$search_query = $search_query->where('threads.name', 'LIKE', '%'.$query.'%')->orWhere('posts.body', 'LIKE', '%'.$query.'%');
 				}
-				
+
 			}
-			
-			//build the actual query chain
-			foreach($chain as $key => $link) {
-				
-				$chips = preg_replace('/(\w+)\:"(\w+)/', '"${1}:${2}', $link['value']);
-				$chips = str_getcsv($chips, ' ');
-												
-				foreach ($chips as $chip_key => $chip)
-				{
-						if (!isset($chain[$key-1]['operator']) || $chain[$key-1]['operator'] == 'and')
-						{
-							//check if a rule is being applied to a specific field
-							if (str_contains($chip, ':'))
-							{
-								$chip_data = str_getcsv($chip, ' ');
-								
-								$chip_data = explode(':', $chip);
-								$field = $chip_data[0];
-								$field_data = $chip_data[1];
-								
-								switch ($field) {
-								    case 'title':
-								        $search_query = $search_query->where('threads.name', 'LIKE', '%'.$field_data.'%');
-								        break;
-								    case 'from':
-								        $search_query = $search_query->where('users.username', 'LIKE', $field_data);
-								        break;
-								    case 'forum':
-								        $search_query = $search_query->where('forums.name', 'LIKE', '%'.$field_data.'%');
-								        break;
-								    case 'category':
-								        $search_query = $search_query->where('categories.name', 'LIKE', '%'.$field_data.'%');
-								        break;
-								    //if nothing matches, search for whole chip.
-								    default:
-								    	$search_query = $search_query->where('posts.body', 'LIKE', '%'.$chip.'%');
-								    	break;
-								}
-							}
-							else
-							{
-								$search_query = $search_query->where('posts.body', 'LIKE', '%'.$chip.'%');
-							}
-						}
-						else if ($chain[$key-1]['operator'] == 'or')
-						{
-							//check if a rule is being applied to a specific field
-							if (str_contains($chip, ':'))
-							{
-								$chip_data = str_getcsv($chip, ' ');
-								
-								$chip_data = explode(':', $chip);
-								$field = $chip_data[0];
-								$field_data = $chip_data[1];
-								
-								switch ($field) {
-								    case 'title':
-								        $search_query = $search_query->orWhere('threads.name', 'LIKE', '%'.$field_data.'%');
-								        break;
-								    case 'from':
-								        $search_query = $search_query->orWhere('users.username', 'LIKE', $field_data);
-								        break;
-								    case 'forum':
-								        $search_query = $search_query->orWhere('forums.name', 'LIKE', '%'.$field_data.'%');
-								        break;
-								    case 'category':
-								        $search_query = $search_query->orWhere('categories.name', 'LIKE', '%'.$field_data.'%');
-								        break;
-								    //if nothing matches, search for whole chip.
-								    default:
-								    	$search_query = $search_query->where('posts.body', 'LIKE', '%'.$chip.'%');
-								    	break;
-								}
-							}
-							else
-							{
-								$search_query = $search_query->orWhere('posts.body', 'LIKE', '%'.$chip.'%');
-							}
-						}
-				}
-			}
-			
 			$results = $search_query->paginate(20);
-			
-			$return_data = array(
-				'results' => $results,
-				'query'	  => $search_query->toSql()
-			);
-			
-			//return View::make('search.debug', array('results' => $results));
-			
-			
+//			foreach ($search_results as $result)
+//			{
+//				echo $result->username."<br>";
+//				echo $result->name."<br>";
+//				echo $result->body."<br>";
+//			}
+
 			return View::make('search.results', array('results' => $results));
+
 		}
 		else
 		{

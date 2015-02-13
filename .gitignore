@@ -10,3 +10,4 @@ composer.lock
 .DS_Store
 Thumbs.db
 /app/storage/logs/*.log
+/.idea
