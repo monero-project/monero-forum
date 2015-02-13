@@ -403,6 +403,11 @@ body {
 	margin-right: 5%;
 }
 
+.footer p i {
+	color: #ffe00a;
+	vertical-align: middle;
+}
+
 .footer .container {
 	height: 95px;
 }
