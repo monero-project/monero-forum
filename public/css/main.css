@@ -1,5 +1,5 @@
 /*
-	v 0.2
+	v 0.3
 
 	Light Grey: #505050
 	Dark Grey: #313131
@@ -328,6 +328,12 @@ body {
 	background: #fff;
 	min-height: 300px;
 	padding: 20px 55px;
+}
+
+.center-image
+{
+    margin: 0 auto;
+    display: block;
 }
 
 .icon-large {
