@@ -770,7 +770,7 @@ body {
 	.green-icon {
 		max-width:100% !important;
 		height:auto;
-		display:block;
+		display:inline;
 	}
 
 	/* Buttons */
