@@ -586,6 +586,9 @@ body {
 		text-align: center;
 		padding-bottom: 30px;
 	}
+	.bottom-boxes {
+		padding : 0;
+	}
 	.bottom-boxes p {
 		max-width: none;
 		padding-bottom: 30px;
