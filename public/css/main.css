@@ -163,6 +163,10 @@ h2 .green-kicks {
 	color: #5b9a6f;
 }
 
+h2 .softyellow-kicks {
+	color: #ffd781;
+}
+
 h2.inline {
 	display: inline;
 }
