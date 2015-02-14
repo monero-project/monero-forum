@@ -45,6 +45,13 @@ p, .main-content, li {
 	color: #787878;
 }
 
+/* SVG Icons */
+
+svg {
+	display: inline;
+	vertical-align: middle;
+}
+
 text {
     fill: #505050;
     font-family: 'FontAwesome';
@@ -70,10 +77,11 @@ text {
 
 .info-boxes h2 {
 	margin-top: 0;
-	margin-bottom: 50px;
+	margin-bottom: 5px;
 	display: inline-block;
 	padding-left: 10px;
 	line-height: 58px;
+	vertical-align: middle;
 }
 
 .inline-block {
