@@ -176,10 +176,13 @@ h2.inline {
 }
 
 .bottom-boxes p {
-	margin-top: 20px;
 	max-width: 340px;
 	color: #505050;
 	font-size: 15px;
+}
+
+.bottom-boxes h2 {
+	margin-bottom: 20px;
 }
 
 .no-margin {
@@ -591,7 +594,6 @@ body {
 	}
 	.bottom-boxes p {
 		max-width: none;
-		padding-bottom: 30px;
 	}
 	.monero-info, .monero-news {
 		padding-right: 5px !important;
