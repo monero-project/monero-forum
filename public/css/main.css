@@ -126,7 +126,8 @@ text {
 }
 
 .info-boxes li {
-	background-image: url('../images/li.png');
+	background-image: url('../images/li.svg');
+	background-size: 12px;
 	background-repeat: no-repeat;
 	background-position: 0px 5px; 
 	padding-left: 22px; 
