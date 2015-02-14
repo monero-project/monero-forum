@@ -45,6 +45,11 @@ p, .main-content, li {
 	color: #787878;
 }
 
+text {
+    fill: #505050;
+    font-family: 'FontAwesome';
+}
+
 /* Edit the numbered spacing here. */
 .lower-list .numbered p {
 	padding-bottom: 10%;
