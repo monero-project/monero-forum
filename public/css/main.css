@@ -5,6 +5,14 @@
 	Dark Grey: #313131
 */
 
+html, body {
+	height: 100%;
+}
+
+#wrap {
+	min-height: 100%;
+}
+
 body {
 	padding-top: 60px;
 }
