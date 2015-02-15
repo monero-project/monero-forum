@@ -25,7 +25,6 @@ body {
 
 .container {
 	min-height: 100% !important;
-	overflow:auto;
 	padding-bottom: 100px;
 }
 
@@ -496,6 +495,10 @@ body:before {
 
 .navbar-nav.navbar-right:last-child {
 	margin: -1px -15px 0 -15px;
+}
+
+.navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+	max-height: clear;
 }
 
 /* Icons */
