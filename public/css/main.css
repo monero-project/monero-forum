@@ -498,7 +498,7 @@ body:before {
 }
 
 .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
-	max-height: clear;
+	max-height: 100%;
 }
 
 /* Icons */
