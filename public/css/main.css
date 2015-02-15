@@ -1,5 +1,5 @@
 /*
-	v 0.3
+	v 0.4
 
 	Light Grey: #505050
 	Dark Grey: #313131
@@ -17,6 +17,8 @@ body {
 
 .container {
 	min-height: 100% !important;
+	overflow:auto;
+	padding-bottom: 95px;
 }
 
 /* HRs */
@@ -408,7 +410,21 @@ body {
 	background: #313131;
 	text-align: center;
 	line-height: 80px;
-	text-align: center;}
+	text-align: center;
+	position: relative;
+	margin-top: -95px; /* negative value of footer height */
+	height: 95px;
+	clear: both;
+}
+
+/*Opera Footer Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}
 
 .footer p {
 	color: #fff;
