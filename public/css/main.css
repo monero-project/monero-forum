@@ -433,7 +433,6 @@ body {
 	line-height: 80px;
 	text-align: center;
 	position: relative;
-	margin-top: -100px; /* negative value of footer height */
 	height: 100px;
 	clear: both;
 }
