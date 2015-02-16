@@ -753,6 +753,10 @@ body:before {
 	.navbar-default .navbar-nav > li > a {
 		text-align: left;
 	}
+	
+	.navbar-wrapper {
+		width: 100%;
+	}
 
 	.navbar {
 		background: #313131;
