@@ -177,6 +177,14 @@ h2 .softyellow-kicks {
 	color: #ffd781;
 }
 
+h2 .red-kicks {
+	color: #ff4f41;
+}
+
+h2 .yellow-kicks {
+	color: #ffe00a;
+}
+
 h2.inline {
 	display: inline;
 }
@@ -485,7 +493,7 @@ body:before {
 
 .navbar-default .navbar-toggle {
 	border-color: #fff;
-	margin-top: 20px;
+	margin-top: 10px;
 	border-radius: 0;
 }
 
@@ -725,7 +733,6 @@ body:before {
 		display: block;
 	}
 	.navbar-collapse {
-		border-top: 1px solid transparent;
 		box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
 	}
 	.navbar-fixed-top {
