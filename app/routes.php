@@ -1,5 +1,8 @@
 <?php
-Route::get('/', 'HomeController@index');
+Route::get('/', array(
+	'as'    => 'index',
+	'uses'  => 'HomeController@index'
+));
 
 /* Image Proxy */
 Route::get('/get/image/', 'PostsController@getProxyImage');
