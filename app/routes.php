@@ -119,7 +119,7 @@ Route::get('/keychain/trust/{level}/{id}', 'KeychainController@trust');
 
 /* Forum Structure */
 Route::get('/t/{id}', array('as' => 'thread.short', 'uses' => 'ThreadsController@indexShort'));
-Route::get('/{forum_id}/{forum_slug}', 'ForumsController@index');
+Route::get('/{forum_id}/{forum_slug}', array('as' => 'forum.index', 'uses' => 'ForumsController@index'));
 Route::get('/{forum_id}/{forum_slug}/feed', 'FeedsController@forumFeed');
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}', array('as' => 'threadView', 'uses' => 'ThreadsController@index'));
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}/feed', 'FeedsController@threadFeed');

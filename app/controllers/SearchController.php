@@ -26,9 +26,12 @@ class SearchController extends BaseController {
 			)
 			->whereNull('posts.deleted_at');
 
-			preg_match_all('/(\S*(:(".*?")))|(\S*(:\S*))|or|and/', $query, $chips);
+			preg_match_all('/(\S*(:(".*?")))|(\S*(:\S*))|(".*?")|\w+/', $query, $chips);
 
 			$chips = $chips[0];
+
+			echo "<pre>";
+			exit(dd($chips));
 
 			foreach ($chips as $key => $chip)
 			{

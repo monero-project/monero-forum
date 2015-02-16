@@ -74,8 +74,10 @@
 		    <div class="input-group">
 		      <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
 		      <span class="input-group-addon">
+                @if(Route::current()->getName() == '')
 		        <input type="checkbox" name="closed_location"> This location
-		      </span>
+		        @endif
+              </span>
 		      <span class="input-group-btn">
 		        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
 		      </span>
