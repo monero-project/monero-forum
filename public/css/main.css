@@ -510,10 +510,6 @@ body:before {
 	margin: -1px -15px 0 -15px;
 }
 
-.navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
-	max-height: 100%;
-}
-
 /* Icons */
 
 .icon {
