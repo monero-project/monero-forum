@@ -276,7 +276,6 @@ body {
 	width: 1170px;
 	margin-left: auto;
 	margin-right: auto;
-	padding-left: 15px;
 	padding-right: 15px;
 }
 
@@ -318,6 +317,10 @@ body {
 	padding: 0 30px;
 	line-height: 55px;
 	min-width: 115px;
+}
+
+.navbar-default .last {
+	border-right: 1px solid #505050;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
