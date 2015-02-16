@@ -30,8 +30,8 @@ class SearchController extends BaseController {
 
 			$chips = $chips[0];
 
-			echo "<pre>";
-			exit(dd($chips));
+//			echo "<pre>";
+//			exit(dd($chips));
 
 			foreach ($chips as $key => $chip)
 			{
@@ -78,17 +78,28 @@ class SearchController extends BaseController {
 				}
 				else {
 					//run as raw query, without building
-					$search_query = $search_query->where('threads.name', 'LIKE', '%'.$query.'%')->orWhere('posts.body', 'LIKE', '%'.$query.'%');
+					$is_or = $key != 0 && $chip[$key-1] == 'or'; //check if is previous word is or
+					$term = str_replace('"', "", $chip);
+					if($is_or)
+						$search_query = $search_query->orWhere('threads.name', 'LIKE', '%'.$term.'%')->orWhere('posts.body', 'LIKE', '%'.$term.'%');
+					else
+						$search_query = $search_query->where('threads.name', 'LIKE', '%'.$term.'%')->orWhere('posts.body', 'LIKE', '%'.$term.'%');
 				}
 
 			}
 			$results = $search_query->paginate(20);
+
+//			echo "<pre>";
+//			dd(DB::getQueryLog());
+//			exit();
+
 //			foreach ($search_results as $result)
 //			{
 //				echo $result->username."<br>";
 //				echo $result->name."<br>";
 //				echo $result->body."<br>";
 //			}
+
 
 			return View::make('search.results', array('results' => $results));
 
