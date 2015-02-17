@@ -211,6 +211,14 @@ h2 .yellow-kicks {
 	color: #ffe00a;
 }
 
+h2 .oa-kicks {
+	color: #20c2f3;
+}
+
+h2 .lab-kicks {
+	color: #00aebf;
+}
+
 h2.inline {
 	display: inline;
 }
