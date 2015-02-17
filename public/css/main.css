@@ -59,7 +59,7 @@ p, .main-content, li {
 	color: #787878;
 }
 
-p.cli-code, p.cli-code.span {
+p.cli-code {
 	padding: 3px;
 	margin: 0 0 10.5px;
 	font-size: 14px;
@@ -73,6 +73,11 @@ p.cli-code, p.cli-code.span {
 	border-radius: 0;
 	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
+}
+
+p.cli-code span {
+	font-size: 14px;
+	font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
 /* SVG Icons */
