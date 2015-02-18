@@ -62,7 +62,7 @@ p, .main-content, li {
 p.cli-code {
 	padding: 3px;
 	margin: 0 0 10.5px;
-	font-size: 14px;
+	font-size: 10px;
 	font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 	line-height: 1.42857143;
 	word-break: break-all;
@@ -77,7 +77,7 @@ p.cli-code {
 }
 
 p.cli-code span {
-	font-size: 14px;
+	font-size: 10px;
 	font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
