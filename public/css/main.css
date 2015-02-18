@@ -80,6 +80,10 @@ p.cli-code span {
 	font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
+div.instruction-list i {
+	margin-right: 5px;
+}
+
 /* SVG Icons */
 
 svg {
