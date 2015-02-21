@@ -5,9 +5,9 @@ class MessagesController extends \BaseController {
 	public function getIndex()
 	{
 		$user = Auth::user();
-		$messages = $user->messages;
+		$messages = $user->received_messages;
 
-		return View::make('messages.index', compact('messages'));
+		return View::make('messages.list', compact('messages'));
 
 	}
 
@@ -20,14 +20,6 @@ class MessagesController extends \BaseController {
 	}
 
 	public function getSent()
-	{
-		$user = Auth::user();
-		$messages = $user->sent_messages;
-
-		return View::make('messages.list', compact('messages'));
-	}
-
-	public function getReceived()
 	{
 		$user = Auth::user();
 		$messages = $user->sent_messages;
