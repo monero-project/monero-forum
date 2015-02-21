@@ -5,11 +5,11 @@ class SearchController extends BaseController {
 	public function search() {
 		if (Input::has('query'))
 		{
-			$query = strtolower(Input::get('query')); //search is CI
+			$query = Input::get('query');
 
 			$search_query = DB::table('posts')
 			->leftJoin('threads', 'posts.thread_id', '=', 'threads.id')
-			->leftJoin('users', 'threads.user_id', '=', 'users.id')
+			->leftJoin('users', 'posts.user_id', '=', 'users.id')
 			->leftJoin('forums', 'threads.forum_id', '=', 'forums.id')
 			->leftJoin('categories', 'forums.category_id', '=', 'categories.id')
 			->select(
@@ -29,9 +29,6 @@ class SearchController extends BaseController {
 			preg_match_all('/(\S*(:(".*?")))|(\S*(:\S*))|(".*?")|\w+/', $query, $chips);
 
 			$chips = $chips[0];
-
-//			echo "<pre>";
-//			exit(dd($chips));
 
 			foreach ($chips as $key => $chip)
 			{
@@ -67,7 +64,6 @@ class SearchController extends BaseController {
 							break;
 						default:
 							//if there is no column given, clean the chip and match with title or body
-							//TODO: possibly implement HAVING for better results.
 							$term = str_replace('"', "", $chip);
 							if($is_or)
 								$search_query = $search_query->orWhere('posts.body', 'LIKE', '%'.$term.'%')->orWhere('threads.name', 'LIKE', '%'.$term.'%');
@@ -88,17 +84,6 @@ class SearchController extends BaseController {
 
 			}
 			$results = $search_query->paginate(20);
-
-//			echo "<pre>";
-//			dd(DB::getQueryLog());
-//			exit();
-
-//			foreach ($search_results as $result)
-//			{
-//				echo $result->username."<br>";
-//				echo $result->name."<br>";
-//				echo $result->body."<br>";
-//			}
 
 
 			return View::make('search.results', array('results' => $results));

@@ -121,7 +121,7 @@ Route::get('/keychain/posts/get/{thread_id}/{posts_num}', 'PostsController@listP
 Route::get('/keychain/trust/{level}/{id}', 'KeychainController@trust');
 
 /* Forum Structure */
-Route::get('/t/{id}', array('as' => 'thread.short', 'uses' => 'ThreadsController@indexShort'));
+Route::get('/t/{id}', array('as' => 'thread.short', 'uses' => 'ThreadsController@indexShort')); //shorthand for reaching threads.
 Route::get('/{forum_id}/{forum_slug}', array('as' => 'forum.index', 'uses' => 'ForumsController@index'));
 Route::get('/{forum_id}/{forum_slug}/feed', 'FeedsController@forumFeed');
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}', array('as' => 'threadView', 'uses' => 'ThreadsController@index'));

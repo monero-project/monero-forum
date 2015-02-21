@@ -737,5 +737,6 @@ a.meta-permalink {
 	margin-right: 10px;
 }
 
-.relationships {
+.container {
+    padding-bottom: 0;
 }
