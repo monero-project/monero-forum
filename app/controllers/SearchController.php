@@ -83,6 +83,22 @@ class SearchController extends BaseController {
 				}
 
 			}
+
+			//check if the search has limited location
+			if(Input::has('closed_location'))
+			{
+				$location = Input::get('closed_location');
+				$id = Input::get('resource_id');
+				if($location == 'threadView')
+				{
+					$search_query = $search_query->where('threads.id', $id);
+				}
+				else if($location == 'forum.index')
+				{
+					$search_query = $search_query->where('forums.id', $id);
+				}
+			}
+
 			$results = $search_query->paginate(20);
 
 

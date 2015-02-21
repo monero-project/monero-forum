@@ -123,8 +123,8 @@
 					    <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
 					    @if(Route::current()->getName() == 'threadView' || Route::current()->getName() == 'forum.index')
 						    <span class="input-group-addon">
-			        <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
-	              </span>
+			                    <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
+	                        </span>
 					    @endif
 					    <span class="input-group-btn">
 		        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
