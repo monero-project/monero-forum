@@ -55,7 +55,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getMessagesAttribute() {
 		if(Auth::check()) {
 			$user = Auth::user();
-			return Message::where('sender_id', $user->id)->orWhere('receiver_id', $user->id);
+			return Message::where('sender_id', $user->id)->orWhere('receiver_id', $user->id)->paginate(10);
 		}
 		else
 			return false;
