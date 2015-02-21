@@ -124,7 +124,7 @@
 					    @if(Route::current()->getName() == 'threadView' || Route::current()->getName() == 'forum.index')
 						    <span class="input-group-addon">
 			                    <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
-							    <input type="hidden" value="{{ $resource_id }}"/>
+							    <input type="hidden" name="resource_id" value="{{ $resource_id }}"/>
 	                        </span>
 					    @endif
 					    <span class="input-group-btn">
