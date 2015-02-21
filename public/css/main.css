@@ -94,6 +94,16 @@ p.cli-code span {
 	margin-right: 5px;
 }
 
+.moneropedia {
+	color: #505050;
+}
+
+.long-term {
+	word-break: break-all;
+	word-wrap: break-word;
+	color: #787878;
+}
+
 /* SVG Icons */
 
 svg {
@@ -162,6 +172,10 @@ text {
 .box-green p {
 	color: #b7ffce;
 	padding-top: 20px;
+}
+
+.box-green .moneropedia {
+	color: #b7ffce;
 }
 
 .announcements {
