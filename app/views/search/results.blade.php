@@ -1,5 +1,6 @@
 @extends('master')
 @section('content')
+	@if(count($results))
 	<div class="row category-block">
 	@foreach($results as $result) 
 		<div class="panel panel-default thread-block">
@@ -19,4 +20,11 @@
 	<div class="row">
 		{{ $results->links() }}
 	</div>
+	@else
+		<div class="row">
+			<div class="well">
+				There are no results!
+			</div>
+		</div>
+	@endif
 @stop
