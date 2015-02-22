@@ -9,49 +9,13 @@
     <link href="//static.monero.cc/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
     <link href="//static.monero.cc/css/main.css" rel="stylesheet">
-    <!--link href="//static.monero.cc/css/forum.css" rel="stylesheet"-->
-    <link href="/css/forum.css" rel="stylesheet">
+    <link href="//static.monero.cc/css/forum.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="//static.monero.cc/js/html5shiv.js"></script>
       <script src="//static.monero.cc/js/respond.min.js"></script>
     <![endif]-->
   </head>
-
-  <style>
-	  .container {
-		  padding-bottom: 0 !important;
-	  }
-	  .search-bar {
-		  margin-top: 2px;
-		  padding: 0;
-	  }
-	  .search-bar .col-lg-12,
-	  .search-bar-mobile .col-lg-12 {
-		  padding: 0;
-	  }
-
-	  .search-bar-mobile {
-		  display:none;
-		  padding: 0;
-	  }
-
-	  @media screen and (max-width: 1199px) {
-		  .user-block {}
-		  .search-bar {
-			  display: none;
-		  }
-
-	      .search-bar-mobile {
-		      display: inline-block;
-		      margin-bottom: 20px;
-	      }
-	      .search-bar-mobile form {
-		      margin: 0;
-	      }
-	  }
-
-  </style>
 
   <body>
 
@@ -111,7 +75,6 @@
 				    Hello,
 				    <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></span></a>
 				    <a class="action-link user-block-mobile-disable" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read" data-toggle="tooltip" data-placement="bottom" data-original-title="Mark forum as read"><span class="glyphicon glyphicon-book"></span></a>
-				    <a class="action-link user-block-mobile-disable" href="{{ URL::to('/messages') }}" alt="Messages" title="Messages" data-toggle="tooltip" data-placement="bottom" data-original-title="Messages"><span class="glyphicon glyphicon-send"></span></a>
 				    <a class="action-link user-block-mobile-disable" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out" data-toggle="tooltip" data-placement="bottom" data-original-title="Log Out"></span></a>
 				    <br>
 			    @else

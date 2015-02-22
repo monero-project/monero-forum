@@ -744,3 +744,36 @@ a.meta-permalink {
 p.syntax {
     margin: 10px 0;
 }
+
+.panel-body p {
+    color: #505050;
+}
+
+.search-bar {
+    margin-top: 2px;
+    padding: 0;
+}
+.search-bar .col-lg-12,
+.search-bar-mobile .col-lg-12 {
+    padding: 0;
+}
+
+.search-bar-mobile {
+    display:none;
+    padding: 0;
+}
+
+@media screen and (max-width: 1199px) {
+    .user-block {}
+    .search-bar {
+        display: none;
+    }
+
+    .search-bar-mobile {
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    .search-bar-mobile form {
+        margin: 0;
+    }
+}
