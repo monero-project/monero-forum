@@ -11,6 +11,12 @@
 			  <div class="form-group">
 			    <input type="text" class="form-control" name="name" placeholder="Your descriptive thread title goes here." value="{{ Input::old('name') }}">
 			  </div>
+				<div class="row markdown-buttons markdown-buttons-main">
+					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('**', '**')"><span class="glyphicon glyphicon-bold"></span></button>
+					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('*', '*')"><span class="glyphicon glyphicon-italic"></span></button>
+					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('![alt text](', ')')"><span class="glyphicon glyphicon-picture"></span></button>
+					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('[Link Text](', ')')"><span class="glyphicon glyphicon-globe"></span></button>
+				</div>
 			  <div class="form-group">
 			    <textarea id="content-body" name="body" class="form-control" rows="10" placeholder="Anything you want to say in your thread should be here.">{{ Input::old('body') }}</textarea>
 			  </div>
@@ -38,4 +44,5 @@
 @section('javascript')
 	{{ HTML::script('js/js-markdown-extra.js') }}
 	{{ HTML::script('js/preview.js') }}
+	{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
 @stop
