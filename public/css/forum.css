@@ -4,12 +4,24 @@ body {
 	padding-top: 0;
 }
 
+.panel-body {
+	padding: 9px 15px 0px 15px;
+}
+
+.panel {
+	margin-bottom: 5px;
+}
+
 .post {
 	padding: 0;
 }
 
 .post-buttons {
 	margin-top: 20px;
+}
+
+.mobile-meta-buttons {
+	padding-bottom: 5px;
 }
 
 .post-indent {
