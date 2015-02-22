@@ -35,11 +35,16 @@
 		@if (Auth::check())
 			<button class="btn btn-success full-width reply-thread" style="display: none;" onclick="thread_reply()">Reply to this thread</button>
 			<div class="reply-box">
-				<div class="col-lg-12 markdown-buttons markdown-buttons-main">
+				<div class="row markdown-buttons markdown-buttons-main">
 					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('**', '**')"><span class="glyphicon glyphicon-bold"></span></button>
 					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('*', '*')"><span class="glyphicon glyphicon-italic"></span></button>
 					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('![alt text](', ')')"><span class="glyphicon glyphicon-picture"></span></button>
 					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('[Link Text](', ')')"><span class="glyphicon glyphicon-globe"></span></button>
+				</div>
+				<div class="row">
+					<p class="col-lg-12">
+						For post formatting please use Markdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
+					</p>
 				</div>
 				<form role="form" action="/posts/submit" method="POST">
 				<input type="hidden" name="thread_id" value="{{ $thread->id }}">

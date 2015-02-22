@@ -17,6 +17,11 @@
 					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('![alt text](', ')')"><span class="glyphicon glyphicon-picture"></span></button>
 					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('[Link Text](', ')')"><span class="glyphicon glyphicon-globe"></span></button>
 				</div>
+				<div class="row">
+					<p class="col-lg-12">
+						For post formatting please use Markdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
+					</p>
+				</div>
 			  <div class="form-group">
 			    <textarea id="content-body" name="body" class="form-control" rows="10" placeholder="Anything you want to say in your thread should be here.">{{ Input::old('body') }}</textarea>
 			  </div>

@@ -740,3 +740,7 @@ a.meta-permalink {
 .markdown-buttons-main {
     margin: 10px 0;
 }
+
+p.syntax {
+    margin: 10px 0;
+}
