@@ -35,6 +35,12 @@
 		@if (Auth::check())
 			<button class="btn btn-success full-width reply-thread" style="display: none;" onclick="thread_reply()">Reply to this thread</button>
 			<div class="reply-box">
+				<div class="col-lg-12 markdown-buttons markdown-buttons-main">
+					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('**', '**')"><span class="glyphicon glyphicon-bold"></span></button>
+					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('*', '*')"><span class="glyphicon glyphicon-italic"></span></button>
+					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('![alt text](', ')')"><span class="glyphicon glyphicon-picture"></span></button>
+					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('[Link Text](', ')')"><span class="glyphicon glyphicon-globe"></span></button>
+				</div>
 				<form role="form" action="/posts/submit" method="POST">
 				<input type="hidden" name="thread_id" value="{{ $thread->id }}">
 				  <div class="form-group">

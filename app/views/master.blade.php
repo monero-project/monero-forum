@@ -9,7 +9,8 @@
     <link href="//static.monero.cc/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
     <link href="//static.monero.cc/css/main.css" rel="stylesheet">
-    <link href="//static.monero.cc/css/forum.css" rel="stylesheet">
+    <!--link href="//static.monero.cc/css/forum.css" rel="stylesheet"-->
+    <link href="/css/forum.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="//static.monero.cc/js/html5shiv.js"></script>
