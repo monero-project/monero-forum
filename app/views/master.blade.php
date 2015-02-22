@@ -20,30 +20,10 @@
   <body>
 
     <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
+      <div class="navbar-wrapper">
         <div class="navbar-header">
-          <!--
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          -->
           <a class="navbar-brand" href="/"><img src="//static.monero.cc/images/logo.svg" class="logo"></a>
         </div>
-        <!--
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a class="yellow" href="#">Home</a></li>
-            <li><a class="purple" href="#">Blog</a></li>
-            <li><a class="red" href="#">Price Chart</a></li>
-            <li><a class="orange" href="#">Getting Started</a></li>
-            <li><a class="softyellow" href="#">Downloads</a></li>
-            <li><a class="green" href="#">Contact</a></li>
-          </ul>
-        </div>
-        -->
       </div>
     </div>
     <div class="container main-content">
