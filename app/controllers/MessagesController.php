@@ -7,6 +7,8 @@ class MessagesController extends \BaseController {
 		$user = Auth::user();
 		$messages = $user->received_messages;
 
+		exit(dd($messages));
+
 		return View::make('messages.list', compact('messages'));
 
 	}

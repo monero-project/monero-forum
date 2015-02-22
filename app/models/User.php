@@ -45,11 +45,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function received_messages() {
-		return $this->hasMany('Message', 'receiver_id', 'user_id')->whereNull();
+		return $this->hasMany('Message', 'receiver_id', 'id');
 	}
 
 	public function sent_messages() {
-		return $this->hasMany('Message', 'sender_id', 'user_id');
+		return $this->hasMany('Message', 'sender_id', 'id');
 	}
 
 	public function getMessagesAttribute() {
