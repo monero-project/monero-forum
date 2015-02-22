@@ -3,11 +3,11 @@
 class Message extends \Eloquent {
 
 	public function receiver() {
-		$this->belongsTo('User', 'receiver_id', 'user_id');
+		return $this->belongsTo('User', 'receiver_id', 'id');
 	}
 
 	public function sender() {
-		$this->belongsTo('User', 'sender_id', 'user_id');
+		return $this->belongsTo('User', 'sender_id', 'id');
 	}
 
 }

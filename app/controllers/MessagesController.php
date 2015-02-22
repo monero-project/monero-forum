@@ -5,9 +5,11 @@ class MessagesController extends \BaseController {
 	public function getIndex()
 	{
 		$user = Auth::user();
-		$messages = $user->received_messages;
+		$messages = $user->receivedMessages()->paginate(10);
 
-		exit(dd($messages));
+		//mark all the unread messages as read.
+
+		$user->receivedMessages()->where('is_read', 0)->update(array('is_read' => 1));
 
 		return View::make('messages.list', compact('messages'));
 

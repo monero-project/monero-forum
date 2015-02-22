@@ -54,7 +54,10 @@ Route::get('/user/activate/{user_id}/{code}', 'UsersController@getActivate');
 Route::get('/user/activate/resend/{user_id}', 'UsersController@getResend');
 Route::get('/user/recover/{user_id}/{recovery_token}', 'UsersController@getChangePassword');
 Route::post('/user/recover/', 'UsersController@postChangePassword');
-Route::get('/user/{username}', 'UsersController@profile');
+Route::get('/user/{username}', array(
+	'as'    => 'user.show',
+	'uses'  => 'UsersController@profile'
+));
 Route::get('/user/{username}/feed', 'FeedsController@userFeed');
 Route::get('/user/{user_id}/posts', 'UsersController@posts');
 Route::get('/user/{user_id}/threads', 'UsersController@threads');
