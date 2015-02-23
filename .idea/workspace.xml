@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5963e42-fe03-4aec-8d68-66cebe7ffa59" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/forum.css" afterPath="$PROJECT_DIR$/public/css/forum.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/master.blade.php" afterPath="$PROJECT_DIR$/app/views/master.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/content/createThread.blade.php" afterPath="$PROJECT_DIR$/app/views/content/createThread.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="monero-forum.iws" />
@@ -49,16 +48,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="thread.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/content/thread.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="636" max-vertical-offset="2413">
-              <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="post.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/content/post.blade.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -72,9 +61,21 @@
       <file leaf-file-name="monero.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/monero.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="27" max-vertical-offset="2128">
-              <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="844" max-vertical-offset="2128">
+              <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="js-markdown-extra.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/js-markdown-extra.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2432" max-vertical-offset="54967">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,68 +83,68 @@
       <file leaf-file-name="posts.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/posts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="798" max-vertical-offset="3952">
-              <caret line="75" column="1248" selection-start-line="75" selection-start-column="1248" selection-end-line="75" selection-end-column="1248" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="400" max-vertical-offset="3952">
+              <caret line="46" column="33" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="forum.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/forum.css">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.703704" vertical-offset="7088" max-vertical-offset="14896">
-              <caret line="384" column="4" selection-start-line="384" selection-start-column="4" selection-end-line="384" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="17717" max-vertical-offset="18468">
+              <caret line="947" column="24" selection-start-line="947" selection-start-column="24" selection-end-line="947" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="master.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/views/master.blade.php">
+      <file leaf-file-name="app.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/config/app.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41304347" vertical-offset="1197" max-vertical-offset="3059">
-              <caret line="76" column="302" selection-start-line="76" selection-start-column="302" selection-end-line="76" selection-end-column="302" />
+            <state vertical-scroll-proportion="10.857142" vertical-offset="874" max-vertical-offset="5130">
+              <caret line="30" column="79" selection-start-line="30" selection-start-column="79" selection-end-line="30" selection-end-column="79" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/content/index.blade.php">
+      <file leaf-file-name="UsersController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/UsersController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="247" max-vertical-offset="1178">
-              <caret line="29" column="101" selection-start-line="29" selection-start-column="101" selection-end-line="29" selection-end-column="101" />
+            <state vertical-scroll-proportion="-13.254545" vertical-offset="4116" max-vertical-offset="13015">
+              <caret line="255" column="30" selection-start-line="255" selection-start-column="30" selection-end-line="255" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Forum.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/Forum.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1563" max-vertical-offset="2888">
-              <caret line="111" column="26" selection-start-line="111" selection-start-column="26" selection-end-line="111" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="createThread.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="createThread.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/content/createThread.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1102">
-              <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.74208146" vertical-offset="211" max-vertical-offset="1102">
+              <caret line="37" column="54" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reply.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/content/reply.blade.php">
+      <file leaf-file-name="BaseController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="380" max-vertical-offset="874">
-              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+            <state vertical-scroll-proportion="21.321428" vertical-offset="673" max-vertical-offset="1349">
+              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="master.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/master.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="817" max-vertical-offset="2698">
+              <caret line="56" column="302" selection-start-line="56" selection-start-column="302" selection-end-line="56" selection-end-column="302" />
               <folding />
             </state>
           </provider>
@@ -178,13 +179,13 @@
         <option value="$PROJECT_DIR$/app/controllers/MessagesController.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/views/content/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/views/content/createThread.blade.php" />
         <option value="$PROJECT_DIR$/app/views/content/reply.blade.php" />
         <option value="$PROJECT_DIR$/app/views/content/thread.blade.php" />
         <option value="$PROJECT_DIR$/app/views/content/post.blade.php" />
         <option value="$PROJECT_DIR$/public/js/posts.js" />
         <option value="$PROJECT_DIR$/public/css/forum.css" />
         <option value="$PROJECT_DIR$/app/views/master.blade.php" />
+        <option value="$PROJECT_DIR$/app/views/content/createThread.blade.php" />
       </list>
     </option>
   </component>
@@ -193,8 +194,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="width" value="1280" />
-    <option name="height" value="800" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -222,6 +223,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -250,7 +252,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -265,6 +267,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -288,7 +294,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -297,7 +302,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="FullScreen" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="master&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/master.blade.php&#10;forum.css&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/forum.css&#10;post.j&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/js/posts.js&#10;post.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/post.blade.php&#10;thread&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/thread.blade.php&#10;reply&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/reply.blade.php&#10;create&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/createThread.blade.php&#10;Forum&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/Forum.php&#10;index.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/index.blade.php&#10;create.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/createThread.blade.php&#10;forum&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/forum.css&#10;color&#9;ACTION&#9;DatabaseView.AssignColor&#10;options&#9;ACTION&#9;WebDeployment.Options&#10;giti&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/.gitignore&#10;mas&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/master.blade.php&#10;post&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/post.blade.php&#10;user&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/User.php&#10;User&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/User.php&#10;remove_parent_id&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/database/migrations/2015_02_22_015116_remove_parent_id_from_messages_table.php&#10;User.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/User.php&#10;Message&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/Message.php&#10;list.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/messages/list.blade.php&#10;index&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/messages/index.blade.php&#10;routes&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/routes.php&#10;conversation&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/messages/conversations.blade.php&#10;messagesc&#9;null&#9;null&#10;plugins&#9;ACTION&#9;WelcomeScreen.Plugins&#10;results&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/search/results.blade.php&#10;ThreadsC&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/controllers/ThreadsController.php&#10;Forums&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/controllers/ForumsController.php&#10;search&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/controllers/SearchController.php&#10;main&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/main.css&#10;master.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/master.blade.php&#10;main.css&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/main.css&#10;main.ss&#9;null&#9;null&#10;.css&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/forum.css&#10;ForumCo&#9;null&#9;null&#10;ForumContr&#9;null&#9;null&#10;Forum.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/Forum.php&#10;threadsCo&#9;null&#9;null&#10;search/results&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/search/results.blade.php&#10;searchCon&#9;null&#9;null&#10;data&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/config/database.php&#10;show line&#9;null&#9;null&#10;post_&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/post_helpers.php&#10;thread.blade&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/thread.blade.php&#10;database.php&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/config/database.php" />
+    <property name="SearchEverywhereHistoryKey" value="create&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/createThread.blade.php&#10;monero.js&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/js/monero.js&#10;BaseCo&#9;null&#9;null&#10;UsersC&#9;null&#9;null&#10;app.php&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/config/app.php&#10;main&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/main.css&#10;master&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/master.blade.php&#10;forum.css&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/forum.css&#10;post.j&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/js/posts.js&#10;post.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/post.blade.php&#10;thread&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/thread.blade.php&#10;reply&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/reply.blade.php&#10;Forum&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/Forum.php&#10;index.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/index.blade.php&#10;create.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/createThread.blade.php&#10;forum&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/forum.css&#10;color&#9;ACTION&#9;DatabaseView.AssignColor&#10;options&#9;ACTION&#9;WebDeployment.Options&#10;giti&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/.gitignore&#10;mas&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/master.blade.php&#10;post&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/post.blade.php&#10;user&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/User.php&#10;User&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/User.php&#10;remove_parent_id&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/database/migrations/2015_02_22_015116_remove_parent_id_from_messages_table.php&#10;User.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/User.php&#10;Message&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/Message.php&#10;list.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/messages/list.blade.php&#10;index&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/messages/index.blade.php&#10;routes&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/routes.php&#10;conversation&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/messages/conversations.blade.php&#10;messagesc&#9;null&#9;null&#10;plugins&#9;ACTION&#9;WelcomeScreen.Plugins&#10;results&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/search/results.blade.php&#10;ThreadsC&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/controllers/ThreadsController.php&#10;Forums&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/controllers/ForumsController.php&#10;search&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/controllers/SearchController.php&#10;master.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/master.blade.php&#10;main.css&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/main.css&#10;main.ss&#9;null&#9;null&#10;.css&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/public/css/forum.css&#10;ForumCo&#9;null&#9;null&#10;ForumContr&#9;null&#9;null&#10;Forum.&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/models/Forum.php&#10;threadsCo&#9;null&#9;null&#10;search/results&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/search/results.blade.php&#10;searchCon&#9;null&#9;null&#10;data&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/config/database.php&#10;show line&#9;null&#9;null&#10;post_&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/post_helpers.php&#10;thread.blade&#9;FILE&#9;file:///Users/Eddie/Documents/monero-forum/app/views/content/thread.blade.php" />
     <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager">
@@ -369,30 +374,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12580231" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="21" y="418" width="1878" height="244" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30878186" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="21" y="418" width="1878" height="244" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295562" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="21" y="365" width="1878" height="349" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18849841" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18849841" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5637066" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5637066" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -439,35 +444,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/post_helpers.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1520" max-vertical-offset="1824">
-          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/predis/predis/lib/Predis/Connection/MasterSlaveReplication.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="266" max-vertical-offset="4921">
-          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/master.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1615" max-vertical-offset="2622">
-          <caret line="85" column="1" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="1740">
-          <caret line="71" column="4" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/SearchController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1545">
@@ -576,13 +552,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="1740">
-          <caret line="71" column="4" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/predis/predis/lib/Predis/Connection/MasterSlaveReplication.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.1757426" vertical-offset="760" max-vertical-offset="4921">
@@ -599,14 +568,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="114">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="14619" max-vertical-offset="15485">
-          <caret line="809" column="1" selection-start-line="809" selection-start-column="1" selection-end-line="809" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -642,13 +603,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-17.642857" vertical-offset="0" max-vertical-offset="665">
           <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/database/migrations/2015_02_22_015116_remove_parent_id_from_messages_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.571428" vertical-offset="171" max-vertical-offset="760">
-          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -736,7 +690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="171" max-vertical-offset="608">
           <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -744,7 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="247" max-vertical-offset="1178">
           <caret line="29" column="101" selection-start-line="29" selection-start-column="101" selection-end-line="29" selection-end-column="101" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -752,14 +704,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1563" max-vertical-offset="2888">
           <caret line="111" column="26" selection-start-line="111" selection-start-column="26" selection-end-line="111" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/content/createThread.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1102">
-          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -774,7 +718,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/content/thread.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="636" max-vertical-offset="2413">
+        <state vertical-scroll-proportion="-5.785714" vertical-offset="636" max-vertical-offset="2413">
           <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
           <folding />
         </state>
@@ -795,34 +739,98 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/monero.js">
+    <entry file="file://$PROJECT_DIR$/app/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="27" max-vertical-offset="2128">
-          <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-          <folding />
+        <state vertical-scroll-proportion="2.1584" vertical-offset="0" max-vertical-offset="2204">
+          <caret line="71" column="4" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/posts.js">
+    <entry file="file://$PROJECT_DIR$/app/views/master.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="798" max-vertical-offset="3952">
-          <caret line="75" column="1248" selection-start-line="75" selection-start-column="1248" selection-end-line="75" selection-end-column="1248" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="817" max-vertical-offset="2698">
+          <caret line="56" column="302" selection-start-line="56" selection-start-column="302" selection-end-line="56" selection-end-column="302" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/forum.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.703704" vertical-offset="7088" max-vertical-offset="14896">
+        <state vertical-scroll-proportion="-5.628495" vertical-offset="11523" max-vertical-offset="14896">
           <caret line="384" column="4" selection-start-line="384" selection-start-column="4" selection-end-line="384" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17717" max-vertical-offset="18468">
+          <caret line="947" column="24" selection-start-line="947" selection-start-column="24" selection-end-line="947" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/master.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/js/posts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41304347" vertical-offset="1197" max-vertical-offset="3059">
-          <caret line="76" column="302" selection-start-line="76" selection-start-column="302" selection-end-line="76" selection-end-column="302" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="400" max-vertical-offset="3952">
+          <caret line="46" column="33" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="10.857142" vertical-offset="874" max-vertical-offset="5130">
+          <caret line="30" column="79" selection-start-line="30" selection-start-column="79" selection-end-line="30" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.254545" vertical-offset="4116" max-vertical-offset="13015">
+          <caret line="255" column="30" selection-start-line="255" selection-start-column="30" selection-end-line="255" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="21.321428" vertical-offset="673" max-vertical-offset="1349">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/renderer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4028">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/monero.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="844" max-vertical-offset="2128">
+          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/js-markdown-extra.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2432" max-vertical-offset="54967">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/content/createThread.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.74208146" vertical-offset="211" max-vertical-offset="1102">
+          <caret line="37" column="54" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
           <folding />
         </state>
       </provider>
