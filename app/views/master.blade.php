@@ -6,14 +6,14 @@
 
     <title>@if(isset($title)){{ $title }}@else{{ 'Monero | Forum' }}@endif</title>
 
-    <link href="//static.monero.cc/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//static.getmonero.org/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
-    <link href="//static.monero.cc/css/main.css" rel="stylesheet">
-    <link href="//static.monero.cc/css/forum.css" rel="stylesheet">
+    <link href="//static.getmonero.org/css/main.css" rel="stylesheet">
+    <link href="//static.getmonero.org/css/forum.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
-      <script src="//static.monero.cc/js/html5shiv.js"></script>
-      <script src="//static.monero.cc/js/respond.min.js"></script>
+      <script src="//static.getmonero.org/js/html5shiv.js"></script>
+      <script src="//static.getmonero.org/js/respond.min.js"></script>
     <![endif]-->
   </head>
 
@@ -22,10 +22,74 @@
     <div class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="navbar-wrapper">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/"><img src="//static.monero.cc/images/logo.svg" class="logo"></a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="//getmonero.org/"><img class="logo" src="//static.getmonero.org/images/logo.svg"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a class="yellow" href="https://forum.monero.cc">Forum</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle purple" data-toggle="dropdown">Blog <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="//getmonero.org/blog">All Blog Posts</a></li>
+                <li><a href="//getmonero.org/blog/tags/monero%20missives">Monero Missives</a></li>
+                <li><a href="//getmonero.org/blog/tags/dev%20diaries">Dev Diaries</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle red" data-toggle="dropdown">Getting Started <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="//getmonero.org/getting-started/choose">How to Choose a Monero Client</a></li>
+                <li><a href="//getmonero.org/getting-started/running">How to Run a Monero Node</a></li>
+                <li><a href="//getmonero.org/getting-started/donate">Donating and Sponsorships</a></li>
+                <li class="divider"></li>
+                <li><a href="//getmonero.org/downloads">All Monero Downloads</a></li>
+                <li class="divider"></li>
+                <li><a href="//getmonero.org/getting-started/accepting">Accepting Monero Payments</a></li>
+				<li><a href="//getmonero.org/getting-started/merchants">Merchants and Services Directory</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle orange" data-toggle="dropdown">Knowledge Base <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="//getmonero.org/knowledge-base/about">About Monero</a></li>
+                <li><a href="//getmonero.org/knowledge-base/people">The People Behind Monero</a></li>
+                <li><a href="//getmonero.org/knowledge-base/moneropedia">Moneropedia</a></li>
+                <li class="divider"></li>
+                <li><a href="//getmonero.org/knowledge-base/user-guides">User Guides</a></li>
+                <li><a href="//getmonero.org/knowledge-base/developer-guides">Developer Guides</a></li>
+                <li class="divider"></li>
+                <li><a href="//getmonero.org/design-goals">Design & Development Goals</a></li>
+                <li><a href="//getmonero.org/research-lab">Monero Research Lab</a></li>
+                <li><a href="//getmonero.org/knowledge-base/openalias">The OpenAlias Project</a></li>
+                <li><a href="//getmonero.org/knowledge-base/projects">External Projects</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle softyellow last" data-toggle="dropdown">Community <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="https://forum.monero.cc">Forum</a></li>
+                <li><a href="https://www.reddit.com/r/monero/">Reddit</a></li>
+                <li><a href="https://bitcointalk.org/index.php?topic=583449.0">Bitcointalk Thread</a></li>
+                <li class="divider"></li>
+				<li class="dropdown-header">IRC on Freenode</li>
+                <li><a href="irc://chat.freenode.net/#monero">#monero (General)</a></li>
+                <li><a href="irc://chat.freenode.net/#monero-dev">#monero-dev (Development)</a></li>
+                <li><a href="irc://chat.freenode.net/#monero-otc">#monero-otc (OTC Trading)</a></li>
+                <li><a href="irc://chat.freenode.net/#monero-markets">#monero-markets (Markets)</a></li>
+                <li><a href="irc://chat.freenode.net/#monero-pools">#monero-pools (Mining)</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+
     <div class="container main-content">
     @if (Session::has('messages'))
 	<div class="row">
@@ -113,10 +177,13 @@
 	</div>
 		@yield('content')
     </div>
-    <div class="footer">
+
+	<div class="footer">
       <div class="container">
         <p>
-          Copyright &copy; <strong>The Monero Project</strong>
+          <strong style="color: #ffffff;">[ <a href="//getmonero.org/legal/terms">Terms</a> | <a href="//getmonero.org/legal/privacy">Privacy</a> | <a href="//getmonero.org/legal/copyright">Copyright</a> ]</strong>
+          <a href="https://getmonero.org/feed.xml"><i class="fa fa-2x fa-rss-square"></i></a>
+          <a href="mailto:dev@getmonero.org"><i class="fa fa-2x fa-envelope-square"></i></a>
         </p>
       </div>
     </div>
@@ -124,9 +191,19 @@
     @yield('modals')
 
     <!-- JS -->
-    <script src="//static.monero.cc/js/jquery.min.js"></script>
-    <script src="//static.monero.cc/js/bootstrap.min.js"></script>
-    <script src="//static.monero.cc/js/monero.js"></script>
+    <script src="//static.getmonero.org/js/jquery.min.js"></script>
+    <script src="//static.getmonero.org/js/bootstrap.min.js"></script>
+    <script src="//static.getmonero.org/js/monero.js"></script>
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-53312765-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
     @yield('javascript')
 
   </body>

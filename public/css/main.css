@@ -17,6 +17,10 @@ body {
 	padding-top: 60px;
 }
 
+img {
+	max-width: 100%;
+}
+
 // Fix fragment jumps being ruined by the floating navbar
 *[id]:before { 
   display: block; 
