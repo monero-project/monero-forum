@@ -358,7 +358,6 @@ body {
 	width: 1170px;
 	margin-left: auto;
 	margin-right: auto;
-	padding-right: 15px;
 	height: 60px;
 }
 
@@ -968,4 +967,13 @@ body:before {
 	.footer img {
 		display: none;
 	}
+}
+
+@media (max-width: 767px) {
+    .navbar-wrapper {
+        padding-right: 0;
+    }
+    .navbar-collapse {
+        padding-left: 0;
+    }
 }
