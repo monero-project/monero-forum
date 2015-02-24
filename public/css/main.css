@@ -287,8 +287,10 @@ h2.inline {
 }
 
 .client-platforms li {
-	display: inline;
+	display: inline-block;
 	list-style-type: none;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .client-platforms img {
