@@ -898,7 +898,6 @@ body:before {
 
 	.navbar-nav.navbar-right:last-child {
 		margin: -1px -15px 0 -15px;
-		border: 1px solid #505050;
 	}
 
 	/* Icons */
@@ -992,5 +991,10 @@ body:before {
     }
     .navbar-collapse {
         padding-left: 0;
+    }
+    .navbar-nav.navbar-right:last-child {
+        margin: -1px -15px 0 -15px;
+        height: 100vh;
+        background: #313131;
     }
 }
