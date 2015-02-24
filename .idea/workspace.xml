@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f5963e42-fe03-4aec-8d68-66cebe7ffa59" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/main.css" afterPath="$PROJECT_DIR$/public/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="monero-forum.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -93,8 +92,8 @@
       <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.518518" vertical-offset="17877" max-vertical-offset="18696">
-              <caret line="953" column="20" selection-start-line="953" selection-start-column="20" selection-end-line="953" selection-end-column="20" />
+            <state vertical-scroll-proportion="-10.888889" vertical-offset="16160" max-vertical-offset="18639">
+              <caret line="866" column="0" selection-start-line="866" selection-start-column="0" selection-end-line="866" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -143,7 +142,7 @@
       <file leaf-file-name="master.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/master.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26279393" vertical-offset="0" max-vertical-offset="4161">
+            <state vertical-scroll-proportion="0.39337474" vertical-offset="0" max-vertical-offset="4161">
               <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="39" />
               <folding />
             </state>
@@ -381,7 +380,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3080873" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="21" y="418" width="1878" height="244" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3080873" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="21" y="418" width="1878" height="244" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295562" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" x="21" y="365" width="1878" height="349" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -820,15 +819,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.518518" vertical-offset="17877" max-vertical-offset="18696">
-          <caret line="953" column="20" selection-start-line="953" selection-start-column="20" selection-end-line="953" selection-end-column="20" />
+        <state vertical-scroll-proportion="-10.888889" vertical-offset="16160" max-vertical-offset="18639">
+          <caret line="866" column="0" selection-start-line="866" selection-start-column="0" selection-end-line="866" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/master.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26279393" vertical-offset="0" max-vertical-offset="4161">
+        <state vertical-scroll-proportion="0.39337474" vertical-offset="0" max-vertical-offset="4161">
           <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="39" />
           <folding />
         </state>
