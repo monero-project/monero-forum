@@ -281,6 +281,20 @@ h2.inline {
 	text-align: center;
 }
 
+.client-list img {
+	width: 360px;
+	padding-bottom: 10px;
+}
+
+.client-platforms li {
+	display: inline;
+	list-style-type: none;
+}
+
+.client-platforms img {
+	height: 20px;
+}
+
 .download-links {
 	line-height: 40px;
 	font-size: 18px !important;
