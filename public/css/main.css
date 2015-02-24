@@ -286,6 +286,10 @@ h2.inline {
 	padding-bottom: 10px;
 }
 
+.client-platforms ul {
+	padding-left: 0;
+}
+
 .client-platforms li {
 	display: inline-block;
 	list-style-type: none;
