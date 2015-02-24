@@ -358,7 +358,6 @@ body {
 	width: 1170px;
 	margin-left: auto;
 	margin-right: auto;
-	padding-right: 15px;
 	height: 60px;
 }
 
@@ -574,7 +573,6 @@ body:before {
 .navbar-default .navbar-toggle:active, 
 .navbar-default .navbar-toggle:focus {
 	background-color: #fff;
-	margin-top: 20px;
 }
 
 .navbar-default .navbar-toggle .icon-bar {
@@ -859,7 +857,6 @@ body:before {
 
 	.navbar-default .navbar-toggle {
 		border-color: #fff;
-		margin-top: 20px;
 		border-radius: 0;
 	}
 
@@ -867,7 +864,6 @@ body:before {
 	.navbar-default .navbar-toggle:active, 
 	.navbar-default .navbar-toggle:focus {
 		background-color: #fff;
-		margin-top: 20px;
 	}
 
 	.navbar-default .navbar-toggle .icon-bar {
@@ -968,4 +964,13 @@ body:before {
 	.footer img {
 		display: none;
 	}
+}
+
+@media (max-width: 767px) {
+    .navbar-wrapper {
+        padding-right: 0;
+    }
+    .navbar-collapse {
+        padding-left: 0;
+    }
 }

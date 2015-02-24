@@ -35,12 +35,12 @@
 	@if (Session::has('preview'))
 	<div class="row content-preview">
 		<div class="col-lg-12 preview-window">
-		{{ Markdown::string(Session::get('preview')) }}
+		{{ Markdown::string(e(Session::get('preview'))) }}
 		</div>
 	@else
 	<div class="row content-preview" style="display: none">
 		<div class="col-lg-12 preview-window">
-		Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!
+			Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!
 		</div>
 	@endif
 	</div>
