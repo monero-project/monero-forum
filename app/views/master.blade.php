@@ -94,81 +94,81 @@
     @if (Session::has('messages'))
 	<div class="row">
 		<div class="alert alert-info fade in" role="alert">
-	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-	      @foreach(Session::pull('messages') as $message)
-	      <b>{{ $message }}</b>
-	      @endforeach
-	    </div>
+		    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+		    @foreach(Session::pull('messages') as $message)
+		    <b>{{ $message }}</b>
+		    @endforeach
+		  </div>
 	</div>
 	@endif
 	@if (Session::has('errors'))
 	<div class="row">
 		<div class="alert alert-danger fade in" role="alert">
-	      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-	      @foreach(Session::pull('errors') as $error)
-	      <b>{{ $error }}</b>
-	      @endforeach
-	    </div>
+		    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+		    @foreach(Session::pull('errors') as $error)
+		    <b>{{ $error }}</b>
+		    @endforeach
+		  </div>
 	</div>
 	@endif
 
 	<div class="row">
-	    <div class="col-lg-12 user-block">
-		    <div class="col-lg-6">
-			    @if (Auth::check())
-				    Hello,
-				    <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></span></a>
-				    <a class="action-link user-block-mobile-disable" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read" data-toggle="tooltip" data-placement="bottom" data-original-title="Mark forum as read"><span class="glyphicon glyphicon-book"></span></a>
-				    <a class="action-link user-block-mobile-disable" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out" data-toggle="tooltip" data-placement="bottom" data-original-title="Log Out"></span></a>
-				    <br>
-			    @else
-				    Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
-			    @endif
-		    </div>
-		    <div class="col-lg-6 search-bar">
-			    {{ Form::open(array('url' => '/search')) }}
-			    <div class="col-lg-12 pull-right">
-				    <div class="input-group">
-					    <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
-					    @if(Route::current()->getName() == 'threadView' || Route::current()->getName() == 'forum.index')
-						    <span class="input-group-addon">
-			                    <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
-							    <input type="hidden" name="resource_id" value="{{ $resource_id }}"/>
-	                        </span>
-					    @endif
-					    <span class="input-group-btn">
-		        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
-		      </span>
-				    </div>
-			    </div>
-			    {{ Form::close() }}
-		    </div>
-	    </div>
+		  <div class="col-lg-12 user-block">
+			  <div class="col-lg-6">
+				  @if (Auth::check())
+					  Hello,
+					  <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></span></a>
+					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read" data-toggle="tooltip" data-placement="bottom" data-original-title="Mark forum as read"><span class="glyphicon glyphicon-book"></span></a>
+					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out" data-toggle="tooltip" data-placement="bottom" data-original-title="Log Out"></span></a>
+					  <br>
+				  @else
+					  Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
+				  @endif
+			  </div>
+			  <div class="col-lg-6 search-bar">
+				  {{ Form::open(array('url' => '/search')) }}
+				  <div class="col-lg-12 pull-right">
+					  <div class="input-group">
+						  <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
+						  @if(Route::current()->getName() == 'threadView' || Route::current()->getName() == 'forum.index')
+							  <span class="input-group-addon">
+				                  <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
+								  <input type="hidden" name="resource_id" value="{{ $resource_id }}"/>
+		                      </span>
+						  @endif
+						  <span class="input-group-btn">
+			      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
+			    </span>
+					  </div>
+				  </div>
+				  {{ Form::close() }}
+			  </div>
+		  </div>
 	</div>
-	    <div class="row">
-	    <div class="col-lg-12 search-bar-mobile">
-		    {{ Form::open(array('url' => '/search')) }}
-		    <div class="col-lg-12 pull-right">
-			    <div class="input-group">
-				    <input type="text" name="query" class="form-control search-text" placeholder="Search for...">
-				    @if(Route::current()->getName() != 'index')
-					    <span class="input-group-addon">
-			        <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
-	              </span>
-				    @endif
-				    <span class="input-group-btn">
-		        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
-		      </span>
-			    </div>
-		    </div>
-		    {{ Form::close() }}
-	    </div>
-	    </div>
+		  <div class="row">
+		  <div class="col-lg-12 search-bar-mobile">
+			  {{ Form::open(array('url' => '/search')) }}
+			  <div class="col-lg-12 pull-right">
+				  <div class="input-group">
+					  <input type="text" name="query" class="form-control search-text" placeholder="Search for...">
+					  @if(Route::current()->getName() != 'index')
+						  <span class="input-group-addon">
+				      <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
+		            </span>
+					  @endif
+					  <span class="input-group-btn">
+			      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
+			    </span>
+				  </div>
+			  </div>
+			  {{ Form::close() }}
+		  </div>
+		  </div>
 	@if (Auth::check())
 	<div class="row">
-	    <div class="col-lg-12 user-block user-block-mobile">
-	    	<a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read"><span class="glyphicon glyphicon-book"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
-	    </div>
+		  <div class="col-lg-12 user-block user-block-mobile">
+		  	<a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read"><span class="glyphicon glyphicon-book"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
+		  </div>
 	</div>
 	@endif
 	<div class="row">
@@ -194,15 +194,16 @@
     <script src="//static.getmonero.org/js/jquery.min.js"></script>
     <script src="//static.getmonero.org/js/bootstrap.min.js"></script>
     <script src="//static.getmonero.org/js/monero.js"></script>
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-53312765-1', 'auto');
-        ga('send', 'pageview');
-    </script>
+		ga('create', 'UA-53312765-5', 'auto');
+		ga('require', 'linkid', 'linkid.js');
+		ga('send', 'pageview');
+	</script>
 
     @yield('javascript')
 
