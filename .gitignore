@@ -11,3 +11,5 @@ composer.lock
 Thumbs.db
 /app/storage/logs/*.log
 /.idea
+/app/config/local/*
+/app/config/monero/*
