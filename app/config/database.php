@@ -50,10 +50,11 @@ return array(
 			'driver'    => 'mysql',
 			'host'      => '127.0.0.1',
 			'database'  => 'monero',
-			'username'  => 'root',
-			'password'  => 'root',
+			'username'  => 'homestead',
+			'password'  => 'secret',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
+			'port'      => 33060,
 			'prefix'    => '',
 		),
 		

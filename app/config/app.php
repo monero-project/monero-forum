@@ -60,8 +60,6 @@ return array(
 	
 	'max_gpg_entry'						=> 5, //number of times to try and hit the key servers before asking the user to upload a key instead.
 
-	
-
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
@@ -73,7 +71,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
