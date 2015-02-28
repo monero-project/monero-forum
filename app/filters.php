@@ -133,7 +133,13 @@ Route::filter('moderator', function()
 Route::filter('gpg-auth', function() {
 	if (Auth::user()) {
 		$user = Auth::user();
-		if (!$user->gpg_auth && Route::getCurrentRoute()->getPath() != 'gpg-auth' && !str_contains(Route::getCurrentRoute()->getPath(), 'keychain/message') && $user->in_wot && $user->key_id) {
+		$path = Route::getCurrentRoute()->getPath();
+
+		$is_logout = !str_contains($path, 'logout');
+		$is_message = !str_contains($path, 'keychain/message');
+		$is_auth = $path != 'gpg-auth';
+
+		if (!$user->gpg_auth && $is_auth && $is_message && $is_logout && $user->in_wot && $user->key_id) {
 			$otcp = "forum.monero:" . str_random(40) . "\n";
 
 			$key_id = $user->key_id;
