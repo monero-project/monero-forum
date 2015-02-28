@@ -2,14 +2,16 @@
 
 class UsersController extends BaseController
 {
-
+	/*
+	*      GPG Authentication page (Route: gpg.auth)
+	*/
 	public function getGPGAuth()
 	{
 		return View::make('user.gpg_auth');
 	}
 
 	/*
-	 *      GPG Authentication page (Route: gpg.auth)
+	 *      GPG Authentication action
 	 */
 	public function gpgAuth()
 	{

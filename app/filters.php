@@ -149,7 +149,7 @@ Route::filter('gpg-auth', function() {
 			$gpg->addencryptkey($user->fingerprint);
 			$message = $gpg->encrypt($otcp);
 
-
+			Key::where('key_id', $key_id)->delete();
 			Key::create([
 				'key_id'    => $key_id,
 				'password'  => Hash::make($otcp),
