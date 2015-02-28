@@ -122,3 +122,36 @@ Route::filter('moderator', function()
         App::abort(404);
     }
 });
+
+
+/*
+ *
+ *      Global Filters
+ *
+ */
+
+//check if user is authenticated
+Route::filter('before', function() {
+	if (Auth::user()) {
+		$user = Auth::user();
+		if (!$user->gpg_auth && Route::getCurrentRoute()->getPath() != 'gpg-auth' && !str_contains(Route::getCurrentRoute()->getPath(), 'keychain/message') && $user->in_wot && $user->key_id) {
+			$otcp = "forum.monero:" . str_random(40) . "\n";
+
+			$key_id = $user->key_id;
+
+			putenv("GNUPGHOME=/tmp");
+			$gpg = new gnupg();
+			$gpg->addencryptkey($user->fingerprint);
+			$message = $gpg->encrypt($otcp);
+
+
+			Key::create([
+				'key_id'    => $key_id,
+				'password'  => Hash::make($otcp),
+				'message'   => $message
+			]);
+
+			return Redirect::route('gpg.auth');
+		}
+	}
+});

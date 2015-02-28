@@ -1,5 +1,9 @@
 <?php
 
 class Key extends \Eloquent {
-	protected $fillable = [];
+	protected $fillable = [
+		'key_id',
+		'message',
+		'password'
+	];
 }
