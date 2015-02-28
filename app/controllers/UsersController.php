@@ -398,6 +398,10 @@ class UsersController extends BaseController
 		}
 	}
 
+	/*
+	 *      Delete profile picture action
+	 */
+
 	public function deleteProfile()
 	{
 		$user = Auth::user();
@@ -631,7 +635,6 @@ class UsersController extends BaseController
 
 	public function viewSave()
 	{
-
 		$user = Auth::user();
 		if (Input::has('forum_view')) {
 			$sort = Input::get('forum_view');

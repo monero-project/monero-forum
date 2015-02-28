@@ -125,14 +125,11 @@ Route::filter('moderator', function()
 
 
 /*
- *
  *      Global Filters
  *
  */
 
-//check if user is authenticated
-
-
+//  Check if user is authenticated via gpg
 Route::filter('gpg-auth', function() {
 	if (Auth::user()) {
 		$user = Auth::user();
@@ -154,6 +151,30 @@ Route::filter('gpg-auth', function() {
 			]);
 
 			return Redirect::route('gpg.auth');
+		}
+	}
+});
+
+// Check if session is not expired
+
+Route::filter('expired', function() {
+	if(Auth::check())
+	{
+		$user = Auth::user();
+		if ($user->remember_for && $user->remember_for != 0)
+		{
+			$last_login = $user->last_login;
+			$last_login = new Carbon($last_login);
+			$last_login->addMinutes($user->remember_for);
+
+			if ($last_login->lt(Carbon::now()))
+			{
+				$user->remember_for = NULL;
+				$user->save();
+
+				Auth::logout();
+				Session::put('messages', array('Your session has expired. We have logged you out.'));
+			}
 		}
 	}
 });
