@@ -1,8 +1,8 @@
 <?php
 
 //  Global filters
-Route::when('/*', 'gpg-auth');
-Route::when('/*', 'expired');
+Route::when('*', 'gpg-auth');
+Route::when('*', 'expired');
 
 Route::get('/', array(
 	'as'    => 'index',
