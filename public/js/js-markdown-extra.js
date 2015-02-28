@@ -789,7 +789,7 @@ Markdown_Parser.prototype.doImages = function(text) {
         var result;
         if ('undefined' !== typeof self.urls[link_id]) {
             var url = self.encodeAttribute(self.urls[link_id]);
-            result = "<img src=\"https://forum.monero.cc/get/image?link=" + encodeURIComponent(url) + "\" alt=\"" + alt_text + "\"";
+            result = "<img src=\"https://forum.getmonero.org/get/image?link=" + encodeURIComponent(url) + "\" alt=\"" + alt_text + "\"";
             if ('undefined' !== typeof self.titles[link_id]) {
                 var title = self.titles[link_id];
                 title = self.encodeAttribute(title);
@@ -839,7 +839,7 @@ Markdown_Parser.prototype.doImages = function(text) {
 
         alt_text = self.encodeAttribute(alt_text);
         url = self.encodeAttribute(url);
-        var result = "<img src=\"https://forum.monero.cc/get/image?link=" + encodeURIComponent(url) + "\" alt=\"" + alt_text + "\"";
+        var result = "<img src=\"https://forum.getmonero.org/get/image?link=" + encodeURIComponent(url) + "\" alt=\"" + alt_text + "\"";
         if ('undefined' !== typeof title && title !== '') {
             title = self.encodeAttribute(title);
             result +=  " title=\"" + title + "\""; // $title already quoted

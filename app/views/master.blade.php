@@ -32,7 +32,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a class="yellow" href="https://forum.monero.cc">Forum</a></li>
+            <li><a class="yellow" href="https://forum.getmonero.org">Forum</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle purple" data-toggle="dropdown">Blog <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -73,7 +73,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle softyellow last" data-toggle="dropdown">Community <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="https://forum.monero.cc">Forum</a></li>
+                <li><a href="https://forum.getmonero.org">Forum</a></li>
                 <li><a href="https://www.reddit.com/r/monero/">Reddit</a></li>
                 <li><a href="https://bitcointalk.org/index.php?topic=583449.0">Bitcointalk Thread</a></li>
                 <li class="divider"></li>
