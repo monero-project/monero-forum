@@ -131,7 +131,9 @@ Route::filter('moderator', function()
  */
 
 //check if user is authenticated
-Route::filter('before', function() {
+
+
+Route::filter('gpg-auth', function() {
 	if (Auth::user()) {
 		$user = Auth::user();
 		if (!$user->gpg_auth && Route::getCurrentRoute()->getPath() != 'gpg-auth' && !str_contains(Route::getCurrentRoute()->getPath(), 'keychain/message') && $user->in_wot && $user->key_id) {

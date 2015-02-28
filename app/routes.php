@@ -1,19 +1,6 @@
 <?php
 
-Route::get('/test', function() {
-	$gpg = gnupg_init();
-
-	putenv("GNUPGHOME=/tmp");
-	$pubkey = "haha";
-
-	$gpg = new gnupg();
-	$gpg->seterrormode(gnupg::ERROR_EXCEPTION);
-	$info = $gpg->import($pubkey);
-	$gpg->addencryptkey($info['fingerprint']);
-
-	echo $gpg->encrypt('hello world');
-
-});
+Route::when('/*', 'gpg-auth');
 
 Route::get('/', array(
 	'as'    => 'index',
