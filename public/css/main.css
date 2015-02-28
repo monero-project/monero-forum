@@ -201,28 +201,6 @@ text {
 	margin-bottom: 12px;
 }
 
-ul.purple {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-
-.purple li {
-	background-image: url('../images/bullett.png');
-	background-repeat: no-repeat;
-	background-position: 0px 5px; 
-	padding-left: 15px; 
-	margin-bottom: 12px;
-}
-
-ul.purple strong {
-	text-transform: uppercase;
-}
-
-ul.purple em {
-	font-style: normal;
-}
-
 h2 .purple-kicks {
 	color: #6b0072;
 }
