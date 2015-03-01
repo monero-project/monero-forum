@@ -76,10 +76,26 @@
 		</div>
 		<div class="col-lg-12 post-nav">
 			<ul class="nav nav-tabs" role="tablist">
-			  <li><a href="{{ $thread->permalink() }}">Default</a></li>
-			  <li><a href="?sort=weight">Weight</a></li>
-			  <li><a href="?sort=date_desc">Latest</a></li>
-			  <li><a href="?sort=date_asc">Oldest</a></li>
+				@if(!User::currentSort())
+			        <li class="active"><a href="{{ $thread->permalink() }}">Default</a></li>
+				@else
+					<li><a href="{{ $thread->permalink() }}">Default</a></li>
+				@endif
+				@if(User::currentSort() == 'weight')
+					<li class="active"><a href="?sort=weight">Weight</a></li>
+				@else
+					<li><a href="?sort=weight">Weight</a></li>
+				@endif
+				@if(User::currentSort() == 'date_desc')
+					<li class="active"><a href="?sort=date_desc">Latest</a></li>
+				@else
+					<li><a href="?sort=date_desc">Latest</a></li>
+				@endif
+				@if(User::currentSort() == 'date_asc')
+					<li class="active"><a href="?sort=date_asc">Oldest</a></li>
+				@else
+					<li><a href="?sort=date_asc">Oldest</a></li>
+				@endif
 			</ul>
 		</div>
 		<div id="trunk">

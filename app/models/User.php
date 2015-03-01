@@ -107,4 +107,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return User::where('username', $username)->first();
 	}
 
+	/* Get the current sort selection of the user */
+	public static function currentSort() {
+		if(Input::has('sort'))
+		{
+			return Input::get('sort');
+		}
+		elseif(Auth::check()) {
+			return Auth::user()->default_sort;
+		}
+		else {
+			return false;
+		}
+	}
+
 }
