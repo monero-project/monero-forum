@@ -1,8 +1,7 @@
 <?php
 
-//  Global filters
-Route::when('*', 'gpg-auth');
-Route::when('*', 'expired');
+Route::get('/session', function() {
+});
 
 Route::get('/', array(
 	'as'    => 'index',
@@ -90,7 +89,7 @@ Route::post('/posts/submit', array('before' => 'auth', 'uses' => 'PostsControlle
 Route::post('/posts/update', array('before' => 'auth', 'uses' => 'PostsController@update'));
 
 /*	Threads	*/
-Route::get('/thread/create/{forum_id}', array('before' => 'auth', 'uses' => 'ThreadsController@create'));
+Route::get('/thread/create/{forum_id}', array('before' => 'auth', 'as' => 'thread.create', 'uses' => 'ThreadsController@create'));
 Route::post('/thread/create', array('before' => 'auth', 'uses' => 'ThreadsController@submitCreate'));
 Route::get('/thread/delete/{thread_id}', array('before' => 'auth', 'uses' => 'ThreadsController@delete'));
 

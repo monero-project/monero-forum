@@ -1,8 +1,13 @@
 <?php
 
 class Post extends \Eloquent {
-	protected $fillable = [];
+	protected $fillable = [
+		'user_id',
+		'thread_id',
+		'body'
+	];
 	protected $softDelete = true;
+
 	use SoftDeletingTrait;
 	
 	public function user() {

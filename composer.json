@@ -23,7 +23,8 @@
 		"guzzlehttp/guzzle": "~4.0",
 		"roumen/feed": "dev-master#f76ffd73fc5eab35bfc6bf0029d195cde7691f89",
 		"vtalbot/markdown": "dev-master",
-		"michelf/php-markdown": "dev-lib"
+		"michelf/php-markdown": "dev-lib",
+		"barryvdh/laravel-ide-helper": "~1.11"
 	},
 	"autoload": {
 		"classmap": [

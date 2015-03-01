@@ -35,7 +35,7 @@
 	@if (Session::has('preview'))
 	<div class="row content-preview">
 		<div class="col-lg-12 preview-window">
-		{{ Markdown::string(e(Session::get('preview'))) }}
+		{{ Session::get('preview') }}
 		</div>
 	@else
 	<div class="row content-preview" style="display: none">
