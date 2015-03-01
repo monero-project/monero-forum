@@ -976,3 +976,18 @@ body:before {
         background: #313131;
     }
 }
+
+/* Alert Fix */
+.alert-danger p {
+    color: #a94442;
+}
+.alert-warning p {
+    color: #8a6d3b;
+}
+.alert-success p {
+    color: #3c763d;
+}
+.alert-info p {
+    color: #31708f;
+}
+

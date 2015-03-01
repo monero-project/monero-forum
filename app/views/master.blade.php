@@ -8,8 +8,8 @@
 
     <link href="//static.getmonero.org/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
-    <link href="//static.getmonero.org/css/main.css" rel="stylesheet">
-    <link href="//static.getmonero.org/css/forum.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/forum.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="//static.getmonero.org/js/html5shiv.js"></script>
@@ -95,7 +95,7 @@
 		<div class="alert alert-info fade in" role="alert">
 		    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
 		    @foreach(Session::pull('messages') as $message)
-		    <b>{{ $message }}</b>
+		    <p>{{ $message }}</p>
 		    @endforeach
 		  </div>
 	</div>
@@ -105,7 +105,7 @@
 		<div class="alert alert-danger fade in" role="alert">
 		    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
 		    @foreach(Session::pull('errors') as $error)
-		    <b>{{ $error }}</b><br>
+		    <p>{{ $error }}</p>
 		    @endforeach
 		  </div>
 	</div>
