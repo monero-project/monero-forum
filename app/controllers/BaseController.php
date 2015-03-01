@@ -11,6 +11,7 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
+		Breadcrumbs::setDivider(null);
 		if ( ! is_null($this->layout))
 		{
 			$this->layout = View::make($this->layout);
