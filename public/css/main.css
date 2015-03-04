@@ -1,5 +1,5 @@
 /*
-	v 0.5
+	v 0.6
 
 	Light Grey: #505050
 	Dark Grey: #313131
@@ -515,6 +515,37 @@ body {
 	clear: both;
 }
 
+/*Tables*/
+
+.table-wrap {
+	overflow: auto;
+}
+
+table {
+	border: 1px solid #cccccc;
+    border-collapse: collapse;
+    font-size: 14px;
+    width: 100%;
+}
+
+tbody tr:nth-child(odd) {
+   background-color: #f3f3f3;
+}
+
+th {
+	background: #505050;
+	border: 1px solid #cccccc;
+	color: #fff;
+	padding: 1em;
+	text-align: left;
+}
+
+td {
+	border: 1px solid #ccc;
+	padding: 1em;
+	text-align: left;
+}
+
 /*Opera Footer Fix*/
 body:before {
 	content:"";
@@ -668,6 +699,52 @@ body:before {
 		display: block;
 		text-align: right;
 	}
+
+	/* Responsive Tables, using Kelly Cook's technique */
+	table {
+	    display: block;
+	    width: 100%;
+	}
+
+    thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin: 0 0 1em;
+    }
+
+    tr:nth-child(odd) {
+        background: #fcfcfc;
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding: 1em 0;
+        padding-left: 50%;
+    }
+
+   	td:before {
+    	content: attr(data-label);
+        padding: 1em 0 1em 1em;
+        /* Now like a table header */
+        position: absolute;
+        font-weight: bold;
+        top: 0;
+        left: 0;
+        width: 45%;
+        white-space: nowrap;
+    }
+
 }
 
 @media (max-width: 480px) {
