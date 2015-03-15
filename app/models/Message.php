@@ -2,12 +2,19 @@
 
 class Message extends \Eloquent {
 
-	public function receiver() {
-		return $this->belongsTo('User', 'receiver_id', 'id');
+	protected $fillable = [
+		'body',
+		'is_read',
+		'conversation_id',
+		'user_id'
+	];
+
+	public function conversation() {
+		return $this->belongsTo('Conversation');
 	}
 
-	public function sender() {
-		return $this->belongsTo('User', 'sender_id', 'id');
+	public function user() {
+		return $this->belongsTo('User');
 	}
 
 }

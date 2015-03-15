@@ -44,12 +44,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Pushed_Rating');
 	}
 
-	public function receivedMessages() {
-		return $this->hasMany('Message', 'receiver_id', 'id');
-	}
-
-	public function sentMessages() {
-		return $this->hasMany('Message', 'sender_id', 'id');
+	//needs get() or paginate() or whatever to get the results.
+	//returns all the conversations that a user is involved in.
+	public function conversations() {
+		return Conversation::where('user_id', $this->id)->orWhere('receiver_id', $this->id);
 	}
 
 	public function getMessagesAttribute() {
