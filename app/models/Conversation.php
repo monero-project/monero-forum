@@ -29,4 +29,17 @@ class Conversation extends \Eloquent {
 	public function messages() {
 		return $this->hasMany('Message');
 	}
+
+	//validator
+
+	public static function validate($input) {
+
+		$rules = [
+			'title'     => 'required',
+			'body'      => 'required',
+			'username'  => 'required',
+		];
+
+		return Validator::make($input, $rules);
+	}
 }

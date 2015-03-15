@@ -803,3 +803,7 @@ p.syntax {
     border-bottom: 1px dashed #ccc;
     padding-bottom: 10px;
 }
+
+.messages {
+    margin-top: 15px;
+}
