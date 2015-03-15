@@ -129,7 +129,13 @@ Route::get('/keychain/trust/{level}/{id}', 'KeychainController@trust');
 
 /* Private Messaging */
 
-Route::controller('messages', 'MessagesController');
+Route::controller('messages', 'MessagesController', [
+	'getIndex'          => 'messages.index',
+	'getCreate'         => 'messages.create',
+	'postSend'          => 'messages.send',
+	'postReply'         => 'messages.reply',
+	'getConversation'   => 'messages.conversation'
+]);
 
 /* Forum Structure */
 Route::get('/t/{id}', array('as' => 'thread.short', 'uses' => 'ThreadsController@indexShort')); //shorthand for reaching threads.

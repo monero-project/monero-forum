@@ -1,13 +1,13 @@
 @extends('master')
 
 @section('content')
-	{{ Form::open() }}
+	{{ Form::open(['url' => URL::route('messages.send')]) }}
 		<div class="form-group">
 			<label for="username">Username:</label>
 			<input type="text" class="form-control" id="username" name="username" placeholder="Recipients username">
 		</div>
 		<div class="form-group">
-			<label for="username">Title</label>
+			<label for="username">Title:</label>
 			<input type="text" class="form-control" id="username" name="title" placeholder="The title of your conversation">
 		</div>
 		<div class="form-group">

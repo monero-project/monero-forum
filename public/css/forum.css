@@ -797,3 +797,9 @@ p.syntax {
 .btn-search {
     margin-top: -7px;
 }
+
+.conversation-row {
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+}
