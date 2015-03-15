@@ -1,6 +1,11 @@
 @extends('master')
 
 @section('content')
+	<div class="row">
+		<div class="operations">
+			<a href="/messages/create"><button class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span> New Conversation</button></a>
+		</div>
+	</div>
 	@if(count($conversations))
 		@foreach($conversations as $conversation)
 			<div class="row">

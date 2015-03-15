@@ -785,3 +785,15 @@ p.syntax {
         margin: 0;
     }
 }
+
+.btn .glyphicon {
+    color: white;
+}
+
+.operations .btn {
+    margin: 0 0 10px 5px;
+}
+
+.btn-search {
+    margin-top: -7px;
+}

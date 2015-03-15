@@ -29,7 +29,8 @@
     <link href="//static.getmonero.org/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
     <link href="//static.getmonero.org/css/main.css" rel="stylesheet">
-    <link href="//static.getmonero.org/css/forum.css" rel="stylesheet">
+	<link href="/css/forum.css" rel="stylesheet">
+    {{--<link href="//static.getmonero.org/css/forum.css" rel="stylesheet">--}}
 
     <!--[if lt IE 9]>
       <script src="//static.getmonero.org/js/html5shiv.js"></script>
@@ -158,7 +159,7 @@
 		                      </span>
 						  @endif
 						  <span class="input-group-btn">
-			      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
+			      <button class="btn btn-success btn-search" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
 			    </span>
 					  </div>
 				  </div>
