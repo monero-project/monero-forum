@@ -127,6 +127,10 @@ Route::get('/keychain/posts/get/{thread_id}/{posts_num}', 'PostsController@listP
 
 Route::get('/keychain/trust/{level}/{id}', 'KeychainController@trust');
 
+/* Private Messaging */
+
+Route::controller('messages', 'MessagesController');
+
 /* Forum Structure */
 Route::get('/t/{id}', array('as' => 'thread.short', 'uses' => 'ThreadsController@indexShort')); //shorthand for reaching threads.
 Route::get('/{forum_id}/{forum_slug}', array('as' => 'forum.index', 'uses' => 'ForumsController@index'));
@@ -134,7 +138,3 @@ Route::get('/{forum_id}/{forum_slug}/feed', 'FeedsController@forumFeed');
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}', array('as' => 'threadView', 'uses' => 'ThreadsController@index'));
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}/feed', 'FeedsController@threadFeed');
 Route::get('/{forum_id}/{forum_slug}/{thread_id}/{thread_slug}/{post_id}/{post_slug}', 'PostsController@index');
-
-/* Private Messaging */
-
-Route::controller('messages', 'MessagesController');

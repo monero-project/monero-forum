@@ -5,30 +5,16 @@ class MessagesController extends \BaseController {
 	public function getIndex()
 	{
 		$user = Auth::user();
-		$messages = $user->receivedMessages()->paginate(10);
 
-		//mark all the unread messages as read.
+		$conversations = $user->conversations()->paginate(20);
 
-		$user->receivedMessages()->where('is_read', 0)->update(array('is_read' => 1));
-
-		return View::make('messages.list', compact('messages'));
+		return View::make('messages.list', compact('conversations'));
 
 	}
 
-	public function getConversations()
+	public function getCreate()
 	{
-		$user = Auth::user();
-		$messages = $user->sent_messages;
-
-		return View::make('messages.conversations', compact('messages'));
-	}
-
-	public function getSent()
-	{
-		$user = Auth::user();
-		$messages = $user->sent_messages;
-
-		return View::make('messages.list', compact('messages'));
+		return View::make('messages.create');
 	}
 
 	public function getUnread()
@@ -45,11 +31,6 @@ class MessagesController extends \BaseController {
 	}
 
 	public function getConversation($id)
-	{
-		//
-	}
-
-	public function getDestroy($id)
 	{
 		//
 	}
