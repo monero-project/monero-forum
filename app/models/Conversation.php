@@ -14,7 +14,8 @@ class Conversation extends \Eloquent {
 		return [
 			'created_at',
 			'updated_at',
-			'read_at'
+			'user_read_at',
+			'receiver_read_at'
 		];
 	}
 
