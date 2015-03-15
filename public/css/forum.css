@@ -807,3 +807,7 @@ p.syntax {
 .messages {
     margin-top: 15px;
 }
+
+.envelope-green {
+    color: #5b9a6f;
+}

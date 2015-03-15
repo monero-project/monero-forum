@@ -15,7 +15,11 @@
 					@foreach ($conversations as $conversation)
 						<div class="row">
 							<div class="col-md-6">
+								@if($conversation->is_read())
 									<span class="glyphicon glyphicon-envelope"></span>
+								@else
+									<span class="glyphicon glyphicon-envelope envelope-green"></span>
+								@endif
 									<a class="thread-title" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $conversation->title }}}" href="{{ URL::route('messages.conversation', [$conversation->id]) }}">
 										{{{ str_limit($conversation->title, 50, ' [...]') }}}
 									</a>

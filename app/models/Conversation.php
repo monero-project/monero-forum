@@ -43,4 +43,33 @@ class Conversation extends \Eloquent {
 
 		return Validator::make($input, $rules);
 	}
+
+	public function is_read() {
+
+		//check if user is sender or receiver
+		$is_sender = $this->user_id == Auth::user()->id;
+		$message = $this->messages()->orderBy('created_at', 'DESC')->first();
+		if($is_sender)
+		{
+			if($this->user_read_at && $this->user_read_at->gte($message->created_at))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else {
+			if($this->receiver_read_at && $this->receiver_read_at->gte($message->created_at))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+	}
 }

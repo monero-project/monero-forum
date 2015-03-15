@@ -9,7 +9,7 @@ class MessagesController extends \BaseController
 	{
 		$user = Auth::user();
 
-		$conversations = $user->conversations()->paginate(20);
+		$conversations = $user->conversations()->orderBy('created_at', 'DESC')->paginate(20);
 
 		return View::make('messages.list', compact('conversations'));
 
