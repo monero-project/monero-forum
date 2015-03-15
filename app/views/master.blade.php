@@ -136,9 +136,11 @@
 			  <div class="col-lg-6">
 				  @if (Auth::check())
 					  Hello,
-					  <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>. <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></span></a>
-					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read" data-toggle="tooltip" data-placement="bottom" data-original-title="Mark forum as read"><span class="glyphicon glyphicon-book"></span></a>
-					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out" data-toggle="tooltip" data-placement="bottom" data-original-title="Log Out"></span></a>
+					  <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>.
+					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/messages') }}" alt="Private Messages" title="Private Messages" data-toggle="tooltip" data-placement="bottom" data-original-title="Private Messages"><span class="glyphicon glyphicon-envelope"></span></a>
+					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></span></a>
+					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/users/action/allread') }}" alt="Mark everything as read" title="Mark as Read" data-toggle="tooltip" data-placement="bottom" data-original-title="Mark forum as read"><span class="glyphicon glyphicon-book"></span></a>
+					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out" data-toggle="tooltip" data-placement="bottom" data-original-title="Log Out"></span></a>
 					  <br>
 				  @else
 					  Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
