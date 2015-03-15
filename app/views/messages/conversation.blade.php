@@ -27,6 +27,10 @@
 				</div>
 			</div>
 		@endforeach
+
+	<div class="post-links">
+		{{ $messages->links() }}
+	</div>
 	@else
 		<div class="well text-center">
 			You don't have any messages!
