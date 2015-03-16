@@ -811,3 +811,7 @@ p.syntax {
 .envelope-green {
     color: #5b9a6f;
 }
+
+.sub-item {
+    margin-bottom: 10px;
+}

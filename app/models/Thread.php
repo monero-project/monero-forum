@@ -16,6 +16,10 @@ class Thread extends \Eloquent
 		return $this->belongsTo('User');
 	}
 
+	public function subscriptions() {
+		return $this->hasMany('Subscription');
+	}
+
 	public function forum()
 	{
 		return $this->belongsTo('Forum');

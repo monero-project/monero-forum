@@ -136,3 +136,5 @@ Event::listen('auth.logout', function($user)
 require app_path().'/post_helpers.php';
 /* GPG helper file */
 require app_path().'/libraries/lib.gpg.php';
+/* Notification Handler */
+require app_path().'/handlers/Notifications.php';

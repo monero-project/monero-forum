@@ -137,6 +137,17 @@ Route::controller('messages', 'MessagesController', [
 	'getConversation'   => 'messages.conversation'
 ]);
 
+//Route::controller('notifications', 'NotificationsController', [
+//	'getIndex'  => 'notifications.index'
+//]);
+
+Route::controller('subscriptions', 'SubscriptionsController', [
+	'getIndex'          => 'subscriptions.index',
+	'getSubscribe'      => 'subscriptions.subscribe',
+	'getUnsubscribe'    => 'subscriptions.unsubscribe',
+	'postSave'          => 'subscriptions.save'
+]);
+
 /* Forum Structure */
 Route::get('/t/{id}', array('as' => 'thread.short', 'uses' => 'ThreadsController@indexShort')); //shorthand for reaching threads.
 Route::get('/{forum_id}/{forum_slug}', array('as' => 'forum.index', 'uses' => 'ForumsController@index'));

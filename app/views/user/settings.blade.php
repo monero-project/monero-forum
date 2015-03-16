@@ -124,6 +124,26 @@
 			{{ Form::close() }}
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+		<h2>Subscriptions</h2>
+		{{ Form::open(array('url' => URL::route('subscriptions.save'))) }}
+		<div class="checkbox">
+			<label>
+				@if($user->subscribe)
+					<input type="checkbox" name="subscribe" value="1" checked>
+				@else
+					<input type="checkbox" name="subscribe" value="1">
+				@endif
+				Automatically subscribe to threads I reply to.
+			</label>
+		</div>
+			<a href="{{ URL::route('subscriptions.index') }}"><button type="button" class="btn btn-info">Manage subscriptions</button></a>
+		{{ Form::submit('Save', array('class' => 'btn btn-success btn-sm pull-right')) }}
+		<div class="clearfix"></div>
+		{{ Form::close() }}
+		</div>
+	</div>
 @stop
 
 @section('javascript')
