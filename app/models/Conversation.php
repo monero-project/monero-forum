@@ -5,7 +5,7 @@ class Conversation extends \Eloquent {
 		'user_id',
 		'receiver_id',
 		'title',
-		'read_at',
+		'user_read_at',
 	];
 
 	//convert dates to carbon objects.

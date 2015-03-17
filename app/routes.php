@@ -137,9 +137,10 @@ Route::controller('messages', 'MessagesController', [
 	'getConversation'   => 'messages.conversation'
 ]);
 
-//Route::controller('notifications', 'NotificationsController', [
-//	'getIndex'  => 'notifications.index'
-//]);
+Route::controller('notifications', 'NotificationsController', [
+	'getIndex'  => 'notifications.index',
+	'getCount'  => 'notifications.count'
+]);
 
 Route::controller('subscriptions', 'SubscriptionsController', [
 	'getIndex'          => 'subscriptions.index',

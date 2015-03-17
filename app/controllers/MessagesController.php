@@ -37,7 +37,7 @@ class MessagesController extends \BaseController
 				'title' => $title,
 				'user_id' => Auth::user()->id,
 				'receiver_id' => $user->id,
-				'read_at' => new DateTime(),
+				'user_read_at' => new DateTime(),
 			]);
 
 			$message = Message::create([

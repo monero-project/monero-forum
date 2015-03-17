@@ -16,7 +16,8 @@ class Thread extends \Eloquent
 		return $this->belongsTo('User');
 	}
 
-	public function subscriptions() {
+	public function subscriptions()
+	{
 		return $this->hasMany('Subscription');
 	}
 
@@ -72,8 +73,8 @@ class Thread extends \Eloquent
 		);
 
 		$messages = array(
-			'name.required'      => 'A thread title is required!',
-			'body.required'      => 'Your thread needs some content!'
+			'name.required' => 'A thread title is required!',
+			'body.required' => 'Your thread needs some content!'
 		);
 
 		return Validator::make($input, $rules, $messages);
@@ -113,4 +114,5 @@ class Thread extends \Eloquent
 			return 0;
 		}
 	}
+
 }

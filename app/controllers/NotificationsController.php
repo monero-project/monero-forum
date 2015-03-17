@@ -1,86 +1,37 @@
 <?php
 
-class NotificationsController extends \BaseController {
+use Carbon\Carbon;
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /notifications
-	 *
-	 * @return Response
-	 */
-	public function index()
+class NotificationsController extends \BaseController
+{
+
+	public function getIndex()
 	{
-		//
+		$user = Auth::user();
+		$notifications = $user->notifications()->orderBy('created_at', 'DESC')->paginate(20);
+
+		//some black magic so that we can fire an event after the HTML is rendered.
+		//will let us show that there indeed are new notifications.
+		$view = View::make('notifications.index', compact('notifications'));
+
+		$view = Response::make($view);
+
+		$user->notifications_read = Carbon::now();
+		$user->save();
+
+		return $view;
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /notifications/create
-	 *
-	 * @return Response
-	 */
-	public function create()
+	//shows the notifications count.
+	public function getCount()
 	{
-		//
-	}
+		$user = Auth::user();
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /notifications
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+		$read_at = $user->notifications_read;
 
-	/**
-	 * Display the specified resource.
-	 * GET /notifications/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+		$count = $user->notifications()->where('created_at', '>=', $read_at)->count();
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /notifications/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /notifications/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /notifications/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		return $count;
 	}
 
 }

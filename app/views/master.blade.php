@@ -140,6 +140,13 @@
 					  Hello,
 					  <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>.
 					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/messages') }}" alt="Private Messages" title="Private Messages" data-toggle="tooltip" data-placement="bottom" data-original-title="Private Messages"><span class="glyphicon glyphicon-envelope"></span></a>
+					  <a class="action-link user-block-mobile-disable" href="{{ URL::route('notifications.index') }}"  alt="Notifications" title="Notifications">
+						  @if(Notification::unreadCount() > 0)
+						  <span class="badge" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications">{{ Notification::unreadCount() }}</span>
+						  @else
+						  <span class="glyphicon glyphicon-bell" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></span>
+			              @endif
+					  </a>
 					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></span></a>
 					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/users/action/allread') }}" alt="Mark everything as read" title="Mark as Read" data-toggle="tooltip" data-placement="bottom" data-original-title="Mark forum as read"><span class="glyphicon glyphicon-book"></span></a>
 					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out" data-toggle="tooltip" data-placement="bottom" data-original-title="Log Out"></span></a>

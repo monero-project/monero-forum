@@ -31,6 +31,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function subscriptions() {
 		return $this->hasMany('Subscription');
 	}
+
+	public function notifications() {
+		return $this->hasMany('Notification');
+	}
 	
 	public function threads() {
 		return $this->hasMany('Thread');
@@ -121,6 +125,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		else {
 			return false;
 		}
+	}
+
+	public function getDates() {
+		return [
+			'created_at',
+			'updated_at',
+			'notifications_read'
+		];
 	}
 
 }
