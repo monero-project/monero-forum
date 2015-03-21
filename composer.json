@@ -19,7 +19,7 @@
 		"fzaninotto/faker": "v1.3.0",
 		"zizaco/entrust": "1.2.*@dev",
 		"intervention/image": "2.*",
-		"creitive/breadcrumbs": "dev-master",
+		"creitive/laravel4-breadcrumbs": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
 		"roumen/feed": "dev-master#f76ffd73fc5eab35bfc6bf0029d195cde7691f89",
 		"vtalbot/markdown": "dev-master",
