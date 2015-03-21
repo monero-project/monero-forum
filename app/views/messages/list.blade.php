@@ -1,6 +1,10 @@
 @extends('master')
 
 @section('content')
+
+	{{ Breadcrumbs::addCrumb('Home', '/') }}
+	{{ Breadcrumbs::addCrumb('Messages', '/messages') }}
+
 	<div class="row">
 		<div class="operations">
 			<a href="/messages/create"><button class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span> New Conversation</button></a>

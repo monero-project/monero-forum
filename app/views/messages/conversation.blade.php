@@ -2,6 +2,10 @@
 
 @section('content')
 
+	{{ Breadcrumbs::addCrumb('Home', '/') }}
+	{{ Breadcrumbs::addCrumb('Messages', '/messages') }}
+	{{ Breadcrumbs::addCrumb(e($conversation->title), URL::route('messages.conversation', [$conversation->id])) }}
+
 	<div class="row">
 	{{ Form::open(['url' => URL::route('messages.reply')]) }}
 		<input type="hidden" name="conversation" value="{{ $conversation->id }}"/>

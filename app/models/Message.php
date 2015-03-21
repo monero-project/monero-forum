@@ -26,4 +26,15 @@ class Message extends \Eloquent {
 		return Validator::make($input, $rules);
 	}
 
+	public static function unreadCount() {
+		$user = Auth::user();
+
+		$sent = Conversation::where('user_id', $user->id)->where('user_read', 0)->count();
+		$received = Conversation::where('receiver_id', $user->id)->where('receiver_read', 0)->count();
+
+		$count = $sent + $received;
+
+		return $count;
+	}
+
 }

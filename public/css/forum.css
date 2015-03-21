@@ -815,3 +815,7 @@ p.syntax {
 .sub-item {
     margin-bottom: 10px;
 }
+
+.bs-green {
+    color: #5b9a6f;
+}

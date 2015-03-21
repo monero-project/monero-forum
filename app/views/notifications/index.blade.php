@@ -1,6 +1,10 @@
 @extends('master')
 
 @section('content')
+
+	{{ Breadcrumbs::addCrumb('Home', '/') }}
+	{{ Breadcrumbs::addCrumb('Notifications', '/notifications') }}
+
 	@foreach($notifications as $notification)
 	<div class="row">
 		<div class="well well-sm">

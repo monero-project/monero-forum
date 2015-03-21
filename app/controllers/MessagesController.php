@@ -76,8 +76,10 @@ class MessagesController extends \BaseController
 
 			if ($is_sender) {
 				$conversation->user_read_at = Carbon::now();
+				$conversation->user_read = 1;
 			} else {
 				$conversation->receiver_read_at = Carbon::now();
+				$conversation->receiver_read = 1;
 			}
 
 			$conversation->save();
@@ -106,10 +108,20 @@ class MessagesController extends \BaseController
 					'conversation_id' => $conversation_id
 				]);
 
+				$is_sender = $conversation->user_id == Auth::user()->id;
+
+				if ($is_sender) {
+					$conversation->receiver_read = 0;
+				}
+				else {
+					$conversation->user_read = 0;
+				}
+
 				//update the created_at timestamp and bump the convo
 				//up the list.
 				$conversation->created_at = Carbon::now();
 				$conversation->save();
+
 
 				Session::put('messages', ['Reply sent successfully.']);
 			} else {
