@@ -35,7 +35,7 @@ class Forum extends \Eloquent {
 		$key = 'forum_latest_post_'.$this->id;
 		//caching this, because it takes a fair bit if there are a lot of posts.
 		$forum = $this;
-		$post = Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+		$post = Cache::tags(['forum_'.$forum->id])->remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
 				{
 				    return DB::table('forums')
 						->where('forums.id', '=', $forum->id)
@@ -51,7 +51,7 @@ class Forum extends \Eloquent {
 	public function thread_count() {
 		$key = 'forum_thread_count'.$this->id;
 		$forum = $this;
-		$count = Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+		$count = Cache::tags(['forum_'.$forum->id])->remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
 				{
 				    return $forum->threads->count();
 				});
@@ -62,7 +62,7 @@ class Forum extends \Eloquent {
 		$key = 'forum_reply_count_'.$this->id;
 		//caching this, because it takes a fair bit if there are a lot of posts.
 		$forum = $this;
-		$count = Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+		$count = Cache::tags(['forum_'.$forum->id])->remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
 				{
 				    return DB::table('forums')
 						->where('forums.id', '=', $forum->id)
@@ -81,7 +81,7 @@ class Forum extends \Eloquent {
 		
 		$forum = $this;
 		
-		$thread = Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+		$thread = Cache::tags(['forum_'.$forum->id])->remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
 				{
 				return DB::table('forums')
 						->where('forums.id', '=', $forum->id)
@@ -99,7 +99,7 @@ class Forum extends \Eloquent {
 		{
 			$key = 'user_'.Auth::user()->id.'_forum_'.$this->id.'_new_threads';
 			$forum = $this;
-			$newPosts = Cache::remember($key, '1', function() use ($forum)
+			$newPosts = Cache::tags(['forum_'.$forum->id])->remember($key, '1', function() use ($forum)
 					{					  		
 					  	return (
 			                $forum->latest_post()
@@ -108,7 +108,12 @@ class Forum extends \Eloquent {
 			                &&
 			                ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()
 						    &&
-						    $forum->latest_post()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $forum->latest_thread()->id)->first()->updated_at
+						    $forum->latest_post()->updated_at
+						    >
+						    ThreadView::where('user_id', Auth::user()->id)
+							    ->where('thread_id', $forum->latest_thread()->id)
+							    ->first()
+							    ->updated_at
 						);
 				});
 			return $newPosts;
@@ -123,7 +128,7 @@ class Forum extends \Eloquent {
 		{
 			$key = 'user_'.Auth::user()->id.'_forum_'.$this->id.'_unread_threads';
 			$forum = $this;
-			$unreadPosts = Cache::remember($key, '1', function() use ($forum)
+			$unreadPosts = Cache::tags(['forum_'.$forum->id])->remember($key, '1', function() use ($forum)
 					{
 							$count = 0;
 					  		

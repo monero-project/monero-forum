@@ -138,3 +138,4 @@ require app_path().'/post_helpers.php';
 require app_path().'/libraries/lib.gpg.php';
 /* Notification Handler */
 require app_path().'/handlers/Notifications.php';
+require app_path().'/handlers/Cache.php';

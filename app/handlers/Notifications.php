@@ -34,19 +34,18 @@ if (Auth::check()) {
 			//obviously don't send the notification
 			if($post->user_id != $subscription->user_id) {
 				//check if the notification has been popped previously (within 1 minute)
-				$latest =
-					Notification::where('user_id', $subscription->user_id)
+				$latest = Notification::where('user_id', $subscription->user_id)
 					->where('subscription_id', $subscription->id)
 					->orderBy('created_at', 'DESC')
 					->first();
-				if($latest && $latest->created_at->diffInMinutes() >= 1) {
+				if(($latest && $latest->created_at->diffInMinutes() >= 1) || !$latest) {
 					Notification::create([
 						'user_id' => $subscription->user_id,
 						'subscription_id' => $subscription->id
 					]);
 					//TODO: email the content of the thread to the person.
 				}
-				else {
+				else if($latest) {
 					//bump the notification up.
 					$latest->created_at = new DateTime();
 					$latest->save();
