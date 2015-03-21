@@ -33,12 +33,19 @@ if (Auth::check()) {
 			//check if the post is your own and you are subscribed to the thread
 			//obviously don't send the notification
 			if($post->user_id != $subscription->user_id) {
-				//check if the notification has been popped previously (within 1 minute)
+
 				$latest = Notification::where('user_id', $subscription->user_id)
 					->where('subscription_id', $subscription->id)
 					->orderBy('created_at', 'DESC')
 					->first();
-				if(($latest && $latest->created_at->diffInMinutes() >= 1) || !$latest) {
+				//check if the first notification is the same notification, so that the notifications page does not blow up.
+				if($latest && $latest->subscription->thread_id == $post->thread_id)
+				{
+					$latest->created_at = new DateTime();
+					$latest->save();
+				}
+				//check if the notification has been popped previously (within 1 minute)
+				else if(($latest && $latest->created_at->diffInMinutes() >= 1) || !$latest) {
 					Notification::create([
 						'user_id' => $subscription->user_id,
 						'subscription_id' => $subscription->id
