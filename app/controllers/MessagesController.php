@@ -33,6 +33,11 @@ class MessagesController extends \BaseController
 			Session::put('errors', ['The user does not exist!']);
 			return Redirect::back();
 		}
+		else if ($user->id == Auth::user()->id)
+		{
+			Session::put('errors', ['You cannot start a conversation with yourself!']);
+			return Redirect::back();
+		}
 
 		$validator = Conversation::validate(Input::all());
 
