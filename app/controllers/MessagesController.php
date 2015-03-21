@@ -27,7 +27,12 @@ class MessagesController extends \BaseController
 		$title = Input::get('title');
 
 		//find user by username
-		$user = User::where('username', $username)->firstOrFail();
+		$user = User::where('username', $username)->first();
+		if(!$user)
+		{
+			Session::put('errors', ['The user does not exist!']);
+			return Redirect::back();
+		}
 
 		$validator = Conversation::validate(Input::all());
 
@@ -47,11 +52,11 @@ class MessagesController extends \BaseController
 			]);
 
 			Session::put('messages', ['Conversation started successfully!']);
+			return Redirect::route('messages.index');
 		} else {
 			Session::put('errors', $validator->messages()->all());
+			return Redirect::back();
 		}
-
-		return Redirect::route('messages.index');
 	}
 
 	public function getConversation($id)
