@@ -29,9 +29,9 @@
     <link href="//static.getmonero.org/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
     <link href="//static.getmonero.org/css/main.css" rel="stylesheet">
-	{{--<link href="/css/forum.css" rel="stylesheet">--}}
-    <link href="//static.getmonero.org/css/forum.css" rel="stylesheet">
-
+  	<link href="/css/forum.css" rel="stylesheet">
+{{--     <link href="//static.getmonero.org/css/forum.css" rel="stylesheet">
+ --}}
     <!--[if lt IE 9]>
       <script src="//static.getmonero.org/js/html5shiv.js"></script>
       <script src="//static.getmonero.org/js/respond.min.js"></script>

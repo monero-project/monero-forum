@@ -6,8 +6,20 @@ class PostsController extends \BaseController {
 		if (Input::has('link'))
 		{
 			$url = urldecode(Input::get('link'));
-			$image = Image::make($url);
-			return $image->response();
+			$image = file_get_contents($url);
+
+			$file_info = new finfo(FILEINFO_MIME_TYPE);
+			$mime_type = $file_info->buffer($image);
+
+			//Intervention/image does not support .gif files all that well and only produces single-frame images.
+			if($mime_type == 'image/gif')
+			{
+				return Response::make($image, 200, array('content-type' => 'image/gif'));
+			}
+			else {
+				$image = Image::make($image);
+				return $image->response();
+			}
 		}
 		else
 		{

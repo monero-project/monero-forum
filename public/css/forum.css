@@ -819,3 +819,7 @@ p.syntax {
 .bs-green {
     color: #5b9a6f;
 }
+
+.btn-default .glyphicon {
+	color: #787878 !important;	
+}
