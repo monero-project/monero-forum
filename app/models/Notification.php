@@ -15,24 +15,14 @@ class Notification extends \Eloquent {
 	}
 
 	public function is_read() {
-		$user = Auth::user();
-
-		if($user->notifications_read && $user->notifications_read->gte($this->created_at))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return !$this->is_new;
 	}
 
 	public static function unreadCount() {
 
 		if(Auth::check()) {
 			$user = Auth::user();
-			$read_at = $user->notifications_read;
-			$count = $user->notifications()->where('created_at', '>=', $read_at)->count();
+			$count = $user->notifications()->where('is_new', 1)->count();
 		}
 		else {
 			$count = 0;
