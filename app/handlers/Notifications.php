@@ -42,19 +42,28 @@ if (Auth::check()) {
 				if($latest && $latest->subscription->thread_id == $post->thread_id)
 				{
 					$latest->created_at = new DateTime();
+					$latest->is_new	= 1;
 					$latest->save();
 				}
-				//check if the notification has been popped previously (within 1 minute)
-				else if(($latest && $latest->created_at->diffInMinutes() >= 1) || !$latest) {
+				//check if the notification has been popped previously (within 10 minutes)
+				else if(($latest && $latest->created_at->diffInMinutes() >= 10) || !$latest) {
 					Notification::create([
 						'user_id' => $subscription->user_id,
 						'subscription_id' => $subscription->id
 					]);
-					//TODO: email the content of the thread to the person.
+					if($subscription->user->reply_notifications)
+					{
+						$data = array('post' => $post, 'user' => $subscription->user);
+						Mail::send('emails.reply', $data, function ($message) use ($user, $post, $subscription) {
+								$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
+								$message->to($subscription->user->email)->subject('New reply from '.$post->user->username.' in '.str_limit($post->thread->name, 30, '[...]'));
+						});
+					}
 				}
 				else if($latest) {
 					//bump the notification up.
 					$latest->created_at = new DateTime();
+					$latest->is_new	= 1;
 					$latest->save();
 				}
 			}
@@ -70,4 +79,46 @@ if (Auth::check()) {
 		}
 	});
 
+	//If the user is reading a thread and has any notifications, mark them as read.
+	Event::listen('thread.read', function($thread)
+	{
+		$notifications = 
+
+		DB::table('notifications')
+		->leftJoin('subscriptions', 'subscriptions.id', '=', 'notifications.subscription_id')
+		->leftJoin('users', 'users.id', '=', 'notifications.user_id')
+		->where('users.id', Auth::user()->id);
+
+		$notifications->update(['notifications.is_new' => 0]);
+
+	});
+
+	Message::created(function($pm) {
+		$user = Auth::user();
+
+		if($user->id == $pm->conversation->receiver_id) {
+			$sender = $pm->conversation->receiver;
+			$receiver = $pm->conversation->user;
+		}
+		else {
+			$sender = $pm->conversation->user;
+			$receiver = $pm->conversation->receiver;
+		}
+
+
+		//check the user settings for reply notifications
+		if($receiver->reply_notifications)
+		{
+			$data = array(
+				'pm' => $pm,
+				'receiver' => $receiver,
+				'sender' => $sender,
+			);
+
+			Mail::send('emails.pm', $data, function ($message) use ($receiver, $pm, $sender) {
+					$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
+					$message->to($receiver->email)->subject('New message from '.$sender->username.' - '.str_limit($pm->conversation->title, 30, '[...]'));
+			});
+		}
+	});
 }

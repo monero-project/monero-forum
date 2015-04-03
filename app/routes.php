@@ -47,6 +47,7 @@ Route::get('/user/resend-activation', 'UsersController@getResend');
 Route::post('/user/resend-activation/', 'UsersController@postResend');
 Route::post('/user/settings/view/save', array('before' => 'auth', 'uses' => 'UsersController@viewSave'));
 Route::get('/user/settings/add-key', array('before' => 'auth', 'uses' => 'UsersController@getAddGPG'));
+Route::post('/user/settings/notifications/save', array('before' => 'auth', 'as' => 'user.notifications.save', 'uses' => 'UsersController@notificationsSave'));
 Route::post('/user/settings/add-gpg', array('before' => 'auth', 'uses' => 'UsersController@postAddGPGKey'));
 Route::post('/user/settings/gpg-decrypt', array('before' => 'auth', 'uses' => 'UsersController@postGPGDecrypt'));
 Route::get('/user/settings/confirmation/inactive', array('before' => 'auth', 'uses' => 'UsersController@accountInactive'));

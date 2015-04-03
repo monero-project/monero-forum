@@ -111,6 +111,7 @@ class ThreadsController extends \BaseController
 			}
 
 			Session::put('thread_id', $thread_id);
+			Event::fire('thread.read', [$thread]);
 			return View::make('content.thread', array('resource_id' => $thread_id, 'posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | ' . $thread->forum->name . ' &raquo; ' . $thread->name));
 		} else {
 			App::abort(404);

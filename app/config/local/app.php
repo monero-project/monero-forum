@@ -51,7 +51,7 @@ return array(
 
 	/* Email Settings */
 
-	'from_email'						=> 'noreply@monero.cc',
+	'from_email'						=> 'noreply@getmonero.org',
 	'from_name'							=> 'The Monero Project',
 	'welcome_email_subject'				=> 'Welcome to the Monero Forums',
 	'recovery_email_subject'			=> 'Password Recovery',

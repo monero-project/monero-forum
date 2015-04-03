@@ -16,8 +16,7 @@ class NotificationsController extends \BaseController
 
 		$view = Response::make($view);
 
-		$user->notifications_read = Carbon::now();
-		$user->save();
+		$user->notifications()->where('is_new', 1)->update(['is_new' => 0]);
 
 		return $view;
 	}
@@ -25,13 +24,7 @@ class NotificationsController extends \BaseController
 	//shows the notifications count.
 	public function getCount()
 	{
-		$user = Auth::user();
-
-		$read_at = $user->notifications_read;
-
-		$count = $user->notifications()->where('created_at', '>=', $read_at)->count();
-
-		return $count;
+		return Notification::unreadCount();
 	}
 
 }

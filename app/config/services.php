@@ -16,7 +16,8 @@ return array(
 
 	'mailgun' => array(
 		'domain' => 'forum.getmonero.org',
-		'secret' => 'secretkeygoeshere',
+		'secret' => 'secret',
+
 	),
 
 	'mandrill' => array(

@@ -144,6 +144,35 @@
 		{{ Form::close() }}
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h2>Email Notifications</h2>
+			{{ Form::open(array('url' => URL::route('user.notifications.save'))) }}
+			<div class="checkbox">
+				<label>
+					@if($user->reply_notifications)
+						<input type="checkbox" name="reply" value="1" checked>
+					@else
+						<input type="checkbox" name="reply" value="1">
+					@endif
+					Notify me about new replies to threads I am susbcribed to via email.
+				</label>
+			</div>
+			<div class="checkbox">
+				<label>
+					@if($user->pm_notifications)
+						<input type="checkbox" name="pm" value="1" checked>
+					@else
+						<input type="checkbox" name="pm" value="1">
+					@endif
+					Notify me about new private messages via email.
+				</label>
+			</div>
+			{{ Form::submit('Save', array('class' => 'btn btn-success btn-sm pull-right')) }}
+			<div class="clearfix"></div>
+			{{ Form::close() }}
+		</div>
+	</div>
 @stop
 
 @section('javascript')

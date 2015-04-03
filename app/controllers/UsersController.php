@@ -649,4 +649,29 @@ class UsersController extends BaseController
 		}
 	}
 
+	public function notificationsSave()
+	{
+		$user = Auth::user();
+		if (Input::has('pm') && Input::get('pm') == 1)
+		{
+			$user->pm_notifications = 1;
+		}
+		else {
+			$user->pm_notifications = 0;
+		}
+
+		if (Input::has('reply') && Input::get('reply') == 1)
+		{
+			$user->reply_notifications = 1;
+		}
+		else {
+			$user->reply_notifications = 0;
+		}
+
+		$user->save();
+
+		Session::put('messages', ['Email notification settings saves successfully!']);
+		return Redirect::back();
+	}
+
 }
