@@ -167,7 +167,7 @@
 				  <div class="col-lg-12 pull-right">
 					  <div class="input-group">
 						  <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
-						  @if(Route::current()->getName() == 'threadView' || Route::current()->getName() == 'forum.index')
+						  @if(Route::current() && (Route::current()->getName() == 'threadView' || Route::current()->getName() == 'forum.index'))
 							  <span class="input-group-addon">
 				                  <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
 								  <input type="hidden" name="resource_id" value="{{ $resource_id }}"/>
@@ -188,7 +188,7 @@
 			  <div class="col-lg-12 pull-right">
 				  <div class="input-group">
 					  <input type="text" name="query" class="form-control search-text" placeholder="Search for...">
-					  @if(Route::current()->getName() != 'index')
+					  @if(Route::current() && Route::current()->getName() != 'index')
 						  <span class="input-group-addon">
 				      <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
 		            </span>
