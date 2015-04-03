@@ -47,24 +47,20 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 | shown, which includes a detailed stack trace during debug.
 |
 */
-/*App::missing(function($e)
+
+App::missing(function($e)
 {
     return View::make('errors.404', array('title' => 'Monero | Page not found. Error: 404'));
 });
 
 App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-	Log::error('404: '.$e);
 	return View::make('errors.404', array('title' => 'Monero | Page not found. Error: 404'));
 });
 
-App::error(function(ReflectionException $e) {
-	Log::error($e);
-	//Log::error('902: '.$e);
-	//return View::make('errors.902', array('title' => 'Monero | Internal Error. Error: 902'));
-});*/
 App::error(function(Exception $e, $code)
 {
-	Log::error($e);
+	if($code != 404 && get_class($e) != 'Illuminate\Database\Eloquent\ModelNotFoundException')
+		Log::error($e);
 });
 
 /*
