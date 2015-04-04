@@ -121,4 +121,8 @@ class Thread extends \Eloquent
 		}
 	}
 
+	public function latest_post() {
+		return $this->posts()->orderBy('created_at', 'DESC')->first();
+	}
+
 }

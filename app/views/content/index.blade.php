@@ -27,9 +27,9 @@
 			  <div class="col-md-3 forum-post">
 			  	<p class="stats-post-body">
 			  	@if ($forum->latest_post())
-			  	<a class="board-meta" href="{{ Thread::find($forum->latest_thread()->id)->permalink() }}">{{ e(str_limit($forum->latest_thread()->name, 57, '...')) }}</a>
+			  	<a class="board-meta" href="{{ $forum->latest_thread()->permalink() }}">{{ e(str_limit($forum->latest_thread()->name, 57, '...')) }}</a>
 			  	<br>
-				By: <b><a class="board-meta" href="/user/{{ User::find($forum->latest_thread()->user_id)->username }}">{{ User::find($forum->latest_thread()->user_id)->username }}</a></b>
+				Replied By: <b><a class="board-meta" href="/user/{{ $forum->latest_thread()->latest_post()->user->username OR "" }}">{{ $forum->latest_thread()->latest_post()->user->username }}</a></b>
 			  	@endif
 			  	</p>
 			  </div>

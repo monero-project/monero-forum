@@ -82,14 +82,15 @@ class Forum extends \Eloquent {
 		$forum = $this;
 		
 		$thread = Cache::tags(['forum_'.$forum->id])->remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
-				{
-				return DB::table('forums')
-						->where('forums.id', '=', $forum->id)
-						->join('threads', 'forums.id', '=', 'threads.forum_id')
-						->whereNull('threads.deleted_at')
-						->orderBy('threads.updated_at', 'DESC')
-						->first();
-				});
+		{
+			$dbthread = DB::table('forums')
+				->where('forums.id', '=', $forum->id)
+				->join('threads', 'forums.id', '=', 'threads.forum_id')
+				->whereNull('threads.deleted_at')
+				->orderBy('threads.updated_at', 'DESC')
+				->first();
+			return Thread::find($dbthread->id);
+		});
 
 		return $thread;
 	}
