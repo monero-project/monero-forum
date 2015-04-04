@@ -90,9 +90,11 @@ class Thread extends \Eloquent
 		$thread = $this;
 		if (Auth::check()) {
 			$threadView = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first();
+			$threadPost = $thread->posts()->orderBy('created_at', 'DESC')->first();
 			if (
 				($threadView
-					&& $thread->posts()->orderBy('created_at', 'DESC')->first()->updated_at > $threadView->updated_at)
+					&& $threadPost
+					&& $threadPost->updated_at > $threadView->updated_at)
 				||
 				!$threadView
 			) {
