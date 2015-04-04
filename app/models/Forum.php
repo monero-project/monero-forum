@@ -99,6 +99,7 @@ class Forum extends \Eloquent {
 		{
 			$key = 'user_'.Auth::user()->id.'_forum_'.$this->id.'_new_threads';
 			$forum = $this;
+
 			$newPosts = Cache::tags(['forum_'.$forum->id])->remember($key, '1', function() use ($forum)
 					{					  		
 					  	return (

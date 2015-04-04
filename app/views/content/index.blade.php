@@ -14,7 +14,7 @@
 		  @if (Visibility::check('forum', $forum->id))
 		  <div class="row forum-block">
 			  <div class="col-md-1">
-			  @if($forum->new_posts)
+			  @if($forum->unread_posts > 0)
 			  	<span class="forum-icon-active glyphicon glyphicon-comment" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $forum->unread_posts }}}" ></span>
 			  @else
 			    <span class="forum-icon-active glyphicon glyphicon-comment forum-read"></span>

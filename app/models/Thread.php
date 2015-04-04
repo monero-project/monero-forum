@@ -41,6 +41,11 @@ class Thread extends \Eloquent
 		return $this->belongsTo('Post');
 	}
 
+	public function views()
+	{
+		return $this->hasMany('ThreadView');
+	}
+
 	public function slug()
 	{
 		$slug = $this->name;
@@ -83,23 +88,22 @@ class Thread extends \Eloquent
 	public function getNewPostsAttribute()
 	{
 		$thread = $this;
-		if (
-			Auth::check()
-			&&
-			(
-				(
-					ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first()
-					&&
-					$thread->posts()->orderBy('created_at', 'DESC')->first()->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first()->updated_at
-				)
+		if (Auth::check()) {
+			$threadView = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first();
+			if (
+				($threadView
+					&& $thread->posts()->orderBy('created_at', 'DESC')->first()->updated_at > $threadView->updated_at)
 				||
-				!ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first()
-			)
-		) {
-			return ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first();
+				!$threadView
+			) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
+
 	}
 
 	public function getUnreadPostsAttribute()
