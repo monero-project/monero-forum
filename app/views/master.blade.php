@@ -142,14 +142,14 @@
 					  <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>.
 					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/messages') }}" alt="Private Messages" title="Private Messages" data-toggle="tooltip" data-placement="bottom" data-original-title="Private Messages">
 						  @if(Message::unreadCount() > 0)
-							  <span class="glyphicon glyphicon-envelope bs-green"></span>
+							  <span class="glyphicon glyphicon-envelope kicks"></span>
 						  @else
 							  <span class="glyphicon glyphicon-envelope"></span>
 						  @endif
 					  </a>
 					  <a class="action-link user-block-mobile-disable" href="{{ URL::route('notifications.index') }}"  alt="Notifications" title="Notifications">
 						  @if(Notification::unreadCount() > 0)
-							  <span class="glyphicon glyphicon-bell bs-green" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></span>
+							  <span class="glyphicon glyphicon-bell kicks" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></span>
 						  @else
 						  <span class="glyphicon glyphicon-bell" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></span>
 			              @endif
