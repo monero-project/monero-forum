@@ -29,7 +29,7 @@
 			  	@if ($forum->latest_post())
 			  	<a class="board-meta" href="{{ $forum->latest_thread()->permalink() }}">{{ e(str_limit($forum->latest_thread()->name, 57, '...')) }}</a>
 			  	<br>
-				Replied By: <b><a class="board-meta" href="/user/{{ $forum->latest_thread()->latest_post()->user->username OR "" }}">{{ $forum->latest_thread()->latest_post()->user->username }}</a></b>
+				Replied By: <b><a class="board-meta" href="/user/{{{ $forum->latest_thread()->latest_post()->user->username or "" }}}">{{{ $forum->latest_thread()->latest_post()->user->username or "" }}}</a></b>
 			  	@endif
 			  	</p>
 			  </div>
