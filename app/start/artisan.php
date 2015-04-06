@@ -13,3 +13,4 @@
 
 Artisan::add(new Decay);
 Artisan::add(new OTCUpdate);
+Artisan::add(new UsersClean);
