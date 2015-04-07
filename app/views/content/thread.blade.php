@@ -7,7 +7,7 @@
 	<div class="row category-block">    
 		<div class="panel panel-default thread-block">
 		  <div class="panel-heading">
-		    <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>{{{ $thread->name }}} <p class="post-meta pull-right"><img class="profile-picture-sm" src="/uploads/profile/small_{{ $thread->head()->user->profile_picture }}"><a href="/user/{{ $thread->head()->user->username }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date">posted this on {{ $thread->head()->created_at }}</span></p></h3>
+		    <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>{{{ str_limit($thread->name, 60, '[...]') }}} <p class="post-meta pull-right"><img class="profile-picture-sm" src="/uploads/profile/small_{{ $thread->head()->user->profile_picture }}"><a href="/user/{{ $thread->head()->user->username }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date">posted this on {{ $thread->head()->created_at }}</span></p></h3>
 		  </div>
 		  <p class="mobile-post-meta"><a href="/user/{{ $thread->head()->user->username }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date"> | {{ $thread->head()->created_at }}</span></p>
 		  <div class="panel-body">
