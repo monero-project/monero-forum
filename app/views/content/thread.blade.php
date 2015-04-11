@@ -11,6 +11,30 @@
 		  </div>
 		  <p class="mobile-post-meta"><a href="/user/{{ $thread->head()->user->username }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date"> | {{ $thread->head()->created_at }}</span></p>
 		  <div class="panel-body">
+			  <div class="funding-wrapper">
+				  <div class="row funding-block" style="text-align: center; padding-top: 50px;">
+					  <h3 style="font-size:35px;">£53,487</h3>
+					  <p style="text-transform: uppercase; font-size:18px;">funded of £90,000 target</p>
+				  </div>
+				  <div class="row the-bar" style="font-size:18px; height: 150px; padding-top: 50px;">
+					  <div class="col-xs-6">
+						  6535 individual contributions
+					  </div>
+					  <div class="col-xs-6 text-right">
+						  60%
+					  </div>
+					  <div class="col-lg-12">
+						  <div class="progress">
+							  <div class="progress-bar progress-bar-monero progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%; background: #ff6c3c;">
+								  <span class="sr-only">60% Complete</span>
+							  </div>
+						  </div>
+					  </div>
+					  <div class="col-lg-12 text-center">
+						  <button class="btn btn-success btn-lg">Contribute</button>
+					  </div>
+				  </div>
+			  </div>
 			  <div class="row post-block">
 				  {{ Markdown::string(e($thread->head()->body)) }}
 			  </div>

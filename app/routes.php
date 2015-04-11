@@ -5,6 +5,10 @@ Route::get('/', array(
 	'uses'  => 'HomeController@index'
 ));
 
+Route::get('/123', function() {
+	echo Monero::generatePaymentID();
+});
+
 /* Image Proxy */
 Route::get('/get/image/', 'PostsController@getProxyImage');
 
