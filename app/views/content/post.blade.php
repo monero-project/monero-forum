@@ -1,17 +1,20 @@
 <?php
-/*
+
 try {
 
-*/
+
 ?>
 <div class="post-indent">
+	{{--Post id {{$post->id}} <br>--}}
+	{{--Head at {{ $head->id or '' }}--}}
+	<div class="expand-label-{{$post->id}}"></div>
 	@if ($level % 2 == 0)
-		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}">
+		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}">
 	@else
-		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}">
+		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}">
 	@endif
 		<div class="row post-breadcrumbs">
-		@if (sizeof($breadcrumbs) != 0)
+		@if (sizeof($breadcrumbs))
 			<span class="reply-to"> Reply to: </span>
 		@endif
 		@foreach (($breadcrumbs) as $key => $breadcrumb)
@@ -34,7 +37,7 @@ try {
 		  <div class="panel-heading">
 		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
 		  			<small>
-		  			@if ($post->children()->count() > 0)
+		  			@if ($post->children()->count())
 					 Replies: {{ $post->children()->count() }} | 
 					@endif
 					Weight: {{ $post->weight }} | <a class="meta-permalink" href='{{ $post->thread->permalink()."?page=".Input::get('page')."&noscroll=1#post-".$post->id }}'>Link</a>
@@ -89,9 +92,9 @@ try {
 			  			</span>
 		  </div>
 		  @if ($post->weight < Config::get('app.hidden_weight'))
-		  <div class="panel-body content-block-{{ $post->id }} hidden-post-content">
+		  <div class="panel-body content-block content-block-{{ $post->id }} hidden-post-content" id="{{ $post->id }}">
 		  @else
-		  <div class="panel-body content-block-{{ $post->id }}">
+		  <div class="panel-body content-block content-block-{{ $post->id }}" id="{{ $post->id }}">
 		  @endif
 		    <div class="post-content-{{ $post->id }}">
 				@if ($post->trashed())
@@ -138,7 +141,7 @@ try {
 						  @endif
 						  </div>
 			   @endif 
-			  			@if ($post->children()->count() > 0) {{-- ends --}}
+			  			@if ($post->children()->count()) {{-- ends --}}
 			  				@if ($post->weight < Config::get('app.hidden_weight'))
 			  				<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><span onClick="drawer_open({{ $post->id }})" class="glyphicon glyphicon-collapse-down"></span></span>
 							@else
@@ -154,10 +157,10 @@ try {
 	@endif
 </div>
 <?php
-/*
+
 }
 catch(Exception $e)
 {
     var_dump("Error:".$e->getMessage().":".$e->getLine().":".$e->getCode());
-}*/
+}
 ?>

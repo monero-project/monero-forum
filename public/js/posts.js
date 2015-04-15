@@ -206,16 +206,24 @@ $('.content-block').each(function () {
     if (!$(this).hasClass('.hidden-post-content')) {
         console.log('called');
         id = $(this).attr('id');
+        post = $('#post-'+id);
         console.log(id);
-        parents = $('#post-'+id).attr('parents');
+        parents = post.attr('parents');
         if(parents.length) {
             parents = JSON.parse(parents);
             console.log(parents);
             parents.forEach(function (parent) {
+                parent_object = $('#post-'+parent);
+                head = parent_object.attr('head');
                 console.log('hiding:'+parent);
-                $('#post-' + parent).hide();
+                console.log('head at:'+head);
+                if(head.length != 0) {
+                    parent_object.hide();
+                    console.log('.content-block-'+head);
+                    $('.content-block-'+head).show();
+                    $('.expand-label-'+head).html('X and Y others replied');
+                }
             });
-            //TODO: add a label to the top of the parent "X and Y others replied"
         }
     }
 });
