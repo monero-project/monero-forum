@@ -201,3 +201,23 @@ function get_url_param(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
+$('.content-block').each(function () {
+    if (!$(this).hasClass('.hidden-post-content')) {
+        console.log('called');
+        id = $(this).attr('id');
+        console.log(id);
+        parents = $('#post-'+id).attr('parents');
+        if(parents.length) {
+            parents = JSON.parse(parents);
+            console.log(parents);
+            parents.forEach(function (parent) {
+                console.log('hiding:'+parent);
+                $('#post-' + parent).hide();
+            });
+            //TODO: add a label to the top of the parent "X and Y others replied"
+        }
+    }
+});
+
+
