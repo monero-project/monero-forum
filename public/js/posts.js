@@ -203,7 +203,7 @@ function get_url_param(name) {
 }
 
 $('.content-block').each(function () {
-    if (!$(this).hasClass('.hidden-post-content')) {
+    if (!$(this).hasClass('hidden-post-content')) {
         id = $(this).attr('id');
         post = $('#post-' + id);
         parents = post.attr('parents');
@@ -231,11 +231,15 @@ $('.content-block').each(function () {
                 if(reply_count) {
                     $('.expand-label-' + head)
                         .show()
-                        .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others replied')
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others have replied.')
                         .click({parents: parents, head: head}, show_children);
                 }
-                $('.content-block-' + head).show();
-                $('.content-block-' + one_up).show();
+                else {
+                    $('.expand-label-' + head)
+                        .show()
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' has replied.')
+                        .click({parents: parents, head: head}, show_children);
+                }
             }
         }
     }
