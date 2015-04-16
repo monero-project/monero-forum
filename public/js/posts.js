@@ -209,17 +209,24 @@ $('.content-block').each(function () {
         parents = post.attr('parents');
         if (parents.length) {
             parents = JSON.parse(parents);
+            first_child = parents.slice();
+            first_child.reverse();
+            first_child = first_child[1];
             one_up = parents.shift();
+            reply_count = 0;
             parents.forEach(function (parent) {
                 parent_object = $('#post-' + parent);
                 head = parent_object.attr('head');
-                console.log('hiding:' + parent);
-                console.log('head at:' + head);
-                if (head.length != 0) {
+                if (head.length) {
                     parent_object.hide();
+                    reply_count++;
+                    if(first_child)
+                    {
+                        username = $('.user-post-'+first_child).html();
+                    }
                     $('.content-block-' + head).show();
                     $('.content-block-' + one_up).show();
-                    $('.expand-label-' + head).html('X and Y others replied');
+                    $('.expand-label-' + head).html(username+' and '+reply_count+' others replied');
                 }
             });
         }

@@ -13,6 +13,9 @@ try {
 	@else
 		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}">
 	@endif
+			{{--Head at: {{ $head->id or "" }}--}}
+			{{--Post id: {{ $post->id }}--}}
+			{{--Parents: {{ $serialized_bread }}--}}
 		<div class="row post-breadcrumbs">
 		@if (sizeof($breadcrumbs))
 			<span class="reply-to"> Reply to: </span>
@@ -35,7 +38,7 @@ try {
 		<div class="panel panel-default post-panel">
 		@endif
 		  <div class="panel-heading">
-		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
+		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a class="user-post-{{$post->id}}" href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
 		  			<small>
 		  			@if ($post->children()->count())
 					 Replies: {{ $post->children()->count() }} | 
