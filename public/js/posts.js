@@ -226,7 +226,7 @@ $('.content-block').each(function () {
                     }
                     $('.content-block-' + head).show();
                     $('.content-block-' + one_up).show();
-                    $('.expand-label-' + head).html(username+' and '+reply_count+' others replied');
+                    $('.expand-label-' + head).show().html('<i class="fa fa-reply-all"></i>'+username+' and '+reply_count+' others replied');
                 }
             });
         }
