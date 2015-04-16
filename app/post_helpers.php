@@ -64,6 +64,7 @@ function unthreaded_posts($posts, $thread_id) {
 
 function serialize_bread($breadcrumbs)
 {
+	$serialized_bread = [];
 	foreach($breadcrumbs as $breadcrumb)
 	{
 		$serialized_bread[] = $breadcrumb->id;
