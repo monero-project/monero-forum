@@ -231,7 +231,7 @@ $('.content-block').each(function () {
                 $('.expand-label-' + head)
                     .show()
                     .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others replied')
-                    .click({parents: parents}, show_children);
+                    .click({parents: parents, head: head}, show_children);
                 $('.content-block-' + head).show();
                 $('.content-block-' + one_up).show();
             }
@@ -244,9 +244,10 @@ function show_children(event) {
     console.log('children:'+children);
     if (children.length) {
         children.forEach(function (child) {
-            $('#post-' + child).show();
+            $('#post-' + child).slideDown();
         });
     }
+    $('.expand-label-' + event.data.head).slideUp();
 }
 
 
