@@ -204,24 +204,22 @@ function get_url_param(name) {
 
 $('.content-block').each(function () {
     if (!$(this).hasClass('.hidden-post-content')) {
-        console.log('called');
         id = $(this).attr('id');
-        post = $('#post-'+id);
-        console.log(id);
+        post = $('#post-' + id);
         parents = post.attr('parents');
-        if(parents.length) {
+        if (parents.length) {
             parents = JSON.parse(parents);
-            console.log(parents);
+            one_up = parents.shift();
             parents.forEach(function (parent) {
-                parent_object = $('#post-'+parent);
+                parent_object = $('#post-' + parent);
                 head = parent_object.attr('head');
-                console.log('hiding:'+parent);
-                console.log('head at:'+head);
-                if(head.length != 0) {
+                console.log('hiding:' + parent);
+                console.log('head at:' + head);
+                if (head.length != 0) {
                     parent_object.hide();
-                    console.log('.content-block-'+head);
-                    $('.content-block-'+head).show();
-                    $('.expand-label-'+head).html('X and Y others replied');
+                    $('.content-block-' + head).show();
+                    $('.content-block-' + one_up).show();
+                    $('.expand-label-' + head).html('X and Y others replied');
                 }
             });
         }
