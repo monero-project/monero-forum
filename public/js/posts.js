@@ -228,10 +228,12 @@ $('.content-block').each(function () {
             });
             if (head && parents.length && reply_count && username) {
                 reply_count -= 1;
-                $('.expand-label-' + head)
-                    .show()
-                    .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others replied')
-                    .click({parents: parents, head: head}, show_children);
+                if(reply_count) {
+                    $('.expand-label-' + head)
+                        .show()
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others replied')
+                        .click({parents: parents, head: head}, show_children);
+                }
                 $('.content-block-' + head).show();
                 $('.content-block-' + one_up).show();
             }
