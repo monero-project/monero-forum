@@ -8,13 +8,13 @@ try {
 	{{--Post id {{$post->id}} <br>--}}
 	{{--Head at {{ $head->id or '' }}--}}
 	@if ($level % 2 == 0)
-		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}">
+		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children=" {{ $children }}">
 	@else
-		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}">
+		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children=" {{ $children }}">
 	@endif
-			{{--Head at: {{ $head->id or "" }}--}}
-			{{--Post id: {{ $post->id }}--}}
-			{{--Parents: {{ $serialized_bread }}--}}
+			Head at: {{ $head->id or "" }}
+			Post id: {{ $post->id }}
+			Parents: {{ $serialized_bread }}
 		<div class="row post-breadcrumbs">
 		@if (sizeof($breadcrumbs))
 			<span class="reply-to"> Reply to: </span>
