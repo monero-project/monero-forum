@@ -69,7 +69,7 @@ function serialize_bread($breadcrumbs)
 		$serialized_bread[] = $breadcrumb->id;
 	}
 	//remove the first parent from the array.
-	array_shift($serialized_bread);
+	//array_shift($serialized_bread);
 	$serialized_bread = json_encode($serialized_bread);
 	return $serialized_bread;
 }
