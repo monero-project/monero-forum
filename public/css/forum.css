@@ -827,3 +827,14 @@ p.syntax {
 .btn-default .glyphicon {
 	color: #787878 !important;	
 }
+
+.expand-label {
+    font-weight: bold;
+    font-style: italic;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.expand-label .fa {
+    padding-right: 10px;
+}
