@@ -7,7 +7,6 @@ try {
 <div class="post-indent">
 	{{--Post id {{$post->id}} <br>--}}
 	{{--Head at {{ $head->id or '' }}--}}
-	<div class="expand-label-{{$post->id}}"></div>
 	@if ($level % 2 == 0)
 		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}">
 	@else
@@ -154,6 +153,7 @@ try {
 			</div>
 		  </div>
 		</div>
+		<div class="expand-label expand-label-{{$post->id}}"></div>
 	</div>
 	@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && (Auth::check() && Auth::user()->default_sort == 'weight')) || !Input::has('sort') && !Auth::check())
 		{{ display_posts($post->id, $thread_id, $level + 1) }}
