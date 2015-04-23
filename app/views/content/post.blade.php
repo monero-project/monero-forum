@@ -1,12 +1,10 @@
 <?php
 
-try {
+//try {
 
 
 ?>
 <div class="post-indent">
-	{{--Post id {{$post->id}} <br>--}}
-	{{--Head at {{ $head->id or '' }}--}}
 	@if ($level % 2 == 0)
 		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children=" {{ $children }}">
 	@else
@@ -162,9 +160,9 @@ try {
 </div>
 <?php
 
-}
+/*}
 catch(Exception $e)
 {
     var_dump("Error:".$e->getMessage().":".$e->getLine().":".$e->getCode());
-}
+}*/
 ?>
