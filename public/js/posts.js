@@ -260,7 +260,6 @@ $('.content-block').each(function () {
 
 function show_children(event) {
     children = event.data.parents;
-    console.log('children:'+children);
     if (children.length) {
         children.forEach(function (child) {
             $('#post-' + child).slideDown();
