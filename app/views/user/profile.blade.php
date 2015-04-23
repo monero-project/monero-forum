@@ -8,6 +8,9 @@
 	@else
 	<span id="username">{{{ $user->username }}}</span>
 	@endif
+	@if(!isset($self))
+			<a href="{{ URL::route('messages.create') }}?username={{{$user->username }}}"><button type="button" class="btn btn-success pull-right"><i class="fa fa-envelope fa-white"></i> Private Message</button></a>
+	@endif
 	@if (isset($self) && $self && $user->in_wot)
 		<button type="button" class="btn btn-success pull-right" onclick="syncWoT()">Sync with WoT</button>
 	@endif

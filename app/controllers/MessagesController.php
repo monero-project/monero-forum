@@ -17,7 +17,15 @@ class MessagesController extends \BaseController
 
 	public function getCreate()
 	{
-		return View::make('messages.create');
+		if(Input::has('username'))
+		{
+			$username = Input::get('username');
+		}
+		else
+		{
+			$username = false;
+		}
+		return View::make('messages.create', compact('username'));
 	}
 
 	public function postSend()

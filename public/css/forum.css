@@ -838,3 +838,7 @@ p.syntax {
 .expand-label .fa {
     padding-right: 10px;
 }
+
+.fa-white {
+    color: white;
+}
