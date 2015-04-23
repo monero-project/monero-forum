@@ -126,7 +126,6 @@
 @stop
 
 @section('javascript')
-<script src="//static.getmonero.org/js/arbor.js"></script>
 <script src="//static.getmonero.org/js/graphics.js"></script>
 <script src="//static.getmonero.org/js/renderer.js"></script>
 <script src="//static.getmonero.org/js/relationships.js"></script>
