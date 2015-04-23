@@ -210,6 +210,7 @@ $('.content-block').each(function () {
         if (parents.length) {
             parents = JSON.parse(parents);
             head = parents[parents.length - 1];
+            parents_original = parents.slice();
             first_child = parents.slice();
             first_child.reverse();
             first_child = first_child[1];
@@ -219,8 +220,20 @@ $('.content-block').each(function () {
                 username = $('.user-post-' + first_child).html();
             }
             reply_count = 0;
+            show_posts = parents.slice();
             parents.forEach(function (parent) {
                 parent_object = $('#post-' + parent);
+                children = parent_object.attr('children');
+                children = JSON.parse(children);
+                children.forEach(function(child)
+                {
+                    if($.inArray(child, parents_original) === -1) {
+                        child_object = $('#post-' + child);
+                        child_object.hide();
+                        show_posts.push(child);
+                        reply_count++;
+                    }
+                });
                 if (head) {
                     parent_object.hide();
                     reply_count++;
@@ -232,13 +245,13 @@ $('.content-block').each(function () {
                     $('.expand-label-' + head)
                         .show()
                         .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others have replied.')
-                        .click({parents: parents, head: head}, show_children);
+                        .click({parents: show_posts, head: head}, show_children);
                 }
                 else {
                     $('.expand-label-' + head)
                         .show()
                         .html('<i class="fa fa-reply-all"></i>' + username + ' has replied.')
-                        .click({parents: parents, head: head}, show_children);
+                        .click({parents: show_posts, head: head}, show_children);
                 }
             }
         }
@@ -257,3 +270,10 @@ function show_children(event) {
 }
 
 
+function array_diff(children, parents)
+{
+    array = jQuery.grep(children, function (item) {
+        return jQuery.inArray(item, parents) < 0;
+    });
+    return array;
+}
