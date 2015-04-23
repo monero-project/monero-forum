@@ -12,7 +12,7 @@
 			<a href="{{ URL::route('messages.create') }}?username={{{$user->username }}}"><button type="button" class="btn btn-success pull-right"><i class="fa fa-envelope fa-white"></i> Private Message</button></a>
 	@endif
 	@if (isset($self) && $self && $user->in_wot)
-		<button type="button" class="btn btn-success pull-right" onclick="syncWoT()">Sync with WoT</button>
+		<button type="button" class="btn btn-success pull-right" onclick="syncWoT()"><i class="fa fa-refresh fa-white"></i> Sync with WoT</button>
 	@endif
 	<span id="user_id" style="display: none">
 		{{ $user->id }}
