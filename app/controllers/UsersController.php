@@ -669,6 +669,13 @@ class UsersController extends BaseController
 		else {
 			$user->reply_notifications = 0;
 		}
+		if (Input::has('mention') && Input::get('mention') == 1)
+		{
+			$user->mention_notifications = 1;
+		}
+		else {
+			$user->mention_notifications = 0;
+		}
 
 		$user->save();
 

@@ -168,6 +168,16 @@
 					Notify me about new private messages via email.
 				</label>
 			</div>
+			<div class="checkbox">
+				<label>
+					@if($user->mention_notifications)
+						<input type="checkbox" name="mention" value="1" checked>
+					@else
+						<input type="checkbox" name="mention" value="1">
+					@endif
+					Notify when someone mentions me via email.
+				</label>
+			</div>
 			{{ Form::submit('Save', array('class' => 'btn btn-success btn-sm pull-right')) }}
 			<div class="clearfix"></div>
 			{{ Form::close() }}
