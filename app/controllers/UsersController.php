@@ -240,8 +240,10 @@ class UsersController extends BaseController
 		$ratings = $user->rated()->orderBy('created_at', 'desc')->paginate(10);
 		if ($user)
 			return View::make('user.profile', array('user' => $user, 'ratings' => $ratings, 'title' => 'Monero | User &raquo; ' . $user->username));
-		else
+		else {
+			App::abort(404);
 			return View::make('errors.404');
+		}
 	}
 
 	public function self()
