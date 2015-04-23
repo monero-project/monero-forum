@@ -267,12 +267,3 @@ function show_children(event) {
     }
     $('.expand-label-' + event.data.head).slideUp();
 }
-
-
-function array_diff(children, parents)
-{
-    array = jQuery.grep(children, function (item) {
-        return jQuery.inArray(item, parents) < 0;
-    });
-    return array;
-}
