@@ -16,27 +16,17 @@ function display_posts($parent_id, $thread_id, $level) {
 	}
 	if ($posts) {
 		foreach ($posts as $post) {
-		
-			$breadcrumbs = array();
-			$i = 0;
-			
-			if ($post->parent_id != NULL)
-			{
-				$upper_post = Post::find($post->parent_id);
-				if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count() > 0))
-					$breadcrumbs[] = $upper_post;
+
+			$full_breadcrumbs = get_breadcrumbs($post);
+			$breadcrumbs = array_slice($full_breadcrumbs, 0, 5, true);
+			$head = array_reverse($full_breadcrumbs)[0];
+			$children = Post::where('parent_id', $post->id)->lists('id');
+			$children = json_encode($children);
+
+			if($post && (!$post->deleted_at || $post->children()->count() > 0)) {
+				$serialized_bread = serialize_bread($full_breadcrumbs);
+				$the_posts .= View::make('content.post', array('post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children));
 			}
-			
-			while ($upper_post && $i < 5)
-			{
-				$upper_post = Post::find($upper_post->parent_id);
-				if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count() > 0))
-					$breadcrumbs[] = $upper_post;
-				$i++;
-			}
-			if($post && (!$post->deleted_at || $post->children()->count() > 0))
-				$the_posts .= View::make('content.post', array('post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs));
-			
 		}
 	}
 
@@ -49,7 +39,7 @@ function thread_posts($posts, $thread_id, $level) {
 	{
 		$post_obj = Post::withTrashed()->where('id',$post['id'])->first();
 		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count() > 0))
-			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => array()));
+			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => [], 'serialized_bread' => '', 'head' => '', 'children' => ''));
 	}
 	return $post_list.'</div>';
 }
@@ -60,32 +50,56 @@ function unthreaded_posts($posts, $thread_id) {
 	{
 		$post_obj = Post::where('id',$post['id'])->first();
 		
-		$breadcrumbs = array();
-		$i = 0;
-		$upper_post = false;
-		
-		if ($post_obj && $post_obj->parent_id != NULL)
-		{
-			$upper_post = Post::find($post_obj->parent_id);
-			if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count() > 0))
-				$breadcrumbs[] = $upper_post;
-		}
-		
-		while ($upper_post && $i < 5)
-		{
-			$upper_post = Post::find($upper_post->parent_id);
-			if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count() > 0))
-				$breadcrumbs[] = $upper_post;
-			$i++;
-		}
+		$full_breadcrumbs = get_breadcrumbs($post_obj);
+		$breadcrumbs = array_slice($full_breadcrumbs, 0, 5, true);
+		$head = array_reverse($full_breadcrumbs)[0];
+		$children = Post::where('parent_id', $post->id)->lists('id');
 
-		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count() > 0))
+		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count()))
 		{
 			$level = 0;
-			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs));
+			$serialized_bread = serialize_bread($full_breadcrumbs);
+			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children));
 		}
 	}
 	return $post_list.'</div>';
+}
+
+function serialize_bread($breadcrumbs)
+{
+	$serialized_bread = [];
+	foreach($breadcrumbs as $breadcrumb)
+	{
+		$serialized_bread[] = $breadcrumb->id;
+	}
+	//remove the first parent from the array.
+	//array_shift($serialized_bread);
+	$serialized_bread = json_encode($serialized_bread);
+	return $serialized_bread;
+}
+
+function get_breadcrumbs(Post $post, $amount = false)
+{
+
+	$breadcrumbs = [];
+	$upper_post = false;
+
+	if ($post && $post->parent_id != NULL)
+	{
+		$upper_post = Post::find($post->parent_id);
+		if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count()))
+			$breadcrumbs[] = $upper_post;
+	}
+
+	for ($i = 0; $upper_post && (($amount && $i < $amount) || !$amount); $i++)
+	{
+		$upper_post = Post::find($upper_post->parent_id);
+		if ($upper_post && (!$upper_post->deleted_at || $upper_post->children()->count()))
+			$breadcrumbs[] = $upper_post;
+	}
+
+	return $breadcrumbs;
+
 }
 
 ?>

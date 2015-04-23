@@ -201,3 +201,69 @@ function get_url_param(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
+$('.content-block').each(function () {
+    if (!$(this).hasClass('hidden-post-content')) {
+        id = $(this).attr('id');
+        post = $('#post-' + id);
+        parents = post.attr('parents');
+        if (parents.length) {
+            parents = JSON.parse(parents);
+            head = parents[parents.length - 1];
+            parents_original = parents.slice();
+            first_child = parents.slice();
+            first_child.reverse();
+            first_child = first_child[1];
+            one_up = parents.shift();
+            parents.pop();
+            if (first_child) {
+                username = $('.user-post-' + first_child).html();
+            }
+            reply_count = 0;
+            show_posts = parents.slice();
+            parents.forEach(function (parent) {
+                parent_object = $('#post-' + parent);
+                children = parent_object.attr('children');
+                children = JSON.parse(children);
+                children.forEach(function(child)
+                {
+                    if($.inArray(child, parents_original) === -1) {
+                        child_object = $('#post-' + child);
+                        child_object.hide();
+                        show_posts.push(child);
+                        reply_count++;
+                    }
+                });
+                if (head) {
+                    parent_object.hide();
+                    reply_count++;
+                }
+            });
+            if (head && parents.length && reply_count && username) {
+                reply_count -= 1;
+                if(reply_count) {
+                    $('.expand-label-' + head)
+                        .show()
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others have replied.')
+                        .click({parents: show_posts, head: head}, show_children);
+                }
+                else {
+                    $('.expand-label-' + head)
+                        .show()
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' has replied.')
+                        .click({parents: show_posts, head: head}, show_children);
+                }
+            }
+        }
+    }
+});
+
+function show_children(event) {
+    children = event.data.parents;
+    if (children.length) {
+        children.forEach(function (child) {
+            $('#post-' + child).slideDown();
+        });
+    }
+    $('.expand-label-' + event.data.head).slideUp();
+}
