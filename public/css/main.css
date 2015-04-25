@@ -695,6 +695,9 @@ body:before {
 }
 
 @media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
 	.box-green {
 		margin-left: -30px;
 		margin-right: -30px;
