@@ -101,7 +101,7 @@
 				@if ($post->trashed())
 				<p><em>[deleted]</em></p>
 				@else
-				{{ Markdown::string(e($post->body)) }}
+				{{ Markdown::string($post->body) }}
 				@endif
 				
 				@if (Auth::check())

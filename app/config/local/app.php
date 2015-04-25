@@ -188,6 +188,7 @@ return array(
 		'Creitive\Breadcrumbs\BreadcrumbsServiceProvider',
 		'Roumen\Feed\FeedServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+		'Eddieh\Kramdown\KramdownServiceProvider',
 
 	),
 
@@ -255,11 +256,11 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Markdown' 		  => 'VTalbot\Markdown\Facades\Markdown',
 		'Entrust'    	  => 'Zizaco\Entrust\EntrustFacade',
 		'Image'			  => 'Intervention\Image\Facades\Image',
 		'Breadcrumbs'	  => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
-		'Feed'   		  => 'Roumen\Feed\Facades\Feed',
+		'Feed'   	   	  => 'Roumen\Feed\Facades\Feed',
+		'Markdown'        => 'Eddieh\Kramdown\Facades\Kramdown',
 	),
 
 );

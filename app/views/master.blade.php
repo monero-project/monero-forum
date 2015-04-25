@@ -25,13 +25,12 @@
     <meta name="msapplication-TileColor" content="#2d89ef">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-
+    <link href="/css/bootstrap-markdown.min.css" rel="stylesheet">
     <link href="//static.getmonero.org/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
 	  <link href="/css/main.css" rel="stylesheet">
 	  {{--<link href="//static.getmonero.org/css/main.css" rel="stylesheet">--}}
 	  <link href="/css/forum.css" rel="stylesheet">
-	  <link href="/css/bootstrap-markdown.min.css" rel="stylesheet">
     {{--<link href="//static.getmonero.org/css/forum.css" rel="stylesheet">--}}
 
     <!--[if lt IE 9]>

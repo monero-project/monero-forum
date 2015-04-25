@@ -1,5 +1,9 @@
 <?php
 
+Route::get('/test', function() {
+	return Kramdown::string(Post::find(302)->body);
+});
+
 Route::get('/', array(
 	'as'    => 'index',
 	'uses'  => 'HomeController@index'

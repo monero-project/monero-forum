@@ -42,7 +42,7 @@
 			<div class="reply-box">
 				<div class="row">
 					<p class="col-lg-12">
-						For post formatting please use Markdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
+						For post formatting please use Kramdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
 					</p>
 				</div>
 				<form role="form" action="/posts/submit" method="POST">
@@ -51,9 +51,9 @@
 				  	<textarea data-provide="markdown" class="form-control" id="content-body" name="body" rows="6" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
 				  </div>
 				  <button name="submit" type="submit" class="btn btn-success">Submit</button>
+				  <button name="preview" type="submit" class="btn btn-success preview-button">Preview</button>
 				  <button type="button" onclick="cancel_thread_reply()" class="btn btn-danger reply-cancel" style="display: none;">Cancel</button>
 				</form>
-				</div>
 			</div>
 		@endif
 		</div>
