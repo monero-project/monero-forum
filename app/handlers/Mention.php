@@ -21,9 +21,17 @@ class MentionHandler
 		$data->body = $this->body_parsed;
 		$data->save();
 
-		//todo mail and notify.
-
 		foreach ($this->users as $user) {
+
+			//Send a notification to the user.
+			Notification::create([
+				'user_id' => $user->id,
+				'object_id' => $data->id,
+				'notification_type' => 'mention',
+				'is_new' => 1
+			]);
+
+			//Send email notification about the mention, if user has said so in the settings.
 			if($user->mention_notifications) {
 				$mail_data = [
 					'body' => $data->body,

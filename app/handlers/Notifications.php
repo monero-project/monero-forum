@@ -35,11 +35,12 @@ if (Auth::check()) {
 			if($post->user_id != $subscription->user_id) {
 
 				$latest = Notification::where('user_id', $subscription->user_id)
-					->where('subscription_id', $subscription->id)
+					->where('object_id', $subscription->id)
+					->where('notification_type', 'subscription')
 					->orderBy('created_at', 'DESC')
 					->first();
 				//check if the first notification is the same notification, so that the notifications page does not blow up.
-				if($latest && $latest->subscription->thread_id == $post->thread_id)
+				if($latest && $latest->object->thread_id == $post->thread_id)
 				{
 					$latest->created_at = new DateTime();
 					$latest->is_new	= 1;
@@ -49,7 +50,9 @@ if (Auth::check()) {
 				else if(($latest && $latest->created_at->diffInMinutes() >= 10) || !$latest) {
 					Notification::create([
 						'user_id' => $subscription->user_id,
-						'subscription_id' => $subscription->id
+						'object_id' => $subscription->id,
+						'notification_type' => 'subscription',
+						'is_new' => 1
 					]);
 					if($subscription->user->reply_notifications)
 					{
@@ -85,9 +88,10 @@ if (Auth::check()) {
 		$notifications = 
 
 		DB::table('notifications')
-		->leftJoin('subscriptions', 'subscriptions.id', '=', 'notifications.subscription_id')
+		->leftJoin('subscriptions', 'subscriptions.id', '=', 'notifications.object_id')
 		->leftJoin('users', 'users.id', '=', 'notifications.user_id')
-		->where('users.id', Auth::user()->id);
+		->where('users.id', Auth::user()->id)
+		->where('notifications.notification_type', 'subscription');
 
 		$notifications->update(['notifications.is_new' => 0]);
 

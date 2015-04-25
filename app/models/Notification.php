@@ -3,15 +3,13 @@
 class Notification extends \Eloquent {
 	protected $fillable = [
 		'user_id',
-		'subscription_id',
+		'object_id',
+		'notification_type',
+		'is_new'
 	];
 
 	public function user() {
 		return $this->belongsTo('User');
-	}
-
-	public function subscription() {
-		return $this->belongsTo('Subscription');
 	}
 
 	public function is_read() {
@@ -29,6 +27,17 @@ class Notification extends \Eloquent {
 		}
 
 		return $count;
+	}
+
+	public function getObjectAttribute() {
+		switch ($this->notification_type) {
+			case 'subscription':
+				return Subscription::find($this->object_id);
+			case 'mention':
+				return Post::find($this->object_id);
+			default:
+				return null;
+		}
 	}
 
 }
