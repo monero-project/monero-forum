@@ -901,7 +901,7 @@
     width: 'inherit',
     height: 'inherit',
     resize: 'none',
-    iconlibrary: 'glyph',
+    iconlibrary: 'fa',
     language: 'en',
     initialstate: 'editor',
     parser: null,
@@ -983,22 +983,33 @@
               // Give extra word
               chunk = e.__localize('heading text');
             } else {
-              chunk = selected.text + '\n';
+              chunk = selected.text;
             }
 
             // transform selection and set the cursor into chunked text
-            if ((pointer = 4, content.substr(selected.start-pointer,pointer) === '### ')
-                || (pointer = 3, content.substr(selected.start-pointer,pointer) === '###')) {
-              e.setSelection(selected.start-pointer,selected.end);
-              e.replaceSelection(chunk);
-              cursor = selected.start-pointer;
-            } else if (selected.start > 0 && (prevChar = content.substr(selected.start-1,1), !!prevChar && prevChar != '\n')) {
-              e.replaceSelection('\n\n### '+chunk);
-              cursor = selected.start+6;
+            if ((pointer = 3, content.substr(selected.start-pointer,pointer) === '## ')
+                || (pointer = 2, content.substr(selected.start-pointer,pointer) === '##')) {
+                console.log('heading present');
+                if (selected.start > 0 && (prevChar = content.substr(selected.start-1,1), !!prevChar && prevChar != '\n')) {
+                    e.replaceSelection('#' + chunk);
+                    cursor = selected.start + 1;
+                    console.log(1);
+                }
+                else {
+                    // Empty string before element
+                    e.replaceSelection('#'+chunk);
+                    cursor = selected.start+1;
+                    console.log(2);
+                }
+            } else if (selected.start > 0 && (prevChar = content.substr(selected.start-1,1), !!prevChar && prevChar != '\n' && prevChar != '#')) {
+              e.replaceSelection('\n\n##'+chunk);
+              cursor = selected.start+4;
+                console.log('elseif');
             } else {
               // Empty string before element
-              e.replaceSelection('### '+chunk);
-              cursor = selected.start+4;
+              e.replaceSelection('##'+chunk);
+              cursor = selected.start+2;
+                console.log('lastelse');
             }
 
             // Set the cursor
@@ -1149,7 +1160,7 @@
                 chunk = list[0];
 
                 $.each(list,function(k,v) {
-                  list[k] = '1. '+v;
+                  list[k] = [k+1]+'. '+v;
                 });
 
                 e.replaceSelection('\n\n'+list.join('\n'));
