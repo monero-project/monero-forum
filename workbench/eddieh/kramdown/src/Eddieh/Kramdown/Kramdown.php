@@ -8,20 +8,22 @@
 
 namespace Eddieh\Kramdown;
 
+use Symfony\Component\Process\Process as Process;
+use Config;
+
 class Kramdown {
 	public static function string($string) {
-		$string = addslashes($string);
-		$ruby_script = "
-			require 'kramdown' \r\n
-			text = '".$string."' \r\n
-			puts Kramdown::Document.new(text, :remove_html_tags => true).to_html
-		";
-
 		$filename = str_random(40);
-		$filename = '../app/storage/kramdown/'.$filename.'.rb';
-		file_put_contents($filename, $ruby_script);
-		$html = system('ruby '.$filename);
+		$filename = '../app/storage/kramdown/'.$filename.'.kd';
+
+		file_put_contents($filename, $string);
+
+		$process = new Process('ruby --external-encoding UTF-8 -S '.Config::get('kramdown.path').'kramdown '.$filename);
+		$process->run();
+		if (!$process->isSuccessful()) {
+			throw new \RuntimeException($process->getErrorOutput());
+		}
 		unlink($filename);
-		return $html;
+		return $process->getOutput();
 	}
 }

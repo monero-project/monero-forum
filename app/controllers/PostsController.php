@@ -51,7 +51,8 @@ class PostsController extends \BaseController {
 			$post = new Post();
 			$post->user_id = Auth::user()->id;
 			$post->thread_id = Input::get('thread_id');
-			$post->body = Input::get('body');
+			$post->body = Markdown::string(Input::get('body'));
+			$post->body_original = Input::get('body');
 			$post->weight = Config::get('app.base_weight');
 
 			if (Input::get('post_id', false))

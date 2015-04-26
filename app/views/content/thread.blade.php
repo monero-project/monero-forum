@@ -12,7 +12,7 @@
 		  <p class="mobile-post-meta"><a href="/user/{{ $thread->head()->user->username }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date"> | {{ $thread->head()->created_at }}</span></p>
 		  <div class="panel-body">
 			  <div class="row post-block">
-				  {{ Markdown::string(e($thread->head()->body)) }}
+				  {{ $thread->head()->body }}
 			  </div>
 		  </div>
 		</div>
@@ -114,9 +114,7 @@
 	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
 	@endif
 	{{ HTML::script('js/posts.js') }}
-	{{ HTML::script('js/js-markdown-extra.js') }}
 	{{ HTML::script('js/preview.js') }}
-	{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
 	<script type="text/javascript">
 	    $(function () {
 	        $("[data-toggle='tooltip']").tooltip();

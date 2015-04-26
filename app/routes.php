@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/test', function() {
-	return Kramdown::string(Post::find(302)->body);
+	return Post::find(573)->body;
 });
 
 Route::get('/', array(
