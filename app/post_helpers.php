@@ -52,8 +52,15 @@ function unthreaded_posts($posts, $thread_id) {
 		
 		$full_breadcrumbs = get_breadcrumbs($post_obj);
 		$breadcrumbs = array_slice($full_breadcrumbs, 0, 5, true);
-		$head = array_reverse($full_breadcrumbs)[0];
+		if(count($full_breadcrumbs))
+		{
+			$head = array_reverse($full_breadcrumbs)[0];
+		}
+		else {
+			$head = false;
+		}
 		$children = Post::where('parent_id', $post->id)->lists('id');
+		$children = json_encode($children);
 
 		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count()))
 		{

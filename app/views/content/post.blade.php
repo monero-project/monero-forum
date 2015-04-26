@@ -1,12 +1,15 @@
 <?php
 
-//try {
+try {
 
 
 ?>
 <div class="post-indent">
 	@if ($level % 2 == 0)
-		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children=" {{ $children }}">
+		<div id="post-{{ $post->id }}" class="post col-lg-12 level-{{ $level }}"
+		     parents="{{ $serialized_bread }}"
+		     head="{{ $head->id or "" }}"
+		     children="{{ $children }}">
 	@else
 		<div id="post-{{ $post->id }}" class="post col-lg-12 odd level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children=" {{ $children }}">
 	@endif
@@ -160,9 +163,9 @@
 </div>
 <?php
 
-/*}
+}
 catch(Exception $e)
 {
-    var_dump("Error:".$e->getMessage().":".$e->getLine().":".$e->getCode());
-}*/
+    Log::error($e);
+}
 ?>
