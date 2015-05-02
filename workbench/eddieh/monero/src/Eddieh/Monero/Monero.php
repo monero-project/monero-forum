@@ -18,7 +18,7 @@ class Monero
 		$this->alias = Config::get('monero::xmr_my_alias');
 	}
 
-	public function generatePaymentID($var = false)
+	public static function generatePaymentID($var = false)
 	{
 		if (!$var) {
 			$payment_id = bin2hex(openssl_random_pseudo_bytes(32));
@@ -199,6 +199,18 @@ class Monero
 		} else {
 			return true;
 		}
+	}
+
+	public static function convert($amount, $code = 'USD') {
+		$values = file_get_contents('https://moneropric.es/fiat.json');
+		$values = json_decode($values);
+		foreach($values as $value) {
+			if($value->code == $code)
+			{
+				return $amount * $value->{'xmr-rate'};
+			}
+		}
+		return false;
 	}
 
 }
