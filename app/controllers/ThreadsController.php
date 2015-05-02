@@ -1,5 +1,7 @@
 <?php
 
+use Eddieh\Monero\Monero;
+
 class ThreadsController extends \BaseController
 {
 
@@ -194,6 +196,30 @@ class ThreadsController extends \BaseController
 					});
 				}
 
+				//Create the funding entry if the topic is being created at a funding forum.
+
+				if(in_array($thread->forum_id, Config::get('app.funding_forums')))
+				{
+					$rules = [
+						'target' => 'required|numeric',
+						'currency'  => 'required|string',
+					];
+					$funding_validator = Validator::make(Input::all(), $rules);
+					if(!$funding_validator->fails())
+					{
+						Funding::create([
+							'target'        => Input::get('target'),
+							'currency'      => Input::get('currency'),
+							'thread_id'     => $thread->id,
+							'payment_id'    => Monero::generatePaymentID($thread->id),
+						]);
+					}
+					else
+					{
+						return Redirect::route('thread.create', [Input::get('forum_id')])->withInput()->with('errors', $funding_validator->messages()->all());
+					}
+				}
+
 				return Redirect::to($thread->permalink());
 			} else {
 				return Redirect::route('thread.create', [Input::get('forum_id')])->withInput()->with('errors', $validator->messages()->all());
@@ -293,5 +319,21 @@ class ThreadsController extends \BaseController
 		$forum = Forum::findOrFail($thread->forum_id);
 
 		return Redirect::route('threadView', array($forum->id, $forum->slug(), $id, $thread->slug()));
+	}
+
+	public function contribute($id)
+	{
+		$thread = Thread::findOrFail($id);
+		if($thread->funding)
+		{
+			//create a new receiving fund.
+			$monero = new Monero();
+			$monero->receive(0, $thread->funding->payment_id);
+			return View::make('content.contribute', compact('thread'));
+		}
+		else {
+			App::abort(404);
+			return false;
+		}
 	}
 }

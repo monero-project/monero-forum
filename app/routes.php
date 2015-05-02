@@ -1,19 +1,22 @@
 <?php
 
+//Route::get('/test', function() {
+//	echo \Eddieh\Monero\Monero::convert(123, 'USD');
+//});
+
 Route::get('/', array(
 	'as'    => 'index',
 	'uses'  => 'HomeController@index'
 ));
-
-Route::get('/123', function() {
-	echo Monero::generatePaymentID();
-});
 
 /* Image Proxy */
 Route::get('/get/image/', 'PostsController@getProxyImage');
 
 /* Search */
 Route::post('/search', 'SearchController@search');
+
+/* Contribute */
+Route::get('/contribute/{id}', array('as' => 'contribute', 'uses' => 'ThreadsController@contribute'));
 
 /* Admin Panel */
 Route::get('/admin', 'AdminController@index');

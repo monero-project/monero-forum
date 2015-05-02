@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'default' => 'production',
+	'default' => 'local',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -35,6 +35,14 @@ return array(
 			'key'       => '',
 			'keyphrase' => '',
 			'root'      => '/var/www',
+		),
+
+		'local' => array(
+			'host'      => 'localhost',
+			'username'  => 'vagrant',
+			'key'       => '/home/vagrant/.ssh/id_rsa',
+			'keyphrase' => 'katite',
+			'root'      => '~/monero/public',
 		),
 
 	),

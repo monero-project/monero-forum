@@ -47,7 +47,7 @@ class Monero
 			'payment_id' => $payment_id,
 			'amount' => $amount,
 			'status' => 'pending',
-			'expire' => $expire
+			'expires_at' => $expire
 		]);
 
 		$payment->address = $this->address;
@@ -79,7 +79,7 @@ class Monero
 	{
 		$now = date("Y-m-d H:i", strtotime("now"));
 
-		$pending = Payment::where('status', 'pending')->where('type', 'receive')->where('expire', '>', $now)->get();
+		$pending = Payment::where('status', 'pending')->where('type', 'receive')->where('expires_at', '>', $now)->get();
 
 		if (count($pending)) {
 
@@ -207,7 +207,7 @@ class Monero
 		foreach($values as $value) {
 			if($value->code == $code)
 			{
-				return $amount * $value->{'xmr-rate'};
+				return $amount / $value->{'xmr-rate'};
 			}
 		}
 		return false;

@@ -59,6 +59,7 @@ return array(
 	/* GPG Settings */
 
 	'max_gpg_entry'						=> 5, //number of times to try and hit the key servers before asking the user to upload a key instead.
+	'funding_forums'                => [8,9],
 
 
 
