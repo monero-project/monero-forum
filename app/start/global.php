@@ -128,6 +128,8 @@ Event::listen('auth.logout', function($user)
 
 });
 
+Event::listen('eloquent.created: Post', 'MentionHandler');
+
 /* Post Helpers File. Used for recursive functions and whatever else. */
 require app_path().'/post_helpers.php';
 /* GPG helper file */

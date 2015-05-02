@@ -5,7 +5,11 @@
 	{{ Form::open(['url' => URL::route('messages.send')]) }}
 		<div class="form-group">
 			<label for="username">Username:</label>
+			@if($username)
+			<input type="text" class="form-control" id="username" name="username" placeholder="Recipients username" value="{{{ $username }}}">
+			@else
 			<input type="text" class="form-control" id="username" name="username" placeholder="Recipients username">
+			@endif
 		</div>
 		<div class="form-group">
 			<label for="username">Title:</label>

@@ -240,8 +240,10 @@ class UsersController extends BaseController
 		$ratings = $user->rated()->orderBy('created_at', 'desc')->paginate(10);
 		if ($user)
 			return View::make('user.profile', array('user' => $user, 'ratings' => $ratings, 'title' => 'Monero | User &raquo; ' . $user->username));
-		else
+		else {
+			App::abort(404);
 			return View::make('errors.404');
+		}
 	}
 
 	public function self()
@@ -666,6 +668,13 @@ class UsersController extends BaseController
 		}
 		else {
 			$user->reply_notifications = 0;
+		}
+		if (Input::has('mention') && Input::get('mention') == 1)
+		{
+			$user->mention_notifications = 1;
+		}
+		else {
+			$user->mention_notifications = 0;
 		}
 
 		$user->save();
