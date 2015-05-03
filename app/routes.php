@@ -18,6 +18,17 @@ Route::post('/search', 'SearchController@search');
 /* Contribute */
 Route::get('/contribute/{id}', array('as' => 'contribute', 'uses' => 'ThreadsController@contribute'));
 
+/* Milestone Management */
+
+Route::post('/milestones/store', array('as' => 'milestones.store', 'uses' => 'MilestonesController@store'));
+Route::get('/milestones/create/{id}', array('as' => 'milestones.create', 'uses' => 'MilestonesController@create'));
+Route::get('/milestones/edit/{id}', array('as' => 'milestones.edit', 'uses' => 'MilestonesController@edit'));
+Route::post('/milestones/update/{id}', array('as' => 'milestones.update', 'uses' => 'MilestonesController@update'));
+Route::get('/milestones/delete/{id}', array('as' => 'milestones.delete', 'uses' => 'MilestonesController@delete'));
+
+Route::get('/milestones/{thread_id}', array('as' => 'milestones.index', 'uses' => 'MilestonesController@index'));
+
+
 /* Admin Panel */
 Route::get('/admin', 'AdminController@index');
 

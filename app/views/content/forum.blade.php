@@ -35,44 +35,9 @@
 		<div class="col-md-2 thread-replies">
 			<p>Replies: <b>{{ $thread->posts()->count() - 1}}</b></p>
 		</div>
-	    <div class="col-lg-6">
-		    <div style="padding-left:30px;">
-			    £{{ rand(1,50000) }} / £{{ rand(50000,90000) }} raised in {{ rand(10,20) }} contributions
-		    </div>
-		    <div>
-		    <i class="fa fa-usd" style="
-		      display: inline-block;
-  float: left;
-  padding-right: 10px;
-  font-size: 12px;
-  padding-left: 10px;
-  "></i>
-		    <div class="progress" style="height: 10px;">
-			    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ rand(0,100) }}%; background: #ff6c3c;">
-				    <span class="sr-only">40% Complete (success)</span>
-			    </div>
-		    </div>
-		    </div>
-	    </div>
-	    <div class="col-lg-6">
-		    <div style="padding-left:30px;">
-			    {{ rand(1,10) }} / {{ rand(10,20) }} milestones reached
-		    </div>
-		    <div>
-		    <i class="fa fa-wrench" style="
-		      display: inline-block;
-  float: left;
-  padding-right: 10px;
-  font-size: 12px;
-  padding-left: 10px;
-  "></i>
-		    <div class="progress" style="height: 10px;">
-			    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: {{ rand(0,100) }}%;">
-				    <span class="sr-only">40% Complete (success)</span>
-			    </div>
-		    </div>
-		    </div>
-	    </div>
+	    @if($thread->funding)
+	    @include('content.forum_funding_block')
+		@endif
 	</div>
 	@endforeach
   </div>

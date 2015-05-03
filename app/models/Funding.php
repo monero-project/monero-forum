@@ -21,11 +21,15 @@ class Funding extends \Eloquent
 		return $this->belongsTo('Thread');
 	}
 
+	public function milestones()
+	{
+		return $this->hasMany('Milestone');
+	}
+
 	public function percentage()
 	{
 		$cache_key = $this->payment_id . '_funding_';
 		$percentage = Cache::tags('thread_' . $this->thread_id)->rememberForever($cache_key . 'percentage', function () {
-			//TODO: calculate real percentage
 			$value = ($this->funded() / $this->target) * 100;
 			return $value;
 		});
@@ -59,6 +63,8 @@ class Funding extends \Eloquent
 		switch ($this->currency) {
 			case 'USD':
 				return '$';
+			case 'GBP':
+				return '£';
 			default :
 				return '$';
 		}
