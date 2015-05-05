@@ -1,5 +1,7 @@
 <?php
 
+use Eddieh\Monero\Monero;
+
 class PostsController extends \BaseController {
 	
 	public function getProxyImage() {
@@ -136,6 +138,34 @@ class PostsController extends \BaseController {
 				$post->body = Input::get('body');
 	
 				$post->save();
+
+				$rules = [
+					'target' => 'required|numeric',
+					'currency'  => 'required|string',
+				];
+				$funding_validator = Validator::make(Input::all(), $rules);
+
+				//check if the thread has funding and if the edited post is head.
+				if($post->thread->funding && $post->thread->head()->id == $post->id && !$funding_validator->fails())
+				{
+					$funding = $post->thread->funding;
+					$funding->target = Input::get('target');
+					$funding->currency = Input::get('currency');
+					$funding->save();
+				}
+				else if ($post->thread->head()->id == $post->id && !$funding_validator->fails())
+				{
+					Funding::create([
+						'thread_id'     => $post->thread_id,
+						'currency'      => Input::get('currency'),
+						'target'        => Input::get('target'),
+						'payment_id'    => Monero::generatePaymentID($thread_id)
+					]);
+				}
+				else if ($post->thread->head()->id == $post->id && $funding_validator->fails())
+				{
+					return Redirect::back()->withInput()->with('errors', $funding_validator->messages()->all());
+				}
 	
 				return Redirect::to($thread->permalink());
 			}

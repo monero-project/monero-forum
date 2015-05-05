@@ -33,8 +33,11 @@
 		<p>Author: <b><a class="board-meta" href="/user/{{ $thread->user->username }}">{{ $thread->user->username }}</a></b>, {{ $thread->created_at }}</p>
 		</div>
 		<div class="col-md-2 thread-replies">
-			<p>Replies: <b>{{ $thread->posts()->count() - 1 }}</b></p>
+			<p>Replies: <b>{{ $thread->posts()->count() - 1}}</b></p>
 		</div>
+	    @if($thread->funding)
+	    @include('content.forum_funding_block')
+		@endif
 	</div>
 	@endforeach
   </div>

@@ -8,9 +8,19 @@
 			<h1>Create a Thread</h1>
 			{{ Form::open(array('url' => '/thread/create')) }}
 			 <input type="hidden" value="{{ $forum->id }}" name="forum_id">
-			  <div class="form-group">
-			    <input type="text" class="form-control" name="name" placeholder="Your descriptive thread title goes here." value="{{ Input::old('name') }}">
-			  </div>
+				@if(in_array($forum->id, Config::get('app.funding_forums')))
+				<h2>Funding Options</h2>
+				<div class="form-group">
+					<input type="number" class="form-control" name="target" placeholder="The target goal" value="{{ Input::old('target') }}">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="currency" placeholder="The currency code" value="{{ Input::old('currency') }}">
+				</div>
+				<h2>Thread Options</h2>
+				@endif
+				<div class="form-group">
+			        <input type="text" class="form-control" name="name" placeholder="Your descriptive thread title goes here." value="{{ Input::old('name') }}">
+			    </div>
 				<div class="row markdown-buttons markdown-buttons-main">
 					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('**', '**')"><span class="glyphicon glyphicon-bold"></span></button>
 					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('*', '*')"><span class="glyphicon glyphicon-italic"></span></button>

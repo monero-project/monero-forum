@@ -842,3 +842,43 @@ p.syntax {
 .fa-white {
     color: white;
 }
+
+.funding-icon {
+    display: inline-block;
+    float: left;
+    padding-right: 10px;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.forum-progress {
+    height: 10px;
+}
+
+.progress-monero {
+    background: #ff6c3c;
+}
+
+.funding-info-box {
+    padding-left:30px;
+}
+
+.funding-block {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.funding-block h3 {
+    font-size:35px;
+}
+
+.funding-block p {
+    text-transform: uppercase;
+    font-size:18px;
+}
+
+.the-bar {
+    font-size:18px;
+    height: 150px;
+    padding-top: 50px;
+}
