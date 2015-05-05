@@ -7,8 +7,8 @@
  */
 
 return [
-	'xmr_expire_payments' => '+ 1 day',
-	'xmr_wallet_addr'     => 'ip:port', //address of the wallet daemon.
-	'xmr_my_addr'         => '49RPpNuDuLhayv8yHgVSNhgdvB4Uze3A9euEsBzp3groWssk2eZPEErf6LSDae9smQ78a5CfNmafYdgYnyjTEY6q4EvuPJ1', //Monero address to receive/send payments from.
-	'xmr_my_alias'        => 'getmonero.org' // wallet alias.
+	'expire' => '+ 1 day',
+	'wallet'     => '10.0.2.2:18082', //address of the wallet daemon.
+	'address'         => '9xQSRSS9veEFC5GS4Bb27S8EdDPAbRjFgc69QbwGYsm9AbVxphQrD7aMUCmrEvc5gX6gKQmkD8D5L99k6RQJMqxk6uw1AXb', //Monero address to receive/send payments from.
+	'alias'        => 'getmonero.org' // wallet alias.
 ];

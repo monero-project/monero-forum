@@ -12,10 +12,10 @@ class Monero
 
 	function __construct()
 	{
-		$this->expire = Config::get('monero::xmr_expire_payments');
-		$this->wallet = Config::get('monero::xmr_wallter_addr');
-		$this->address = Config::get('monero::xmr_my_addr');
-		$this->alias = Config::get('monero::xmr_my_alias');
+		$this->expire = Config::get('monero::expire');
+		$this->wallet = Config::get('monero::wallet');
+		$this->address = Config::get('monero::address');
+		$this->alias = Config::get('monero::alias');
 	}
 
 	public static function generatePaymentID($var = false)
@@ -95,15 +95,14 @@ class Monero
 			{
 				$data['params']['payment_ids'][] = $payment->payment_id;
 			}
-
 			curl_setopt($ch, CURLOPT_URL, "http://".$this->wallet."/json_rpc");
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_ENCODING, 'Content-Type: application/json');
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_VERBOSE, true);
 			$server_output = curl_exec($ch);
 			$result = json_decode($server_output, true);
-
 			$payments = array();
 			usort($result["result"]["payments"], Monero::sort('block_height'));
 
@@ -118,8 +117,9 @@ class Monero
 				]);
 
 				$check = Payment::where('payment_id', $val['payment_id'])->first();
-
+				var_dump(2222222);
 				if ($check->block_height < $val['block_height']) {
+					var_dump(111);
 					$check->block_height = $val['block_height'];
 					$check->amount = $val['amount'];
 					$check->save();

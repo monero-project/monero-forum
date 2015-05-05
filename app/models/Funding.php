@@ -28,7 +28,7 @@ class Funding extends \Eloquent
 
 	public function percentage()
 	{
-		$cache_key = $this->payment_id . '_funding_';
+		$cache_key = $this->id . '_funding_';
 		$percentage = Cache::tags('thread_' . $this->thread_id)->rememberForever($cache_key . 'percentage', function () {
 			$value = ($this->funded() / $this->target) * 100;
 			return $value;
@@ -38,16 +38,16 @@ class Funding extends \Eloquent
 
 	public function contributions()
 	{
-		$cache_key = $this->payment_id . '_funding_';
+		$cache_key = $this->id . '_funding_';
 		$contributions = Cache::tags('thread_' . $this->thread_id)->rememberForever($cache_key . 'contributions', function () {
-			return Payment::where('payment_id', $this->payment_id)->count();
+			return Payment::where('payment_id', $this->payment_id)->where('amount', '<>', 0)->count();
 		});
 		return $contributions;
 	}
 
 	public function funded()
 	{
-		$cache_key = $this->payment_id . '_funding_';
+		$cache_key = $this->id . '_funding_';
 		$funded = Cache::tags('thread_' . $this->thread_id)->rememberForever($cache_key . 'funded', function () {
 			$payments = Payment::where('payment_id', $this->payment_id);
 			$_funded = $payments->where('type', 'receive')->sum('amount');
@@ -65,6 +65,8 @@ class Funding extends \Eloquent
 				return '$';
 			case 'GBP':
 				return '£';
+			case 'EUR':
+				return '€';
 			default :
 				return '$';
 		}

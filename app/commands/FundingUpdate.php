@@ -46,20 +46,7 @@ class FundingUpdate extends Command {
 		$this->info('Updating cache.');
 		foreach($funding as $thread)
 		{
-			//clear the cache items
-			if(Cache::has($thread->thread_id . '_funding_percentage'))
-			{
-				$this->info('Percentage cache cleared.');
-				Cache::forget($thread->thread_id . '_funding_percentage');
-			}
-			if(Cache::has($thread->thread_id . '_funding_contributions'))
-			{
-				Cache::forget($thread->thread_id . '_funding_contributions');
-			}
-			if(Cache::has($thread->thread_id . '_funding_funded'))
-			{
-				Cache::forget($thread->thread_id . '_funding_funded');
-			}
+			Cache::tags('thread_'.$thread->thread_id)->flush();
 		}
 		$this->info('Update complete!');
 	}
