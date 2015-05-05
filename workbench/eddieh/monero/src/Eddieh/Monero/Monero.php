@@ -117,9 +117,7 @@ class Monero
 				]);
 
 				$check = Payment::where('payment_id', $val['payment_id'])->first();
-				var_dump(2222222);
 				if ($check->block_height < $val['block_height']) {
-					var_dump(111);
 					$check->block_height = $val['block_height'];
 					$check->amount = $val['amount'];
 					$check->save();
