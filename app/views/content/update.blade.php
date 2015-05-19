@@ -14,6 +14,18 @@
 	<hr>
 	<div class="col-lg-12">
 		<form role="form" method="POST" action="/posts/update">
+			@if($post->id == $post->thread->head()->id)
+				@if(in_array($post->thread->forum_id, Config::get('app.funding_forums')))
+					<h2>Funding Options</h2>
+					<div class="form-group">
+						<input type="number" class="form-control" name="target" placeholder="The target goal" value="{{ $post->thread->funding->target or "" }}">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" name="currency" placeholder="The currency code" value="{{ $post->thread->funding->currency or "" }}">
+					</div>
+					<h2>Thread Options</h2>
+				@endif
+			@endif
 			<input type="hidden" name="post_id" value="{{ $post->id }}">
 			<input type="hidden" name="thread_id" value="{{ $post->thread->id }}">
 		  <div class="form-group">

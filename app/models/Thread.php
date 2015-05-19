@@ -46,6 +46,11 @@ class Thread extends \Eloquent
 		return $this->hasMany('ThreadView');
 	}
 
+	public function funding()
+	{
+		return $this->hasOne('Funding');
+	}
+
 	public function slug()
 	{
 		$slug = $this->name;

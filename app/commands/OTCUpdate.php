@@ -43,14 +43,14 @@ class OTCUpdate extends Command {
 		
 		$this->info('Starting the Ratings database download');
 		chdir(Config::get('app.project_dir').'/app/database');
-		echo exec('wget http://bitcoin-otc.com/otc/RatingSystem.db');
+		echo exec('wget --quiet http://bitcoin-otc.com/otc/RatingSystem.db');
 		
 		$this->info('Switching the Ratings database');
 		echo exec('rm ratings.db');
 		echo exec('mv RatingSystem.db ratings.db');
 		
 		$this->info('Starting the GPG Key database download');
-		echo exec('wget http://bitcoin-otc.com/otc/GPG.db');
+		echo exec('wget --quiet http://bitcoin-otc.com/otc/GPG.db');
 		
 		$this->info('Switching the GPG Key database');
 		echo exec('rm gpg.db');

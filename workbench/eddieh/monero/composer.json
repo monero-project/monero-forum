@@ -1,0 +1,24 @@
+{
+    "name": "eddieh/monero",
+    "description": "Monero payments integration for Laravel, based on MalMen's Monero-PHP library.",
+    "authors": [
+        {
+            "name": "Edvinas Paulauskas",
+            "email": "edvinasp@live.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/models"
+        ],
+        "psr-0": {
+            "Eddieh\\Monero\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

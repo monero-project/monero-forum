@@ -11,6 +11,9 @@
 		  </div>
 		  <p class="mobile-post-meta"><a href="/user/{{ $thread->head()->user->username }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date"> | {{ $thread->head()->created_at }}</span></p>
 		  <div class="panel-body">
+			  @if(in_array($thread->forum->id, Config::get('app.funding_forums')) && $thread->funding)
+			  @include('threads.funding_block')
+			  @endif
 			  <div class="row post-block">
 				  {{ Markdown::string(e($thread->head()->body)) }}
 			  </div>
