@@ -49,24 +49,24 @@ function unthreaded_posts($posts, $thread_id) {
 	foreach ($posts as $key => $post)
 	{
 		$post_obj = Post::where('id',$post['id'])->first();
-		
-		$full_breadcrumbs = get_breadcrumbs($post_obj);
-		$breadcrumbs = array_slice($full_breadcrumbs, 0, 5, true);
-		if(count($full_breadcrumbs))
-		{
-			$head = array_reverse($full_breadcrumbs)[0];
-		}
-		else {
-			$head = false;
-		}
-		$children = Post::where('parent_id', $post->id)->lists('id');
-		$children = json_encode($children);
 
-		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count()))
-		{
-			$level = 0;
-			$serialized_bread = serialize_bread($full_breadcrumbs);
-			$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children));
+		if($post_obj) {
+
+			$full_breadcrumbs = get_breadcrumbs($post_obj);
+			$breadcrumbs = array_slice($full_breadcrumbs, 0, 5, true);
+			if (count($full_breadcrumbs)) {
+				$head = array_reverse($full_breadcrumbs)[0];
+			} else {
+				$head = false;
+			}
+			$children = Post::where('parent_id', $post->id)->lists('id');
+			$children = json_encode($children);
+
+			if ($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count())) {
+				$level = 0;
+				$serialized_bread = serialize_bread($full_breadcrumbs);
+				$post_list .= View::make('content.post', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children));
+			}
 		}
 	}
 	return $post_list.'</div>';
