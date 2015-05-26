@@ -104,23 +104,25 @@ class Monero
 			$server_output = curl_exec($ch);
 			$result = json_decode($server_output, true);
 			$payments = array();
-			usort($result["result"]["payments"], Monero::sort('block_height'));
+			if($result["result"]["payments"]) {
+				usort($result["result"]["payments"], Monero::sort('block_height'));
 
-			foreach ($result["result"]["payments"] AS $index => $val) {
+				foreach ($result["result"]["payments"] AS $index => $val) {
 
-				array_push($payments, [
-					"block_height" => $val["block_height"],
-					"payment_id" => $val["payment_id"],
-					"unlock_time" => $val["unlock_time"],
-					"amount" => $val["amount"],
-					"tx_hash" => $val["tx_hash"]
-				]);
+					array_push($payments, [
+						"block_height" => $val["block_height"],
+						"payment_id" => $val["payment_id"],
+						"unlock_time" => $val["unlock_time"],
+						"amount" => $val["amount"],
+						"tx_hash" => $val["tx_hash"]
+					]);
 
-				$check = Payment::where('payment_id', $val['payment_id'])->first();
-				if ($check->block_height < $val['block_height']) {
-					$check->block_height = $val['block_height'];
-					$check->amount = $val['amount'];
-					$check->save();
+					$check = Payment::where('payment_id', $val['payment_id'])->first();
+					if ($check->block_height < $val['block_height']) {
+						$check->block_height = $val['block_height'];
+						$check->amount = $val['amount'];
+						$check->save();
+					}
 				}
 			}
 			curl_close($ch);
