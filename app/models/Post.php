@@ -207,25 +207,26 @@ class Post extends \Eloquent {
 		}
     }
 
-//	public function getBodyAttribute($value) {
-//		if($this->parsed)
-//		{
-//			return $value;
-//		}
-//		else {
-//			$this->body_original = $value;
-//			$parsed_body = Markdown::string($value);
-//			$this->body = $parsed_body;
-//			$this->parsed = 1;
-//			$this->save();
-//			return $parsed_body;
-//		}
-//	}
-
-	public function getBodyAttribute($value)
-	{
-		return Markdown::string($value);
+	public function getBodyAttribute($value) {
+		if($this->parsed)
+		{
+			return $value;
+		}
+		else
+		{
+			$this->body_original = $value;
+			$parsed_body = Markdown::string($value);
+			$this->body = $parsed_body;
+			$this->parsed = 1;
+			$this->save();
+			return $parsed_body;
+		}
 	}
+
+//	public function getBodyAttribute($value)
+//	{
+//		return Markdown::string($value);
+//	}
     
     
 }

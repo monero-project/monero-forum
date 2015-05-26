@@ -37,4 +37,19 @@ class Message extends \Eloquent {
 		return $count;
 	}
 
+	public function getBodyAttribute($value) {
+		if($this->body_parsed)
+		{
+			return $value;
+		}
+		else
+		{
+			$parsed_body = Markdown::string($value);
+			$this->body = $parsed_body;
+			$this->body_parsed = 1;
+			$this->save();
+			return $parsed_body;
+		}
+	}
+
 }

@@ -28,80 +28,80 @@ class PostsController extends \BaseController {
 	}
 	
 	public function submit() {
-	
-	$thread = Thread::findOrFail(Input::get('thread_id'));
-	$forum = Forum::findOrFail($thread->forum->id);
-	
-	if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
-			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
-	
-	if(is_string(Input::get('submit')))
-	{
-		$validator = Post::validate(Input::all());
 
 		$thread = Thread::findOrFail(Input::get('thread_id'));
-		$thread_id = $thread->id;
-		$thread_slug = $thread->slug();
-		$forum_id = $thread->forum->id;
-		$forum_slug = $thread->forum->slug();
-		$posts = $thread->posts();
+		$forum = Forum::findOrFail($thread->forum->id);
 
-		if (!$validator->fails())
+		if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
+				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
+
+		if(is_string(Input::get('submit')))
 		{
-			$post = new Post();
-			$post->user_id = Auth::user()->id;
-			$post->thread_id = Input::get('thread_id');
-			$post->body = Markdown::string(Input::get('body'));
-			$post->body_original = Input::get('body');
-			$post->weight = Config::get('app.base_weight');
+			$validator = Post::validate(Input::all());
 
-			if (Input::get('post_id', false))
+			$thread = Thread::findOrFail(Input::get('thread_id'));
+			$thread_id = $thread->id;
+			$thread_slug = $thread->slug();
+			$forum_id = $thread->forum->id;
+			$forum_slug = $thread->forum->slug();
+			$posts = $thread->posts();
+
+			if (!$validator->fails())
 			{
-				$post->parent_id = Input::get('post_id');
-				
-				//add weight to parent.
-				/*
-				$parent_post = Post::find(Input::get('post_id'));
-				$parent_post->weight += Config::get('app.reply_weight');
-				$parent_post->save();
-				*/
+				$post = new Post();
+				$post->user_id = Auth::user()->id;
+				$post->thread_id = Input::get('thread_id');
+				$post->body = Markdown::string(Input::get('body'));
+				$post->body_original = Input::get('body');
+				$post->weight = Config::get('app.base_weight');
+
+				if (Input::get('post_id', false))
+				{
+					$post->parent_id = Input::get('post_id');
+
+					//add weight to parent.
+					/*
+					$parent_post = Post::find(Input::get('post_id'));
+					$parent_post->weight += Config::get('app.reply_weight');
+					$parent_post->save();
+					*/
+				}
+
+				$thread->touch(); //update the updated_at value to bump the thread up.
+				$thread->save();
+
+				$post->save();
+
+	            //nuke the cache for thread on new post.
+
+	            $forum = Forum::findOrFail($thread->forum_id);
+
+	            $key = 'forum_latest_post_'.$forum->id;
+
+	            if (Cache::has($key)) {
+	                Cache::forget($key);
+	            }
+	            else {
+	                Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
+	                {
+	                    return DB::table('forums')
+	                        ->where('forums.id', '=', $forum->id)
+	                        ->join('threads', 'forums.id', '=', 'threads.forum_id')
+	                        ->join('posts', 'threads.id', '=', 'posts.thread_id')
+	                        ->whereNull('posts.deleted_at')
+	                        ->count();
+	                });
+	            }
+
+				return Redirect::to($thread->permalink());
 			}
-			
-			$thread->touch(); //update the updated_at value to bump the thread up.
-			$thread->save();
-			
-			$post->save();
 
-            //nuke the cache for thread on new post.
-
-            $forum = Forum::findOrFail($thread->forum_id);
-
-            $key = 'forum_latest_post_'.$forum->id;
-
-            if (Cache::has($key)) {
-                Cache::forget($key);
-            }
-            else {
-                Cache::remember($key, Config::get('app.cache_latest_details_for'), function() use ($forum)
-                {
-                    return DB::table('forums')
-                        ->where('forums.id', '=', $forum->id)
-                        ->join('threads', 'forums.id', '=', 'threads.forum_id')
-                        ->join('posts', 'threads.id', '=', 'posts.thread_id')
-                        ->whereNull('posts.deleted_at')
-                        ->count();
-                });
-            }
-
-			return Redirect::to($thread->permalink());
+			else
+				return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
 		}
-
-		else
-			return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
-	}
-	else {
-		return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
-	}
+		else {
+			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
+		}
 	}
 
 	public function delete($post_id) {
@@ -133,8 +133,10 @@ class PostsController extends \BaseController {
 			if (!$validator->fails())
 			{
 				$post = Post::findOrFail(Input::get('post_id'));
-	
-				$post->body = Input::get('body');
+
+				$post->body = Markdown::string(Input::get('body'));
+				$post->body_original = Input::get('body');
+				$post->parsed = 1;
 	
 				$post->save();
 	

@@ -26,7 +26,7 @@
 				</div>
 				<div class="panel-body content-block-82 hidden-post-content" style="display: block;">
 					<div class="post-content-82">
-						{{ Markdown::string(e($message->body)) }}
+						{{ $message->body }}
 					</div>
 				</div>
 			</div>

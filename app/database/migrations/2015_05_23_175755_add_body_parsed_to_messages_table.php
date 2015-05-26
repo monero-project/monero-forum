@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddMentionNotificationsToUsersTable extends Migration {
+class AddBodyParsedToMessagesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,11 @@ class AddMentionNotificationsToUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('users', function(Blueprint $table)
+		Schema::table('messages', function(Blueprint $table)
 		{
-			$table->boolean('mention_notifications')->default(1);
+			$table->boolean('body_parsed')->default(false);
 		});
 	}
-
 
 	/**
 	 * Reverse the migrations.
@@ -26,10 +25,9 @@ class AddMentionNotificationsToUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('users', function(Blueprint $table)
+		Schema::table('messages', function(Blueprint $table)
 		{
-			$table->dropColumn('mention_notifications');
+			$table->dropColumn('body_parsed');
 		});
 	}
-
 }
