@@ -104,7 +104,7 @@ class Monero
 			$server_output = curl_exec($ch);
 			$result = json_decode($server_output, true);
 			$payments = array();
-			if($result["result"]["payments"]) {
+			if(isset($result["result"]["payments"]) && $result["result"]["payments"]) {
 				usort($result["result"]["payments"], Monero::sort('block_height'));
 
 				foreach ($result["result"]["payments"] AS $index => $val) {
