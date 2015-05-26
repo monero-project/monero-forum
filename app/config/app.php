@@ -7,58 +7,61 @@ return array(
 	| App Settings
 	|
 	*/
-	
+
 	/*	Admin List */
-	
+
 	'admins' 							=> array('fluffypony', 'Edvinas'), 		//these admins will be appointed once roles are created.
-	
+
 	/*	Per Page Settings	*/
-	
+
 	'ratings_per_page' 					=> 20,
 	'user_threads_per_page' 			=> 20,
 	'user_posts_per_page' 				=> 20,
 	'thread_posts_per_page'				=> 15,
 	'threads_per_page'					=> 15,
-	
+
 	/*	Cache Settings	*/
-	
+
 	'cache_posts_for'					=> 0.1, //amount of minutes to cache the posts for users. Set in minutes.
 	'cache_latest_details_for'			=> 1, //amount of minutes to cache the latest details for.
-	
+
 	/*	Post Weight	*/
-	
+
 	'base_weight'						=> 500, //the base weight of every post.
 	'hidden_weight'						=> 400, //hide posts under this weight.
-	
+
 	'reply_weight'						=> 	2, //amount of weight to add if the post just had a new reply.
-	
+
 	'insightful_weight'					=> 	1, //amount of weight to add if the post is voted as insightful.
 	'irrelevant_weight'					=> -1, //amount of weight to take away if the post is voted as irrelevant.					
-	
+
 	'l1_post_weight'					=> 	250, //amount of weight to add if poster is in L1 of trust.
 	'l2_post_weight'					=> 	150, //amount of weight to add if poster is in L2 of trust.
 	'l3_post_weight'					=> 	50, //amount of weight to add if poster is in L3 of trust.
-	
+
 	'l1_vote_weight'					=> 	10, //amount of weight to add if voter is in L1 of trust.
 	'l2_vote_weight'					=> 	5, //amount of weight to add if voter is in L2 of trust.
 	'l3_vote_weight'					=> 	2, //amount of weight to add if voter is in L3 of trust.
-	
+
 	'decay_weight'						=> 	1, //amount of weight for a post to decay during each iteration of the decay.
-	
+
 	/* Other Settings */
-	
+
 	'project_dir' 						=> '/home/monero-private/',
-	
+
 	/* Email Settings */
-	
-	'from_email'						=> 'noreply@monero.cc',
+
+	'from_email'						=> 'noreply@getmonero.org',
 	'from_name'							=> 'The Monero Project',
 	'welcome_email_subject'				=> 'Welcome to the Monero Forums',
 	'recovery_email_subject'			=> 'Password Recovery',
-	
+
 	/* GPG Settings */
-	
+
 	'max_gpg_entry'						=> 5, //number of times to try and hit the key servers before asking the user to upload a key instead.
+	'funding_forums'                => [8,9],
+
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -71,7 +74,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -84,7 +87,7 @@ return array(
 	|
 	*/
 
-	'url' => 'https://forum.monero.cc',
+	'url' => 'http://monero.forum',
 
 	/*
 	|--------------------------------------------------------------------------
