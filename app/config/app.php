@@ -186,6 +186,7 @@ return array(
 		'Creitive\Breadcrumbs\BreadcrumbsServiceProvider',
 		'Roumen\Feed\FeedServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+		'Eddieh\Monero\MoneroServiceProvider',
 
 	),
 
@@ -258,6 +259,7 @@ return array(
 		'Image'			  => 'Intervention\Image\Facades\Image',
 		'Breadcrumbs'	  => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
 		'Feed'   		  => 'Roumen\Feed\Facades\Feed',
+		'Monero'          => 'Eddieh\Monero\Facades\Monero',
 	),
 
 );
