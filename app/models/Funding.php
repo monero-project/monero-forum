@@ -68,7 +68,7 @@ class Funding extends \Eloquent
 			case 'EUR':
 				return '€';
 			default :
-				return '$';
+				return $this->currency;
 		}
 	}
 }
