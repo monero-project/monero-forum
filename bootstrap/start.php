@@ -27,6 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('homestead'),
+	'zeus' => array('Zeus'),
 	'monero' => array('electrum.payb.ee'),
 
 ));
