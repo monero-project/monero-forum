@@ -234,7 +234,7 @@ class ThreadsController extends \BaseController
 
 		$thread = Thread::findOrFail($thread_id);
 
-		if (Auth::check() && Auth::user()->id == $thread->user->id) {
+		if (Auth::check() && (Auth::user()->id == $thread->user->id || Auth::user()->hasRole('Admin'))) {
 
 			foreach ($thread->posts as $post) {
 				$post->delete();

@@ -27,7 +27,7 @@
 		@elseif(Auth::check() && Auth::user()->subscriptions()->where('thread_id', $thread->id)->first())
 			<a href="{{ URL::route('subscriptions.unsubscribe', [$thread->id]) }}"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-eye-close"></span> Unsubscribe</button></a>
 		@endif
-		@if ($thread->user->id == Auth::user()->id)
+		@if ($thread->user->id == Auth::user()->id || Auth::user()->hasRole('Admin'))
 			<a href="/thread/delete/{{ $thread->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
 			<a href="/posts/update/{{ $thread->head()->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
 		@endif

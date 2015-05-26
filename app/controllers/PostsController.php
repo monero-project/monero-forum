@@ -108,7 +108,7 @@ class PostsController extends \BaseController {
 	public function delete($post_id) {
 		$post = Post::findOrFail($post_id);
 
-		if ($post->user_id == Auth::user()->id)
+		if ($post->user_id == Auth::user()->id || Auth::user()->hasRole('Admin'))
 		{
 			$post->delete();
 			return 'true';
@@ -193,7 +193,7 @@ class PostsController extends \BaseController {
 		$post = Post::findOrFail($post_id);
 		$thread = $post->thread;
 
-		if ($post->user_id == Auth::user()->id)
+		if ($post->user_id == Auth::user()->id || Auth::user()->hasRole('Admin'))
 		{
 			$post->delete();
 			return Redirect::to($thread->permalink());
@@ -218,7 +218,7 @@ class PostsController extends \BaseController {
 
 	public function getUpdatePage($post_id) {
 		$post = Post::findOrFail($post_id);
-		if ($post->user_id == Auth::user()->id)
+		if ($post->user_id == Auth::user()->id || Auth::user()->hasRole('Admin'))
 		{
 			return View::make('content.update', array('post' => $post));
 		}

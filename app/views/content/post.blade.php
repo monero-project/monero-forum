@@ -84,7 +84,7 @@ try {
 			 Flag</button></a>
 			 				@endif
 			 			  @endif
-						  @if ($post->user->id == Auth::user()->id)
+						  @if ($post->user->id == Auth::user()->id || Auth::user()->hasRole('Admin'))
 						  <a href="/posts/update/{{ $post->id }}" class="post-action-btn"><button type="button" onclick="post_edit({{ $post->id }}, {{ $thread_id }}, '{{ $post->title }}')" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span>
 			 Edit</button></a>
 						  <a class="post-action-btn" href="/posts/delete/page/{{ $post->id }}"><button type="button" onclick="post_delete({{ $post->id }})" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span>
