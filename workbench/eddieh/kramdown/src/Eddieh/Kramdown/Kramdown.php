@@ -18,7 +18,7 @@ class Kramdown {
 
 		file_put_contents($filename, $string);
 
-		$process = new Process('ruby --external-encoding UTF-8 -S '.Config::get('kramdown.path').'kramdown '.$filename);
+		$process = new Process('ruby --external-encoding UTF-8 -S '.Config::get('kramdown.path').'kramdown.rb '.$filename);
 		$process->run();
 		if (!$process->isSuccessful()) {
 			throw new \RuntimeException($process->getErrorOutput());
