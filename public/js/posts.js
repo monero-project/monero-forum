@@ -56,17 +56,8 @@ function thread_reply() {
 
 function post_reply(post_id, thread_id, post_title) {
     if (!replyOpen) {
-        $('#post-' + post_id).append('<form role="form" class="col-lg-12 post-reply-form post-reply-form-' + post_id + '" style="display: none;" action="/posts/submit" method="POST"><input type="hidden" name="post_id" value="' + post_id + '"><input type="hidden" name="thread_id" value="' + thread_id + '"><div class="markdown-buttons"><button type="button" class="btn btn-sm btn-default" onClick="$(\'.markdown-insert\').surroundSelectedText(\'**\', \'**\')"><span class="glyphicon glyphicon-bold"></span></button><button type="button" class="btn btn-sm btn-default" onClick="$(\'.markdown-insert\').surroundSelectedText(\'*\', \'*\')"><span class="glyphicon glyphicon-italic"></span></button><button type="button" class="btn btn-sm btn-default" onClick="$(\'.markdown-insert\').surroundSelectedText(\'![alt text](\', \')\')"><span class="glyphicon glyphicon-picture"></span></button><button type="button" class="btn btn-sm btn-default" onClick="$(\'.markdown-insert\').surroundSelectedText(\'[Link Text](\', \')\')"><span class="glyphicon glyphicon-globe"></span></button></div><div><p class="syntax">For post formatting please use Markdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide. </p></div><div class="form-group"><textarea class="form-control markdown-insert" name="body" id="reply-body" rows="6" placeholder="Your insightful masterpiece goes here..."></textarea></div><button type="submit" class="btn btn-success btn-sm" name="submit">Submit Reply</button><button type="button" onclick="cancel_post_reply(' + post_id + ')" class="btn btn-danger btn-sm reply-cancel" style="margin-left: 10px;">Cancel</button><div class="row content-preview"><div class="col-lg-12 preview-window-reply">Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!</div></div></form>');
         $('.post-reply-form-' + post_id).slideDown();
         replyOpen = true;
-
-        $('#reply-body').change(function () {
-            $('.preview-window-reply').html(Markdown($('#reply-body').val()));
-        });
-
-        $('#reply-body').keyup(function () {
-            $('.preview-window-reply').html(Markdown($('#reply-body').val()));
-        });
     }
 }
 
@@ -94,7 +85,6 @@ function cancel_thread_reply() {
 
 function cancel_post_reply(post_id) {
     $('.post-reply-form-' + post_id).slideUp(function () {
-        $('.post-reply-form-' + post_id).remove();
         replyOpen = false;
     });
 }

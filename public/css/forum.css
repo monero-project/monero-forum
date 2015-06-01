@@ -842,3 +842,17 @@ p.syntax {
 .fa-white {
     color: white;
 }
+
+/* Markdown Editor */
+
+.md-input {
+    padding: 10px !important;
+}
+
+.md-header .fa-search {
+    color: #FFF;
+}
+
+.post-reply-form {
+    padding-bottom: 10px;
+}
