@@ -154,7 +154,7 @@ class PostsController extends \BaseController {
 	public function get($post_id) {
 		$post = Post::find($post_id);
 		if ($post)
-			return $post->body;
+			return $post->original_body;
 		else
 			return 'false';
 	}
