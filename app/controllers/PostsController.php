@@ -245,4 +245,14 @@ class PostsController extends \BaseController {
 		return $posts_list;
 	}
 
+	public function kramdownParse()
+	{
+		if (Input::has('body')) {
+			return Markdown::string(Input::get('body'));
+		}
+		else {
+			return 0;
+		}
+	}
+
 }

@@ -101,7 +101,13 @@
 				@if ($post->trashed())
 				<p><em>[deleted]</em></p>
 				@else
-				{{ $post->body }}
+					@if(Auth::check() && $post->user_id == Auth::user()->id)
+					<div class="markdown-inline-edit post-{{ $post->id }}-markdown-edit">
+						{{ $post->body }}
+					</div>
+					@else
+						{{ $post->body }}
+					@endif
 				@endif
 				
 				@if (Auth::check())

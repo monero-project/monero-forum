@@ -89,6 +89,7 @@ Route::get('/gpg-auth', array('before' => 'auth', 'uses' => 'UsersController@get
 /*	Posts	*/
 Route::post('/posts/submit', array('before' => 'auth', 'uses' => 'PostsController@submit'));
 Route::post('/posts/update', array('before' => 'auth', 'uses' => 'PostsController@update'));
+Route::post('/posts/kramdown', 'PostsController@kramdownParse');
 
 /*	Threads	*/
 Route::get('/thread/create/{forum_id}', array('before' => 'auth', 'as' => 'thread.create', 'uses' => 'ThreadsController@create'));
