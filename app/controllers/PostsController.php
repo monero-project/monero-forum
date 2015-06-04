@@ -53,6 +53,7 @@ class PostsController extends \BaseController {
 				$post->thread_id = Input::get('thread_id');
 				$post->body = Markdown::string(Input::get('body'));
 				$post->body_original = Input::get('body');
+				$post->parsed = 1;
 				$post->weight = Config::get('app.base_weight');
 
 				if (Input::get('post_id', false))
@@ -154,7 +155,7 @@ class PostsController extends \BaseController {
 	public function get($post_id) {
 		$post = Post::find($post_id);
 		if ($post)
-			return $post->original_body;
+			return $post->body_original;
 		else
 			return 'false';
 	}
