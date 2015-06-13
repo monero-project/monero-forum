@@ -117,8 +117,8 @@ class Monero
 						"tx_hash" => $val["tx_hash"]
 					]);
 
-					$check = Payment::where('payment_id', $val['payment_id'])->first();
-					if ($check->block_height < $val['block_height']) {
+					$check = Payment::where('payment_id', $val['payment_id'])->where('amount', 0)->first();
+					if ($check && ($check->block_height < $val['block_height'])) {
 						$check->block_height = $val['block_height'];
 						$check->amount = $val['amount'];
 						$check->save();
@@ -202,6 +202,9 @@ class Monero
 	}
 
 	public static function convert($amount, $code = 'USD') {
+		//convert XMR
+		if($code == 'XMR')
+			return $amount / 1000000000000;
 		$values = file_get_contents('https://moneropric.es/fiat.json');
 		$values = json_decode($values);
 		foreach($values as $value) {

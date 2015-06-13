@@ -46,6 +46,7 @@ class FundingUpdate extends Command {
 		$this->info('Updating cache.');
 		foreach($funding as $thread)
 		{
+			$this->info('Clearing thread_'.$thread->thread_id);
 			Cache::tags('thread_'.$thread->thread_id)->flush();
 		}
 		$this->info('Update complete!');
