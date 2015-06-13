@@ -145,6 +145,8 @@ class PostsController extends \BaseController {
 				];
 				$funding_validator = Validator::make(Input::all(), $rules);
 
+				$is_funding = in_array($post->thread->forum_id, Config::get('app.funding_forums'));
+
 				//check if the thread has funding and if the edited post is head.
 				if($post->thread->funding && $post->thread->head()->id == $post->id && !$funding_validator->fails())
 				{
@@ -153,7 +155,7 @@ class PostsController extends \BaseController {
 					$funding->currency = Input::get('currency');
 					$funding->save();
 				}
-				else if ($post->thread->head()->id == $post->id && !$funding_validator->fails())
+				else if ($post->thread->head()->id == $post->id && !$funding_validator->fails() && $is_funding)
 				{
 					Funding::create([
 						'thread_id'     => $post->thread_id,
@@ -162,7 +164,7 @@ class PostsController extends \BaseController {
 						'payment_id'    => Monero::generatePaymentID($thread_id)
 					]);
 				}
-				else if ($post->thread->head()->id == $post->id && $funding_validator->fails())
+				else if ($post->thread->head()->id == $post->id && $funding_validator->fails() && $is_funding)
 				{
 					return Redirect::back()->withInput()->with('errors', $funding_validator->messages()->all());
 				}
