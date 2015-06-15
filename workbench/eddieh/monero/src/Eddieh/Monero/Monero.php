@@ -102,9 +102,11 @@ class Monero
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_VERBOSE, true);
 			$server_output = curl_exec($ch);
-			print('Sending Data: '.json_encode($data).PHP_EOL);
+			var_dump(json_encode($data));
+			echo 'Sending Data: '.json_encode($data).PHP_EOL;
 			$result = json_decode($server_output, true);
-			print('Received Data: '.$server_output.PHP_EOL);
+			echo 'Received Data: '.$server_output.PHP_EOL;
+			var_dump($server_output);
 			$payments = array();
 			if(isset($result["result"]["payments"]) && $result["result"]["payments"]) {
 				usort($result["result"]["payments"], Monero::sort('block_height'));
