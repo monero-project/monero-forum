@@ -1,6 +1,7 @@
 <?php namespace Eddieh\Monero;
 
 use Config;
+use Log;
 
 class Monero
 {
@@ -102,11 +103,11 @@ class Monero
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_VERBOSE, true);
 			$server_output = curl_exec($ch);
-			var_dump(json_encode($data));
+			Log::info(json_encode($data));
 			echo 'Sending Data: '.json_encode($data).PHP_EOL;
 			$result = json_decode($server_output, true);
 			echo 'Received Data: '.$server_output.PHP_EOL;
-			var_dump($server_output);
+			Log::info($server_output);
 			$payments = array();
 			if(isset($result["result"]["payments"]) && $result["result"]["payments"]) {
 				usort($result["result"]["payments"], Monero::sort('block_height'));
