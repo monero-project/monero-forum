@@ -2,6 +2,7 @@
 
 use Config;
 use Log;
+use Funding;
 
 class Monero
 {
@@ -80,58 +81,82 @@ class Monero
 	{
 		$now = date("Y-m-d H:i", strtotime("now"));
 
-		$pending = Payment::where('status', 'pending')->where('type', 'receive')->where('expires_at', '>', $now)->get();
+		//get all payments currently in the DB
 
-		if (count($pending)) {
+		$pending = Payment::where('status', 'complete')->where('type', 'receive')->orderBy('block_height', 'DESC');
 
-			$ch = curl_init();
+		//get the payment with the highest block_height
+
+		$ch = curl_init();
+
+		if ($pending->get()->count()) {
+			//get the highest block height
+			$highest_block = $pending->first()->block_height;
+
+			//scan from the highest block.
 			$data = [
-				'jsonrpc'   => '2.0',
-				'method'    => 'get_bulk_payments',
-				'id'        => 'phpmonero',
-				'params'    => ['payment_ids' => []]
+				'jsonrpc' => '2.0',
+				'method' => 'get_bulk_payments',
+				'id' => 'phpmonero',
+				'params' => [
+					'payment_ids' => [],
+					'min_block_height' =>  $highest_block
+				]
 			];
+		}
+		else {
+			//get all the payments
+			$data = [
+				'jsonrpc' => '2.0',
+				'method' => 'get_bulk_payments',
+				'id' => 'phpmonero',
+				'params' => [
+					'payment_ids' => []
+				]
+			];
+		}
 
-			foreach($pending as $payment)
+		$funding_threads = Funding::all();
+
+		//add the payment_ids from the funding table to the params
+		foreach($funding_threads as $payment)
+		{
+			$data['params']['payment_ids'][] = $payment->payment_id;
+		}
+
+		curl_setopt($ch, CURLOPT_URL, "http://".$this->wallet."/json_rpc");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_ENCODING, 'Content-Type: application/json');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_VERBOSE, true);
+
+		//send the query to the RPC wallet.
+		$server_output = curl_exec($ch);
+		echo 'Sending Data: '.json_encode($data).PHP_EOL;
+		$result = json_decode($server_output, true);
+		echo 'Received Data: '.$server_output.PHP_EOL;
+		$payments = array();
+		if(isset($result["result"]["payments"]) && $result["result"]["payments"]) {
+			foreach($result["result"]["payments"] as $payment)
 			{
-				$data['params']['payment_ids'][] = $payment->payment_id;
-			}
-			curl_setopt($ch, CURLOPT_URL, "http://".$this->wallet."/json_rpc");
-			curl_setopt($ch, CURLOPT_POST, 1);
-			curl_setopt($ch, CURLOPT_ENCODING, 'Content-Type: application/json');
-			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_VERBOSE, true);
-			$server_output = curl_exec($ch);
-			Log::info(json_encode($data));
-			echo 'Sending Data: '.json_encode($data).PHP_EOL;
-			$result = json_decode($server_output, true);
-			echo 'Received Data: '.$server_output.PHP_EOL;
-			Log::info($server_output);
-			$payments = array();
-			if(isset($result["result"]["payments"]) && $result["result"]["payments"]) {
-				usort($result["result"]["payments"], Monero::sort('block_height'));
-
-				foreach ($result["result"]["payments"] AS $index => $val) {
-
-					array_push($payments, [
-						"block_height" => $val["block_height"],
-						"payment_id" => $val["payment_id"],
-						"unlock_time" => $val["unlock_time"],
-						"amount" => $val["amount"],
-						"tx_hash" => $val["tx_hash"]
+				//check if payment with block height exists
+				$duplicate = Payment::where('block_height', $payment["block_height"])
+								->where('payment_id', $payment["payment_id"])
+								->where('amount', $payment["amount"])
+								->first();
+				if(!$duplicate) {
+					Payment::create([
+						'type' => 'receive',
+						'payment_id' => $payment["payment_id"],
+						'amount' => $payment["amount"],
+						'status' => 'complete',
+						'block_height' => $payment["block_height"]
 					]);
-
-					$check = Payment::where('payment_id', $val['payment_id'])->where('amount', 0)->first();
-					if ($check && ($check->block_height < $val['block_height'])) {
-						$check->block_height = $val['block_height'];
-						$check->amount = $val['amount'];
-						$check->save();
-					}
 				}
 			}
-			curl_close($ch);
 		}
+		curl_close($ch);
 	}
 
 	function clientTransfer($payment_id_var = false, $mixin = 3)

@@ -326,9 +326,6 @@ class ThreadsController extends \BaseController
 		$thread = Thread::findOrFail($id);
 		if($thread->funding)
 		{
-			//create a new receiving fund.
-			$monero = new Monero();
-			$monero->receive(0, $thread->funding->thread_id);
 			return View::make('content.contribute', compact('thread'));
 		}
 		else {
