@@ -37,6 +37,8 @@ class FundingUpdate extends Command {
 	 */
 	public function fire()
 	{
+		$this->info('Monero Address: '.Config::get('monero::address'));
+		$this->info('Wallet Address: '.Config::get('monero::wallet'));
 		$this->info('Updating the funding data.');
 		$funding = Funding::all();
 		$this->info('Receiving funds.');

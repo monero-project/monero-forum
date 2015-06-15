@@ -102,7 +102,9 @@ class Monero
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_VERBOSE, true);
 			$server_output = curl_exec($ch);
+			print('Sending Data: '.json_encode($data).PHP_EOL);
 			$result = json_decode($server_output, true);
+			print('Received Data: '.$server_output.PHP_EOL);
 			$payments = array();
 			if(isset($result["result"]["payments"]) && $result["result"]["payments"]) {
 				usort($result["result"]["payments"], Monero::sort('block_height'));
@@ -203,8 +205,9 @@ class Monero
 
 	public static function convert($amount, $code = 'USD') {
 		//convert XMR
+		$amount = $amount / 1000000000000;
 		if($code == 'XMR')
-			return $amount / 1000000000000;
+			return $amount;
 		$values = file_get_contents('https://moneropric.es/fiat.json');
 		$values = json_decode($values);
 		foreach($values as $value) {
