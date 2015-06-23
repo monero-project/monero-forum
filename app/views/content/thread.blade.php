@@ -51,10 +51,22 @@
 				  	<textarea class="form-control markdown-editor" id="content-body" name="body" rows="6" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
 				  </div>
 				  <button name="submit" type="submit" class="btn btn-success">Submit</button>
-				  {{--<button name="preview" type="submit" class="btn btn-success preview-button">Preview</button>--}}
+				  <button name="preview" type="submit" class="btn btn-success non-js">Preview</button>
 				  <button type="button" onclick="cancel_thread_reply()" class="btn btn-danger reply-cancel" style="display: none;">Cancel</button>
 				</form>
 			</div>
+				@if (Session::has('preview'))
+					<div class="row content-preview">
+						<div class="col-lg-12 preview-window">
+							{{ Session::get('preview') }}
+						</div>
+						@else
+							<div class="row content-preview" style="display: none">
+								<div class="col-lg-12 preview-window">
+									Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!
+								</div>
+								@endif
+							</div>
 		@endif
 		</div>
 		<div class="col-lg-12 replies-list">

@@ -114,6 +114,9 @@ $(document).ready(function() {
             }
         }
     );
+
+    //hide non-js
+    $('.non-js').hide();
 });
 
 function getKramdown(body)
