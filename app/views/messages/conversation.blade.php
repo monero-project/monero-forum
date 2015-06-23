@@ -10,7 +10,7 @@
 	{{ Form::open(['url' => URL::route('messages.reply')]) }}
 		<input type="hidden" name="conversation" value="{{ $conversation->id }}"/>
 		<div class="form-group">
-			<textarea class="form-control bs-md" name="body" id="body" cols="30" rows="10" placeholder="Your reply text goes here..."></textarea>
+			<textarea class="form-control markdown-editor" name="body" id="body" cols="30" rows="10" placeholder="Your reply text goes here..."></textarea>
 		</div>
 		<button class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Reply</button>
 	<div class="clearfix"></div>
