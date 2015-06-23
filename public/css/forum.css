@@ -273,8 +273,12 @@ li.user-details {
 	background: #ff6e62 !important;
 }
 
+.post-block {
+    padding: 0 10px;
+}
+
 .thread-block .post-block p {
-	padding: 10px;
+	padding: 10px 0;
 }
 
 .post-nav {
