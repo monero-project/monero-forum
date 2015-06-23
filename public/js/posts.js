@@ -54,14 +54,14 @@ function thread_reply() {
     $(".reply-thread").slideUp();
 }
 
-function post_reply(post_id, thread_id, post_title) {
+function post_reply(post_id) {
     if (!replyOpen) {
         $('.post-reply-form-' + post_id).slideDown();
         replyOpen = true;
     }
 }
 
-function post_edit(post_id, thread_id, post_title) {
+function post_edit(post_id, thread_id) {
     var content = get_post_content(post_id);
     $('.post-'+post_id+'-markdown-edit').markdown(
         {

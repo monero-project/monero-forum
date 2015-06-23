@@ -845,6 +845,10 @@ p.syntax {
 
 /* Markdown Editor */
 
+.md-editor {
+    margin-bottom: 15px;
+}
+
 .md-input {
     padding: 10px !important;
 }
