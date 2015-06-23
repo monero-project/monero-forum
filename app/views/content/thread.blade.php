@@ -48,10 +48,10 @@
 				<form role="form" action="/posts/submit" method="POST">
 				<input type="hidden" name="thread_id" value="{{ $thread->id }}">
 				  <div class="form-group">
-				  	<textarea data-provide="markdown" class="form-control" id="content-body" name="body" rows="6" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
+				  	<textarea class="form-control thread-create-reply" id="content-body" name="body" rows="6" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
 				  </div>
 				  <button name="submit" type="submit" class="btn btn-success">Submit</button>
-				  <button name="preview" type="submit" class="btn btn-success preview-button">Preview</button>
+				  {{--<button name="preview" type="submit" class="btn btn-success preview-button">Preview</button>--}}
 				  <button type="button" onclick="cancel_thread_reply()" class="btn btn-danger reply-cancel" style="display: none;">Cancel</button>
 				</form>
 			</div>

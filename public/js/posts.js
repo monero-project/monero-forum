@@ -287,3 +287,13 @@ function show_children(event) {
     }
     $('.expand-label-' + event.data.head).slideUp();
 }
+
+$(document).ready(function() {
+    $('.thread-create-reply').markdown(
+        {
+            parser: function(val) {
+                return getKramdown(val);
+            }
+        }
+    );
+});
