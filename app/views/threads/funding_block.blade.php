@@ -43,6 +43,6 @@
 		</div>
 	</div>
 	{{--@foreach(\Eddieh\Monero\Payment::where('payment_id', $thread->funding->payment_id)->get() as $backer)--}}
-		{{--XMR -> {{ \Eddieh\Monero\Monero::convert($backer->amount, 'XMR') }} USD -> {{ \Eddieh\Monero\Monero::convert($backer->amount, 'USD') }}<br/>--}}
+	{{--XMR -> {{ \Eddieh\Monero\Monero::convert($backer->amount, 'XMR') }} USD -> {{ \Eddieh\Monero\Monero::convert($backer->amount, 'USD') }}<br/>--}}
 	{{--@endforeach--}}
 </div>

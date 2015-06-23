@@ -7,8 +7,8 @@
  */
 
 return [
-	'expire' => '+ 1 day',
-	'wallet'     => '10.0.2.2:18082', //address of the wallet daemon.
-	'address'         => '9xQSRSS9veEFC5GS4Bb27S8EdDPAbRjFgc69QbwGYsm9AbVxphQrD7aMUCmrEvc5gX6gKQmkD8D5L99k6RQJMqxk6uw1AXb', //Monero address to receive/send payments from.
+	'expire' => '+ 1 day', //not used in receiving funds.
+	'wallet'     => '10.0.2.2:18083', //address of the wallet daemon.
+	'address'         => '9uHFSz45ef6Tqx1qqzygyMUhBKL5NaeJsQ2C9qot3TmMg96VSMcEMSu2Kna84kgRmabY4JesLweiWfuPD21sNe8q7wdtGRw', //Monero address to receive/send payments from.
 	'alias'        => 'getmonero.org' // wallet alias.
 ];

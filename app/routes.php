@@ -1,8 +1,10 @@
 <?php
 
-//Route::get('/test', function() {
-//	echo \Eddieh\Monero\Monero::convert(123, 'USD');
-//});
+Route::get('/test', function() {
+	$monero = new Eddieh\Monero\Monero;
+	$monero->clientReceive();
+	return 'complete';
+});
 
 Route::get('/', array(
 	'as'    => 'index',
