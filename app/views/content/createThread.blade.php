@@ -26,7 +26,7 @@
 			    <textarea id="content-body" name="body" class="form-control" rows="10" placeholder="Anything you want to say in your thread should be here.">{{ Input::old('body') }}</textarea>
 			  </div>
 			  <button name="submit" type="submit" class="btn btn-success">Create Thread</button>
-			  <button name="preview" class="btn btn-success preview-button">Preview</button>
+			  {{--<button name="preview" class="btn btn-success preview-button">Preview</button>--}}
 			  <a href="{{ $forum->permalink() }}"><button type="button" class="btn btn-danger">Back</button></a>
 			  
 			{{ Form::close() }}
