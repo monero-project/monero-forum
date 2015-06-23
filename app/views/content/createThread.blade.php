@@ -48,6 +48,5 @@
 
 @section('javascript')
 	{{ HTML::script('js/js-markdown-extra.js') }}
-	{{ HTML::script('js/preview.js') }}
 	{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
 @stop

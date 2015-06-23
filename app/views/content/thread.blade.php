@@ -114,7 +114,6 @@
 	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
 	@endif
 	{{ HTML::script('js/posts.js') }}
-	{{ HTML::script('js/preview.js') }}
 	<script type="text/javascript">
 	    $(function () {
 	        $("[data-toggle='tooltip']").tooltip();
