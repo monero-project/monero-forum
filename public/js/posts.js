@@ -119,28 +119,6 @@ function post_delete(post_id) {
         });
 }
 
-function getKramdown(body)
-{
-    var kramdown_content;
-    $.ajax({
-        async: false,
-        cache: false,
-        type: "POST",
-        dataType: "text",
-        url: "/posts/kramdown",
-        data: {
-            'body': body
-        }
-    }).success(function (data) {
-        if (data != 'false')
-            kramdown_content = data;
-        else
-            kramdown_content = 'Oops! There was an error trying to get a preview!';
-
-    });
-    return kramdown_content;
-}
-
 function drawer_open(drawer_id) {
     $('.drawer-' + drawer_id).slideDown(function () {
         $('.drawer-buttons-' + drawer_id).html('<span onClick="drawer_close(' + drawer_id + ')" class="glyphicon glyphicon-collapse-up"></span>')
@@ -287,13 +265,3 @@ function show_children(event) {
     }
     $('.expand-label-' + event.data.head).slideUp();
 }
-
-$(document).ready(function() {
-    $('.thread-create-reply').markdown(
-        {
-            parser: function(val) {
-                return getKramdown(val);
-            }
-        }
-    );
-});

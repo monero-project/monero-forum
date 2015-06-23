@@ -849,6 +849,10 @@ p.syntax {
     margin-bottom: 15px;
 }
 
+.md-preview {
+    padding: 15px;
+}
+
 .md-input {
     padding: 10px !important;
 }
