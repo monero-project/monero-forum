@@ -17,10 +17,10 @@
 			<input type="hidden" name="post_id" value="{{ $post->id }}">
 			<input type="hidden" name="thread_id" value="{{ $post->thread->id }}">
 		  <div class="form-group">
-		    <textarea name="body" class="form-control" rows="5">@if (Session::has('preview')){{ Input::old('body') }}@else{{ $post->body_original }}@endif</textarea>
+		    <textarea name="body" class="form-control markdown-editor" rows="5">@if (Session::has('preview')){{ Input::old('body') }}@else{{ $post->body_original }}@endif</textarea>
 		  </div>
 		  <button name="submit" type="submit" class="btn btn-success">Save</button>
-		  <button name="preview" class="btn btn-success">Preview</button>
+		  <button name="preview" class="btn btn-success non-js">Preview</button>
 		  <a href="{{ $post->thread->permalink() }}"><button type="button" class="btn btn-danger">Back</button></a>
 		</form>
 	</div>
