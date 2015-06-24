@@ -662,6 +662,15 @@ body:before {
 	background: #505050;
 }
 
+.btn {
+    font-weight: bold;
+    text-shadow: 1px 1px rgba(0,0,0,0.2);
+}
+
+.btn-default {
+    text-shadow: none;
+}
+
 
 /* Flags */
 
