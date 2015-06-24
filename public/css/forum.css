@@ -905,6 +905,24 @@ p.syntax {
     color: #FFF;
 }
 
+.md-editor.md-fullscreen-mode .fa-search {
+    color: #b3b3b3;
+}
+
+.md-editor.md-fullscreen-mode .btn {
+    text-shadow: none;
+}
+
+.md-editor.md-fullscreen-mode .btn:hover .fa-search,
+.md-editor.md-fullscreen-mode .active .fa-search
+{
+    color: #333 !important;
+}
+
+.md-header {
+    padding-top: 0 !important;
+}
+
 .post-reply-form {
     padding-bottom: 10px;
 }
