@@ -908,3 +908,9 @@ p.syntax {
 .post-reply-form {
     padding-bottom: 10px;
 }
+
+.create-thread {
+    margin-top: 0;
+    font-weight: normal;
+    text-shadow: none;
+}

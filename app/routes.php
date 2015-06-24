@@ -1,5 +1,11 @@
 <?php
 
+/* Home Page */
+Route::get('/', array(
+	'as'    => 'index',
+	'uses'  => 'HomeController@index'
+));
+
 /* Image Proxy */
 Route::get('/get/image/', 'PostsController@getProxyImage');
 
