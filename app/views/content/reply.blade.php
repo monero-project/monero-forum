@@ -15,7 +15,7 @@
 			<input type="hidden" name="thread_id" value="{{ $post->thread->id }}">
 			<div class="row">
 				<p class="col-lg-12">
-					For post formatting please use Markdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
+					For post formatting please use Markdown, <a href="http://kramdown.gettalong.org/syntax.html">click here</a> for a syntax guide.
 				</p>
 			</div>
 		  <div class="form-group">
