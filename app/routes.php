@@ -1,16 +1,5 @@
 <?php
 
-Route::get('/test', function() {
-	$monero = new Eddieh\Monero\Monero;
-	$monero->clientReceive();
-	return 'complete';
-});
-
-Route::get('/', array(
-	'as'    => 'index',
-	'uses'  => 'HomeController@index'
-));
-
 /* Image Proxy */
 Route::get('/get/image/', 'PostsController@getProxyImage');
 
@@ -105,6 +94,7 @@ Route::get('/gpg-auth', array('before' => 'auth', 'uses' => 'UsersController@get
 /*	Posts	*/
 Route::post('/posts/submit', array('before' => 'auth', 'uses' => 'PostsController@submit'));
 Route::post('/posts/update', array('before' => 'auth', 'uses' => 'PostsController@update'));
+Route::post('/posts/kramdown', 'PostsController@kramdownParse');
 
 /*	Threads	*/
 Route::get('/thread/create/{forum_id}', array('before' => 'auth', 'as' => 'thread.create', 'uses' => 'ThreadsController@create'));

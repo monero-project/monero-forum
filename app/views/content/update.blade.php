@@ -9,7 +9,7 @@
 		<h1>Editing thread: {{ $post->thread->name }}</h1>
 		@endif
 		<p class="post-meta"><a href="/user/{{ $post->user->id }}" target="_blank">{{{ $post->user->username }}}</a> posted this on {{ $post->created_at }}</p>
-		{{ Markdown::string(e($post->body)) }}
+		{{ $post->body }}
 	</div>
 	<hr>
 	<div class="col-lg-12">
@@ -29,10 +29,10 @@
 			<input type="hidden" name="post_id" value="{{ $post->id }}">
 			<input type="hidden" name="thread_id" value="{{ $post->thread->id }}">
 		  <div class="form-group">
-		    <textarea name="body" class="form-control" rows="5">@if (Session::has('preview')){{ Input::old('body') }}@else{{ $post->body }}@endif</textarea>
+		    <textarea name="body" class="form-control markdown-editor" rows="5">@if (Session::has('preview')){{ Input::old('body') }}@else{{ $post->body_original }}@endif</textarea>
 		  </div>
 		  <button name="submit" type="submit" class="btn btn-success">Save</button>
-		  <button name="preview" class="btn btn-success">Preview</button>
+		  <button name="preview" class="btn btn-success non-js">Preview</button>
 		  <a href="{{ $post->thread->permalink() }}"><button type="button" class="btn btn-danger">Back</button></a>
 		</form>
 	</div>

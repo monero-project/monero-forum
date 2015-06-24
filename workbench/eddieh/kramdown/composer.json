@@ -1,0 +1,23 @@
+{
+    "name": "eddieh/kramdown",
+    "description": "Kramdown wrapper for Laravel",
+    "authors": [
+        {
+            "name": "Edvinas Paulauskas",
+            "email": "edvinasp@live.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Eddieh\\Kramdown\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

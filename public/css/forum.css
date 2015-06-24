@@ -273,8 +273,12 @@ li.user-details {
 	background: #ff6e62 !important;
 }
 
+.post-block {
+    padding: 0 10px;
+}
+
 .thread-block .post-block p {
-	padding: 10px;
+	padding: 10px 0;
 }
 
 .post-nav {
@@ -881,4 +885,26 @@ p.syntax {
     font-size:18px;
     height: 150px;
     padding-top: 50px;
+}
+
+/* Markdown Editor */
+
+.md-editor {
+    margin-bottom: 15px;
+}
+
+.md-preview {
+    padding: 15px;
+}
+
+.md-input {
+    padding: 10px !important;
+}
+
+.md-header .fa-search {
+    color: #FFF;
+}
+
+.post-reply-form {
+    padding-bottom: 10px;
 }

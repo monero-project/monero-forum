@@ -18,25 +18,19 @@
 				</div>
 				<h2>Thread Options</h2>
 				@endif
-				<div class="form-group">
-			        <input type="text" class="form-control" name="name" placeholder="Your descriptive thread title goes here." value="{{ Input::old('name') }}">
+			    <div class="form-group">
+				    <input type="text" class="form-control" name="name" placeholder="Your descriptive thread title goes here." value="{{ Input::old('name') }}">
 			    </div>
-				<div class="row markdown-buttons markdown-buttons-main">
-					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('**', '**')"><span class="glyphicon glyphicon-bold"></span></button>
-					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('*', '*')"><span class="glyphicon glyphicon-italic"></span></button>
-					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('![alt text](', ')')"><span class="glyphicon glyphicon-picture"></span></button>
-					<button type="button" class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('[Link Text](', ')')"><span class="glyphicon glyphicon-globe"></span></button>
-				</div>
 				<div class="row">
 					<p class="col-lg-12">
 						For post formatting please use Markdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
 					</p>
 				</div>
 			  <div class="form-group">
-			    <textarea id="content-body" name="body" class="form-control" rows="10" placeholder="Anything you want to say in your thread should be here.">{{ Input::old('body') }}</textarea>
+			    <textarea id="content-body" name="body" class="form-control markdown-editor" rows="10" placeholder="Anything you want to say in your thread should be here.">{{ Input::old('body') }}</textarea>
 			  </div>
 			  <button name="submit" type="submit" class="btn btn-success">Create Thread</button>
-			  <button name="preview" class="btn btn-success preview-button">Preview</button>
+			  <button name="preview" class="btn btn-success preview-button non-js">Preview</button>
 			  <a href="{{ $forum->permalink() }}"><button type="button" class="btn btn-danger">Back</button></a>
 			  
 			{{ Form::close() }}
@@ -58,6 +52,5 @@
 
 @section('javascript')
 	{{ HTML::script('js/js-markdown-extra.js') }}
-	{{ HTML::script('js/preview.js') }}
 	{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
 @stop

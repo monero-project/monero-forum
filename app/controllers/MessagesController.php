@@ -34,6 +34,8 @@ class MessagesController extends \BaseController
 		$body = Input::get('body');
 		$title = Input::get('title');
 
+		$body = Markdown::string($body);
+
 		//find user by username
 		$user = User::where('username', $username)->first();
 		if(!$user)
@@ -62,6 +64,7 @@ class MessagesController extends \BaseController
 				'user_id' => Auth::user()->id,
 				'body' => $body,
 				'conversation_id' => $conversation->id,
+				'body_parsed' => 1
 			]);
 
 			Session::put('messages', ['Conversation started successfully!']);
@@ -106,6 +109,8 @@ class MessagesController extends \BaseController
 		$conversation = Conversation::findOrFail($conversation_id);
 		$body = Input::get('body');
 
+		$body = Markdown::string($body);
+
 		if ($conversation->user_id == Auth::user()->id || $conversation->receiver_id == Auth::user()->id) {
 			//validate the message
 			$validator = Message::validate(Input::all());
@@ -113,7 +118,8 @@ class MessagesController extends \BaseController
 				Message::create([
 					'user_id' => Auth::user()->id,
 					'body' => $body,
-					'conversation_id' => $conversation_id
+					'conversation_id' => $conversation_id,
+					'body_parsed' => 1
 				]);
 
 				$is_sender = $conversation->user_id == Auth::user()->id;

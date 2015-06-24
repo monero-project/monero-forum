@@ -190,6 +190,7 @@ return array(
 		'Roumen\Feed\FeedServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Eddieh\Monero\MoneroServiceProvider',
+		'Eddieh\Kramdown\KramdownServiceProvider',
 
 	),
 
@@ -257,12 +258,13 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Markdown' 		  => 'VTalbot\Markdown\Facades\Markdown',
 		'Entrust'    	  => 'Zizaco\Entrust\EntrustFacade',
 		'Image'			  => 'Intervention\Image\Facades\Image',
 		'Breadcrumbs'	  => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
 		'Feed'   		  => 'Roumen\Feed\Facades\Feed',
 		'Monero'          => 'Eddieh\Monero\Facades\Monero',
+		'Feed'   	   	  => 'Roumen\Feed\Facades\Feed',
+		'Markdown'        => 'Eddieh\Kramdown\Facades\Kramdown',
 	),
 
 );

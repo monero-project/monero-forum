@@ -105,3 +105,38 @@ function syncWoT() {
 		$('.sync-status').text('Pull Failed.');
 	}
 }
+
+$(document).ready(function() {
+    $('.markdown-editor').markdown(
+        {
+            parser: function(val) {
+                return getKramdown(val);
+            }
+        }
+    );
+
+    //hide non-js
+    $('.non-js').hide();
+});
+
+function getKramdown(body)
+{
+    var kramdown_content;
+    $.ajax({
+        async: false,
+        cache: false,
+        type: "POST",
+        dataType: "text",
+        url: "/posts/kramdown",
+        data: {
+            'body': body
+        }
+    }).success(function (data) {
+        if (data != 'false')
+            kramdown_content = data;
+        else
+            kramdown_content = 'Oops! There was an error trying to get a preview!';
+
+    });
+    return kramdown_content;
+}

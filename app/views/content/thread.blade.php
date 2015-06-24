@@ -15,7 +15,7 @@
 			  @include('threads.funding_block')
 			  @endif
 			  <div class="row post-block">
-				  {{ Markdown::string(e($thread->head()->body)) }}
+				  {{ $thread->head()->body }}
 			  </div>
 		  </div>
 		</div>
@@ -43,39 +43,33 @@
 		@if (Auth::check())
 			<button class="btn btn-success full-width reply-thread" style="display: none;" onclick="thread_reply()">Reply to this thread</button>
 			<div class="reply-box">
-				<div class="row markdown-buttons markdown-buttons-main">
-					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('**', '**')"><span class="glyphicon glyphicon-bold"></span></button>
-					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('*', '*')"><span class="glyphicon glyphicon-italic"></span></button>
-					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('![alt text](', ')')"><span class="glyphicon glyphicon-picture"></span></button>
-					<button class="btn btn-sm btn-default" onclick="$('#content-body').surroundSelectedText('[Link Text](', ')')"><span class="glyphicon glyphicon-globe"></span></button>
-				</div>
 				<div class="row">
 					<p class="col-lg-12">
-						For post formatting please use Markdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
+						For post formatting please use Kramdown, <a href="http://daringfireball.net/projects/markdown/syntax">click here</a> for a syntax guide.
 					</p>
 				</div>
 				<form role="form" action="/posts/submit" method="POST">
 				<input type="hidden" name="thread_id" value="{{ $thread->id }}">
 				  <div class="form-group">
-				  	<textarea class="form-control" id="content-body" name="body" rows="6" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
+				  	<textarea class="form-control markdown-editor" id="content-body" name="body" rows="6" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
 				  </div>
 				  <button name="submit" type="submit" class="btn btn-success">Submit</button>
-				  <button name="preview" type="submit" class="btn btn-success preview-button">Preview</button>
+				  <button name="preview" type="submit" class="btn btn-success non-js">Preview</button>
 				  <button type="button" onclick="cancel_thread_reply()" class="btn btn-danger reply-cancel" style="display: none;">Cancel</button>
 				</form>
-				@if (Session::has('preview'))
-				<div class="row content-preview">
-					<div class="col-lg-12 preview-window">
-					{{ Markdown::string(Session::get('preview')) }}
-					</div>
-				@else
-				<div class="row content-preview" style="display: none">
-					<div class="col-lg-12 preview-window">
-					Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!
-					</div>
-				@endif
-				</div>
 			</div>
+				@if (Session::has('preview'))
+					<div class="row content-preview">
+						<div class="col-lg-12 preview-window">
+							{{ Session::get('preview') }}
+						</div>
+						@else
+							<div class="row content-preview" style="display: none">
+								<div class="col-lg-12 preview-window">
+									Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!
+								</div>
+								@endif
+							</div>
 		@endif
 		</div>
 		<div class="col-lg-12 replies-list">
@@ -135,9 +129,6 @@
 	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
 	@endif
 	{{ HTML::script('js/posts.js') }}
-	{{ HTML::script('js/js-markdown-extra.js') }}
-	{{ HTML::script('js/preview.js') }}
-	{{ HTML::script('js/rangyinputs-jquery-1.1.2.min.js') }}
 	<script type="text/javascript">
 	    $(function () {
 	        $("[data-toggle='tooltip']").tooltip();

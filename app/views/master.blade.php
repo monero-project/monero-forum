@@ -25,12 +25,13 @@
     <meta name="msapplication-TileColor" content="#2d89ef">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
-
+    <link href="/css/bootstrap-markdown.min.css" rel="stylesheet">
     <link href="//static.getmonero.org/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
-    <link href="//static.getmonero.org/css/main.css" rel="stylesheet">
-   	<link href="/css/forum.css" rel="stylesheet">
-    {{--<link href="//static.getmonero.org/css/forum.css" rel="stylesheet">--}}
+	  <link href="/css/main.css" rel="stylesheet">
+	  {{--<link href="//static.getmonero.org/css/main.css" rel="stylesheet">--}}
+	  <link href="/css/forum.css" rel="stylesheet">
+	{{--<link href="//static.getmonero.org/css/forum.css" rel="stylesheet">--}}
 
     <!--[if lt IE 9]>
       <script src="//static.getmonero.org/js/html5shiv.js"></script>
@@ -229,7 +230,9 @@
     <!-- JS -->
     <script src="//static.getmonero.org/js/jquery.min.js"></script>
     <script src="//static.getmonero.org/js/bootstrap.min.js"></script>
-    <script src="//static.getmonero.org/js/monero.js"></script>
+    {{--<script src="//static.getmonero.org/js/monero.js"></script>--}}
+    <script src="/js/monero.js"></script>
+    <script src="/js/bootstrap-markdown.js"></script>
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

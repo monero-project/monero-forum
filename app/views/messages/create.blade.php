@@ -16,7 +16,7 @@
 			<input type="text" class="form-control" id="username" name="title" placeholder="The title of your conversation">
 		</div>
 		<div class="form-group">
-			<textarea class="form-control" name="body" id="body" cols="30" rows="10" placeholder="Your message content goes here..."></textarea>
+			<textarea class="form-control markdown-editor" name="body" id="body" cols="30" rows="10" placeholder="Your message content goes here..."></textarea>
 		</div>
 		<button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
 	{{ Form::close() }}
