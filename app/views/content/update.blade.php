@@ -9,9 +9,7 @@
 		<h1>Editing thread: {{ $post->thread->name }}</h1>
 		@endif
 		<p class="post-meta"><a href="/user/{{ $post->user->id }}" target="_blank">{{{ $post->user->username }}}</a> posted this on {{ $post->created_at }}</p>
-		{{ $post->body }}
 	</div>
-	<hr>
 	<div class="col-lg-12">
 		<form role="form" method="POST" action="/posts/update">
 			@if($post->id == $post->thread->head()->id)
