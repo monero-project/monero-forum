@@ -38,12 +38,7 @@
 	</div>
 @stop
 
-@section('css')
-	<link href="/css/jquery.dataTables.min.css" rel="stylesheet">
-@stop
-
 @section('javascript')
-	<script src="//static.getmonero.org/js/jquery.dataTables.min.js"></script>
 	<script>
 		$(document).ready(function(){
 		    $('table').dataTable();

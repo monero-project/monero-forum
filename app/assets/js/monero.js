@@ -140,3 +140,10 @@ function getKramdown(body)
     });
     return kramdown_content;
 }
+
+$('document').ready(function(){
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+        $('.file-inputs').bootstrapFileInput();
+    });
+});

@@ -122,16 +122,4 @@
 		</div>
 		@endif
 	</div>
-@stop 
-
-@section('javascript')
-	@if(!Input::has('noscroll'))
-	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
-	@endif
-	{{ HTML::script('js/posts.js') }}
-	<script type="text/javascript">
-	    $(function () {
-	        $("[data-toggle='tooltip']").tooltip();
-	    });
-	</script>
 @stop

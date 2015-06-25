@@ -49,7 +49,3 @@
 	      {{ Form::close() }}
 	</div>
 @stop
-
-@section('javascript')
-{{ HTML::script('js/register.js') }}
-@stop

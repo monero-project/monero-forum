@@ -47,11 +47,3 @@
 			{{ $conversations->links() }}
 		</div>
 @stop
-
-@section('javascript')
-	<script type="text/javascript">
-		$(function () {
-			$("[data-toggle='tooltip']").tooltip();
-		});
-	</script>
-@stop
