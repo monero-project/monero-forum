@@ -18,7 +18,7 @@
 									</ul>
 									<ul>
 										@foreach($item->payouts as $payout)
-											<li>{{ $payout->amount }}</li>
+											<li>{{ $payout->amount }} XMR</li>
 										@endforeach
 									</ul>
 								</div>

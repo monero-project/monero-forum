@@ -64,19 +64,21 @@ class Funding extends \Eloquent
 
 	public function balance()
 	{
-		$funded = $this->funded();
-		$currency = $this->currency;
-		$payouts = $this->payouts()->sum('amount');
+		$cache_key = $this->id . '_balance_';
+		$balance = Cache::tags('thread_' . $this->thread_id)->remember($cache_key . 'funded', 0.3, function () {
+			$funded = $this->funded();
+			$currency = $this->currency;
+			$payouts = $this->payouts()->sum('amount');
 
-		if($currency != 'XMR')
-		{
-			$_payouts = Monero::convert($payouts * 1000000000000, $currency);
-			$balance = $funded - $_payouts;
-		}
-		else
-		{
-			$balance = $funded - $payouts;
-		}
+			if ($currency != 'XMR') {
+				$_payouts = Monero::convert($payouts * 1000000000000, $currency);
+				$balance = $funded - $_payouts;
+			} else {
+				$balance = $funded - $payouts;
+			}
+
+			return $balance;
+		});
 
 		return $balance;
 	}
