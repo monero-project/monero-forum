@@ -163,6 +163,13 @@ Route::controller('subscriptions', 'SubscriptionsController', [
 	'postSave'          => 'subscriptions.save'
 ]);
 
+/* Payouts */
+Route::controller('payouts', 'PayoutsController', [
+	'getCreate'     => 'payout.create',
+	'postStore'     => 'payout.store',
+	'getDestroy'    => 'payout.delete'
+]);
+
 /* Forum Structure */
 Route::get('/t/{id}', array('as' => 'thread.short', 'uses' => 'ThreadsController@indexShort')); //shorthand for reaching threads.
 Route::get('/{forum_id}/{forum_slug}', array('as' => 'forum.index', 'uses' => 'ForumsController@index'));

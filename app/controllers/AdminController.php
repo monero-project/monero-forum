@@ -61,24 +61,25 @@ class AdminController extends \BaseController {
 	}
 	
 	public function manage($content_type) {
-		if ($content_type == 'category')
-		{
-			return View::make('admin.content.manage.categories');
-		}
-		else if ($content_type == 'forum')
-		{
-			return View::make('admin.content.manage.forums');
-		}
-		else if ($content_type == 'user')
-		{
-			return View::make('admin.content.manage.users');
-		}
-		else if ($content_type == 'roles')
-		{
-			return View::make('admin.users.roles');
-		}
-		else {
-			return App::abort(403);
+		switch ($content_type) {
+			case 'category':
+				return View::make('admin.content.manage.categories');
+        break;
+			case 'forum':
+				return View::make('admin.content.manage.forums');
+        break;
+			case 'user':
+				return View::make('admin.content.manage.users');
+		break;
+			case 'roles':
+				return View::make('admin.users.roles');
+		break;
+			case 'funds':
+				$items = Funding::orderBy('created_at', 'DESC')->paginate(20);
+				return View::make('admin.funds', compact('items'));
+        break;
+			default:
+				return App::abort(403);
 		}
 	}
 	

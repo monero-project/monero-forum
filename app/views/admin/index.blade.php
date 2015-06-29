@@ -34,6 +34,7 @@
 		  			<li><a href="/admin/manage/forum">Manage Forums</a></li>
 		  			<li><a href="/admin/manage/user">Manage Users</a></li>
 		  			<li><a href="/admin/manage/roles">Manage Roles</a></li>
+				    <li><a href="/admin/manage/funds">Manage Funds</a></li>
 		  		</ul>
 		  	</div>
 		  </div>

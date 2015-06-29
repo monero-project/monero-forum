@@ -28,7 +28,7 @@
     <link href="/css/bootstrap-markdown.min.css" rel="stylesheet">
     <link href="//static.getmonero.org/css/bootstrap.min.css" rel="stylesheet">
     @yield('css')
-	{{--<link href="/style.css" rel="stylesheet">--}}
+	<link href="/style.css" rel="stylesheet">
 	<link href="//static.getmonero.org/style.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
@@ -226,7 +226,7 @@
     @yield('modals')
 
     <!-- JS -->
-    {{--<script src="/scripts.js"></script>--}}
+    <script src="/scripts.js"></script>
     <script src="//static.getmonero.org/js/scripts.js"></script>
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

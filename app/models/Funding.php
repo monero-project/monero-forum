@@ -26,6 +26,11 @@ class Funding extends \Eloquent
 		return $this->hasMany('Milestone');
 	}
 
+	public function payouts()
+	{
+		return $this->hasMany('Payout');
+	}
+
 	public function percentage()
 	{
 		$cache_key = $this->id . '_funding_';
