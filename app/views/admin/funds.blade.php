@@ -13,8 +13,8 @@
 									<a href="{{ route('payout.create', [$item->id]) }}">Create Payout</a>
 									<ul class="fa-ul">
 										<li><i class="fa fa-li fa-money"></i> <b>Funded:</b> {{ number_format ($item->funded(), 2, ".", ",") }} {{ $item->currency }}</li>
-										<li><i class="fa fa-li fa-money"></i> <b>Paid Out:</b> {{ number_format ($item->funded(), 2, ".", ",") }} {{ $item->currency }}</li>
-										<li><i class="fa fa-li fa-money"></i> <b>Remaining Balance:</b> {{ number_format ($item->funded(), 2, ".", ",") }} {{ $item->currency }}</li>
+										<li><i class="fa fa-li fa-money"></i> <b>Paid Out:</b> {{ $item->payouts()->sum('amount') }} XMR</li>
+										<li><i class="fa fa-li fa-money"></i> <b>Remaining Balance:</b> {{ number_format ($item->balance(), 2, ".", ",") }} {{ $item->currency }}</li>
 									</ul>
 									<ul>
 										@foreach($item->payouts as $payout)
@@ -25,6 +25,9 @@
 							</div>
 						</div>
 				@endforeach
+			</div>
+			<div class="col-lg-12">
+				{{ $items->links() }}
 			</div>
 		</div>
 @stop

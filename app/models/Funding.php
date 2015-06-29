@@ -62,6 +62,25 @@ class Funding extends \Eloquent
 		return $funded;
 	}
 
+	public function balance()
+	{
+		$funded = $this->funded();
+		$currency = $this->currency;
+		$payouts = $this->payouts()->sum('amount');
+
+		if($currency != 'XMR')
+		{
+			$_payouts = Monero::convert($payouts * 1000000000000, $currency);
+			$balance = $funded - $_payouts;
+		}
+		else
+		{
+			$balance = $funded - $payouts;
+		}
+
+		return $balance;
+	}
+
 	//returns the currency symbol
 	public function symbol()
 	{

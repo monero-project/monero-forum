@@ -241,7 +241,9 @@ class Monero
 		foreach($values as $value) {
 			if($value->code == $code)
 			{
+
 				return $amount / $value->{'xmr-rate'};
+
 			}
 		}
 		return false;
