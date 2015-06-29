@@ -942,3 +942,15 @@ h3,
     margin-top: 1.5em;
     margin-bottom: 1.5em;
 }
+
+.no-js {
+    display: none;
+}
+
+.fa-btn {
+    cursor: pointer;
+}
+
+.main-content, li, p {
+    color: #505050;
+}

@@ -38,32 +38,40 @@
 			@endif
 		</div>
 		<div class="col-lg-12">
-			@if($thread->funding->payouts)
-				<h2>Payouts</h2>
-				<ul class="fa-ul">
-				@foreach($thread->funding->payouts as $payout)
-					<li>
-						<i class="fa-li fa fa-circle-thin"></i>
-						{{ $payout->amount }} XMR ({{ $payout->created_at->formatLocalized('%A %d %B %Y') }})
-					</li>
-				@endforeach
-				</ul>
-			@endif
-			<h2>Milestones</h2>
-			<ul class="fa-ul">
-				@foreach($thread->funding->milestones as $milestone)
-					<li>
-						@if($milestone->complete)
-							<h4><i class="fa-li fa fa-check-square-o"></i>{{{ $milestone->title }}}</h4>
-						@else
-							<h4><i class="fa-li fa fa-square-o"></i>{{{ $milestone->title }}}</h4>
-						@endif
-						@if($milestone->description)
-							<p>{{{ $milestone->description }}}</p>
-						@endif
-					</li>
-				@endforeach
-			</ul>
+			<div class="row">
+				<div class="col-md-6">
+					@if($thread->funding->milestones)
+						<h2><i class="fa fa-plus-square-o fa-btn no-js" id="show-milestones-list"></i> Milestones <span class="label label-info">{{ Milestone::completed($thread->funding->id) }}/{{ $thread->funding->milestones->count() }}</span></h2>
+						<ul class="fa-ul no-js-show" id="milestones-list">
+							@foreach($thread->funding->milestones as $milestone)
+								<li>
+									@if($milestone->complete)
+										<h4><i class="fa-li fa fa-check-square-o"></i>{{{ $milestone->title }}}</h4>
+									@else
+										<h4><i class="fa-li fa fa-square-o"></i>{{{ $milestone->title }}}</h4>
+									@endif
+									@if($milestone->description)
+										<p>{{{ $milestone->description }}}</p>
+									@endif
+								</li>
+							@endforeach
+						</ul>
+					@endif
+				</div>
+				<div class="col-md-6">
+					@if($thread->funding->payouts)
+						<h2><i class="fa fa-plus-square-o fa-btn no-js" id="show-payments-list"></i> Payouts <span class="label label-info">{{ $thread->funding->payouts->count() }}</span></h2>
+						<ul class="fa-ul no-js-show" id="payments-list">
+							@foreach($thread->funding->payouts as $payout)
+								<li>
+									<i class="fa-li fa fa-circle-thin"></i>
+									{{ $payout->amount }} XMR ({{ $payout->created_at->formatLocalized('%A %d %B %Y') }})
+								</li>
+							@endforeach
+						</ul>
+					@endif
+				</div>
+			</div>
 		</div>
 	</div>
 	{{--@foreach(\Eddieh\Monero\Payment::where('payment_id', $thread->funding->payment_id)->get() as $backer)--}}

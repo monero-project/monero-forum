@@ -145,5 +145,34 @@ $('document').ready(function(){
     $(function () {
         $("[data-toggle='tooltip']").tooltip();
         $('.file-inputs').bootstrapFileInput();
+        $('.no-js-show').hide();
+        $('.no-js').show();
     });
+
+    $('#show-payments-list').click(function (e) {
+        var button = $(this);
+        if(button.hasClass('fa-plus-square-o')) {
+            $('#payments-list').slideDown();
+            button.removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+        }
+        else
+        {
+            $('#payments-list').slideUp();
+            button.removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+        }
+    });
+
+    $('#show-milestones-list').click(function (e) {
+        var button = $(this);
+        if(button.hasClass('fa-plus-square-o')) {
+            $('#milestones-list').slideDown();
+            button.removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+        }
+        else
+        {
+            $('#milestones-list').slideUp();
+            button.removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+        }
+    });
+
 });
