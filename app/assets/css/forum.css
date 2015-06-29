@@ -273,10 +273,6 @@ li.user-details {
     padding: 0 10px;
 }
 
-.thread-block .post-block p {
-	padding: 10px 0;
-}
-
 .post-nav {
 	margin: 20px 0;
 	padding: 0;
@@ -927,4 +923,22 @@ p.syntax {
     margin-top: 0;
     font-weight: normal;
     text-shadow: none;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+    line-height: 1.286;
+    margin-top: 1.286em;
+    margin-bottom: 1.286em;
+}
+
+.post-block p,
+.content-block p{
+    line-height: 1.5;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
 }
