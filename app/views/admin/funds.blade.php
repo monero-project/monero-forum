@@ -18,7 +18,7 @@
 									</ul>
 									<ul>
 										@foreach($item->payouts as $payout)
-											<li>{{ $payout->amount }} XMR</li>
+											<li>{{ $payout->amount }} XMR - {{ $payout->created_at->formatLocalized('%A %d %B %Y') }}</li>
 										@endforeach
 									</ul>
 								</div>

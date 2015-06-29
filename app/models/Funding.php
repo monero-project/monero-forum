@@ -64,8 +64,8 @@ class Funding extends \Eloquent
 
 	public function balance()
 	{
-		$cache_key = $this->id . '_balance_';
-		$balance = Cache::tags('thread_' . $this->thread_id)->remember($cache_key . 'funded', 0.3, function () {
+		$cache_key = $this->id . '_funding_';
+		$balance = Cache::tags('thread_' . $this->thread_id)->remember($cache_key . 'balance', 0.3, function () {
 			$funded = $this->funded();
 			$currency = $this->currency;
 			$payouts = $this->payouts()->sum('amount');
@@ -80,6 +80,25 @@ class Funding extends \Eloquent
 			return $balance;
 		});
 
+		return $balance;
+	}
+
+	public function balancePercentage()
+	{
+		$cache_key = $this->id . '_funding_';
+		$balance = Cache::tags('thread_' . $this->thread_id)->remember($cache_key . 'balancePercentage', 0.3, function () {
+			$balance = $this->balance();
+			$funded = $this->funded();
+			$used = $funded - $balance;
+			if($funded) {
+				$percentage = (100 * $used) / $funded;
+				return $percentage;
+			}
+			else
+			{
+				return 0;
+			}
+		});
 		return $balance;
 	}
 

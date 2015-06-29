@@ -13,8 +13,21 @@
 		</div>
 		<div class="col-lg-12">
 			<div class="progress">
-				<div class="progress-bar progress-monero progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ $thread->funding->percentage() }}%;">
-					<span class="sr-only">{{ $thread->funding->percentage() }}% Complete</span>
+				<div class="progress-bar progress-monero progress-bar-striped" style="width: {{ $thread->funding->percentage() }}%;">
+					<span class="sr-only">{{ $thread->funding->percentage() }}% Funded</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			{{ $thread->funding->payouts->count() }} payouts
+		</div>
+		<div class="col-xs-6 text-right">
+			{{ $thread->funding->symbol() }}{{ number_format($thread->funding->balance(), 2) }} balance available
+		</div>
+		<div class="col-lg-12">
+			<div class="progress">
+				<div class="progress-bar progress-warning progress-bar" style="width: {{ $thread->funding->balancePercentage() }}%;">
+					<span class="sr-only">{{ $thread->funding->balancePercentage() }}% Paid Out</span>
 				</div>
 			</div>
 		</div>
@@ -25,6 +38,17 @@
 			@endif
 		</div>
 		<div class="col-lg-12">
+			@if($thread->funding->payouts)
+				<h2>Payouts</h2>
+				<ul class="fa-ul">
+				@foreach($thread->funding->payouts as $payout)
+					<li>
+						<i class="fa-li fa fa-circle-thin"></i>
+						{{ $payout->amount }} XMR ({{ $payout->created_at->formatLocalized('%A %d %B %Y') }})
+					</li>
+				@endforeach
+				</ul>
+			@endif
 			<h2>Milestones</h2>
 			<ul class="fa-ul">
 				@foreach($thread->funding->milestones as $milestone)
