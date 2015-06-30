@@ -7,7 +7,7 @@
 @if (Visibility::check('category', $category->id))
 	<div class="panel panel-default">
 	  <div class="panel-heading">
-	    <h3 class="panel-title"><span class="glyphicon glyphicon-th"></span> {{ $category->name }}</h3>
+	    <h3 class="panel-title" id="category-{{ $category->id }}"><span class="glyphicon glyphicon-th"></span> {{ $category->name }}</h3>
 	  </div>
 	  <div class="panel-body">
 		  @foreach ($category->forums as $forum)

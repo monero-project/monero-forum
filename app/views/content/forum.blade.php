@@ -2,6 +2,7 @@
 
 @section('content')
 {{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb(e($forum->category->name), '/#category-'.$forum->category->id) }}
 {{ Breadcrumbs::addCrumb(e($forum->name), $forum->permalink()) }}
 @if (Visibility::check('forum', $forum->id))
 <div class="row category-block">   
