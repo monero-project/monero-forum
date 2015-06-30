@@ -1186,27 +1186,50 @@
             }
 
             // transform selection and set the cursor into chunked text
-            if (content.substr(selected.start-4,4) === '```\n'
-                && content.substr(selected.end,4) === '\n```') {
-              e.setSelection(selected.start-4, selected.end+4);
-              e.replaceSelection(chunk);
-              cursor = selected.start-4;
-            } else if (content.substr(selected.start-1,1) === '`'
-                && content.substr(selected.end,1) === '`') {
-              e.setSelection(selected.start-1,selected.end+1);
-              e.replaceSelection(chunk);
-              cursor = selected.start-1;
-            } else if (content.indexOf('\n') > -1) {
-              e.replaceSelection('```\n'+chunk+'\n```');
-              cursor = selected.start+4;
-            } else {
-              e.replaceSelection('`'+chunk+'`');
-              cursor = selected.start+1;
-            }
+              if (content.substr(selected.start-4,4) === '```\n'
+                  && content.substr(selected.end,4) === '\n```') {
+                  e.setSelection(selected.start-4, selected.end+4);
+                  e.replaceSelection(chunk);
+                  cursor = selected.start-4;
+              } else {
+                  e.replaceSelection('```\n'+chunk+'\n```');
+                  cursor = selected.start+4;
+              }
 
             // Set the cursor
             e.setSelection(cursor,cursor+chunk.length);
           }
+        },
+        {
+            name: 'cmdInlineCode',
+            hotkey: 'Ctrl+L',
+            title: 'Inline Code',
+            icon: { glyph: 'glyphicon glyphicon-asterisk', fa: 'fa fa-terminal', 'fa-3': 'icon-code' },
+            callback: function(e) {
+                // Give/remove ** surround the selection
+                var chunk, cursor, selected = e.getSelection(), content = e.getContent();
+
+                if (selected.length === 0) {
+                    // Give extra word
+                    chunk = e.__localize('code text here');
+                } else {
+                    chunk = selected.text;
+                }
+
+                // transform selection and set the cursor into chunked text
+                if (content.substr(selected.start-1,1) === '`'
+                    && content.substr(selected.end,1) === '`') {
+                    e.setSelection(selected.start-1,selected.end+1);
+                    e.replaceSelection(chunk);
+                    cursor = selected.start-1;
+                } else {
+                    e.replaceSelection('`'+chunk+'`');
+                    cursor = selected.start+1;
+                }
+
+                // Set the cursor
+                e.setSelection(cursor,cursor+chunk.length);
+            }
         },
         {
           name: 'cmdQuote',
