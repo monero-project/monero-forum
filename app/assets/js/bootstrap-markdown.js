@@ -1232,6 +1232,22 @@
             }
         },
         {
+            name: 'cmdHorizontalLine',
+            hotkey: 'Ctrl+H',
+            title: 'Horizontal Line',
+            icon: { glyph: 'glyphicon glyphicon-asterisk', fa: 'fa fa-scissors', 'fa-3': 'icon-code' },
+            callback: function(e) {
+                // Give/remove ** surround the selection
+                var chunk, cursor, selected = e.getSelection(), content = e.getContent();
+
+                e.replaceSelection('\n\n***\n\n');
+                cursor = selected.start+1;
+
+                // Set the cursor
+                e.setSelection(cursor,cursor+chunk.length);
+            }
+        },
+        {
           name: 'cmdQuote',
           hotkey: 'Ctrl+Q',
           title: 'Quote',
