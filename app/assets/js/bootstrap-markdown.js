@@ -1193,13 +1193,13 @@
                     //head
                     for(i = 0; i < columns; i++)
                     {
-                        _content = _content + '    | ';
+                        _content = _content + 'content | ';
                     }
                     _content = _content + '\n| ';
                     //separator
                     for(i = 0; i < columns; i++)
                     {
-                        _content = _content + '--- | ';
+                        _content = _content + '------- | ';
                     }
                     _content = _content + '\n';
                 }
@@ -1209,7 +1209,7 @@
                     _content = _content + '| ';
                     for(k = 0; k < columns; k++)
                     {
-                        _content = _content + '    | ';
+                        _content = _content + 'content | ';
                     }
                     _content = _content + '\n';
                 }
