@@ -1170,6 +1170,58 @@
           }
         },
         {
+            name: 'cmdTable',
+            hotkey: 'Ctrl+T',
+            title: 'Table',
+            icon: { glyph: 'glyphicon glyphicon-asterisk', fa: 'fa fa-table', 'fa-3': 'icon-code' },
+            callback: function(e) {
+                // Give/remove ** surround the selection
+                var i, k, _content, chunk, cursor, selected = e.getSelection(), content = e.getContent();
+
+                var columns = prompt("How many columns do you want your table to have?", "3");
+                var rows = prompt("How many rows do you want your table to have?", "3");
+                var headers = confirm("Should your table have headers?");
+
+                //parse numeric values
+                columns = parseInt(columns);
+                rows    = parseInt(rows);
+
+                //headers
+                if(headers)
+                {
+                    _content = '| ';
+                    //head
+                    for(i = 0; i < columns; i++)
+                    {
+                        _content = _content + '    | ';
+                    }
+                    _content = _content + '\n| ';
+                    //separator
+                    for(i = 0; i < columns; i++)
+                    {
+                        _content = _content + '--- | ';
+                    }
+                    _content = _content + '\n';
+                }
+                //actual columns
+                for(i = 0; i < rows; i++)
+                {
+                    _content = _content + '| ';
+                    for(k = 0; k < columns; k++)
+                    {
+                        _content = _content + '    | ';
+                    }
+                    _content = _content + '\n';
+                }
+
+                e.replaceSelection(_content);
+                cursor = selected.start+1;
+
+                // Set the cursor
+                e.setSelection(cursor,cursor+chunk.length);
+            }
+        },
+        {
           name: 'cmdCode',
           hotkey: 'Ctrl+K',
           title: 'Code',
