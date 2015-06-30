@@ -1218,7 +1218,7 @@
                 cursor = selected.start+1;
 
                 // Set the cursor
-                e.setSelection(cursor,cursor+chunk.length);
+                e.setSelection(cursor,cursor+_content.length);
             }
         },
         {
