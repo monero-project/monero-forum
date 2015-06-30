@@ -53,6 +53,12 @@
 									@if($milestone->description)
 										<p>{{{ $milestone->description }}}</p>
 									@endif
+									@if($milestone->completed_at != '-0001-11-30 00:00:00')
+										<p><b>Completion Date</b>: {{{ $milestone->completed_at->formatLocalized('%A %d %B %Y')  }}}</p>
+									@endif
+									@if($milestone->funds)
+										<p><b>Funds awarded</b>: {{{ $milestone->funds }}}% (~{{{ $milestone->funding->symbol().number_format($milestone->fundsConverted(), 2) }}})</p>
+									@endif
 								</li>
 							@endforeach
 						</ul>

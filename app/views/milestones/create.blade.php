@@ -1,5 +1,9 @@
 @extends('master')
 @section('content')
+	{{ Breadcrumbs::addCrumb('Home', '/') }}
+	{{ Breadcrumbs::addCrumb('Admin Panel', '/admin') }}
+	{{ Breadcrumbs::addCrumb('Manage Milestones', '/milestones/'.$thread->id) }}
+	{{ Breadcrumbs::addCrumb('Add Milestone') }}
 	{{ Form::open(['route' => 'milestones.store']) }}
 	<input type="hidden" value="{{ $thread->funding->id }}" name="funding_id"/>
 	<div class="form-group">
@@ -9,6 +13,14 @@
 	<div class="form-group">
 		<label for="description">Description</label>
 		<textarea class="form-control" name="description" id="description"></textarea>
+	</div>
+	<div class="form-group">
+		<label for="description">Completion Date</label>
+		<input type="date" class="form-control" name="completed_at" id="title">
+	</div>
+	<div class="form-group">
+		<label for="description">Funds Awarded Percentage</label>
+		<input type="number" class="form-control" name="funds" id="title" min="0" step="any">
 	</div>
 	<div class="form-group">
 		<label for="completed">Completed</label>

@@ -5,7 +5,15 @@ class Milestone extends \Eloquent {
 		'title',
 		'description',
 		'complete',
-		'funding_id'
+		'funding_id',
+		'completed_at',
+		'funds'
+	];
+
+	protected $dates = [
+		'created_at',
+		'updated_at',
+		'completed_at'
 	];
 
 	public function funding() {
@@ -21,6 +29,13 @@ class Milestone extends \Eloquent {
 			$percentage = 0;
 		}
 		return $percentage;
+	}
+
+	public function fundsConverted() {
+		$funds = $this->funds;
+		$funded = $this->funding->funded();
+		$award = ($funds * $funded) / 100;
+		return $award;
 	}
 
 	public static function completed($funding_id) {
