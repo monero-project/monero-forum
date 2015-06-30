@@ -78,6 +78,10 @@ class AdminController extends \BaseController {
 				$items = Funding::orderBy('created_at', 'DESC')->paginate(20);
 				return View::make('admin.funds', compact('items'));
         break;
+			case 'milestones':
+				$items = Funding::orderBy('created_at', 'DESC')->paginate(20);
+				return View::make('admin.milestones', compact('items'));
+		break;
 			default:
 				return App::abort(403);
 		}
