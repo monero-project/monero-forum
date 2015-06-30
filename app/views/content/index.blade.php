@@ -15,9 +15,9 @@
 		  <div class="row forum-block">
 			  <div class="col-md-1">
 			  @if($forum->unread_posts > 0)
-			  	<span class="forum-icon-active glyphicon glyphicon-comment" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $forum->unread_posts }}}" ></span>
+			  	<i class="forum-icon-active fa fa-comments" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $forum->unread_posts }}}" ></i>
 			  @else
-			    <span class="forum-icon-active glyphicon glyphicon-comment forum-read"></span>
+			    <i class="forum-icon-active fa fa-comments-o forum-read"></i>
 			  @endif
 			  </div>
 			  <div class="col-md-6 forum-info">
