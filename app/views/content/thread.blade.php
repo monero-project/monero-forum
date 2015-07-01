@@ -23,6 +23,7 @@
 	</div>
 	@if (Auth::check())
 	<div class="row thread-controls">
+			<button class="btn btn-sm btn-info no-js" id="expand-all"><i class="fa fa-arrows-alt"></i> Expand All</button>
 		@if(Auth::check() && !Auth::user()->subscriptions()->where('thread_id', $thread->id)->first())
 			<a href="{{ URL::route('subscriptions.subscribe', [$thread->id]) }}"><button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-eye-open"></span> Subscribe</button></a>
 		@elseif(Auth::check() && Auth::user()->subscriptions()->where('thread_id', $thread->id)->first())

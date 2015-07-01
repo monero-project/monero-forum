@@ -954,3 +954,7 @@ h3,
 .main-content, li, p {
     color: #505050;
 }
+
+.btn-info .fa {
+    color: white;
+}
