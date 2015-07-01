@@ -30,6 +30,8 @@
 			  	<a class="board-meta" href="{{ $forum->latest_thread()->permalink() }}">{{ e(str_limit($forum->latest_thread()->name, 57, '...')) }}</a>
 			  	<br>
 				Replied By: <b><a class="board-meta" href="/user/{{{ $forum->latest_thread()->latest_post()->user->username or "" }}}">{{{ $forum->latest_thread()->latest_post()->user->username or "" }}}</a></b>
+			    <br>
+			   {{{ $forum->latest_thread()->latest_post()->created_at or "" }}}
 			  	@endif
 			  	</p>
 			  </div>

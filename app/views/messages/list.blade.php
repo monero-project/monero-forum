@@ -13,16 +13,16 @@
 	<div class="row category-block">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h1 class="panel-title"><span class="glyphicon glyphicon-envelope"></span> Private Messages</h1>
+					<h1 class="panel-title"><i class="fa fa-envelope"></i> Private Messages</h1>
 				</div>
 				<div class="panel-body thread-list">
 					@foreach ($conversations as $conversation)
-						<div class="row">
+						<div class="row message-list">
 							<div class="col-md-6">
 								@if($conversation->is_read())
-									<span class="glyphicon glyphicon-envelope"></span>
+									<i class="fa fa-envelope-o"></i>
 								@else
-									<span class="glyphicon glyphicon-envelope envelope-green"></span>
+									<i class="fa fa-envelope envelope-green"></i>
 								@endif
 									<a class="thread-title" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $conversation->title }}}" href="{{ URL::route('messages.conversation', [$conversation->id]) }}">
 										{{{ str_limit($conversation->title, 50, ' [...]') }}}

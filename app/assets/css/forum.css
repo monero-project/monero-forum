@@ -958,3 +958,11 @@ h3,
 .btn-info .fa {
     color: white;
 }
+
+.category-block .panel-heading .fa {
+    color: #fff;
+}
+
+.message-list {
+    border-bottom: 1px solid #f4f4f4;
+}

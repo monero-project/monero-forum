@@ -24,7 +24,7 @@
 				<div class="panel-heading">
 					<img class="profile-picture-sm" src="/uploads/profile/small_{{ $message->user->profile_picture }}"><a href="{{ URL::route('user.show', [$message->user->username]) }}" target="_blank">{{ $message->user->username }}</a> <span class="mobile-hide-text">sent this on</span> <span class="date">{{ $message->created_at }}</span>
 				</div>
-				<div class="panel-body content-block-82 hidden-post-content" style="display: block;">
+				<div class="panel-body content-block-82" style="display: block;">
 					<div class="post-content-82">
 						{{ $message->body }}
 					</div>
