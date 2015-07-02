@@ -282,19 +282,22 @@ li.user-details {
 .post-panel .panel-heading {
 	border-bottom: 1px solid #efefef;
 	border-radius: 1px;
-	background: #f7f7f7;
+	background: #f4f6f7;
 	font-size: 14px;
 	color: #888888;
 }
 
+.post-panel .panel-heading a,
+.post-panel .panel-heading .date {
+    color: #5b9a6f;
+}
+
 .post-panel .panel-heading a {
-	color: #5b9a6f;
 	font-weight: bold;
 	padding-left: 10px;
 }
 
 .post-panel .panel-heading .date {
-	color: #5b9a6f;
 	padding-right: 10px;
 }
 
@@ -519,6 +522,7 @@ a.board-meta {
 	margin-right: 10px;
 	height: 24px;
 	width: 24px;
+    border-radius: 4px;
 }
 
 a.meta-permalink {
@@ -689,37 +693,8 @@ a.meta-permalink {
 
 /* Post Odd */
 
-.odd .panel-heading {
-	background: #5b9a6f;
-	border-bottom: 1px solid #fff;
-	text-shadow: 0 1px #2c4e37;
-}
-
-.odd .panel-default {
-	border: 1px solid #fff;
-}
-
-.odd .panel-body {
-	background: #dce9e0;
-}
-
-.odd .date {
-	font-weight: bold;
-}
-
-.odd .panel-heading a,
-.odd .dark-green,
-.odd .panel-heading .date,
-.odd .mobile-hide-text,
-.odd .content-control span,
-.odd .drawer-button span {
-	color: #fff !important;
-	
-}
-
-.odd .panel-heading,
-.odd small {
-	color: #f4f4f4 !important;
+.odd .post-panel .panel-heading {
+    background: #F7F7F7;
 }
 
 .post-unread-odd, .post-unread {
@@ -952,6 +927,14 @@ h3,
 
 .form-group.search-location {
     padding: 0 20px;
+}
+
+.md-header .btn-default .fa {
+    color: #222222;
+}
+
+.md-editor {
+    border-radius: 3px;
 }
 
 @media (max-width: 768px) {

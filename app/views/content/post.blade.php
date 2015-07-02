@@ -22,7 +22,7 @@ try {
 			<span class="reply-to"> Reply to: </span>
 		@endif
 		@foreach (($breadcrumbs) as $key => $breadcrumb)
-			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a>@if (sizeof($breadcrumbs)-1 != $key)<span class="glyphicon glyphicon-chevron-right reply-bullet"></span>@endif
+			<a class="post-crumb" href="#post-{{ $breadcrumb->id }}" data-toggle="tooltip" data-placement="top" title="{{ str_limit(e($breadcrumb->body), 200, '...') }}" alt="{{ str_limit(e($breadcrumb->body), 200, '...') }}">{{ $breadcrumb->user->username }}</a>@if (sizeof($breadcrumbs)-1 != $key)<i class="fa fa-angle-double-right reply-bullet"></i>@endif
 		@endforeach
 		</div>
 		@if (
@@ -42,7 +42,7 @@ try {
 		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a class="user-post-{{$post->id}}" href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
 		  			<small>
 		  			@if ($post->children()->count())
-					 Replies: {{ $post->children()->count() }} | 
+				    Replies: {{ $post->children()->count() }} |
 					@endif
 					Weight: {{ $post->weight }} | <a class="meta-permalink" href='{{ $post->thread->permalink()."?page=".Input::get('page')."&noscroll=1#post-".$post->id }}'>Link</a>
 					</small>
