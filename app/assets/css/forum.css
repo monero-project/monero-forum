@@ -106,23 +106,21 @@ li.user-details {
 /* Forum Blocks */
 
 .user-block {
-	background: #f5f5f5;
-	border: 1px solid #e4e4e4;
 	color: #8e8e8e;
 	font-size: 15px;
-	border-radius: 1px;
-	margin-bottom: 20px;
-	height: 40px;
 	line-height: 40px;
 }
 
 .search-bar {
-	padding-bottom: 20px;	
+	padding-bottom: 20px;
+    text-align: right;
 }
 
 .search-text {
-	 border-top-left-radius: 2px;
-	 border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border: 1px solid #e4e4e4;
+    box-shadow: none;
 }
 
 .search-bar .col-lg-6 {
@@ -131,12 +129,11 @@ li.user-details {
 
 .user-block .action-link {
 	font-size: 13px;
-	color: #cccccc;
+	color: #5b9a6f;
+    font-weight: bold;
 }
 
 .user-block .action-link:hover {
-	font-size: 13px;
-	color: #cccccc;
 	text-decoration: underline;
 }
 
@@ -771,22 +768,8 @@ p.syntax {
     padding: 0;
 }
 
-@media screen and (max-width: 1199px) {
-    .user-block {}
-    .search-bar {
-        display: none;
-    }
-
-    .search-bar-mobile {
-        display: inline-block;
-        margin-bottom: 20px;
-    }
-    .search-bar-mobile form {
-        margin: 0;
-    }
-}
-
-.btn .glyphicon {
+.btn .glyphicon,
+.btn .fa {
     color: white;
 }
 
@@ -795,7 +778,7 @@ p.syntax {
 }
 
 .btn-search {
-    margin-top: -7px;
+    margin-top: 0;
 }
 
 .conversation-row {
@@ -965,4 +948,29 @@ h3,
 
 .message-list {
     border-bottom: 1px solid #f4f4f4;
+}
+
+.form-group.search-location {
+    padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+
+    .search-bar .form-group {
+        display: inline-block;
+    }
+
+    .btn-search {
+        width: 100%;
+    }
+
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .search-bar {
+        text-align: left;
+    }
 }
