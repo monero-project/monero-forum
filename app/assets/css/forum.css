@@ -1,5 +1,9 @@
 /* Main Elements */
 
+/** {*/
+    /*transition: all 0.2s linear;*/
+/*}*/
+
 body {
 	padding-top: 0;
 }
@@ -445,17 +449,21 @@ pre code {
 
 .create-thread {
 	border-radius: 2px;
-	background: white;
-	border: 1px solid #eaeaea;
-	color: #888;
-	text-transform: uppercase;
+	background: #447f57;
+	color: #fff;
+    font-weight: 600;
+    padding: 4px 10px;
+    margin-top: 0;
+    text-shadow: none;
+}
+
+.create-thread .fa {
+    padding-right: 10px;
 }
 
 .create-thread:hover {
 	border-radius: 2px;
-	background: white;
-	border: 1px solid #eaeaea;
-	color: #888;
+    background: #305F3F;
 }
 
 .thread-icon {
@@ -875,12 +883,6 @@ p.syntax {
 
 .post-reply-form {
     padding-bottom: 10px;
-}
-
-.create-thread {
-    margin-top: 0;
-    font-weight: normal;
-    text-shadow: none;
 }
 
 h1,
