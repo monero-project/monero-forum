@@ -939,6 +939,37 @@ h3,
     border-radius: 3px;
 }
 
+.footer .footer-links {
+    color: #fff;
+    display: inline-block;
+}
+
+.footer .footer-links a {
+    color: #5b9a6f;
+    font-weight: bold;
+}
+
+.footer-links ul li {
+    display: inline;
+    margin-right: 30px;
+}
+
+.footer-links ul li .fa {
+    color: #fff;
+}
+
+.footer-icon .fa {
+    color: #ffe00a;
+}
+
+.breadcrumb {
+    background-color: #fff;
+}
+
+.breadcrumb a {
+    color: #5b9a6f;
+}
+
 @media (max-width: 768px) {
 
     .search-bar .form-group {
