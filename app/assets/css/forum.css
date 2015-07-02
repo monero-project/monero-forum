@@ -451,7 +451,7 @@ pre code {
 	border-radius: 2px;
 	background: #447f57;
 	color: #fff;
-    font-weight: 600;
+    font-weight: 600 !important;
     padding: 4px 10px;
     margin-top: 0;
     text-shadow: none;
@@ -988,6 +988,10 @@ h3,
 
 .btn-unsub {
     color: #222222 !important;
+}
+
+a.btn:hover {
+    text-shadow: none;
 }
 
 @media (max-width: 768px) {
