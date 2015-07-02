@@ -970,6 +970,10 @@ h3,
     color: #5b9a6f;
 }
 
+.btn-xs {
+    font-weight: normal;
+}
+
 @media (max-width: 768px) {
 
     .search-bar .form-group {
