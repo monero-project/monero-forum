@@ -1,11 +1,14 @@
 @extends('master')
-
+{{ Breadcrumbs::addCrumb('Home', '/') }}
+{{ Breadcrumbs::addCrumb('Settings', '/user/settings') }}
+{{ Breadcrumbs::addCrumb('Subscriptions') }}
 @section('content')
-	<ol>
 	@foreach($subscriptions as $subscription)
-		<li class="sub-item">
-			<a href="{{{ URL::route('thread.short', [$subscription->thread_id]) }}}">{{{ $subscription->thread->name }}}</a> <a href="{{ URL::route('subscriptions.unsubscribe', [$subscription->thread_id]) }}"><button class="btn btn-danger btn-sm pull-right">Unsubscribe</button></a>
-		</li>
+		<div class="row">
+			<div class="well well-sm well-subscription">
+				<i class="fa fa-circle-o"></i> <a href="{{{ URL::route('thread.short', [$subscription->thread_id]) }}}">{{{ $subscription->thread->name }}}</a> <a class="pull-right" href="{{ URL::route('subscriptions.unsubscribe', [$subscription->thread_id]) }}"><i class="fa fa-times btn-unsub"></i></a>
+				<div class="clearfix"></div>
+			</div>
+		</div>
 	@endforeach
-	</ol>
 @stop

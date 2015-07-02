@@ -968,7 +968,9 @@ h3,
 
 .breadcrumb a,
 .well-notification a,
-.well-notification .fa {
+.well-notification .fa,
+.well-subscription .fa,
+.well-subscription a{
     color: #5b9a6f;
 }
 
@@ -976,11 +978,16 @@ h3,
     font-weight: normal;
 }
 
-.well-notification {
+.well-notification,
+.well-subscription {
     border: none;
     box-shadow: none;
     background: #fff;
     border-bottom: 1px solid #f3f3f3;
+}
+
+.btn-unsub {
+    color: #222222 !important;
 }
 
 @media (max-width: 768px) {
