@@ -966,12 +966,21 @@ h3,
     background-color: #fff;
 }
 
-.breadcrumb a {
+.breadcrumb a,
+.well-notification a,
+.well-notification .fa {
     color: #5b9a6f;
 }
 
 .btn-xs {
     font-weight: normal;
+}
+
+.well-notification {
+    border: none;
+    box-shadow: none;
+    background: #fff;
+    border-bottom: 1px solid #f3f3f3;
 }
 
 @media (max-width: 768px) {

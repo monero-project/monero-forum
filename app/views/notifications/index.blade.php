@@ -8,9 +8,11 @@
 	@foreach($notifications as $notification)
 	@if($notification->object)
 	<div class="row">
-		<div class="well well-sm">
+		<div class="well well-sm well-notification">
 			@if(!$notification->is_read())
-			<span class="label label-success">New!</span>
+				<i class="fa fa-circle"></i>
+			@else
+				<i class="fa fa-circle-o"></i>
 			@endif
 			@if($notification->notification_type == 'subscription')
 			The thread <a href="{{ URL::route('thread.short', [$notification->object->thread_id]) }}">
