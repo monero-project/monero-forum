@@ -286,7 +286,7 @@ li.user-details {
 .post-panel .panel-heading {
 	border-bottom: 1px solid #efefef;
 	border-radius: 1px;
-	background: #f4f6f7;
+	background: #fff;
 	font-size: 14px;
 	color: #888888;
 }
@@ -702,7 +702,7 @@ a.meta-permalink {
 /* Post Odd */
 
 .odd .post-panel .panel-heading {
-    background: #F7F7F7;
+    background: #f1f3f4;
 }
 
 .post-unread-odd, .post-unread {
