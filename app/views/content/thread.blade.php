@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('description')
+	<meta name="description" content="{{ str_limit(trim(preg_replace('/\s\s+/', ' ', strip_tags($thread->head()->body))), 155, '[...]')  }}" />
+@stop
+
 @section('content')
 {{ Breadcrumbs::addCrumb('Home', '/') }}
 {{ Breadcrumbs::addCrumb(e($thread->forum->category->name), '/#category-'.$thread->forum->category->id) }}

@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('description')
+	<meta name="description" content="{{ $forum->description }}" />
+@stop
+
 @section('content')
 {{ Breadcrumbs::addCrumb('Home', '/') }}
 {{ Breadcrumbs::addCrumb(e($forum->category->name), '/#category-'.$forum->category->id) }}

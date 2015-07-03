@@ -1,4 +1,9 @@
 @extends('master')
+
+@section('description')
+		<meta name="description" content="Monero user {{ $user->username }} profile." />
+@stop
+
 @section('content')
 {{ Breadcrumbs::addCrumb('Home', '/') }}
 {{ Breadcrumbs::addCrumb($user->username) }}

@@ -1,8 +1,13 @@
 @extends('master')
 
+@section('description')
+	<meta name="description" content="Monero is a digital currency that is secure, private, and untraceable." />
+@stop
+
 @section('content')
 {{ Breadcrumbs::addCrumb('Home', '/') }}
-<div class="row category-block">    
+
+<div class="row category-block">
 @foreach ($categories as $category)
 @if (Visibility::check('category', $category->id))
 	<div class="panel panel-default">
