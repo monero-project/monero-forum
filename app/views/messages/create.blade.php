@@ -1,7 +1,9 @@
 @extends('master')
 
 @section('content')
-	<div class="row">
+	{{ Breadcrumbs::addCrumb('Home', '/') }}
+	{{ Breadcrumbs::addCrumb('Messages', route('messages.index')) }}
+	{{ Breadcrumbs::addCrumb('New Conversation') }}
 	{{ Form::open(['url' => URL::route('messages.send')]) }}
 		<div class="form-group">
 			<label for="username">Username:</label>
@@ -21,5 +23,4 @@
 		<button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
 	{{ Form::close() }}
 	<div class="clearfix"></div>
-	</div>
 @stop

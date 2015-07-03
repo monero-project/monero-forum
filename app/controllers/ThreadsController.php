@@ -114,7 +114,7 @@ class ThreadsController extends \BaseController
 
 			Session::put('thread_id', $thread_id);
 			Event::fire('thread.read', [$thread]);
-			return View::make('content.thread', array('resource_id' => $thread_id, 'posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | ' . $thread->forum->name . ' &raquo; ' . $thread->name));
+			return View::make('threads.show', array('resource_id' => $thread_id, 'posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | ' . $thread->forum->name . ' &raquo; ' . $thread->name));
 		} else {
 			App::abort(404);
 		}
@@ -128,7 +128,7 @@ class ThreadsController extends \BaseController
 		if ($forum->lock != 0 && !Auth::user()->hasRole('Admin'))
 			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
 
-		return View::make('content.createThread', array('forum' => $forum, 'title' => 'Monero | Creating a thread in ' . $forum->name));
+		return View::make('threads.create', array('forum' => $forum, 'title' => 'Monero | Creating a thread in ' . $forum->name));
 	}
 
 	public function submitCreate()
@@ -326,7 +326,7 @@ class ThreadsController extends \BaseController
 		$thread = Thread::findOrFail($id);
 		if($thread->funding)
 		{
-			return View::make('content.contribute', compact('thread'));
+			return View::make('threads.contribute', compact('thread'));
 		}
 		else {
 			App::abort(404);

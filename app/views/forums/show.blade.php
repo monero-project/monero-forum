@@ -41,7 +41,7 @@
 			<p>Replies: <b>{{ $thread->posts()->count() - 1}}</b></p>
 		</div>
 	    @if($thread->funding)
-	    @include('content.forum_funding_block')
+	    @include('forums.includes.funding_block')
 		@endif
 	</div>
 	@endforeach

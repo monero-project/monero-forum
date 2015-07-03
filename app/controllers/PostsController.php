@@ -100,7 +100,7 @@ class PostsController extends \BaseController {
 			}
 
 			else
-				return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
+				return View::make('threads.show', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
 		}
 		else {
 			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
@@ -177,7 +177,7 @@ class PostsController extends \BaseController {
 			}
 	
 			else
-				return View::make('content.thread', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
+				return View::make('threads.show', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
 		}
 		else {
 			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
@@ -219,14 +219,14 @@ class PostsController extends \BaseController {
 		if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
 				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
 			
-		return View::make('content.reply', array('post' => $post));
+		return View::make('posts.reply', array('post' => $post));
 	}
 
 	public function getUpdatePage($post_id) {
 		$post = Post::findOrFail($post_id);
 		if ($post->user_id == Auth::user()->id || Auth::user()->hasRole('Admin'))
 		{
-			return View::make('content.update', array('post' => $post));
+			return View::make('posts.update', array('post' => $post));
 		}
 		else {
 			return View::make('errors.permissions');
@@ -235,7 +235,7 @@ class PostsController extends \BaseController {
 
 	public function getReportPage($post_id, $page_number) {
 		$post = Post::findOrFail($post_id);
-		return View::make('content.report', array('post' => $post, 'page_number' => $page_number));
+		return View::make('posts.report', array('post' => $post, 'page_number' => $page_number));
 	}
 	
 	public function postReport() {
