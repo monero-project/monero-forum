@@ -11,6 +11,7 @@
 		<div class="col-xs-6 text-right">
 			{{ number_format($thread->funding->percentage(), 2) }}%
 		</div>
+		<div class="clearfix"></div>
 		<div class="col-lg-12">
 			<div class="progress">
 				<div class="progress-bar progress-monero progress-bar-striped" style="width: {{ $thread->funding->percentage() }}%;">
@@ -24,6 +25,7 @@
 		<div class="col-xs-6 text-right">
 			{{ $thread->funding->symbol() }}{{ number_format($thread->funding->balance(), 2) }} balance available
 		</div>
+		<div class="clearfix"></div>
 		<div class="col-lg-12">
 			<div class="progress">
 				<div class="progress-bar progress-warning progress-bar" style="width: {{ $thread->funding->balancePercentage() }}%;">
@@ -31,6 +33,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="clearfix"></div>
 		<div class="col-lg-12 text-center">
 			<a href="{{ URL::route('contribute', $thread->id) }}"><button class="btn btn-success btn-lg">Contribute</button></a>
 			@if(Auth::user() && Auth::user()->can('admin_panel'))
