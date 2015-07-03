@@ -18,7 +18,7 @@
 					<br>
 					Replied By: <b><a class="board-meta" href="/user/{{{ $forum->latest_thread()->latest_post()->user->username or "" }}}">{{{ $forum->latest_thread()->latest_post()->user->username or "" }}}</a></b>
 					<br>
-					{{{ $forum->latest_thread()->latest_post()->created_at or "" }}}
+					{{{ $forum->latest_thread()->latest_post()->created_at->formatLocalized('%A %d %B %Y') }}}
 				@endif
 			</p>
 		</div>
