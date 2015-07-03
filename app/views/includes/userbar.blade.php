@@ -7,14 +7,14 @@
 				@if(Message::unreadCount() > 0)
 					<i class="fa fa-envelope kicks"></i>
 				@else
-					<i class="fa fa-envelope-o"></i>
+					<i class="fa fa-envelope"></i>
 				@endif
 			</a>
 			<a class="action-link" href="{{ URL::route('notifications.index') }}"  alt="Notifications" title="Notifications">
 				@if(Notification::unreadCount() > 0)
 					<i class="fa fa-bell kicks" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></i>
 				@else
-					<i class="fa fa-bell-o" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></i>
+					<i class="fa fa-bell" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></i>
 				@endif
 			</a>
 			<a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><i class="fa fa-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></i></a>

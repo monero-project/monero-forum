@@ -26,8 +26,8 @@
     <meta name="msapplication-TileImage" content="/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
     @yield('css')
-	{{--<link href="/style.css" rel="stylesheet">--}}
-	<link href="//static.getmonero.org/style.css" rel="stylesheet">
+	<link href="/style.css" rel="stylesheet">
+	{{--<link href="//static.getmonero.org/style.css" rel="stylesheet">--}}
 
     <!--[if lt IE 9]>
       <script src="//static.getmonero.org/js/html5shiv.js"></script>
@@ -129,81 +129,7 @@
 		  </div>
 	</div>
 	@endif
-
-	<div class="row">
-		  <div class="col-lg-12 user-block">
-			  <div class="col-lg-6">
-				  @if (Auth::check())
-					  Hello,
-					  <a class="name" href="{{ URL::to('/user/profile') }}">{{{ Auth::user()->username }}}</a>.
-					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/messages') }}" alt="Private Messages" title="Private Messages" data-toggle="tooltip" data-placement="bottom" data-original-title="Private Messages">
-						  @if(Message::unreadCount() > 0)
-							  <i class="fa fa-envelope kicks"></i>
-						  @else
-							  <i class="fa fa-envelope-o"></i>
-						  @endif
-					  </a>
-					  <a class="action-link user-block-mobile-disable" href="{{ URL::route('notifications.index') }}"  alt="Notifications" title="Notifications">
-						  @if(Notification::unreadCount() > 0)
-							  <i class="fa fa-bell kicks" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></i>
-						  @else
-									  <i class="fa fa-bell-o" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"></i>
-			              @endif
-					  </a>
-					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><i class="fa fa-cog" data-toggle="tooltip" data-placement="bottom" data-original-title="Settings"></i></a>
-					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/users/action/allread') }}" alt="Mark everything as read" title="Mark as Read" data-toggle="tooltip" data-placement="bottom" data-original-title="Mark forum as read"><i class="fa fa-check"></i></a>
-					  <a class="action-link user-block-mobile-disable" href="{{ URL::to('/logout') }}" alt="Logout" title="Logout"><i class="fa fa-sign-out" data-toggle="tooltip" data-placement="bottom" data-original-title="Log Out"></i></a>
-					  <br>
-				  @else
-					  Please <a href="/login" class="link-disabled action-link">login</a> or <a href="/register" class="link-disabled action-link">register</a>.
-				  @endif
-			  </div>
-			  <div class="col-lg-6 search-bar">
-				  {{ Form::open(array('url' => '/search')) }}
-				  <div class="col-lg-12 pull-right">
-					  <div class="input-group">
-						  <input type="text" name="query" class="form-control search-text" placeholder="What would you like to find?">
-						  @if(Route::current() && (Route::current()->getName() == 'threadView' || Route::current()->getName() == 'forum.index'))
-							  <span class="input-group-addon">
-				                  <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
-								  <input type="hidden" name="resource_id" value="{{ $resource_id or 0 }}"/>
-		                      </span>
-						  @endif
-						  <span class="input-group-btn">
-			      <button class="btn btn-success btn-search" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
-			    </span>
-					  </div>
-				  </div>
-				  {{ Form::close() }}
-			  </div>
-		  </div>
-	</div>
-		  <div class="row">
-		  <div class="col-lg-12 search-bar-mobile">
-			  {{ Form::open(array('url' => '/search')) }}
-			  <div class="col-lg-12 pull-right">
-				  <div class="input-group">
-					  <input type="text" name="query" class="form-control search-text" placeholder="Search for...">
-					  @if(Route::current() && Route::current()->getName() != 'index')
-						  <span class="input-group-addon">
-				      <input type="checkbox" name="closed_location" checked value="{{ Route::current()->getName() }}"> This location
-		            </span>
-					  @endif
-					  <span class="input-group-btn">
-			      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span> Go!</button>
-			    </span>
-				  </div>
-			  </div>
-			  {{ Form::close() }}
-		  </div>
-		  </div>
-	@if (Auth::check())
-	<div class="row">
-		  <div class="col-lg-12 user-block user-block-mobile">
-		  	<a class="action-link" href="{{ URL::to('/user/settings') }}"  alt="Settings" title="Settings"><span class="glyphicon glyphicon-cog"></span></a> <a class="action-link" href="{{ URL::to('users/action/allread') }}" alt="Mark everything as read" title="Mark as Read"><span class="glyphicon glyphicon-book"></span></a> <a class="action-link" href="{{ URL::to('logout') }}" alt="Logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a>
-		  </div>
-	</div>
-	@endif
+	    @include('includes.userbar')
 	<div class="row">
 		{{ Breadcrumbs::addCssClasses('breadcrumb') }}
 		{{ Breadcrumbs::render() }}
@@ -213,19 +139,23 @@
 
 	<div class="footer">
       <div class="container">
-        <p>
-          <strong style="color: #ffffff;">[ <a href="//getmonero.org/legal/terms">Terms</a> | <a href="//getmonero.org/legal/privacy">Privacy</a> | <a href="//getmonero.org/legal/copyright">Copyright</a> ]</strong>
-          <a href="https://getmonero.org/feed.xml"><i class="fa fa-2x fa-rss-square"></i></a>
-          <a href="mailto:dev@getmonero.org"><i class="fa fa-2x fa-envelope-square"></i></a>
-        </p>
+          <div class="footer-links">
+	          <ul class="fa-ul">
+		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="//getmonero.org/legal/terms">Terms</a></li>
+		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="//getmonero.org/legal/privacy">Privacy</a></li>
+		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="//getmonero.org/legal/copyright">Copyright</a></li>
+	          </ul>
       </div>
+          <a class="footer-icon" href="https://getmonero.org/feed.xml"><i class="fa fa-2x fa-rss-square"></i></a>
+          <a class="footer-icon" href="mailto:dev@getmonero.org"><i class="fa fa-2x fa-envelope-square"></i></a>
+    </div>
     </div>
 
     @yield('modals')
 
     <!-- JS -->
-    {{--<script src="/scripts.js"></script>--}}
-    <script src="//static.getmonero.org/scripts.js"></script>
+    <script src="/scripts.js"></script>
+    {{--<script src="//static.getmonero.org/scripts.js"></script>--}}
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
