@@ -12,7 +12,7 @@
 						@endif {{{ str_limit($thread->name, 50, ' [...]') }}}</a>
 	</div>
 	<div class="col-md-4">
-		<p>Author: <b><a class="board-meta" href="/user/{{ $thread->user->username }}">{{ $thread->user->username }}</a></b>, {{ $thread->created_at }}</p>
+		<p>Author: <b><a class="board-meta" href="/user/{{ $thread->user->username }}">{{ $thread->user->username }}</a></b>, {{ $thread->created_at->formatLocalized('%A %d %B %Y') }}</p>
 	</div>
 	<div class="col-md-2 thread-replies">
 		<p>Replies: <b>{{ $thread->posts()->count() - 1}}</b></p>

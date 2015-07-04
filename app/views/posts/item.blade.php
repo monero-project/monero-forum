@@ -39,7 +39,7 @@ try {
 		<div class="panel panel-default post-panel">
 		@endif
 		  <div class="panel-heading">
-		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a class="user-post-{{$post->id}}" href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted this on</span> <span class="date">{{ $post->created_at }}</span>
+		  			<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a class="user-post-{{$post->id}}" href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted </span> <span class="date" data-toggle="tooltip" data-placement="top" title="{{ $post->created_at }}">{{ $post->created_at->diffForHumans() }}</span>
 		  			<small>
 		  			@if ($post->children()->count())
 				    Replies: {{ $post->children()->count() }} |
