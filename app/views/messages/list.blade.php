@@ -32,7 +32,7 @@
 								<p>Participants:
 									<b><a class="board-meta" href="/user/{{ $conversation->user->username }}">{{ $conversation->user->username }}</a></b>
 									<b><a class="board-meta" href="/user/{{ $conversation->receiver->username }}">{{ $conversation->receiver->username }}</a></b>
-									, {{ $conversation->created_at }}
+									{{ $conversation->created_at->diffForHumans() }}
 								</p>
 							</div>
 							<div class="col-md-2 thread-replies">
