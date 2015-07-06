@@ -12,7 +12,7 @@ gulp.task('minify-css', function() {
 gulp.task('combine-css', ['minify-css'], function() {
     return gulp.src([
         'app/assets/css/min/bootstrap.css',
-        'app/assets/css/min/bootstrap-markdown.min.css',
+        'app/assets/css/min/bootstrap-markdown.css',
         'app/assets/css/min/jquery.dataTables.min.css',
         'app/assets/css/min/main.css',
         'app/assets/css/min/forum.css'])

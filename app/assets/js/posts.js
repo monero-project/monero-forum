@@ -37,7 +37,6 @@ $('.disabled-link').click(function (e) {
 //Change the page looks for JS functionality
 function init() {
     $('.reply-thread').show();
-    $('.reply-box').hide();
     $('.drawer-button').show();
     $('.reply-cancel').show();
     $('.hide').hide();

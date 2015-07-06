@@ -1355,7 +1355,7 @@
           title: 'Preview',
           btnText: 'Preview',
           btnClass: 'btn btn-primary btn-sm',
-          icon: { glyph: 'glyphicon glyphicon-search', fa: 'fa fa-search', 'fa-3': 'icon-search' },
+          icon: { glyph: 'glyphicon glyphicon-search', fa: 'fa fa-eye', 'fa-3': 'icon-eye' },
           callback: function(e){
             // Check the preview mode and toggle based on this flag
             var isPreview = e.$isPreview,content;

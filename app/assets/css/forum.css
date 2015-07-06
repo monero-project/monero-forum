@@ -238,7 +238,6 @@ li.user-details {
 .post-meta .poster-name {
 	text-transform: none;
 	color: white;
-	padding-right: 10px;
 }
 
 .post-meta .post-date {
@@ -275,7 +274,7 @@ li.user-details {
 }
 
 .post-nav {
-	margin: 20px 0;
+	margin: 5px 0 20px 0;
 	padding: 0;
 }
 
@@ -986,6 +985,30 @@ h3,
 
 a.btn:hover {
     text-shadow: none;
+}
+
+.reply-box-avatar {
+    border-radius: 3px;
+}
+
+.js-reply-box-avatar {
+    margin-top: 44px;
+}
+
+.media {
+    margin: 0;
+}
+
+.markdown-form-buttons {
+    text-align: right;
+}
+
+.markdown-toolbar {
+    margin-top: 5px;
+}
+
+.post-indent:first-child {
+    padding-left: 0;
 }
 
 @media (max-width: 768px) {

@@ -22,66 +22,67 @@
 			  <div class="row post-block">
 				  {{ $thread->head()->body }}
 			  </div>
+				  @if (Auth::check())
+					  <div class="row thread-controls">
+						  <button class="btn btn-sm btn-primary no-js" id="expand-all"><i class="fa fa-arrows-alt"></i> Expand All</button>
+						  @if(Auth::check() && !Auth::user()->subscriptions()->where('thread_id', $thread->id)->first())
+							  <a href="{{ URL::route('subscriptions.subscribe', [$thread->id]) }}"><button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-eye-open"></span> Subscribe</button></a>
+						  @elseif(Auth::check() && Auth::user()->subscriptions()->where('thread_id', $thread->id)->first())
+							  <a href="{{ URL::route('subscriptions.unsubscribe', [$thread->id]) }}"><button class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-eye-close"></span> Unsubscribe</button></a>
+						  @endif
+						  @if ($thread->user->id == Auth::user()->id || Auth::user()->hasRole('Admin'))
+							  <a href="/thread/delete/{{ $thread->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
+							  <a href="/posts/update/{{ $thread->head()->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
+						  @endif
+						  @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Moderator'))
+							  <a href="/mod/move/thread/{{ $thread->id }}"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-share-alt"></span> Move</button></a>
+							  <a href="/mod/delete/thread/{{ $thread->id }}"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
+						  @endif
+					  </div>
+				  @endif
 		  </div>
 		</div>
 	</div>
-	@if (Auth::check())
-	<div class="row thread-controls">
-			<button class="btn btn-sm btn-info no-js" id="expand-all"><i class="fa fa-arrows-alt"></i> Expand All</button>
-		@if(Auth::check() && !Auth::user()->subscriptions()->where('thread_id', $thread->id)->first())
-			<a href="{{ URL::route('subscriptions.subscribe', [$thread->id]) }}"><button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-eye-open"></span> Subscribe</button></a>
-		@elseif(Auth::check() && Auth::user()->subscriptions()->where('thread_id', $thread->id)->first())
-			<a href="{{ URL::route('subscriptions.unsubscribe', [$thread->id]) }}"><button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-eye-close"></span> Unsubscribe</button></a>
-		@endif
-		@if ($thread->user->id == Auth::user()->id || Auth::user()->hasRole('Admin'))
-			<a href="/thread/delete/{{ $thread->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
-			<a href="/posts/update/{{ $thread->head()->id }}"><button class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-pencil"></span> Edit</button></a>
-		@endif
-		@if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Moderator'))
-			<a href="/mod/move/thread/{{ $thread->id }}"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-share-alt"></span> Move</button></a>
-			<a href="/mod/delete/thread/{{ $thread->id }}"><button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-trash"></span> Delete</button></a>
-		@endif
-	</div>
-	@endif
 	
 	<div class="row">
-		<div class="col-lg-12 button-block">
 		@if (Auth::check())
-			<button class="btn btn-success full-width reply-thread" style="display: none;" onclick="thread_reply()">Reply to this thread</button>
 			<div class="reply-box">
 				<div class="row">
-					<p class="col-lg-12">
-						For post formatting please use Kramdown, <a href="http://kramdown.gettalong.org/syntax.html">click here</a> for a syntax guide.
-					</p>
 				</div>
-				<form role="form" action="/posts/submit" method="POST">
-				<input type="hidden" name="thread_id" value="{{ $thread->id }}">
-				  <div class="form-group">
-				  	<textarea class="form-control markdown-editor" id="content-body" name="body" rows="6" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
-				  </div>
-				  <button name="submit" type="submit" class="btn btn-success">Submit</button>
-				  <button name="preview" type="submit" class="btn btn-success non-js">Preview</button>
-				  <button type="button" onclick="cancel_thread_reply()" class="btn btn-danger reply-cancel" style="display: none;">Cancel</button>
-				</form>
-			</div>
-				@if (Session::has('preview'))
-					<div class="row content-preview">
-						<div class="col-lg-12 preview-window">
-							{{ Session::get('preview') }}
-						</div>
-						@else
-							<div class="row content-preview" style="display: none">
-								<div class="col-lg-12 preview-window">
-									Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!
-								</div>
-								@endif
+				<div class="media markdown-toolbar">
+					<div class="pull-left">
+						<img class="media-object reply-box-avatar" src="/uploads/profile/small_{{ Auth::user()->profile_picture }}" alt="{{ Auth::user()->username }} Profile Picture">
+					</div>
+					<div class="media-body">
+						<form role="form" action="/posts/submit" method="POST">
+							<input type="hidden" name="thread_id" value="{{ $thread->id }}">
+							<div class="form-group">
+								<textarea class="form-control markdown-editor" id="content-body" name="body" rows="2" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
 							</div>
+							<div class="pull-left">
+								<p>For post formatting please use Kramdown, <a href="http://kramdown.gettalong.org/syntax.html">click here</a> for a syntax guide.</p>
+							</div>
+							<div class="markdown-form-buttons">
+								<button name="submit" type="submit" class="btn btn-success">Reply</button>
+								<button name="preview" type="submit" class="btn btn-primary non-js">Preview</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			@if (Session::has('preview'))
+				<div class="row content-preview">
+					<div class="col-lg-12 preview-window">
+						{{ Session::get('preview') }}
+					</div>
+					@else
+						<div class="row content-preview" style="display: none">
+							<div class="col-lg-12 preview-window">
+								Hey, whenever you type something in the upper box using markdown, you will see a preview of it over here!
+							</div>
+							@endif
+						</div>
 		@endif
-		</div>
-		<div class="col-lg-12 replies-list">
-			<p>Replies: <b>{{ $thread->posts()->count() - 1 }}</b>
-			<span class="pull-right"><b>Hey! This page will never end! Just keep on scrolling to see more posts!</b></span></p>
-		</div>
 		<div class="col-lg-12 post-nav">
 			<ul class="nav nav-tabs" role="tablist">
 				@if(!User::currentSort())

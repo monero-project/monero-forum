@@ -168,6 +168,9 @@ function getKramdown(body)
 }
 
 $('document').ready(function(){
+
+    $('.reply-box-avatar').addClass('js-reply-box-avatar');
+
     $(function () {
         $("[data-toggle='tooltip']").tooltip();
         $('.file-inputs').bootstrapFileInput();
