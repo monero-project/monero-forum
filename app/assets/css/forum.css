@@ -1007,8 +1007,8 @@ a.btn:hover {
     margin-top: 5px;
 }
 
-.post-indent:first-child {
-    padding-left: 0;
+.create-thread-container h1 {
+    margin: 0 0 20px 0;
 }
 
 @media (max-width: 768px) {

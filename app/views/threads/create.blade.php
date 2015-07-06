@@ -4,7 +4,7 @@
 {{ Breadcrumbs::addCrumb(e($forum->name), $forum->permalink()) }}
 {{ Breadcrumbs::addCrumb('Create a thread') }}
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-12 create-thread-container">
 			<h1>Create a Thread</h1>
 			{{ Form::open(array('url' => '/thread/create')) }}
 			 <input type="hidden" value="{{ $forum->id }}" name="forum_id">

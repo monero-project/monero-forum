@@ -47,8 +47,6 @@
 	<div class="row">
 		@if (Auth::check())
 			<div class="reply-box">
-				<div class="row">
-				</div>
 				<div class="media markdown-toolbar">
 					<div class="pull-left">
 						<img class="media-object reply-box-avatar" src="/uploads/profile/small_{{ Auth::user()->profile_picture }}" alt="{{ Auth::user()->username }} Profile Picture">
