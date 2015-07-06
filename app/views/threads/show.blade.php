@@ -22,9 +22,8 @@
 			  <div class="row post-block">
 				  {{ $thread->head()->body }}
 			  </div>
-				  @if (Auth::check())
-					  @include('threads.includes.controls')
-				  @endif
+				@include('threads.includes.controls')
+				<span class="reply-count"><i class="fa fa-comments-o"></i> Replies: <strong>{{ $thread->posts->count() - 1 }}</strong></span>
 		  </div>
 		</div>
 	</div>

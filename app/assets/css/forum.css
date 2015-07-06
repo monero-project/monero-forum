@@ -337,6 +337,7 @@ li.user-details {
 
 .thread-controls {
 	margin-bottom: 20px;
+    display: inline-block;
 }
 
 .thread-controls .glyphicon {
@@ -1011,6 +1012,15 @@ a.btn:hover {
     margin: 0 0 20px 0;
 }
 
+.reply-count {
+    display: inline-block;
+    text-align: right;
+    float: right;
+    line-height: 47px;
+}
+
+
+
 @media (max-width: 768px) {
 
     .search-bar .form-group {
@@ -1029,5 +1039,11 @@ a.btn:hover {
 @media (max-width: 991px) {
     .search-bar {
         text-align: left;
+    }
+}
+
+@media (max-width: 1200px) {
+    .reply-count {
+        display:none;
     }
 }
