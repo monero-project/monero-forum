@@ -152,8 +152,10 @@ Route::controller('messages', 'MessagesController', [
 ]);
 
 Route::controller('notifications', 'NotificationsController', [
-	'getIndex'  => 'notifications.index',
-	'getCount'  => 'notifications.count'
+	'getIndex'      => 'notifications.index',
+	'getCount'      => 'notifications.count',
+	'getGenerate'   => 'notifications.generate',
+	'getRss'        => 'notifications.rss'
 ]);
 
 Route::controller('subscriptions', 'SubscriptionsController', [

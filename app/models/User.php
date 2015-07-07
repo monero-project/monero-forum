@@ -52,6 +52,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Pushed_Rating');
 	}
 
+	public function notificationKey() {
+		return $this->hasOne('NotificationKey', 'user_id', 'id');
+	}
+
 	//needs get() or paginate() or whatever to get the results.
 	//returns all the conversations that a user is involved in.
 	public function conversations() {

@@ -5,6 +5,14 @@
 	{{ Breadcrumbs::addCrumb('Home', '/') }}
 	{{ Breadcrumbs::addCrumb('Notifications', '/notifications') }}
 
+	<div class="row text-right">
+		@if(!Auth::user()->notification_key)
+			<a href="{{ route('notifications.generate') }}"><button class="btn btn-success"><i class="fa fa-key"></i> Generate Key</button></a>
+		@else
+			<a href="{{ route('notifications.rss', [Auth::user()->notification_key->hash]) }}"><button class="btn btn-success"><i class="fa fa-rss"></i> Feed</button></a>
+		@endif
+	</div>
+
 	@foreach($notifications as $notification)
 	@if($notification->object)
 	<div class="row">

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class RemoveParentIdFromMessagesTable extends Migration {
+class CreateNotificationKeysTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,14 @@ class RemoveParentIdFromMessagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('messages', function(Blueprint $table)
+		Schema::create('notification_keys', function(Blueprint $table)
 		{
-			$table->dropColumn('parent_id');
+			$table->increments('id');
+
+			$table->integer('user_id')->unsigned();
+			$table->string('hash');
+
+			$table->timestamps();
 		});
 	}
 
@@ -26,10 +31,7 @@ class RemoveParentIdFromMessagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('messages', function(Blueprint $table)
-		{
-			$table->integer('parent_id')->unsigned()->index();
-		});
+		Schema::drop('notification_keys');
 	}
 
 }
