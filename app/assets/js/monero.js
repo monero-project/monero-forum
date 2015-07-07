@@ -208,17 +208,49 @@ $('document').ready(function(){
         $('.post .content-block').slideDown();
     });
 
-    $('.post-block a').each(function() {
+    $('.video-integration a').each(function(key, value) {
+        console.log('url detected.');
+
+        var link = $(this);
+
         video_uri = $(this).attr('href');
-        console.log(video_uri.match(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([^<]+)/g));
+        console.log(video_uri);
+
+        var youtube = /(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([^<]+)/g;
+        var vimeo = /(?:http:\/\/)?(?:www\.)?(?:vimeo\.com)\/([^<]+)/g;
+        var dailymotion = /(?:http:\/\/)?(?:dailymotion\.com|dai\.ly)\/([^<]+)/g;
+
+        var youtube_match = youtube.exec(video_uri);
+        var vimeo_match = vimeo.exec(video_uri);
+        var dailymotion_match = dailymotion.exec(video_uri);
+
+        var button = '<span class="fa-stack video-preview" video-id="'+key+'"><i class="fa fa-square-o fa-stack-2x"></i><i class="fa fa-video-camera fa-stack-1x"></i></span><span class="yt-preview-'+key+'" style="display:none">';
+
+        if(youtube_match) {
+            link.after(button+'<div class="videowrapper"><iframe width="640" height="360" src="http://www.youtube.com/embed/'+youtube_match[1]+'?modestbranding=1&rel=0&wmode=transparent&theme=light&color=white" frameborder="0" allowfullscreen></iframe></div></span>');
+        }
+        else if(vimeo_match)
+        {
+            link.after(button+'<div class="videowrapper"><iframe src="//player.vimeo.com/video/'+vimeo_match[1]+'" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></span>');
+        }
+        else if(dailymotion_match)
+        {
+            link.after(button+'<div class="videowrapper"><iframe frameborder="0" width="560" height="315" src="http://www.dailymotion.com/embed/video/'+dailymotion_match[1]+'?logo=0&foreground=ffffff&highlight=1bb4c6&background=000000" allowfullscreen></iframe></div></span>');
+        }
+    });
+
+    $('.video-preview').click(function(e) {
+        var video_id = $(this).attr('video-id');
+        if($(this).hasClass('active')) {
+            $('.yt-preview-' + video_id).hide();
+            $(this).removeClass('active');
+        }
+        else {
+            $('.yt-preview-' + video_id).show();
+            $(this).addClass('active');
+        }
     });
 
     autosize($('textarea'));
 
-    //$('body').html(function(i, html) {
-    //    return html
-    //        .replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([^<]+)/g, '<center><iframe width="640" height="360" src="http://www.youtube.com/embed/$1?modestbranding=1&rel=0&wmode=transparent&theme=light&color=white" frameborder="0" allowfullscreen></iframe></center>')
-    //        .replace(/(?:http:\/\/)?(?:www\.)?(?:vimeo\.com)\/([^<]+)/g, '<center><iframe src="//player.vimeo.com/video/$1" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></center>')
-    //        .replace(/(?:http:\/\/)?(?:dailymotion\.com|dai\.ly)\/([^<]+)/g, '<center><iframe frameborder="0" width="560" height="315" src="http://www.dailymotion.com/embed/video/$1?logo=0&foreground=ffffff&highlight=1bb4c6&background=000000" allowfullscreen></iframe></center>');
-    //});
 });

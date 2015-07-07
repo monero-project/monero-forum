@@ -19,7 +19,7 @@
 			  @if(in_array($thread->forum->id, Config::get('app.funding_forums')) && $thread->funding)
 			  @include('threads.includes.funding')
 			  @endif
-			  <div class="row post-block">
+			  <div class="row post-block video-integration">
 				  {{ $thread->head()->body }}
 			  </div>
 				@include('threads.includes.controls')

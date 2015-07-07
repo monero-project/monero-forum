@@ -24,7 +24,7 @@
 				@include('posts.includes.controls')
 			</div>
 			<div class="panel-body content-block content-block-{{ $post->id }}  @if ($post->is_hidden) hidden-post-content @endif" id="{{ $post->id }}">
-				<div class="post-content-{{ $post->id }}">
+				<div class="post-content-{{ $post->id }} video-integration">
 					@if ($post->trashed())
 						<p><em>[deleted]</em></p>
 					@else
