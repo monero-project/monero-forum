@@ -149,4 +149,58 @@ class MessagesController extends \BaseController
 		}
 	}
 
+	public function emailReply() {
+		//get email data from mailgun
+		$data = Input::all();
+
+		$from       = $data['sender'];
+		$to   = $data['recipient'];
+		$body       = $data['stripped-text'];
+
+		//get the user.
+		$user = User::where($from, 'email')->firstOrFail();
+
+		$exp = "/conversation-(\d+)/";
+		$str = $to;
+
+		preg_match($exp, $str, $matches);
+
+		if($matches) {
+			$conversation_id = $matches[1];
+			$conversation = Conversation::findOrFail($conversation_id);
+			if($conversation->user->id == $user->id || $conversation->receiver->id == $user->id)
+			{
+				$validate = [
+					'body'          =>  $data,
+					'conversation'  =>  $conversation_id
+				];
+
+				$validator = Message::validate($validate);
+
+				if (!$validator->fails()) {
+					Message::create([
+						'user_id' => $user->id,
+						'body' => $body,
+						'conversation_id' => $conversation_id,
+						'body_parsed' => 1
+					]);
+
+					$is_sender = $conversation->user_id == $user->id;
+
+					if ($is_sender) {
+						$conversation->receiver_read = 0;
+					} else {
+						$conversation->user_read = 0;
+					}
+
+					//update the created_at timestamp and bump the convo
+					//up the list.
+					$conversation->created_at = Carbon::now();
+					$conversation->save();
+				}
+			}
+		}
+
+	}
+
 }

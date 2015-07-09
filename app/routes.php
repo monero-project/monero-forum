@@ -6,6 +6,10 @@ Route::get('/', array(
 	'uses'  => 'HomeController@index'
 ));
 
+/* Email Replies */
+//pretty random, non-structural URL.
+Route::post('/email-conversation-reply', 'MessagesController@emailReply');
+
 /* Image Proxy */
 Route::get('/get/image/', 'PostsController@getProxyImage');
 
