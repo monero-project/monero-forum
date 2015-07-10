@@ -158,6 +158,8 @@ class MessagesController extends \BaseController
 		$to         = $data['recipient'];
 		$body       = $data['stripped-text'];
 
+		$body  = rtrim($body, '>'); //remove trailing quote from email body.
+
 		Log::info($body);
 
 		//get the user.
