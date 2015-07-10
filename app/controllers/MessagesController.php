@@ -158,6 +158,8 @@ class MessagesController extends \BaseController
 		$to         = $data['recipient'];
 		$body       = $data['stripped-text'];
 
+		Log::info($body);
+
 		//get the user.
 		$user = User::where('email', $from)->firstOrFail();
 
