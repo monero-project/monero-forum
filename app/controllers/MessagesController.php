@@ -160,19 +160,13 @@ class MessagesController extends \BaseController
 
 		$body  = rtrim($body, '>'); //remove trailing quote from email body.
 
-		Log::info($body);
-
 		//get the user.
 		$user = User::where('email', $from)->firstOrFail();
-
-		Log::info('User found');
 
 		$exp = "/conversation-(\d+)/";
 		$str = $to;
 
 		preg_match($exp, $str, $matches);
-
-		Log::info($matches);
 
 		if($matches) {
 			$conversation_id = $matches[1];
