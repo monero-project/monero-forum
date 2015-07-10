@@ -99,9 +99,9 @@ if (Auth::check()) {
 
 	Message::created(function($pm) {
 
-		Log::info('Checking user');
-
 		$user = $pm->user;
+
+		Log::info('Checking user '.$user->username);
 
 		if ($user->id == $pm->conversation->receiver_id) {
 			$sender = $pm->conversation->receiver;
@@ -126,7 +126,7 @@ if (Auth::check()) {
 			Mail::send('emails.pm', $data, function ($message) use ($receiver, $pm, $sender, $conversation_id) {
 				$message->from('conversation-' . $conversation_id . '@sandbox3c114f67499a4cecbda84350454e89fd.mailgun.org', Config::get('app.from_name'));
 				$message->to($receiver->email)->subject('New message from ' . $sender->username . ' - ' . str_limit($pm->conversation->title, 30, '[...]'));
-				Log::info('Mail sent');
+				Log::info('Mail sent to' . $receiver->email);
 			});
 		}
 	});
