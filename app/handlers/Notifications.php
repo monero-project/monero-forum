@@ -96,39 +96,34 @@ if (Auth::check()) {
 		$notifications->update(['notifications.is_new' => 0]);
 
 	});
-
-	Event::listen('message.sent', function($pm)
-	{
-		$user = $pm->user;
-
-		Log::info('Checking user '.$user->username);
-
-		if ($user->id == $pm->conversation->receiver_id) {
-			$sender = $pm->conversation->receiver;
-			$receiver = $pm->conversation->user;
-		} else {
-			$sender = $pm->conversation->user;
-			$receiver = $pm->conversation->receiver;
-		}
-
-
-		//check the user settings for reply notifications
-		if ($receiver->reply_notifications) {
-			Log::info('Reply notifications');
-			$data = array(
-				'pm' => $pm,
-				'receiver' => $receiver,
-				'sender' => $sender,
-			);
-
-			$conversation_id = $pm->conversation->id;
-
-			Mail::send('emails.pm', $data, function ($message) use ($receiver, $pm, $sender, $conversation_id) {
-				$message->from('conversation-' . $conversation_id . '@sandbox3c114f67499a4cecbda84350454e89fd.mailgun.org', Config::get('app.from_name'));
-				$message->to($receiver->email)->subject('New message from ' . $sender->username . ' - ' . str_limit($pm->conversation->title, 30, '[...]'));
-				Log::info('Mail sent to' . $receiver->email);
-			});
-		}
-	});
-
 }
+
+Event::listen('message.sent', function($pm)
+{
+	$user = $pm->user;
+
+	if ($user->id == $pm->conversation->receiver_id) {
+		$sender = $pm->conversation->receiver;
+		$receiver = $pm->conversation->user;
+	} else {
+		$sender = $pm->conversation->user;
+		$receiver = $pm->conversation->receiver;
+	}
+
+
+	//check the user settings for reply notifications
+	if ($receiver->reply_notifications) {
+		$data = array(
+			'pm' => $pm,
+			'receiver' => $receiver,
+			'sender' => $sender,
+		);
+
+		$conversation_id = $pm->conversation->id;
+
+		Mail::send('emails.pm', $data, function ($message) use ($receiver, $pm, $sender, $conversation_id) {
+			$message->from('conversation-' . $conversation_id . '@getmonero.org', Config::get('app.from_name'));
+			$message->to($receiver->email)->subject('New message from ' . $sender->username . ' - ' . str_limit($pm->conversation->title, 30, '[...]'));
+		});
+	}
+});
