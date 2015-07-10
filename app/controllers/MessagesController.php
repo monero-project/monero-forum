@@ -60,12 +60,14 @@ class MessagesController extends \BaseController
 				'user_read_at' => new DateTime(),
 			]);
 
-			$message = Message::create([
+			$pm = Message::create([
 				'user_id' => Auth::user()->id,
 				'body' => $body,
 				'conversation_id' => $conversation->id,
 				'body_parsed' => 1
 			]);
+
+			Event::fire('message.sent', array($pm));
 
 			Session::put('messages', ['Conversation started successfully!']);
 			return Redirect::route('messages.index');
@@ -115,12 +117,14 @@ class MessagesController extends \BaseController
 			//validate the message
 			$validator = Message::validate(Input::all());
 			if (!$validator->fails()) {
-				Message::create([
+				$pm = Message::create([
 					'user_id' => Auth::user()->id,
 					'body' => $body,
 					'conversation_id' => $conversation_id,
 					'body_parsed' => 1
 				]);
+
+				Event::fire('message.sent', array($pm));
 
 				$is_sender = $conversation->user_id == Auth::user()->id;
 
@@ -147,6 +151,64 @@ class MessagesController extends \BaseController
 			Session::put('errors', ['You don\'t have the permission to do this.']);
 			return Redirect::back();
 		}
+	}
+
+	public function emailReply() {
+		//get email data from mailgun
+		$data = Input::all();
+
+		$from       = $data['sender'];
+		$to         = $data['recipient'];
+		$body       = $data['stripped-text'];
+
+		$body  = rtrim($body, '>'); //remove trailing quote from email body.
+
+		//get the user.
+		$user = User::where('email', $from)->firstOrFail();
+
+		$exp = "/conversation-(\d+)/";
+		$str = $to;
+
+		preg_match($exp, $str, $matches);
+
+		if($matches) {
+			$conversation_id = $matches[1];
+			$conversation = Conversation::findOrFail($conversation_id);
+			if($conversation->user->id == $user->id || $conversation->receiver->id == $user->id)
+			{
+				$validate = [
+					'body'          =>  $data,
+					'conversation'  =>  $conversation_id
+				];
+
+				$validator = Message::validate($validate);
+
+				if (!$validator->fails()) {
+					$pm = Message::create([
+						'user_id' => $user->id,
+						'body' => $body,
+						'conversation_id' => $conversation_id,
+						'body_parsed' => 1
+					]);
+
+					Event::fire('message.sent', array($pm));
+
+					$is_sender = $conversation->user_id == $user->id;
+
+					if ($is_sender) {
+						$conversation->receiver_read = 0;
+					} else {
+						$conversation->user_read = 0;
+					}
+
+					//update the created_at timestamp and bump the convo
+					//up the list.
+					$conversation->created_at = Carbon::now();
+					$conversation->save();
+				}
+			}
+		}
+
 	}
 
 }
