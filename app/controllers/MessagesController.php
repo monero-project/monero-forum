@@ -155,11 +155,11 @@ class MessagesController extends \BaseController
 		$data = Input::all();
 
 		$from       = $data['sender'];
-		$to   = $data['recipient'];
+		$to         = $data['recipient'];
 		$body       = $data['stripped-text'];
 
 		//get the user.
-		$user = User::where($from, 'email')->firstOrFail();
+		$user = User::where('email', $from)->firstOrFail();
 
 		Log::info('User found');
 
