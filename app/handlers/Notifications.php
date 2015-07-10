@@ -97,8 +97,8 @@ if (Auth::check()) {
 
 	});
 
-	Message::created(function($pm) {
-
+	Event::listen('message.sent', function($pm)
+	{
 		$user = $pm->user;
 
 		Log::info('Checking user '.$user->username);
