@@ -150,7 +150,6 @@ class MessagesController extends \BaseController
 	}
 
 	public function emailReply() {
-		Log::info('Email received');
 		//get email data from mailgun
 		$data = Input::all();
 
