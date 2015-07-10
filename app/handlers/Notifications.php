@@ -122,7 +122,7 @@ Event::listen('message.sent', function($pm)
 		$conversation_id = $pm->conversation->id;
 
 		Mail::send('emails.pm', $data, function ($message) use ($receiver, $pm, $sender, $conversation_id) {
-			$message->from('conversation-' . $conversation_id . '@getmonero.org', Config::get('app.from_name'));
+			$message->from('conversation-' . $conversation_id . '@sandbox3c114f67499a4cecbda84350454e89fd.mailgun.org', Config::get('app.from_name'));
 			$message->to($receiver->email)->subject('New message from ' . $sender->username . ' - ' . str_limit($pm->conversation->title, 30, '[...]'));
 		});
 	}
