@@ -150,6 +150,7 @@ class MessagesController extends \BaseController
 	}
 
 	public function emailReply() {
+		Log::info('Email received');
 		//get email data from mailgun
 		$data = Input::all();
 
@@ -160,10 +161,14 @@ class MessagesController extends \BaseController
 		//get the user.
 		$user = User::where($from, 'email')->firstOrFail();
 
+		Log::info('User found');
+
 		$exp = "/conversation-(\d+)/";
 		$str = $to;
 
 		preg_match($exp, $str, $matches);
+
+		Log::info($matches);
 
 		if($matches) {
 			$conversation_id = $matches[1];
