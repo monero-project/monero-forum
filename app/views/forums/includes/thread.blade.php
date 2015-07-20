@@ -17,6 +17,8 @@
 	<div class="col-md-2 thread-replies">
 		<p>Replies: <b>{{ $thread->posts()->count() - 1}}</b></p>
 	</div>
+</div>
+<div class="row">
 	@if($thread->funding)
 		@include('forums.includes.funding')
 	@endif
