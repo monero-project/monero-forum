@@ -60,12 +60,14 @@ class MessagesController extends \BaseController
 				'user_read_at' => new DateTime(),
 			]);
 
-			$message = Message::create([
+			$pm = Message::create([
 				'user_id' => Auth::user()->id,
 				'body' => $body,
 				'conversation_id' => $conversation->id,
 				'body_parsed' => 1
 			]);
+
+			Event::fire('message.sent', array($pm));
 
 			Session::put('messages', ['Conversation started successfully!']);
 			return Redirect::route('messages.index');
@@ -115,12 +117,14 @@ class MessagesController extends \BaseController
 			//validate the message
 			$validator = Message::validate(Input::all());
 			if (!$validator->fails()) {
-				Message::create([
+				$pm = Message::create([
 					'user_id' => Auth::user()->id,
 					'body' => $body,
 					'conversation_id' => $conversation_id,
 					'body_parsed' => 1
 				]);
+
+				Event::fire('message.sent', array($pm));
 
 				$is_sender = $conversation->user_id == Auth::user()->id;
 
@@ -154,11 +158,13 @@ class MessagesController extends \BaseController
 		$data = Input::all();
 
 		$from       = $data['sender'];
-		$to   = $data['recipient'];
+		$to         = $data['recipient'];
 		$body       = $data['stripped-text'];
 
+		$body  = rtrim($body, '>'); //remove trailing quote from email body.
+
 		//get the user.
-		$user = User::where($from, 'email')->firstOrFail();
+		$user = User::where('email', $from)->firstOrFail();
 
 		$exp = "/conversation-(\d+)/";
 		$str = $to;
@@ -178,12 +184,14 @@ class MessagesController extends \BaseController
 				$validator = Message::validate($validate);
 
 				if (!$validator->fails()) {
-					Message::create([
+					$pm = Message::create([
 						'user_id' => $user->id,
 						'body' => $body,
 						'conversation_id' => $conversation_id,
 						'body_parsed' => 1
 					]);
+
+					Event::fire('message.sent', array($pm));
 
 					$is_sender = $conversation->user_id == $user->id;
 
