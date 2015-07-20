@@ -11,7 +11,7 @@ class MentionHandler
 
 	public function handle($data)
 	{
-		$this->body_original = $data->body;
+		$this->body_original = $data->body_original;
 
 		$this->usernames = $this->getUsernames();
 		count($this->usernames) > 0 && $this->users = User::whereIn('username', $this->usernames)->get();
@@ -54,9 +54,6 @@ class MentionHandler
 		preg_match_all("/(\S*)\@([^\r\n\s]*)/i", $this->body_original, $mentioned);
 		$usernames = [];
 		foreach ($mentioned[2] as $key => $username) {
-			if ($mentioned[1][$key] || strlen($username) > 25) {
-				continue;
-			}
 			$usernames[] = $username;
 		}
 		return array_unique($usernames);
@@ -71,5 +68,7 @@ class MentionHandler
 			$place = '[' . $search . '](' . URL::route('user.show', [$user->username]) . ')';
 			$this->body_parsed = str_replace($search, $place, $this->body_parsed);
 		}
+
+		$this->body_parsed = Markdown::string($this->body_parsed);
 	}
 }
