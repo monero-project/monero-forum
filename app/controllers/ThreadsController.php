@@ -91,7 +91,7 @@ class ThreadsController extends \BaseController
 				//if user is authenticated, cache the query
 				if (Auth::check()) {
 					$cache_key = 'user_' . Auth::user()->id . '_thread_' . $thread->id . '_page_' . Input::get('page', 1);
-					$posts = Cache::remember($cache_key, Config::get('app.cache_posts_for'), function () use ($thread, $posts_per_page) {
+					$posts = Cache::tags('thread_'.$thread->id, 'user_'.Auth::user()->id)->remember($cache_key, Config::get('app.cache_posts_for'), function () use ($thread, $posts_per_page) {
 						//do not touch. might explode.
 						$temp_posts = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->get();
 						$temp_posts = $temp_posts->sortBy('weight')->reverse();
