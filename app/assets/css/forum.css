@@ -1046,6 +1046,10 @@ a.btn:hover {
     height: 100%;
 }
 
+blockquote p:first-child {
+    margin-top: 0;
+}
+
 @media (max-width: 768px) {
 
     .search-bar .form-group {
