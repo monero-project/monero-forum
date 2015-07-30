@@ -241,7 +241,7 @@ $('.content-block').each(function () {
                 if(reply_count) {
                     $('.expand-label-' + head)
                         .show()
-                        .html('<i class="fa fa-reply-all"></i>' + username + ' and ' + reply_count + ' others have replied.')
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' and at least ' + reply_count + ' others have replied.')
                         .click({parents: show_posts, head: head}, show_children);
                 }
                 else {

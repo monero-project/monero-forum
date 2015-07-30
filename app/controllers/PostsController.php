@@ -100,7 +100,8 @@ class PostsController extends \BaseController {
 			}
 
 			else
-				return View::make('threads.show', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
+				return Redirect::to($thread->permalink())->with(array('errors' => $validator->messages()->all()));
+//				return View::make('threads.show', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug, 'thread' => $thread));
 		}
 		else {
 			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));

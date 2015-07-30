@@ -790,6 +790,7 @@ p.syntax {
     font-style: italic;
     padding: 10px 20px;
     cursor: pointer;
+    display: none;
 }
 
 .expand-label .fa {

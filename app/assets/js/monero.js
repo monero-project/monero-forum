@@ -208,13 +208,15 @@ $('document').ready(function(){
         $('.post .content-block').slideDown();
     });
 
+    $('#collapse-all').click(function () {
+        $('.post .content-block').slideUp();
+    });
+
     $('.video-integration a').each(function(key, value) {
-        console.log('url detected.');
 
         var link = $(this);
 
         video_uri = $(this).attr('href');
-        console.log(video_uri);
 
         var youtube = /(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([^<]+)/g;
         var vimeo = /(?:http:\/\/)?(?:www\.)?(?:vimeo\.com)\/([^<]+)/g;
