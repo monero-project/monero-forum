@@ -20,6 +20,16 @@
 	  <a href="/thread/create/{{ $forum->id }}"><button class="btn full-width btn-success">Create a Thread</button></a>
   </div>
   <div class="panel-body thread-list">
+	@if($queued && sizeof($queued))
+		<h4>Your threads in this forum are awaiting moderation:</h4>
+	    @foreach($queued as $item)
+			<div class="panel panel-default">
+				<div class="panel-body">
+					{{{ $item->name  }}}
+				</div>
+			</div>
+        @endforeach
+    @endif
     @foreach ($threads as $thread)
     @include('forums.includes.thread')
 	@endforeach

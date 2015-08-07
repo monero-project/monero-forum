@@ -54,7 +54,7 @@
 		  	<div class="row">
 			  	<div class="col-md-8">
 			  		<quote>
-			  		{{ Markdown::string(e($report->post->body)) }}
+			  		{{ $report->post->body }}
 			  		</quote>
 			  	</div>
 			  	<div class="col-md-4">
@@ -97,5 +97,40 @@
 	  </div>
 	</div>
 	</div>
+	<div class="row admin-panel">
+		<div class="panel panel-default col-md-12">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-filter"></i> Moderation Queue</h3>
+			</div>
+			<div class="panel-body">
+				@foreach($queued as $queued_item)
+					<div class="media queued-item">
+						<div class="media-left">
+							<a href="{{ route('user.show', $queued_item->user->username) }}">
+								<img class="profile-picture-sm queued-picture" src="/uploads/profile/small_{{ $queued_item->user->profile_picture }}">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading"><a href="{{ route('user.show', $queued_item->user->username) }}">{{{ $queued_item->user->username }}}</a></h4>
+							{{ $queued_item->body }}
+							@if($queued_item->akismet)
+								<p class="help-block">This post has been marked as spam by <strong>Akismet</strong>.</p>
+							@else
+								<p class="help-block">This post has been reported as spam by <strong>users</strong>.</p>
+							@endif
+							<div class="controls">
+								<a href="{{ route('akismet.approve', $queued_item->id) }}"><button class="btn btn-sm btn-success"><i class="fa fa-check"></i> Approve</button></a>
+								<a href="{{ route('admin.delete', ['post', $queued_item->id]) }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button></a>
+								@if(!$queued_item->akismet)
+								<a href="{{ route('akismet.spam', $queued_item->id) }}"><button class="btn btn-sm btn-warning"><i class="fa fa-trash"></i> SPAM</button></a>
+								@else
+								<a href="{{ route('akismet.ham', $queued_item->id) }}"><button class="btn btn-sm btn-info"><i class="fa fa-check"></i> HAM</button></a>
+								@endif
+							</div>
+						</div>
+					</div>
+				@endforeach
+			</div>
+		</div>
 	</div>
 @stop

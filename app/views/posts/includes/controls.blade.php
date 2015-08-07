@@ -1,5 +1,8 @@
 @if (Auth::check() && !$post->deleted_at)
 	<span class="meta-buttons pull-right">
+		@if(Auth::check() && $post->is_unread)
+			<button type="button" class="btn btn-default btn-xs next-unread" unread-id="{{ $unread_count }}"><i class="fa fa-forward"></i> Next Unread</button>
+		@endif
 		@if (Auth::check() && (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Moderator')))
 			<a href="/mod/delete/post/{{ $post->id }}"><button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Mod Delete</button></a>
 		@endif

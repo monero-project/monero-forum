@@ -1050,6 +1050,22 @@ blockquote p:first-child {
     margin-top: 0;
 }
 
+.queued-post {
+    border-color: #ff1814;
+}
+
+.admin-panel .panel-heading .fa {
+    color: #fff;
+}
+
+.queued-picture {
+    margin-right: 24px;
+}
+
+.queued-item {
+    margin-bottom: 20px;
+}
+
 @media (max-width: 768px) {
 
     .search-bar .form-group {

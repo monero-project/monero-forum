@@ -8,6 +8,10 @@ return array(
 	|
 	*/
 
+	/* Akismet API Key */
+
+	'akismet_key'                       => '086e9f033de6',
+
 	/*	Admin List */
 
 	'admins' 							=> array('fluffypony', 'Edvinas'), 		//these admins will be appointed once roles are created.

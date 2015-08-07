@@ -58,6 +58,17 @@ class PostsController extends \BaseController {
 				$post->parsed = 1;
 				$post->weight = Config::get('app.base_weight');
 
+				$post->referrer = $_SERVER['HTTP_REFERER'];
+
+				if (Request::header('X-Forwarded-For') != NULL) {
+					$post->ip   = Request::header('X-Forwarded-For');
+				}
+				else {
+					$post->ip   = Request::getClientIp();
+				}
+
+				$post->user_agent = $_SERVER['HTTP_USER_AGENT'];
+
 				if (Input::get('post_id', false))
 				{
 					$post->parent_id = Input::get('post_id');
@@ -249,6 +260,17 @@ class PostsController extends \BaseController {
 			$report->link 	 = Post::findOrFail(Input::get('post_id'))->thread->permalink()."?page=".Input::get('page')."&noscroll=1#post-".Input::get('post_id'); 
 			$report->comment = Input::get('comment');
 			$report->save();
+
+			//count all flags for a given post.
+			$count = Flag::where('post_id', Input::get('post_id'))->where('status', 0)->count();
+
+			if($count >= 3) {
+				//flag post if count is equal to or more than 3
+				$post = Post::findOrFail(Input::get('post_id'));
+				$post->is_queued = true;
+				$post->save();
+			}
+
 			return Redirect::to(URL::previous())->with('messages', array('You have successfully reported this post!'));
 		}
 		else {

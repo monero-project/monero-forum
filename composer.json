@@ -36,7 +36,10 @@
 			"app/database/seeds",
 			"app/tests/TestCase.php",
             "app/handlers/Mention.php"
-		]
+		],
+      "files": [
+        "app/libraries/akismet.fuspam.php"
+      ]
 	},
 	"scripts": {
 		"post-install-cmd": [

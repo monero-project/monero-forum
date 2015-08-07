@@ -6,7 +6,7 @@
 		{{--Children: {{ $children }}--}}
 		@include('posts.includes.breadcrumbs')
 		<div class="expand-label expand-label-{{ $post->id }}"></div>
-		<div class="panel panel-default post-panel @if ($post->is_unread) post-unread @endif">
+		<div class="panel panel-default post-panel @if ($post->is_unread) post-unread @endif" @if ($post->is_unread) id="unread-post-{{ $unread_count }}" @endif>
 			<div class="panel-heading">
 				<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}"><a class="user-post-{{$post->id}}" href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a> <span class="mobile-hide-text">posted </span> <span class="date" data-toggle="tooltip" data-placement="top" title="{{ $post->created_at }}">{{ $post->created_at->diffForHumans() }}</span>
 				<small>

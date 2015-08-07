@@ -49,12 +49,12 @@ class ThreadsController extends \BaseController
 
 				switch ($sort) {
 					case 'date_desc':
-						$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->where('id', '<>', $thread->post_id)->orderBy('created_at', 'DESC')->paginate($posts_per_page);
+						$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->where('id', '<>', $thread->post_id)->orderBy('created_at', 'DESC')->where('is_queued', false)->paginate($posts_per_page);
 						$posts['list'] = $paginated->getItems();
 						$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 						break;
 					case 'date_asc':
-						$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->where('id', '<>', $thread->post_id)->orderBy('created_at', 'ASC')->paginate($posts_per_page);
+						$paginated = Post::withTrashed()->where('thread_id', '=', $thread->id)->where('id', '<>', $thread->post_id)->orderBy('created_at', 'ASC')->where('is_queued', false)->paginate($posts_per_page);
 						$posts['list'] = $paginated->getItems();
 						$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 						break;
@@ -63,7 +63,7 @@ class ThreadsController extends \BaseController
 						if (Auth::check()) {
 							$cache_key = 'user_' . Auth::user()->id . '_thread_' . $thread->id . '_page_' . Input::get('page', 1);
 							$posts = Cache::tags(['thread_'.$thread->id])->remember($cache_key, Config::get('app.cache_posts_for'), function () use ($thread, $posts_per_page) {
-								$temp_posts = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->get();
+								$temp_posts = Post::withTrashed()->where('thread_id', '=', $thread->id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->where('is_queued', false)->get();
 								$temp_posts = $temp_posts->sortBy('weight')->reverse();
 								$count = $temp_posts->count();
 
@@ -76,7 +76,7 @@ class ThreadsController extends \BaseController
 							});
 						} //else just get the default posts with the default weight
 						else {
-							$paginated = Post::withTrashed()->where('thread_id', '=', $thread_id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->orderBy('weight', 'DESC')->paginate($posts_per_page);
+							$paginated = Post::withTrashed()->where('thread_id', '=', $thread_id)->whereNull('parent_id')->where('id', '<>', $thread->post_id)->where('is_queued', false)->orderBy('weight', 'DESC')->paginate($posts_per_page);
 							$posts['list'] = $paginated->getItems();
 							$posts['links'] = $paginated->appends(array('sort' => Input::get('sort')))->links();
 						}
@@ -114,7 +114,19 @@ class ThreadsController extends \BaseController
 
 			Session::put('thread_id', $thread_id);
 			Event::fire('thread.read', [$thread]);
-			return View::make('threads.show', array('resource_id' => $thread_id, 'posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | ' . $thread->forum->name . ' &raquo; ' . $thread->name));
+
+			//get queued posts for specific the specific user
+
+			if(Auth::check())
+			{
+				$queued = Post::where('thread_id', '=', $thread_id)->where('id', '<>', $thread->post_id)->orderBy('weight', 'DESC')->where('is_queued', true)->where('user_id', Auth::user()->id)->get();
+			}
+			else
+			{
+				$queued = false;
+			}
+
+			return View::make('threads.show', array('queued' => $queued, 'resource_id' => $thread_id, 'posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | ' . $thread->forum->name . ' &raquo; ' . $thread->name));
 		} else {
 			App::abort(404);
 		}

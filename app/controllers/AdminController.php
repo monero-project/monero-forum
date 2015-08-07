@@ -3,7 +3,8 @@
 class AdminController extends \BaseController {
 	
 	public function index() {
-		return View::make('admin.index');
+		$queued = Post::where('is_queued', true)->get();
+		return View::make('admin.index', compact('queued'));
 	}
 	
 	public function getCreate($content_type) {

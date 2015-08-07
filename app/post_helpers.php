@@ -2,7 +2,7 @@
 
 //Post helper functions. Mainly for displaying the tree view and helping to easily accommodate the endless flow + pagination.
 
-function display_posts($parent_id, $thread_id, $level) {
+function display_posts($parent_id, $thread_id, $level, $unread_count) {
 
 	if ($parent_id == NULL)
 	{
@@ -25,7 +25,15 @@ function display_posts($parent_id, $thread_id, $level) {
 
 			if($post && (!$post->deleted_at || $post->children()->count() > 0)) {
 				$serialized_bread = serialize_bread($full_breadcrumbs);
-				$the_posts .= View::make('posts.item', array('post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children))->render();
+				if($post->is_unread)
+				{
+					$unread = $unread_count++;
+				}
+				else
+				{
+					$unread = $unread_count;
+				}
+				$the_posts .= View::make('posts.item', array('post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
 			}
 		}
 	}
@@ -33,18 +41,27 @@ function display_posts($parent_id, $thread_id, $level) {
 	return $the_posts.'</div>';
 }
 
-function thread_posts($posts, $thread_id, $level) {
+function thread_posts($posts, $thread_id, $level, $unread_count) {
 	$post_list = '<div class="post-batch">';
 	foreach ($posts as $post)
 	{
 		$post_obj = Post::withTrashed()->where('id',$post['id'])->first();
-		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count() > 0))
-			$post_list .= View::make('posts.item', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => [], 'serialized_bread' => '', 'head' => '', 'children' => ''))->render();
+		if($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count() > 0)) {
+			if($post_obj->is_unread)
+			{
+				$unread = $unread_count++;
+			}
+			else
+			{
+				$unread = $unread_count;
+			}
+			$post_list .= View::make('posts.item', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => [], 'serialized_bread' => '', 'head' => '', 'children' => '', 'unread_count' => $unread))->render();
+		}
 	}
 	return $post_list.'</div>';
 }
 
-function unthreaded_posts($posts, $thread_id) {
+function unthreaded_posts($posts, $thread_id, $unread_count) {
 	$post_list = '<div class="post-batch">';
 	foreach ($posts as $key => $post)
 	{
@@ -65,7 +82,15 @@ function unthreaded_posts($posts, $thread_id) {
 			if ($post_obj && (!$post_obj->deleted_at || $post_obj->children()->count())) {
 				$level = 0;
 				$serialized_bread = serialize_bread($full_breadcrumbs);
-				$post_list .= View::make('posts.item', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children))->render();
+				if($post_obj->is_unread)
+				{
+					$unread = $unread_count++;
+				}
+				else
+				{
+					$unread = $unread_count;
+				}
+				$post_list .= View::make('posts.item', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
 			}
 		}
 	}

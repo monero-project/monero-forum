@@ -6,6 +6,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 					@foreach($items as $item)
+						@if($item->thread)
 						<div class="col-lg-12">
 							<div class="row">
 								<a href="{{ route('thread.short', $item->thread->id) }}" target="_blank">{{{ $item->thread->name }}}</a>
@@ -24,6 +25,7 @@
 								</div>
 							</div>
 						</div>
+					@endif
 				@endforeach
 			</div>
 			<div class="col-lg-12">

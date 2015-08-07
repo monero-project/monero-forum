@@ -224,6 +224,7 @@ class Post extends \Eloquent {
 	}
 
 	public function getIsUnreadAttribute() {
+//		return true;
 		$post = $this;
 		$unread = !$post->deleted_at
 		&&
@@ -245,6 +246,6 @@ class Post extends \Eloquent {
 //	{
 //		return Markdown::string($value);
 //	}
-    
-    
+
+
 }

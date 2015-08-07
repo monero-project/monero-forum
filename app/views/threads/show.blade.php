@@ -83,13 +83,23 @@
 				@endif
 			</ul>
 		</div>
+		@if($queued && sizeof($queued))
+		<div class="row post-indent">
+			<div class="col-lg-12">
+				<h4>You posts are awaiting moderation:</h4>
+				@foreach($queued as $queued_item)
+					@include('posts.queued')
+				@endforeach
+			</div>
+		</div>
+		@endif
 		<div id="trunk">
 			@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && Auth::check() && Auth::user()->default_sort == 'weight'))
-				{{ thread_posts($posts, $thread->id, 0) }}
+				{{ thread_posts($posts, $thread->id, 0, 1) }}
 			@elseif (Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight')
-				{{ unthreaded_posts($posts, $thread->id) }}
+				{{ unthreaded_posts($posts, $thread->id, 0, 1) }}
 			@else
-				{{ thread_posts($posts, $thread->id, 0) }}
+				{{ thread_posts($posts, $thread->id, 0, 1) }}
 			@endif
 		</div>
 		<div class="post-links">

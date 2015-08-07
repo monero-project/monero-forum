@@ -6,6 +6,11 @@ Route::get('/', array(
 	'uses'  => 'HomeController@index'
 ));
 
+Route::get('/akismet/spam/{id}', ['as' => 'akismet.spam', 'uses' => 'AkismetController@spam']);
+Route::get('/akismet/ham/{id}', ['as' => 'akismet.ham', 'uses' => 'AkismetController@ham']);
+Route::get('/akismet/approve/{id}', ['as' => 'akismet.approve', 'uses' => 'AkismetController@approve']);
+
+
 /* Email Replies */
 //pretty random, non-structural URL.
 Route::post('/email-conversation-reply', 'MessagesController@emailReply');
@@ -37,7 +42,7 @@ Route::get('/admin', 'AdminController@index');
 Route::get('/admin/manage/{content_type}', 'AdminController@manage');
 Route::get('/admin/create/{content_type}', 'AdminController@getCreate');
 Route::get('/admin/edit/{content_type}/{content_id}', 'AdminController@getEdit');
-Route::get('/admin/delete/{content_type}/{content_id}', 'AdminController@delete');
+Route::get('/admin/delete/{content_type}/{content_id}', ['as' => 'admin.delete', 'uses' => 'AdminController@delete']);
 
 Route::post('/admin/create', 'AdminController@postCreate');
 Route::post('/admin/edit', 'AdminController@postEdit');
@@ -55,10 +60,10 @@ Route::get('/mod/move/thread/{thread_id}', array('before' => 'mod', 'uses' => 'M
 Route::post('/mod/move/thread/', array('before' => 'mod', 'uses' => 'ModController@postMove'));
 
 //Deletes
-Route::get('/mod/delete/{content_type}/{content_id}', array('before' => 'mod', 'uses' => 'ModController@delete'));
+Route::get('/mod/delete/{content_type}/{content_id}', array('as' => 'mod.delete', 'before' => 'mod', 'uses' => 'ModController@delete'));
 
 /* User Controller */
-Route::get('/user/profile', array('before' => 'auth', 'uses' => 'UsersController@self'));
+Route::get('/user/profile', array('as' => 'user.profile', 'before' => 'auth', 'uses' => 'UsersController@self'));
 Route::get('/user/settings', 'UserController@settings');
 Route::get('/user/forgot-password', 'UsersController@getForgotPassword');
 Route::post('/user/forgot-password', 'UsersController@postForgotPassword');
@@ -112,7 +117,7 @@ Route::post('/thread/create', array('before' => 'auth', 'uses' => 'ThreadsContro
 Route::get('/thread/delete/{thread_id}', array('before' => 'auth', 'uses' => 'ThreadsController@delete'));
 
 //AJAX calls
-Route::get('/posts/delete/{post_id}', array('before' => 'auth', 'uses' => 'PostsController@delete'));
+Route::get('/posts/delete/{post_id}', array('as' => 'post.delete', 'before' => 'auth', 'uses' => 'PostsController@delete'));
 Route::get('/posts/get/{post_id}', array('before' => 'auth', 'uses' => 'PostsController@get'));
 
 //Standalone Pages
