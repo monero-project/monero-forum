@@ -9,6 +9,7 @@ Route::get('/', array(
 Route::get('/akismet/spam/{id}', ['as' => 'akismet.spam', 'uses' => 'AkismetController@spam']);
 Route::get('/akismet/ham/{id}', ['as' => 'akismet.ham', 'uses' => 'AkismetController@ham']);
 Route::get('/akismet/approve/{id}', ['as' => 'akismet.approve', 'uses' => 'AkismetController@approve']);
+Route::get('/akismet/delete/{id}', ['as' => 'akismet.delete', 'uses' => 'AkismetController@delete']);
 
 
 /* Email Replies */
@@ -126,7 +127,7 @@ Route::get('/posts/delete/page/{post_id}', array('before' => 'auth', 'uses' => '
 Route::get('/posts/reply/{post_id}', array('before' => 'auth', 'uses' => 'PostsController@getReplyPage'));
 
 //Reports
-Route::get('/posts/report/{post_id}/{page_number}', array('before' => 'auth', 'uses' => 'PostsController@getReportPage'));
+Route::get('/posts/report/{post_id}/{page_number}', array('as' => 'post.report', 'before' => 'auth', 'uses' => 'PostsController@getReportPage'));
 Route::post('/posts/report/', array('before' => 'auth', 'uses' => 'PostsController@postReport'));
 
 /*	Votes	*/

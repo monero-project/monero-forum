@@ -327,6 +327,15 @@ class AdminController extends \BaseController {
 			{
 				$flag->delete();
 			}
+
+			//Delete thread if post is head post.
+
+			$thread = Thread::where('post_id', $post->id)->first();
+
+			if($thread)
+			{
+				$thread->delete();
+			}
 			
 			$post->delete();
 			

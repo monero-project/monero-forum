@@ -173,17 +173,21 @@ class ThreadsController extends \BaseController
 
 				$data = array(
 					'thread_id' => $thread->id,
-					'body' => Input::get('body')
+					'body' => Input::get('body'),
+					'user_id'   => Auth::user()->id
 				);
 
 				$post_validator = Post::validate($data);
 
 				if (!$post_validator->fails()) {
-					$post = Post::create([
-						'user_id' => Auth::user()->id,
-						'thread_id' => $thread->id,
-						'body' => Input::get('body')
-					]);
+
+					Log::info('creating post');
+
+					$data['body_original']  = $data['body'];
+					$data['body']           = Markdown::string($data['body']);
+
+					$post = Post::create($data);
+
 				} else {
 					Thread::find($thread->id)->forceDelete(); //delete the created thread if something somewhere goes terribly wrong.
 					Session::put('errors', $post_validator->messages()->all());

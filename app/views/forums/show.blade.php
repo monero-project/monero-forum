@@ -23,9 +23,9 @@
 	@if($queued && sizeof($queued))
 		<h4>Your threads in this forum are awaiting moderation:</h4>
 	    @foreach($queued as $item)
-			<div class="panel panel-default">
-				<div class="panel-body">
-					{{{ $item->name  }}}
+			<div class="row">
+				<div class="col-lg-12">
+					{{{ $item->name }}}
 				</div>
 			</div>
         @endforeach

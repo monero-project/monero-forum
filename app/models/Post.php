@@ -1,10 +1,12 @@
 <?php
 
 class Post extends \Eloquent {
+
 	protected $fillable = [
 		'user_id',
 		'thread_id',
-		'body'
+		'body',
+		'body_original'
 	];
 	protected $softDelete = true;
 

@@ -20,27 +20,24 @@ Post::created(function($post) {
 		$post->akismet = true;
 	}
 
-	if($post->is_queued) {
-		$thread = $post->thread;
-		$thread->is_queued = true;
-		$thread->save();
-	}
-
 	Log::info('Post '.$post->id. 'checked. '.$check.' returned');
 
 	$post->save();
 
 });
-//
-//Thread::created(function($thread) {
-//
-//	//if post in queue
-//	//queue up thread
-//
-//	$post = Post::find($thread->post_id);
-//
-//	if($post && $post->is_queued) {
-//		$thread->is_queued = true;
-//		$thread->save();
-//	}
-//});
+
+Thread::saved(function($thread) {
+
+	//Have to do this on-save because post id is only added to the thread once a post is created.
+	//Meaning, the head cannot be retrieved on-create.
+
+	Log::info('Thread created '.$thread->id);
+
+	$head = $thread->head();
+	if($head && $head->is_queued && !$thread->is_queued)
+	{
+		$thread->is_queued = true;
+		$thread->save();
+	}
+
+});

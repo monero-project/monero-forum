@@ -6,7 +6,7 @@
 {{ Breadcrumbs::addCrumb('Report') }}
 <div class="row report-post">
 	<div class="col-md-12">
-		{{ Markdown::string(e($post->body)) }}
+		{{ $post->body }}
 	</div>
 	<div class="col-md-12">
 		Posted by: {{{ $post->user->username }}}

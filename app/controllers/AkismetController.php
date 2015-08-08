@@ -2,6 +2,13 @@
 
 class AkismetController extends \BaseController {
 
+	function __construct() {
+		if(!(Auth::check() && Auth::user()->hasRole('Admin')))
+		{
+			App::abort(404);
+		}
+	}
+
 	//Delete post
 	//Mark it as SPAM in Akismet
 	public function spam($id) {
@@ -80,6 +87,8 @@ class AkismetController extends \BaseController {
 		$post->is_queued    = false;
 		$post->akismet      = false;
 
+		$post->save();
+
 		//remove flags
 		Flag::where('post_id', $post->id)->where('status', 0)->update(['status' => 2]);
 
@@ -90,7 +99,21 @@ class AkismetController extends \BaseController {
 			$thread->save();
 		}
 
-		$post->save();
+		return Redirect::to('/admin');
+	}
+
+	public function delete($id) {
+
+		$post = Post::findOrFail($id);
+
+		$thread = Thread::where('post_id', $post->id)->first();
+
+		if($thread)
+		{
+			$thread->forceDelete();
+		}
+
+		$post->forceDelete();
 
 		return Redirect::to('/admin');
 	}

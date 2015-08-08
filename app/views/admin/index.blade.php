@@ -45,7 +45,7 @@
 	<div class="row admin-panel">
 	<div class="panel panel-default col-md-12">
 	  <div class="panel-heading">
-	    <h3 class="panel-title"><span class="glyphicon glyphicon-flag"></span> Flagged Posts</h3>
+	    <h3 class="panel-title"><i class="fa fa-flag"></i> Flags</h3>
 	  </div>
 	  <div class="panel-body">
 		  @foreach(Flag::where('status', '!=', 2)->orderBy('created_at', 'DESC')->paginate(10) as $report)
@@ -82,9 +82,9 @@
 			    Action <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			  	<li><a href="{{ $report->link }}">Visit Post</a></li>
+			  	<li><a href="{{ $report->link }}">Visit</a></li>
 			  	<li class="divider"></li>
-			    <li><a href="/admin/delete/post/{{ $report->post->id }}">Delete Post</a></li>
+			    <li><a href="/admin/delete/post/{{ $report->post->id }}">Delete</a></li>
 			    <li class="divider"></li>
 			    <li><a href="/admin/flag/status/{{$report->id}}/1">Under Review</a></li>
 			    <li><a href="/admin/flag/status/{{$report->id}}/0">New Flag</a></li>
@@ -120,7 +120,7 @@
 							@endif
 							<div class="controls">
 								<a href="{{ route('akismet.approve', $queued_item->id) }}"><button class="btn btn-sm btn-success"><i class="fa fa-check"></i> Approve</button></a>
-								<a href="{{ route('admin.delete', ['post', $queued_item->id]) }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button></a>
+								<a href="{{ route('akismet.delete', $queued_item->id) }}"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button></a>
 								@if(!$queued_item->akismet)
 								<a href="{{ route('akismet.spam', $queued_item->id) }}"><button class="btn btn-sm btn-warning"><i class="fa fa-trash"></i> SPAM</button></a>
 								@else
