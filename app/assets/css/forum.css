@@ -1067,6 +1067,13 @@ blockquote p:first-child {
     margin-bottom: 20px;
 }
 
+.sticky-post {
+    background: rgba(91, 154, 111, 0.26);
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
 @media (max-width: 768px) {
 
     .search-bar .form-group {

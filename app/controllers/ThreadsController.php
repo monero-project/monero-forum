@@ -126,7 +126,9 @@ class ThreadsController extends \BaseController
 				$queued = false;
 			}
 
-			return View::make('threads.show', array('queued' => $queued, 'resource_id' => $thread_id, 'posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | ' . $thread->forum->name . ' &raquo; ' . $thread->name));
+			$stickied = Post::where('thread_id', $thread->id)->where('is_sticky', true)->get();
+
+			return View::make('threads.show', array('stickied' => $stickied, 'queued' => $queued, 'resource_id' => $thread_id, 'posts' => $posts['list'], 'links' => $posts['links'], 'thread' => $thread, 'title' => 'Monero | ' . $thread->forum->name . ' &raquo; ' . $thread->name));
 		} else {
 			App::abort(404);
 		}

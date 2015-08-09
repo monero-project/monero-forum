@@ -1,5 +1,18 @@
 <div class="post-indent">
-	<div id="post-{{ $post->id }}" class="post col-lg-12 @if ($level % 2 != 0) odd @endif level-{{ $level }}" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children="{{ $children }}">
+	@if($post->is_sticky && !$stickied)
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<p>
+							This comment has been stickied at the top of the thread! <a href="#post-{{ $post->id }}">Go to post</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	@else
+	<div id="post-{{ $post->id }}" class="post col-lg-12 @if ($level % 2 != 0) odd @endif level-{{ $level }} @if($stickied) sticky-post @endif" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children="{{ $children }}">
 		{{--Head at: {{ $head->id or "" }}--}}
 		{{--Post id: {{ $post->id }}--}}
 		{{--Parents: {{ $serialized_bread }}--}}
@@ -44,4 +57,5 @@
 		@include('posts.includes.reply')
 		@include('posts.includes.nest')
 	</div>
+	@endif
 </div>

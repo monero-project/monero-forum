@@ -94,6 +94,15 @@
 		</div>
 		@endif
 		<div id="trunk">
+			@if($stickied && sizeof($stickied))
+				@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && Auth::check() && Auth::user()->default_sort == 'weight'))
+					{{ thread_posts($stickied, $thread->id, 0, 1, 1) }}
+				@elseif (Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight')
+					{{ unthreaded_posts($stickied, $thread->id, 0, 1, 1) }}
+				@else
+					{{ thread_posts($stickied, $thread->id, 0, 1, 1) }}
+				@endif
+			@endif
 			@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && Auth::check() && Auth::user()->default_sort == 'weight'))
 				{{ thread_posts($posts, $thread->id, 0, 1) }}
 			@elseif (Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight')

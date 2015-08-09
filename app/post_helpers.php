@@ -33,7 +33,7 @@ function display_posts($parent_id, $thread_id, $level, $unread_count) {
 				{
 					$unread = $unread_count;
 				}
-				$the_posts .= View::make('posts.item', array('post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
+				$the_posts .= View::make('posts.item', array('stickied' => false, 'post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
 			}
 		}
 	}
@@ -41,7 +41,7 @@ function display_posts($parent_id, $thread_id, $level, $unread_count) {
 	return $the_posts.'</div>';
 }
 
-function thread_posts($posts, $thread_id, $level, $unread_count) {
+function thread_posts($posts, $thread_id, $level, $unread_count, $stickied = 0) {
 	$post_list = '<div class="post-batch">';
 	foreach ($posts as $post)
 	{
@@ -55,13 +55,13 @@ function thread_posts($posts, $thread_id, $level, $unread_count) {
 			{
 				$unread = $unread_count;
 			}
-			$post_list .= View::make('posts.item', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => [], 'serialized_bread' => '', 'head' => '', 'children' => '', 'unread_count' => $unread))->render();
+			$post_list .= View::make('posts.item', array('stickied' => $stickied, 'post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => [], 'serialized_bread' => '', 'head' => '', 'children' => '', 'unread_count' => $unread))->render();
 		}
 	}
 	return $post_list.'</div>';
 }
 
-function unthreaded_posts($posts, $thread_id, $unread_count) {
+function unthreaded_posts($posts, $thread_id, $unread_count, $stickied = 0) {
 	$post_list = '<div class="post-batch">';
 	foreach ($posts as $key => $post)
 	{
@@ -90,7 +90,7 @@ function unthreaded_posts($posts, $thread_id, $unread_count) {
 				{
 					$unread = $unread_count;
 				}
-				$post_list .= View::make('posts.item', array('post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
+				$post_list .= View::make('posts.item', array('stickied' => $stickied, 'post' => $post_obj, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
 			}
 		}
 	}
