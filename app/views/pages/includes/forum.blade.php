@@ -8,7 +8,14 @@
 			@endif
 		</div>
 		<div class="col-md-6 forum-info">
-			<h4><a href="/{{ $forum->id }}/{{ $forum->slug() }}">{{ $forum->name }}</a></h4>
+			<h4>
+				@if($forum->unread_posts > 0)
+				<i class="fa fa-comments dark-green"></i>
+				@else
+				<i class="fa fa-comments-o"></i>
+				@endif
+				<a href="/{{ $forum->id }}/{{ $forum->slug() }}">{{ $forum->name }}</a>
+			</h4>
 			<p>{{ $forum->description }}</p>
 		</div>
 		<div class="col-md-3 forum-post">
