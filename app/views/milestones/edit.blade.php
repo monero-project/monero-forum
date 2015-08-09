@@ -15,7 +15,7 @@
 	</div>
 	<div class="form-group">
 		<label for="description">Funds Awarded Percentage</label>
-		<input type="number" class="form-control" name="funds" id="title" min="0" step="any" value="{{{ $milestone->funds }}}">
+		<input type="number" class="form-control" name="funds" id="title" min="0" step="any" placeholder="dd/mm/yyyy" value="{{{ $milestone->funds }}}">
 	</div>
 	<div class="form-group">
 		<label for="completed">Completed</label>

@@ -16,7 +16,7 @@
 	</div>
 	<div class="form-group">
 		<label for="description">Completion Date</label>
-		<input type="date" class="form-control" name="completed_at" id="title">
+		<input type="date" class="form-control" name="completed_at" id="title" placeholder="dd/mm/yyyy">
 	</div>
 	<div class="form-group">
 		<label for="description">Funds Awarded Percentage</label>
