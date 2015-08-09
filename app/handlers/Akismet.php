@@ -15,7 +15,7 @@ Post::created(function($post) {
 
 	$check = akismet_post($post, $user);
 
-	if($check != 'true') {
+	if($check == 'true') {
 		$post->is_queued = true;
 		$post->akismet = true;
 	}
