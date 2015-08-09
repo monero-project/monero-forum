@@ -226,7 +226,6 @@ class Post extends \Eloquent {
 	}
 
 	public function getIsUnreadAttribute() {
-		return true;
 		$post = $this;
 		$unread = !$post->deleted_at
 		&&
@@ -234,7 +233,7 @@ class Post extends \Eloquent {
 		&&
 		ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()
 		&&
-		$post->updated_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at;
+		$post->created_at > ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $post->thread->id)->first()->updated_at;
 		return $unread;
 	}
 
@@ -243,11 +242,5 @@ class Post extends \Eloquent {
 		$hidden = $post->weight < Config::get('app.hidden_weight');
 		return $hidden;
 	}
-
-//	public function getBodyAttribute($value)
-//	{
-//		return Markdown::string($value);
-//	}
-
 
 }
