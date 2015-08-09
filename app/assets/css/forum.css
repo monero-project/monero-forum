@@ -1086,6 +1086,9 @@ blockquote p:first-child {
     .search-bar {
         text-align: left;
     }
+    .display-inline {
+        display: inline !important;
+    }
 }
 
 @media (max-width: 1200px) {

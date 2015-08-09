@@ -10,9 +10,9 @@
 		<div class="col-md-6 forum-info">
 			<h4>
 				@if($forum->unread_posts > 0)
-				<i class="fa fa-comments dark-green"></i>
+				<i class="fa fa-comments dark-green visible-sm visible-xs display-inline"></i>
 				@else
-				<i class="fa fa-comments-o"></i>
+				<i class="fa fa-comments-o visible-sm visible-xs display-inline"></i>
 				@endif
 				<a href="/{{ $forum->id }}/{{ $forum->slug() }}">{{ $forum->name }}</a>
 			</h4>
