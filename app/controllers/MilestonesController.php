@@ -41,7 +41,11 @@ class MilestonesController extends \BaseController {
 		$milestone->title = Input::get('title');
 		$milestone->description = Input::get('description');
 		$milestone->complete = Input::get('complete');
+		$milestone->completed_at = Input::get('completed_at');
 		$milestone->save();
+
+		Session::put('messages', ['Milestone updated successfullyt']);
+
 		return Redirect::back();
 	}
 
