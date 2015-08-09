@@ -267,8 +267,12 @@ function show_children(event) {
 
 $( document ).ready(function() {
     $('.next-unread').click(function() {
-        var unread_id = $(this).attr('unread-id');
-        console.log(parseInt(unread_id) + 1);
-        $(document).scrollTop( $("#unread-post-"+parseInt(unread_id) + 1).offset().top);
+        var unread_id = parseInt($(this).attr('unread-id'));
+        console.log("#unread-post-"+parseInt(unread_id + 1));
+        var unread_obj = $("#unread-post-"+parseInt(unread_id + 1));
+        if(unread_obj.length) {
+            console.log('obj found');
+            $(document).scrollTop(unread_obj.offset().top);
+        }
     });
 });

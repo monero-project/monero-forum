@@ -781,7 +781,8 @@ p.syntax {
     color: #5b9a6f;
 }
 
-.btn-default .glyphicon {
+.btn-default .glyphicon,
+.btn-default .fa {
 	color: #787878 !important;	
 }
 

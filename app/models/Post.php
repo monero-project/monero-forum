@@ -226,7 +226,7 @@ class Post extends \Eloquent {
 	}
 
 	public function getIsUnreadAttribute() {
-//		return true;
+		return true;
 		$post = $this;
 		$unread = !$post->deleted_at
 		&&
