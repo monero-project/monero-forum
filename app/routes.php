@@ -130,6 +130,10 @@ Route::get('/posts/reply/{post_id}', array('before' => 'auth', 'uses' => 'PostsC
 Route::get('/posts/report/{post_id}/{page_number}', array('as' => 'post.report', 'before' => 'auth', 'uses' => 'PostsController@getReportPage'));
 Route::post('/posts/report/', array('before' => 'auth', 'uses' => 'PostsController@postReport'));
 
+//Sticky
+
+Route::get('/posts/sticky/{id}', ['as' => 'post.stick', 'before' => 'auth', 'uses' => 'PostsController@stick']);
+
 /*	Votes	*/
 Route::post('/votes/vote', array('before' => 'auth', 'uses' => 'VotesController@postVote'));
 Route::get('/votes/vote/', array('before' => 'auth', 'uses' => 'VotesController@getVote'));

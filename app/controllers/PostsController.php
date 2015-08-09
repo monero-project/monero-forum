@@ -310,4 +310,28 @@ class PostsController extends \BaseController {
 		}
 	}
 
+	public function stick($id) {
+		if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('Moderator'))
+		{
+			$post = Post::findOrFail($id);
+			if($post->is_sticky)
+			{
+				$post->is_sticky = false;
+			}
+			else
+			{
+				$post->is_sticky = true;
+			}
+
+			$post->save();
+
+			Session::put('messages', ['The post has been stickied!']);
+
+			return Redirect::back();
+		}
+		else {
+			App::abort(404);
+		}
+	}
+
 }
