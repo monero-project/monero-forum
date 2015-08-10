@@ -239,7 +239,8 @@ class Post extends \Eloquent {
 
 	public function getIsHiddenAttribute() {
 		$post = $this;
-		$hidden = $post->weight < Config::get('app.hidden_weight');
+		$average = $post->thread->average_weight;
+		$hidden = $post->weight < $average;
 		return $hidden;
 	}
 

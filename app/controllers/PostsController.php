@@ -317,15 +317,15 @@ class PostsController extends \BaseController {
 			if($post->is_sticky)
 			{
 				$post->is_sticky = false;
+				Session::put('messages', ['The post has been unstickied!']);
 			}
 			else
 			{
 				$post->is_sticky = true;
+				Session::put('messages', ['The post has been stickied!']);
 			}
 
 			$post->save();
-
-			Session::put('messages', ['The post has been stickied!']);
 
 			return Redirect::back();
 		}

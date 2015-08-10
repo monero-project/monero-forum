@@ -95,20 +95,24 @@
 		@endif
 		<div id="trunk">
 			@if($stickied && sizeof($stickied))
+				{{ 'stickied posts' }}
 				@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && Auth::check() && Auth::user()->default_sort == 'weight'))
 					{{ thread_posts($stickied, $thread->id, 0, 1, 1) }}
 				@elseif (Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight')
-					{{ unthreaded_posts($stickied, $thread->id, 0, 1, 1) }}
+					{{ unthreaded_posts($stickied, $thread->id, 0, 1) }}
 				@else
 					{{ thread_posts($stickied, $thread->id, 0, 1, 1) }}
 				@endif
 			@endif
 			@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && Auth::check() && Auth::user()->default_sort == 'weight'))
-				{{ thread_posts($posts, $thread->id, 0, 1) }}
+				{{ 'regular' }}
+				{{ thread_posts($posts, $thread->id, 0, 1, 0) }}
 			@elseif (Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight')
-				{{ unthreaded_posts($posts, $thread->id, 0, 1) }}
+				{{ 'regular' }}
+				{{ unthreaded_posts($posts, $thread->id, 0, 0) }}
 			@else
-				{{ thread_posts($posts, $thread->id, 0, 1) }}
+				{{ 'regular' }}
+				{{ thread_posts($posts, $thread->id, 0, 1, 0) }}
 			@endif
 		</div>
 		<div class="post-links">

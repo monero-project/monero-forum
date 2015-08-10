@@ -183,8 +183,6 @@ class ThreadsController extends \BaseController
 
 				if (!$post_validator->fails()) {
 
-					Log::info('creating post');
-
 					$data['body_original']  = $data['body'];
 					$data['body']           = Markdown::string($data['body']);
 

@@ -1,5 +1,5 @@
 <div class="post-indent">
-	@if($post->is_sticky && !$stickied)
+	@if($post->is_sticky && !$thread_stickied)
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
@@ -12,12 +12,13 @@
 			</div>
 		</div>
 	@else
-	<div id="post-{{ $post->id }}" class="post col-lg-12 @if ($level % 2 != 0) odd @endif level-{{ $level }} @if($stickied) sticky-post @endif" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children="{{ $children }}">
+	<div id="post-{{ $post->id }}" class="post col-lg-12 @if ($level % 2 != 0) odd @endif level-{{ $level }} @if($thread_stickied && $post->is_sticky) sticky-post @endif" parents="{{ $serialized_bread }}" head="{{ $head->id or "" }}" children="{{ $children }}">
 		{{--Head at: {{ $head->id or "" }}--}}
 		{{--Post id: {{ $post->id }}--}}
 		{{--Parents: {{ $serialized_bread }}--}}
 		{{--Children: {{ $children }}--}}
 		@include('posts.includes.breadcrumbs')
+		{{ $thread_stickied }}
 		<div class="expand-label expand-label-{{ $post->id }}"></div>
 		<div class="panel panel-default post-panel @if ($post->is_unread) post-unread @endif" @if ($post->is_unread) id="unread-post-{{ $unread_count }}" @endif>
 			<div class="panel-heading">

@@ -130,4 +130,42 @@ class Thread extends \Eloquent
 		return $this->posts()->orderBy('created_at', 'DESC')->first();
 	}
 
+	public function getAverageWeightAttribute() {
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			$key = 'average_weight_'.$this->id.'_'.$user->id;
+			$tags = ['thread_'.$this->id, 'user_'.$user->id];
+		}
+		else
+		{
+			$key = 'average_weight_'.$this->id.'_guest';
+			$tags = ['thread_'.$this->id];
+		}
+
+		$thread = $this;
+
+		$average = Cache::tags($tags)->remember($key, 30, function() use ($thread)
+		{
+			$_average = 0;
+
+			foreach($thread->posts as $post)
+			{
+				$_average += $post->weight;
+			}
+
+			$total = $thread->posts->count();
+
+			if($total) {
+				$_average = $_average / $total;
+				return $_average;
+			}
+			else {
+				return Config::get('app.hidden_weight');
+			}
+		});
+
+		return $average;
+	}
+
 }
