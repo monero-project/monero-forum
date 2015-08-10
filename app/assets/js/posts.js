@@ -275,4 +275,19 @@ $( document ).ready(function() {
             $(document).scrollTop(unread_obj.offset().top);
         }
     });
+
+    $('.show-quote').click(function() {
+       if($(this).hasClass('active'))
+       {
+           $('.parent-container',$(this).parent()).slideUp();
+           $(this).html('<i class="fa fa-quote-left"></i> Show parent comment.');
+           $(this).removeClass('active');
+       }
+        else
+       {
+           $('.parent-container',$(this).parent()).slideDown();
+           $(this).html('<i class="fa fa-quote-left"></i> Hide parent comment.');
+           $(this).addClass('active');
+       }
+    });
 });

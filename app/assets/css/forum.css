@@ -1074,6 +1074,16 @@ blockquote p:first-child {
     margin-bottom: 5px;
 }
 
+.parent-container {
+    display: none;
+}
+
+.show-quote {
+    padding-bottom: 5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
 
     .search-bar .form-group {

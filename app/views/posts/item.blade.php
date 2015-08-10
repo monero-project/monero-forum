@@ -47,6 +47,15 @@
 							</div>
 						@else
 							{{ $post->body }}
+							@if((Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight') && $post->parent_id)
+								<div class="show-quote"><i class="fa fa-quote-left"></i> Show parent comment.</div>
+								<div class="parent-container">
+									<blockquote>
+										{{ $post->parent->body }}
+										<footer>{{ $post->parent->user->username }} <a href="#post-{{ $post->parent_id }}">[Link]</a></footer>
+									</blockquote>
+								</div>
+							@endif
 						@endif
 					@endif
 					@include('posts.includes.mobile_controls')
