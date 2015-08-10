@@ -18,7 +18,6 @@
 		{{--Parents: {{ $serialized_bread }}--}}
 		{{--Children: {{ $children }}--}}
 		@include('posts.includes.breadcrumbs')
-		{{ $thread_stickied }}
 		<div class="expand-label expand-label-{{ $post->id }}"></div>
 		<div class="panel panel-default post-panel @if ($post->is_unread) post-unread @endif" @if ($post->is_unread) id="unread-post-{{ $unread_count }}" @endif>
 			<div class="panel-heading">
