@@ -33,7 +33,7 @@ function display_posts($parent_id, $thread_id, $level, $unread_count) {
 				{
 					$unread = $unread_count;
 				}
-				$the_posts .= View::make('posts.item', array('stickied' => false, 'post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
+				$the_posts .= View::make('posts.item', array('thread_stickied' => false, 'post' => $post, 'level' => $level, 'thread_id' => $thread_id, 'breadcrumbs' => $breadcrumbs, 'serialized_bread' => $serialized_bread, 'head' => $head, 'children' => $children, 'unread_count' => $unread))->render();
 			}
 		}
 	}
