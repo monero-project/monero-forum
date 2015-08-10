@@ -94,7 +94,7 @@
 		</div>
 		@endif
 		<div id="trunk">
-			@if($stickied && sizeof($stickied))
+			@if($stickied && sizeof($stickied) && !Input::has('no-sticky'))
 				@if ((Input::has('sort') && Input::get('sort') == 'weight') || (!Input::has('sort') && Auth::check() && Auth::user()->default_sort == 'weight'))
 					{{ thread_posts($stickied, $thread->id, 0, 1, 1) }}
 				@elseif (Input::has('sort') && Input::get('sort') != 'weight' || !Input::has('sort') && Auth::check() && Auth::user()->default_sort != 'weight')

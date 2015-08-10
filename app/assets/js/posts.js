@@ -9,10 +9,10 @@ $('#trunk').infinitescroll({
     path: function (index) {
         var sort = get_url_param('sort');
         if (sort !== '') {
-            return "?page=" + index + '&sort=' + sort;
+            return "?page=" + index + '&sort=' + sort + '&no-sticky=1';
         }
         else {
-            return "?page=" + index;
+            return "?page=" + index + '&no-sticky=1';
         }
     }
 }, function (newElements, data, url) {
