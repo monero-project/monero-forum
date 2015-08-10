@@ -241,13 +241,13 @@ $('.content-block').each(function () {
                 if(reply_count) {
                     $('.expand-label-' + head)
                         .show()
-                        .html('<i class="fa fa-reply-all"></i>' + username + ' and at least ' + reply_count + ' others have replied.')
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' and at least ' + reply_count + ' others have replied (click to see replies).')
                         .click({parents: show_posts, head: head}, show_children);
                 }
                 else {
                     $('.expand-label-' + head)
                         .show()
-                        .html('<i class="fa fa-reply-all"></i>' + username + ' has replied.')
+                        .html('<i class="fa fa-reply-all"></i>' + username + ' has replied (click to see replies).')
                         .click({parents: show_posts, head: head}, show_children);
                 }
             }
