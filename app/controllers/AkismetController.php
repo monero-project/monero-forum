@@ -9,6 +9,62 @@ class AkismetController extends \BaseController {
 		}
 	}
 
+	public function nuke($id)
+	{
+		//delete posts
+
+		$post = Post::findOrFail($id);
+		$user = $post->user;
+
+		$posts = $user->posts();
+		$threads = $user->threads();
+		$notifications = $user->notifications();
+		$subscriptions = $user->subscriptions();
+
+		//remove subscriptions
+
+		foreach($posts->get() as $post)
+		{
+			Notification::where('notification_type', 'mention')
+				->where('object_id', $post->id)
+				->delete();
+
+			Flag::where('post_id', $post->id)->delete();
+		}
+
+		foreach($threads->get() as $thread)
+		{
+			Notification::where('notification_type', 'subscription')
+				->where('object_id', $thread->id)
+				->delete();
+		}
+
+		$comment['blog'] = "https://forum.getmonero.org/";
+		$comment['user_ip'] = $post->ip;
+		$comment['user_agent'] = $post->user_agent;
+		$comment['referrer'] = $post->referrer;
+		$comment['permalink'] = $post->thread->permalink();
+		$comment['comment_type'] = "post";
+		$comment['comment_author'] = $post->user->username;
+		$comment['comment_author_email'] = $post->user->email;
+		$comment['comment_content'] = $post->body_original;
+
+		$key = Config::get('app.akismet_key');
+
+		$type = 'submit-spam';
+
+		fuspam($comment, $type, $key);
+
+		$posts->forceDelete();
+		$threads->forceDelete();
+		$notifications->delete();
+		$subscriptions->delete();
+
+		$user->delete();
+
+		return Redirect::to('/admin');
+	}
+
 	//Delete post
 	//Mark it as SPAM in Akismet
 	public function spam($id) {

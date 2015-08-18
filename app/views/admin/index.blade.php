@@ -116,7 +116,7 @@
 							@if($queued_item->akismet)
 								<p class="help-block">This post has been marked as spam by <strong>Akismet</strong>.</p>
 							@else
-								<p class="help-block">This post has been reported as spam by <strong>users</strong>.</p>
+								<p class="help-block">This post has been reported as spam by <strong>users</strong> or <strong>bamwar filter</strong>.</p>
 							@endif
 							<div class="controls">
 								<a href="{{ route('akismet.approve', $queued_item->id) }}"><button class="btn btn-sm btn-success"><i class="fa fa-check"></i> Approve</button></a>
@@ -126,6 +126,7 @@
 								@else
 								<a href="{{ route('akismet.ham', $queued_item->id) }}"><button class="btn btn-sm btn-info"><i class="fa fa-check"></i> HAM</button></a>
 								@endif
+								<a href="{{ route('akismet.nuke', $queued_item->id) }}"><button class="btn btn-sm btn-danger"><i class="fa fa-bomb"></i> Nuke</button></a>
 							</div>
 						</div>
 					</div>

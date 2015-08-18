@@ -18,6 +18,20 @@
 //	$comment['comment_author_url'] = "";
 //	$comment['comment_content'] = "";
 
+function bamwar_post($post)
+{
+	preg_match("/(?s)(?<=[Bb]).*?(?<=[Aa]).*?(?<=[Mm]).*?(?<=[￦Ww]).*?(?<=[ȺAa]).*?(?<=[Rr])/", $post->body_original, $matches);
+
+	if($matches)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function akismet_post ($post, $user) {
 
 	$comment['blog'] = "https://forum.getmonero.org/";

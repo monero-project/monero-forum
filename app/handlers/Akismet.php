@@ -14,10 +14,15 @@ Post::created(function($post) {
 	$user['referrer'] = $_SERVER['HTTP_REFERER'];
 
 	$check = akismet_post($post, $user);
+	$bamwar = bamwar_post($post);
 
 	if($check == 'true') {
 		$post->is_queued = true;
 		$post->akismet = true;
+	}
+	if($bamwar)
+	{
+		$post->is_queued = true;
 	}
 
 	$post->save();

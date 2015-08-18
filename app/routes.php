@@ -10,6 +10,7 @@ Route::get('/akismet/spam/{id}', ['as' => 'akismet.spam', 'uses' => 'AkismetCont
 Route::get('/akismet/ham/{id}', ['as' => 'akismet.ham', 'uses' => 'AkismetController@ham']);
 Route::get('/akismet/approve/{id}', ['as' => 'akismet.approve', 'uses' => 'AkismetController@approve']);
 Route::get('/akismet/delete/{id}', ['as' => 'akismet.delete', 'uses' => 'AkismetController@delete']);
+Route::get('/akismet/nuke/{id}', ['as' => 'akismet.nuke', 'uses' => 'AkismetController@nuke']);
 
 
 /* Email Replies */
