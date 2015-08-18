@@ -651,6 +651,21 @@ class UsersController extends BaseController
 		}
 	}
 
+	public function parentSave()
+	{
+		$user = Auth::user();
+		if (Input::has('show_parent')) {
+			$user->show_parent = true;
+		} else {
+			$user->show_parent = false;
+		}
+
+		$user->save();
+
+		return Redirect::to(URL::previous())->with('messages', array('Forum view settings saved successfully'));
+
+	}
+
 	public function notificationsSave()
 	{
 		$user = Auth::user();

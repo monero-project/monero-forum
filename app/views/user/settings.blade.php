@@ -122,6 +122,23 @@
 				</div>
 				{{ Form::submit('Save', array('class' => 'btn btn-success btn-sm pull-right')) }}
 			{{ Form::close() }}
+			<label>Show parent comment:</label>
+			{{ Form::open(array('url' => '/user/settings/parent/save')) }}
+			<div class="checkbox">
+				<label>
+					@if ($user->show_parent)
+						<input type="checkbox" name="show_parent" value="1" checked>
+					@else
+						<input type="checkbox" name="show_parent" value="1">
+					@endif
+					Show Parent
+				</label>
+			</div>
+			<p class="help-block">
+				When using the <strong>latest</strong> or <strong>oldest</strong> sorting options for a thread, show the parent of a reply by default.
+			</p>
+			{{ Form::submit('Save', array('class' => 'btn btn-success btn-sm pull-right')) }}
+			{{ Form::close() }}
 		</div>
 	</div>
 	<div class="row">
