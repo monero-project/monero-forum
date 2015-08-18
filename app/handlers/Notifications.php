@@ -96,6 +96,16 @@ if (Auth::check()) {
 		$notifications->update(['notifications.is_new' => 0]);
 
 	});
+
+	//cleanup notifications when posts and threads get deleted
+
+	Post::deleted(function($post) {
+		Notification::where('notification_type', 'mention')->where('object_id', $post->id)->delete();
+	});
+
+	Thread::deleted(function($thread) {
+		Notification::where('notification_type', 'subscription')->where('object_id', $thread->id)->delete();
+	});
 }
 
 Event::listen('message.sent', function($pm)
