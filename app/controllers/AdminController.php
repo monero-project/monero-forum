@@ -384,7 +384,7 @@ class AdminController extends \BaseController {
 	public function repairData() {
 
 		//repair notifications
-		Notification::where('notification_type', 'subscription')->whereNotIn('object_id', Thread::lists('id'))->delete();
+		Notification::where('notification_type', 'subscription')->whereNotIn('object_id', Subscription::lists('id'))->delete();
 		Notification::where('notification_type', 'mention')->whereNotIn('object_id', Post::lists('id'))->delete();
 
 		//repair subscriptions
