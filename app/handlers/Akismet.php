@@ -41,7 +41,6 @@ Thread::saved(function($thread) {
 		$bamwar = bamwar_filter($thread->name);
 
 		if ($bamwar && $head) {
-			Log::info('bamwar trigger');
 			$head->is_queued = true;
 			$thread->is_queued = true;
 
