@@ -183,6 +183,7 @@ class ThreadsController extends \BaseController
 
 				if (!$post_validator->fails()) {
 
+					$data['parsed']         = 1;
 					$data['body_original']  = $data['body'];
 					$data['body']           = Markdown::string($data['body']);
 
@@ -241,7 +242,7 @@ class ThreadsController extends \BaseController
 				return Redirect::route('thread.create', [Input::get('forum_id')])->withInput()->with('errors', $validator->messages()->all());
 			}
 		} else {
-			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(e(Input::get('body'))));
+			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
 		}
 	}
 

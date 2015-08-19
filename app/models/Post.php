@@ -6,7 +6,8 @@ class Post extends \Eloquent {
 		'user_id',
 		'thread_id',
 		'body',
-		'body_original'
+		'body_original',
+		'parsed'
 	];
 	protected $softDelete = true;
 

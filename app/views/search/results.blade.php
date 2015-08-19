@@ -11,7 +11,7 @@
 		  <p class="mobile-post-meta"><a href="/user/{{ $result->username }}" class="poster-name" target="_blank">{{{ $result->username }}}</a> <span class="post-date"> | {{ $result->created_at }}</span></p>
 		  <div class="panel-body">
 			  <div class="row post-block">
-				  {{ Markdown::string(e($result->body)) }}
+				  {{ $result->body }}
 			  </div>
 		  </div>
 		</div>
