@@ -387,6 +387,9 @@ class AdminController extends \BaseController {
 		Notification::where('notification_type', 'subscription')->whereNotIn('object_id', Thread::lists('id'))->delete();
 		Notification::where('notification_type', 'mention')->whereNotIn('object_id', Post::lists('id'))->delete();
 
+		//repair subscriptions
+		Subscription::whereNotIn('thread_id', Thread::lists('id'))->delete();
+
 		//repair posts
 		Post::whereNotIn('thread_id', Thread::lists('id'))->delete();
 
