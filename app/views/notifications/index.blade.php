@@ -24,7 +24,7 @@
 			@endif
 			@if($notification->notification_type == 'subscription')
 			The thread <a href="{{ URL::route('thread.short', [$notification->object->thread_id]) }}">
-				{{{ $notification->object->name }}}
+				{{{ $notification->object->thread->name }}}
 			</a>
 			has new replies!
 			@else
