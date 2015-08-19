@@ -111,7 +111,8 @@
 							</a>
 						</div>
 						<div class="media-body">
-							<h4 class="media-heading"><a href="{{ route('user.show', $queued_item->user->username) }}">{{{ $queued_item->user->username }}}</a></h4>
+							<h4 class="media-heading">Author: <a href="{{ route('user.show', $queued_item->user->username) }}">{{{ $queued_item->user->username }}}</a></h4>
+							<h4 class="media-heading">Thread: <a href="/t/{{ $queued_item->thread_id }}">{{{ $queued_item->thread->name }}}</a></h4>
 							{{ $queued_item->body }}
 							@if($queued_item->akismet)
 								<p class="help-block">This post has been marked as spam by <strong>Akismet</strong>.</p>

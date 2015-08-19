@@ -18,9 +18,9 @@
 //	$comment['comment_author_url'] = "";
 //	$comment['comment_content'] = "";
 
-function bamwar_post($post)
+function bamwar_filter($text)
 {
-	preg_match("/(?s)(?<=[Bb]).*?(?<=[Aa]).*?(?<=[Mm]).*?(?<=[￦Ww]).*?(?<=[ȺAa]).*?(?<=[Rr])/", $post->body_original, $matches);
+	preg_match("/(?s)(?<=[Bb]).*?(?<=[Aa]).*?(?<=[Mm]).*?(?<=[￦Ww]).*?(?<=[ȺAa]).*?(?<=[Rr])/", $text, $matches);
 
 	if($matches)
 	{
