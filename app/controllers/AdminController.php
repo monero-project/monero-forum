@@ -380,4 +380,17 @@ class AdminController extends \BaseController {
 						
 		return View::make('admin.users.access', array('user' => $user, 'access_log' => $access_log));
 	}
+
+	public function repairData() {
+
+		//repair notifications
+		Notification::where('notification_type', 'subscription')->whereNotIn('object_id', Thread::lists('id'))->delete();
+		Notification::where('notification_type', 'mention')->whereNotIn('object_id', Post::lists('id'))->delete();
+
+		//repair posts
+		Post::whereNotIn('thread_id', Thread::lists('id'))->delete();
+
+		return Redirect::to('/admin')->with('messages', ['Data repaired']);
+
+	}
 }

@@ -55,6 +55,11 @@ Route::get('/admin/access/{username}', 'AdminController@accessLog');
 //Flush Cache
 Route::get('/admin/cache/flush', 'AdminController@flush');
 
+//Fix deleted elements
+
+Route::get('/admin/data/repair', 'AdminController@repairData');
+
+
 /* Mod Actions */
 
 //Move Thread
