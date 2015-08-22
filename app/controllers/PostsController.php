@@ -58,7 +58,12 @@ class PostsController extends \BaseController {
 				$post->parsed = 1;
 				$post->weight = Config::get('app.base_weight');
 
-				$post->referrer = $_SERVER['HTTP_REFERER'];
+				if (isset($_SERVER['HTTP_REFERER'])) {
+					$post->referrer = $_SERVER['HTTP_REFERER'];
+				}
+				else {
+					$post->referrer = '';
+				}
 
 				if (Request::header('X-Forwarded-For') != NULL) {
 					$post->ip   = Request::header('X-Forwarded-For');
@@ -67,7 +72,12 @@ class PostsController extends \BaseController {
 					$post->ip   = Request::getClientIp();
 				}
 
-				$post->user_agent = $_SERVER['HTTP_USER_AGENT'];
+				if (isset($_SERVER['HTTP_USER_AGENT'])) {
+					$post->user_agent = $_SERVER['HTTP_USER_AGENT'];
+				}
+				else {
+					$post->user_agent = '';
+				}
 
 				if (Input::get('post_id', false))
 				{
