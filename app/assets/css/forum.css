@@ -472,6 +472,16 @@ pre code {
 	font-size: 16px;
 	font-weight: bold;
 	line-height: 60px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.thread-icon {
+    float: left;
+    margin-top: 15px;
+    margin-right: 5px;
 }
 
 .thread-title:hover {
