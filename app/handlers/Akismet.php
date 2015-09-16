@@ -4,14 +4,25 @@ Post::created(function($post) {
 
 	//Build user array
 
-	$user['agent']  = $_SERVER['HTTP_USER_AGENT'];
+	if (isset($_SERVER['HTTP_USER_AGENT'])) {
+		$user['agent']  = $_SERVER['HTTP_USER_AGENT'];
+	}
+	else {
+		$user['agent']  = '';
+	}
+	
 	if (Request::header('X-Forwarded-For') != NULL) {
 		$user['ip'] = Request::header('X-Forwarded-For');
 	}
 	else {
 		$user['ip'] = Request::getClientIp();
 	}
-	$user['referrer'] = $_SERVER['HTTP_REFERER'];
+	if (isset($_SERVER['HTTP_REFERER'])) {
+		$user['referrer'] = $_SERVER['HTTP_REFERER'];
+	}
+	else {
+		$user['referrer'] = '';
+	}
 
 	$check = akismet_post($post, $user);
 
