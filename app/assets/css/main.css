@@ -21,7 +21,7 @@ img {
 	max-width: 100%;
 }
 
-// Fix fragment jumps being ruined by the floating navbar
+/* Fix fragment jumps being ruined by the floating navbar */
 *[id]:before { 
   display: block; 
   content: " "; 
@@ -611,24 +611,16 @@ body:before {
 	border-radius: 0;
 }
 
-.navbar-default .navbar-toggle:hover, 
-.navbar-default .navbar-toggle:active, 
-.navbar-default .navbar-toggle:focus {
+#menu-toggle:checked + .navbar-toggle {
 	background-color: #fff;
 }
 
-.navbar-default .navbar-toggle .icon-bar {
+#menu-toggle + .navbar-toggle .icon-bar {
 	background-color: #fff;
 }
 
-.navbar-default .navbar-toggle:hover .icon-bar, 
-.navbar-default .navbar-toggle:active .icon-bar, 
-.navbar-default .navbar-toggle:focus .icon-bar {
+#menu-toggle:checked + .navbar-toggle .icon-bar {
 	background-color: #313131;
-}
-
-.navbar-nav.navbar-right:last-child {
-	margin: -1px -15px 0 -15px;
 }
 
 /* Icons */
@@ -702,6 +694,45 @@ body:before {
 
 .flag-select a:hover img {
 	border: 5px solid #FFF;
+}
+
+.navbar-right {
+    margin-right: 0;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.dropdown input {
+    display: none;
+}
+
+.dropdown label {
+    color: #FFF;
+}
+
+.dropdown:hover label {
+    color: #333;
+}
+
+.navbar-default .navbar-nav>li>label {
+    color: #FFF;
+    background-color: #313131;
+    height: 55px;
+    border-left: 1px solid #505050;
+    padding: 0 30px;
+    line-height: 55px;
+    min-width: 115px;
+}
+
+.navbar-nav li>input:checked ~ .dropdown-menu {
+    display: block !important;
+}
+
+.navbar-nav li>input:checked + label {
+    background: #fff;
+    color: #313131;
 }
 
 @media (max-width: 768px) {
@@ -961,24 +992,7 @@ body:before {
 		border-radius: 0;
 	}
 
-	.navbar-default .navbar-toggle:hover, 
-	.navbar-default .navbar-toggle:active, 
-	.navbar-default .navbar-toggle:focus {
-		background-color: #fff;
-	}
-
-	.navbar-default .navbar-toggle .icon-bar {
-		background-color: #fff;
-	}
-
-	.navbar-default .navbar-toggle:hover .icon-bar, 
-	.navbar-default .navbar-toggle:active .icon-bar, 
-	.navbar-default .navbar-toggle:focus .icon-bar {
-		background-color: #313131;
-	}
-
 	.navbar-nav.navbar-right:last-child {
-		margin: -1px -15px 0 -15px;
 	}
 
 	/* Icons */
@@ -1074,7 +1088,6 @@ body:before {
         padding-left: 0;
     }
     .navbar-nav.navbar-right:last-child {
-        margin: -1px -15px 0 -15px;
         height: 100vh;
         background: #313131;
     }
@@ -1094,3 +1107,49 @@ body:before {
     color: #31708f;
 }
 
+@media (max-width: 1200px) {
+
+    .navbar-collapse {
+        display: none;
+    }
+
+    #menu-toggle:checked + .navbar-toggle {
+        background-color: #fff;
+    }
+
+    #menu-toggle:checked ~ .navbar-collapse  {
+        display: block;
+        margin-top: 60px !important;
+    }
+
+    /* While hovering the menu, keep displaying it */
+
+    .navbar-nav li>input:checked ~ .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        display: block;
+        margin-top: -1px;
+    }
+
+    .navbar-nav li label {
+        margin-left: 15px;
+        text-align: left;
+        display: block;
+        margin-bottom: 0;
+    }
+
+    .navbar-collapse {
+        padding-right: 0;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .navbar-header {
+        float: none !important;
+    }
+}

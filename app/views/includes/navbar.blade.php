@@ -1,19 +1,18 @@
 <div class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="navbar-wrapper">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<input type="checkbox" id="menu-toggle">
+			<label for="menu-toggle" class="navbar-toggle">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
-			</button>
+			</label>
 			<a class="navbar-brand" href="//getmonero.org/"><img class="logo" src="//static.getmonero.org/images/logo.svg"></a>
-		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right navbar-collapse">
 				<li><a class="yellow" href="https://forum.getmonero.org">Forum</a></li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle purple" data-toggle="dropdown">Blog <span class="caret"></span></a>
+					<input type="checkbox" class="dropdown-input" id="drop-1"/><label for="drop-1" class="purple">Blog <span class="caret"></span></label>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="//getmonero.org/blog">All Blog Posts</a></li>
 						<li><a href="//getmonero.org/blog/tags/monero%20missives">Monero Missives</a></li>
@@ -21,7 +20,7 @@
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle red" data-toggle="dropdown">Getting Started <span class="caret"></span></a>
+					<input type="checkbox" id="drop-2"/><label for="drop-2" class="red">Getting Started <span class="caret"></span></label>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="//getmonero.org/getting-started/choose">How to Choose a Monero Client</a></li>
 						<li><a href="//getmonero.org/getting-started/running">How to Run a Monero Node</a></li>
@@ -34,7 +33,7 @@
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle orange" data-toggle="dropdown">Knowledge Base <span class="caret"></span></a>
+					<input type="checkbox" id="drop-3"/><label for="drop-3" class="orange">Knowledge Base <span class="caret"></span></label>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="//getmonero.org/knowledge-base/about">About Monero</a></li>
 						<li><a href="//getmonero.org/knowledge-base/people">The People Behind Monero</a></li>
@@ -50,7 +49,7 @@
 					</ul>
 				</li>
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle softyellow last" data-toggle="dropdown">Community <span class="caret"></span></a>
+					<input type="checkbox" id="drop-4"/><label for="drop-4" class="softyellow last">Community <span class="caret"></span></label>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="https://forum.getmonero.org">Forum</a></li>
 						<li><a href="https://www.reddit.com/r/monero/">Reddit</a></li>
