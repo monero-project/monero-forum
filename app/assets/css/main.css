@@ -1128,7 +1128,6 @@ body:before {
         position: static;
         float: none;
         width: auto;
-        margin-top: 0;
         -webkit-box-shadow: none;
         box-shadow: none;
         display: block;
