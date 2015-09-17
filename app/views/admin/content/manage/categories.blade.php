@@ -6,7 +6,7 @@
 	<div class="row admin-panel">
 	<div class="panel panel-default">
 	  <div class="panel-heading">
-	    <h3 class="panel-title"><span class="glyphicon glyphicon-list"></span> All Categories</h3>
+	    <h3 class="panel-title"><i class="fa fa-list"></i> All Categories</h3>
 	  </div>
 	  <div class="panel-body">
 		  <ul class="nav nav-pills nav-stacked">

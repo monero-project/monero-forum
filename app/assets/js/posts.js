@@ -120,13 +120,13 @@ function post_delete(post_id) {
 
 function drawer_open(drawer_id) {
     $('.drawer-' + drawer_id).slideDown(function () {
-        $('.drawer-buttons-' + drawer_id).html('<span onClick="drawer_close(' + drawer_id + ')" class="glyphicon glyphicon-collapse-up"></span>')
+        $('.drawer-buttons-' + drawer_id).html('<i onClick="drawer_close(' + drawer_id + ')" class="fa fa-toggle-up"></i>')
     });
 }
 
 function drawer_close(drawer_id) {
     $('.drawer-' + drawer_id).slideUp(function () {
-        $('.drawer-buttons-' + drawer_id).html('<span onClick="drawer_open(' + drawer_id + ')" class="glyphicon glyphicon-collapse-down"></span>')
+        $('.drawer-buttons-' + drawer_id).html('<i onClick="drawer_open(' + drawer_id + ')" class="fa fa-toggle-down"></i>')
     });
 }
 

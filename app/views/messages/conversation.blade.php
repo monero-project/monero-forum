@@ -20,7 +20,7 @@
 					<p>For post formatting please use Kramdown, <a href="http://kramdown.gettalong.org/syntax.html">click here</a> for a syntax guide.</p>
 				</div>
 				<div class="markdown-form-buttons">
-					<button class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Reply</button>
+					<button class="btn btn-success pull-right"><i class="fa fa-send"></i> Reply</button>
 				</div>
 			<div class="clearfix"></div>
 			{{ Form::close() }}

@@ -3,7 +3,7 @@
 	<div class="row admin-panel">
 	<div class="panel panel-default col-md-4">
 	  <div class="panel-heading">
-	    <h3 class="panel-title"><span class="glyphicon glyphicon-stats"></span> Statistics</h3>
+	    <h3 class="panel-title"><i class="fa fa-bar-chart"></i> Statistics</h3>
 	  </div>
 	  <div class="panel-body">
 		  <ul class="nav nav-pills nav-stacked">
@@ -16,7 +16,7 @@
 	</div>
 	<div class="panel panel-default col-md-8">
 	  <div class="panel-heading">
-	    <h3 class="panel-title"><span class="glyphicon glyphicon-dashboard"></span> Admin Actions</h3>
+	    <h3 class="panel-title"><i class="fa fa-dashboard"></i> Admin Actions</h3>
 	  </div>
 	  <div class="panel-body">
 		  <div class="row">

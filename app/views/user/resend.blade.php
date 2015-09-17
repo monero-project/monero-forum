@@ -7,7 +7,7 @@
             	<label>Email</label>
             	{{ Form::email('email', null, array('class'=>'form-control reg-username', 'placeholder'=>'')) }}
             </div>
-	        <button type="submit" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-send white-glyph"></span> Send!</button>
+	        <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-send white-glyph"></i> Send!</button>
 	{{ Form::close() }}
 	</div>
 @stop

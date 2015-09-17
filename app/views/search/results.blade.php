@@ -5,7 +5,7 @@
 	@foreach($results as $result) 
 		<div class="panel panel-default thread-block">
 		  <div class="panel-heading">
-		    <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span><a href="{{ URL::route('thread.short', array($result->id)) }}">{{{ $result->name }}}</a> <span class="post-meta"><span class="glyphicon glyphicon-new-window"></span>
+		    <h3 class="panel-title"><i class="fa fa-comment"></i> <a href="{{ URL::route('thread.short', array($result->id)) }}">{{{ $result->name }}}</a> <span class="post-meta"><i class="fa fa-external-link"></i>
 </a></span> <p class="post-meta pull-right"><img class="profile-picture-sm" src="/uploads/profile/small_{{ $result->profile_picture }}"><a href="/user/{{ $result->username }}" class="poster-name" target="_blank">{{{ $result->username }}}</a> <span class="post-date">posted this on {{ $result->created_at }}</span></p></h3>
 		  </div>
 		  <p class="mobile-post-meta"><a href="/user/{{ $result->username }}" class="poster-name" target="_blank">{{{ $result->username }}}</a> <span class="post-date"> | {{ $result->created_at }}</span></p>

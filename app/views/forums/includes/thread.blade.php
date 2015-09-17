@@ -4,7 +4,7 @@
 			<a class="thread-title" alt="{{{ $thread->name }}}" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->name }}}" href="/{{ $thread->forum->id }}/{{ $thread->forum->slug() }}/{{ $thread->id }}/{{ $thread->slug() }}"><small>{{{ 'Moved to: '. $thread->forum->name }}}</small>
 				@else
 					@if ( $thread->new_posts )
-						<img data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->unread_posts }}}" src="//static.getmonero.org/images/icon_thread_new.png">
+						<img data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->unread_posts }}}" class="thread-icon" src="//static.getmonero.org/images/icon_thread_new.png">
 					@else
 						<img src="//static.getmonero.org/images/icon_thread.png" class="thread-icon">
 					@endif

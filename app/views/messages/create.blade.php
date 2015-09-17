@@ -20,7 +20,7 @@
 		<div class="form-group">
 			<textarea class="form-control markdown-editor" name="body" id="body" cols="30" rows="10" placeholder="Your message content goes here..."></textarea>
 		</div>
-		<button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-send"></span> Send</button>
+		<button type="submit" class="btn btn-success pull-right"><i class="fa fa-send"></i> Send</button>
 	{{ Form::close() }}
 	<div class="clearfix"></div>
 @stop

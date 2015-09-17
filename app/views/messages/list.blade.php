@@ -7,7 +7,7 @@
 
 	<div class="row">
 		<div class="operations">
-			<a href="/messages/create"><button class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span> New Conversation</button></a>
+			<a href="/messages/create"><button class="btn btn-success pull-right"><i class="fa fa-plus"></i> New Conversation</button></a>
 		</div>
 	</div>
 	<div class="row category-block">
