@@ -49,50 +49,52 @@
 	  </div>
 	  <div class="panel-body">
 		  @foreach(Flag::where('status', '!=', 2)->orderBy('created_at', 'DESC')->paginate(10) as $report)
-		  <div class="row report-row">
-		  <div class="col-md-10">
-		  	<div class="row">
-			  	<div class="col-md-8">
-			  		<quote>
-			  		{{ $report->post->body }}
-			  		</quote>
-			  	</div>
-			  	<div class="col-md-4">
-			  		Posted by: {{{ $report->post->user->username }}}
-			  	</div>
-		  	</div>
-		  	<div class="row">
-			  	<div class="col-md-8">
-			  		{{{ $report->comment }}}
-			  	</div>
-			  	<div class="col-md-4">
-			  		Reported by: {{ $report->user->username }}
-			  	</div>
-		  	</div>
-		  </div>
-		  <div class="col-md-2">
-			<div class="btn-group">
-			  <button type="button" class="btn btn-sm 
-			  @if($report->status == 0)
-			  btn-success
-			  @elseif($report->status == 1)
-			  btn-danger
-			  @endif 
-			  dropdown-toggle" data-toggle="dropdown">
-			    Action <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu" role="menu">
-			  	<li><a href="{{ $report->link }}">Visit</a></li>
-			  	<li class="divider"></li>
-			    <li><a href="/admin/delete/post/{{ $report->post->id }}">Delete</a></li>
-			    <li class="divider"></li>
-			    <li><a href="/admin/flag/status/{{$report->id}}/1">Under Review</a></li>
-			    <li><a href="/admin/flag/status/{{$report->id}}/0">New Flag</a></li>
-			    <li><a href="/admin/flag/status/{{$report->id}}/2">Completed</a></li>
-			  </ul>
-			</div>
-		  </div>
-		  </div>
+			  @if($report->post)
+				  <div class="row report-row">
+				  <div class="col-md-10">
+				    <div class="row">
+					    <div class="col-md-8">
+					        <quote>
+					        {{ $report->post->body }}
+					        </quote>
+					    </div>
+					    <div class="col-md-4">
+					        Posted by: {{{ $report->post->user->username }}}
+					    </div>
+				    </div>
+				    <div class="row">
+					    <div class="col-md-8">
+					        {{{ $report->comment }}}
+					    </div>
+					    <div class="col-md-4">
+					        Reported by: {{ $report->user->username }}
+					    </div>
+				    </div>
+				  </div>
+				  <div class="col-md-2">
+					<div class="btn-group">
+					  <button type="button" class="btn btn-sm
+					  @if($report->status == 0)
+					  btn-success
+					  @elseif($report->status == 1)
+					  btn-danger
+					  @endif
+					  dropdown-toggle" data-toggle="dropdown">
+					    Action <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+					    <li><a href="{{ $report->link }}">Visit</a></li>
+					    <li class="divider"></li>
+					    <li><a href="/admin/delete/post/{{ $report->post->id }}">Delete</a></li>
+					    <li class="divider"></li>
+					    <li><a href="/admin/flag/status/{{$report->id}}/1">Under Review</a></li>
+					    <li><a href="/admin/flag/status/{{$report->id}}/0">New Flag</a></li>
+					    <li><a href="/admin/flag/status/{{$report->id}}/2">Completed</a></li>
+					  </ul>
+					</div>
+				  </div>
+				  </div>
+			  @endif
 		  @endforeach
 	  </div>
 	</div>
