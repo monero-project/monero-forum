@@ -712,10 +712,6 @@ body:before {
     color: #FFF;
 }
 
-.dropdown:hover label {
-    color: #333;
-}
-
 .navbar-default .navbar-nav>li>label {
     color: #FFF;
     background-color: #313131;
@@ -726,13 +722,20 @@ body:before {
     min-width: 115px;
 }
 
-.navbar-nav li>input:checked ~ .dropdown-menu {
-    display: block !important;
-}
+@media (min-width: 1201px) {
+    .navbar-nav li.dropdown:hover label {
+        color: #333;
+        background: #FFF;
+    }
 
-.navbar-nav li>input:checked + label {
-    background: #fff;
-    color: #313131;
+    .navbar-nav li.dropdown:hover .dropdown-menu {
+        display: block !important;
+    }
+
+    .navbar-nav li:hover + label {
+        background: #fff;
+        color: #313131;
+    }
 }
 
 @media (max-width: 768px) {
@@ -963,7 +966,6 @@ body:before {
 	}
 
 	.navbar-default .navbar-nav > li > a {
-		margin-left: 15px;
 		text-align: left;
 	}
 	
@@ -1091,6 +1093,9 @@ body:before {
         height: 100vh;
         background: #313131;
     }
+    .navbar-nav>li {
+        margin-left: 15px;
+    }
 }
 
 /* Alert Fix */
@@ -1132,10 +1137,10 @@ body:before {
         box-shadow: none;
         display: block;
         margin-top: -1px;
+        margin-right: -1px;
     }
 
     .navbar-nav li label {
-        margin-left: 15px;
         text-align: left;
         display: block;
         margin-bottom: 0;
@@ -1143,6 +1148,11 @@ body:before {
 
     .navbar-collapse {
         padding-right: 0;
+    }
+
+    .navbar-nav li>input:checked + label {
+        background: #fff;
+        color: #313131;
     }
 
 }
