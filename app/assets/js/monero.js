@@ -178,7 +178,7 @@ $('document').ready(function(){
         $('.no-js').show();
     });
 
-    $('#show-payments-list').click(function (e) {
+    $('.show-payments-list').click(function (e) {
         var button = $(this);
         if(button.hasClass('fa-plus-square-o')) {
             $('#payments-list').slideDown();
@@ -191,7 +191,7 @@ $('document').ready(function(){
         }
     });
 
-    $('#show-milestones-list').click(function (e) {
+    $('.show-milestones-list').click(function (e) {
         var button = $(this);
         if(button.hasClass('fa-plus-square-o')) {
             $('#milestones-list').slideDown();

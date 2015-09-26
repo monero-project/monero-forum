@@ -44,7 +44,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					@if($thread->funding->milestones->count())
-						<h2><i class="fa fa-plus-square-o fa-btn no-js" id="show-milestones-list"></i> Milestones <span class="label label-info">{{ Milestone::completed($thread->funding->id) }}/{{ $thread->funding->milestones->count() }}</span></h2>
+						<h2><i class="fa fa-plus-square-o fa-btn no-js show-milestones-list"></i> Milestones <span class="label label-info">{{ Milestone::completed($thread->funding->id) }}/{{ $thread->funding->milestones->count() }}</span></h2>
 						<ul class="fa-ul no-js-show" id="milestones-list">
 							@foreach($thread->funding->milestones as $milestone)
 								<li>
@@ -69,7 +69,7 @@
 				</div>
 				<div class="col-md-6">
 					@if($thread->funding->payouts->count())
-						<h2><i class="fa fa-plus-square-o fa-btn no-js" id="show-payments-list"></i> Payouts <span class="label label-info">{{ $thread->funding->payouts->count() }}</span></h2>
+						<h2><i class="fa fa-plus-square-o fa-btn no-js show-payments-list"></i> Payouts <span class="label label-info">{{ $thread->funding->payouts->count() }}</span></h2>
 						<ul class="fa-ul no-js-show" id="payments-list">
 							@foreach($thread->funding->payouts as $payout)
 								<li>
