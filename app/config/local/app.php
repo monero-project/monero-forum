@@ -27,7 +27,7 @@ return array(
 	/*	Cache Settings	*/
 
 	'cache_posts_for'					=> 0.1, //amount of minutes to cache the posts for users. Set in minutes.
-	'cache_latest_details_for'			=> 1, //amount of minutes to cache the latest details for.
+	'cache_latest_details_for'			=> 1,   //amount of minutes to cache the latest details for.
 
 	/*	Post Weight	*/
 
@@ -267,7 +267,6 @@ return array(
 		'Breadcrumbs'	  => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
 		'Feed'   		  => 'Roumen\Feed\Facades\Feed',
 		'Monero'          => 'Eddieh\Monero\Facades\Monero',
-		'Feed'   	   	  => 'Roumen\Feed\Facades\Feed',
 		'Markdown'        => 'Eddieh\Kramdown\Facades\Kramdown',
 	),
 
