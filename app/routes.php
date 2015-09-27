@@ -52,6 +52,15 @@ Route::post('/admin/edit', 'AdminController@postEdit');
 Route::get('/admin/flag/status/{flag_id}/{status}', 'AdminController@changeStatus');
 Route::get('/admin/access/{username}', 'AdminController@accessLog');
 
+//Funds Admin
+Route::get('/admin/funds/refund', ['as' => 'refund.create', 'uses' => 'AdminController@getRefund']);
+Route::post('/admin/funds/refund', ['as' => 'refund.create.post', 'uses' => 'AdminController@postRefund']);
+Route::get('/admin/funds/refunds', ['as' => 'refund.all', 'uses' => 'AdminController@getRefunds']);
+Route::get('/admin/funds/payouts', ['as' => 'payout.all', 'uses' => 'AdminController@getPayouts']);
+Route::get('/admin/funds/transfer', ['as' => 'transfer.create', 'uses' => 'AdminController@getTransfer']);
+Route::post('/admin/funds/transfer', ['as' => 'transfer.store', 'uses' => 'AdminController@postTransfer']);
+Route::get('/admin/funds/refresh', ['as' => 'funds.refresh', 'uses' => 'AdminController@refreshFunds']);
+
 //Flush Cache
 Route::get('/admin/cache/flush', 'AdminController@flush');
 

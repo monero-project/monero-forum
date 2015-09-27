@@ -77,6 +77,30 @@ class Monero
 
 	}
 
+	public function clientBalance() {
+		$data = [
+			'jsonrpc' => '2.0',
+			'method' => 'getbalance',
+			'id' => 'phpmonero',
+			'params' => []
+		];
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "http://".$this->wallet."/json_rpc");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_ENCODING, 'Content-Type: application/json');
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_VERBOSE, true);
+
+		$server_output = curl_exec($ch);
+
+		$result = json_decode($server_output, true);
+
+		return $result['result']['balance'];
+
+	}
+
 	function clientReceive()
 	{
 		$now = date("Y-m-d H:i", strtotime("now"));

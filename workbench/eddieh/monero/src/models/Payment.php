@@ -14,4 +14,8 @@ class Payment extends \Eloquent {
 
 	protected $table = 'xmr_payments';
 
+	public function funding() {
+		return $this->belongsTo('Funding', 'payment_id', 'payment_id');
+	}
+
 }

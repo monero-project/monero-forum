@@ -16,6 +16,8 @@ class Funding extends \Eloquent
 		'id'
 	];
 
+	public static $pico = 1000000000000;
+
 	public function thread()
 	{
 		return $this->belongsTo('Thread');
@@ -54,9 +56,11 @@ class Funding extends \Eloquent
 	{
 		$cache_key = $this->id . '_funding_';
 		$funded = Cache::tags('thread_' . $this->thread_id)->rememberForever($cache_key . 'funded', function () {
-			$payments = Payment::where('payment_id', $this->payment_id);
+			$payments = Payment::where('payment_id', $this->payment_id)->where('block_height', '>=', 0);
+			$transfers = Payment::where('payment_id', $this->payment_id)->where('block_height', -2)->sum('amount');
+			$refunds = Payment::where('payment_id', $this->payment_id)->where('block_height', -1)->sum('amount');
 			$_funded = $payments->where('type', 'receive')->sum('amount');
-			$_funded = Monero::convert($_funded, $this->currency);
+			$_funded = Monero::convert($_funded - $refunds + $transfers, $this->currency);
 			return $_funded;
 		});
 		return $funded;
@@ -71,7 +75,7 @@ class Funding extends \Eloquent
 			$payouts = $this->payouts()->sum('amount');
 
 			if ($currency != 'XMR') {
-				$_payouts = Monero::convert($payouts * 1000000000000, $currency);
+				$_payouts = Monero::convert($payouts * self::$pico, $currency);
 				$balance = $funded - $_payouts;
 			} else {
 				$balance = $funded - $payouts;
@@ -115,5 +119,80 @@ class Funding extends \Eloquent
 			default :
 				return $this->currency;
 		}
+	}
+
+	// Total funds required for ongoing projects
+	public static function totalRequired() {
+		$total = 0;
+
+		$funds = Funding::all();
+
+		foreach($funds as $item)
+		{
+			$total += Monero::convert($item->target * self::$pico, $item->currency);
+		}
+
+		return $total;
+	}
+
+	// Total funded with the refunds taken into account
+	public static function totalFunded() {
+
+		$total = Payment::where('block_height', '>=', 0)->sum('amount');
+		$total = Monero::convert($total, 'XMR');
+		$total -= self::refunds();
+
+		return $total;
+	}
+
+	public static function refunds() {
+		return Payment::where('block_height', -1)->sum('amount') / self::$pico;
+	}
+
+	// Total funds available with the payouts taken into account
+	public static function totalAvailable() {
+
+		$total = Funding::totalFunded() - Payout::sum('amount');
+
+		return $total;
+	}
+
+	public static function getDatabaseFunds() {
+		$sum = Cache::remember('databaseFunds', 20, function () {
+			$payments = Payment::where('block_height', '>=', 0)->sum('amount');
+			$payouts = Payout::sum('amount') * 1000000000000;
+			$refund = Payment::where('block_height', -1)->sum('amount');
+
+			$result = $payments - $payouts - $refund;
+
+			return $result / self::$pico;
+		});
+		return $sum;
+	}
+
+	public static function getWalletFunds() {
+		$sum = Cache::remember('walletFunds', 20, function () {
+			$monero = new Monero();
+			return $monero->clientBalance() / self::$pico;
+		});
+
+		return $sum;
+	}
+
+	public static function isUnbalanced() {
+		//check if the difference between balances is greater than the pico unit
+		if(abs(self::getDatabaseFunds() - self::getWalletFunds()) > 1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public static function refreshFunds() {
+		Cache::forget('walletFunds');
+		Cache::forget('databaseFunds');
 	}
 }

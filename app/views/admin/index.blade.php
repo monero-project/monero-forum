@@ -1,5 +1,7 @@
 @extends('master')
 @section('content')
+	{{ Breadcrumbs::addCrumb('Home', '/') }}
+	{{ Breadcrumbs::addCrumb('Admin Panel', '/admin') }}
 	<div class="row admin-panel">
 	<div class="panel panel-default col-md-4">
 	  <div class="panel-heading">

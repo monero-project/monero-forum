@@ -1,6 +1,17 @@
 <?php
 
+use Eddieh\Monero\Payment;
+use Eddieh\Monero\Monero;
+
 class AdminController extends \BaseController {
+
+	//Kill all the controller functions if a non-admin user is trying to access them.
+	function __construct() {
+		if(!(Auth::check() && Auth::user()->hasRole('Admin')))
+		{
+			App::abort(404);
+		}
+	}
 	
 	public function index() {
 		$queued = Post::where('is_queued', true)->get();
@@ -395,5 +406,79 @@ class AdminController extends \BaseController {
 
 		return Redirect::to('/admin')->with('messages', ['Data repaired']);
 
+	}
+
+	public function getRefund() {
+		return View::make('refunds.create');
+	}
+
+	public function postRefund() {
+
+		$funding = Funding::where('thread_id', Input::get('thread_id'))->firstOrFail();
+
+		Payment::create([
+			'block_height'  => -1,
+			'status'        => 'complete',
+			'expires_at'    => date("Y-m-d H:i", strtotime("now " . Config::get('monero::expire'))),
+			'type'          => 'receive',
+			'amount'        => Input::get('amount'),
+			'payment_id'    => $funding->payment_id
+		]);
+
+		return Redirect::back();
+	}
+
+	public function getRefunds() {
+		return View::make('admin.refunds');
+	}
+
+	public function getTransfer() {
+		return View::make('transfers.create');
+	}
+
+	public function postTransfer() {
+
+		$from = Funding::where('thread_id', Input::get('from_id'))->firstOrFail();
+		$to = Funding::where('thread_id', Input::get('to_id'))->firstOrFail();
+
+		//add funds
+		Payment::create([
+			'block_height'  => -2,
+			'status'        => 'complete',
+			'expires_at'    => date("Y-m-d H:i", strtotime("now " . Config::get('monero::expire'))),
+			'type'          => 'receive',
+			'amount'        => Input::get('amount'),
+			'payment_id'    => $to->payment_id
+		]);
+
+		//remove funds
+		Payment::create([
+			'block_height'  => -2,
+			'status'        => 'complete',
+			'expires_at'    => date("Y-m-d H:i", strtotime("now " . Config::get('monero::expire'))),
+			'type'          => 'receive',
+			'amount'        => 0 - Input::get('amount'),
+			'payment_id'    => $from->payment_id
+		]);
+
+		return Redirect::back();
+	}
+
+	public function getPayouts() {
+		if(Input::has('funding_id'))
+		{
+			$payouts = Payout::where('funding_id', Input::get('funding_id'))->paginate(20);
+		}
+		else
+		{
+			$payouts = Payout::paginate(20);
+		}
+
+		return View::make('admin.payouts', compact('payouts'));
+	}
+
+	public function refreshFunds() {
+		Funding::refreshFunds();
+		return Redirect::back();
 	}
 }
