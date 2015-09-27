@@ -29,8 +29,12 @@
 	<meta name="keywords" content="monero, xmr, bitmonero, cryptocurrency, crypto money, mining crypto currencies, virtual currency">
 
     @yield('css')
-	{{--<link href="/style.css" rel="stylesheet">--}}
+
+	@if(App::environment() == 'local')
+	<link href="/style.css" rel="stylesheet">
+	@else
 	<link href="//static.getmonero.org/style.css" rel="stylesheet">
+	@endif
 
     <!--[if lt IE 9]>
       <script src="//static.getmonero.org/js/html5shiv.js"></script>
@@ -44,6 +48,7 @@
 
     <div class="container main-content">
 
+	    @include('includes.fundswarning')
 	    @include('includes.messages')
 	    @include('includes.userbar')
 		@include('includes.breadcrumbs')
@@ -69,8 +74,11 @@
     @yield('modals')
 
     <!-- JS -->
-    {{--<script src="/scripts.js"></script>--}}
+	@if(App::environment() == 'local')
+    <script src="/scripts.js"></script>
+    @else
     <script src="//static.getmonero.org/scripts.js"></script>
+    @endif
 	<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
