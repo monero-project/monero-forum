@@ -566,6 +566,31 @@ a.meta-permalink {
 	margin-top: 3px;
 }
 
+/* Admin Funding */
+
+.funding-threads-block {
+    margin-top: 50px;
+}
+
+.funding-thread-item {
+    margin-bottom: 20px !important;
+}
+
+.funding-info-block {
+    margin-top: 50px;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.topic-block-meta {
+    height: 60px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 /* Media Queries */
 @media (max-width: 992px) {
 	.mobile-create {
