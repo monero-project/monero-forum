@@ -9,6 +9,7 @@
 				<a href="{{ route('refund.create') }}"><button class="btn btn-success">Note a Refund</button></a>
 				<a href="{{ route('refund.all') }}"><button class="btn btn-success">All Refunds</button></a>
 				<a href="{{ route('payout.all') }}"><button class="btn btn-success">All Payouts</button></a>
+				<a href="{{ route('funds.refresh') }}"><button class="btn btn-success"><i class="fa fa-refresh"></i> Refresh Funding Data</button></a>
 			</div>
 		</div>
 
