@@ -181,7 +181,7 @@ class Funding extends \Eloquent
 
 	public static function isUnbalanced() {
 		//check if the difference between balances is greater than the pico unit
-		if(abs(self::getDatabaseFunds() - self::getWalletFunds()) > 1)
+		if((self::getDatabaseFunds() - self::getWalletFunds()) > 1)
 		{
 			return true;
 		}
