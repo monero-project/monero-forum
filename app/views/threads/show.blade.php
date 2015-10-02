@@ -27,7 +27,7 @@
 		  </div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row overflow-x">
 		@if (Auth::check())
 			<div class="reply-box">
 				<div class="media markdown-toolbar">

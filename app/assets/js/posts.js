@@ -55,7 +55,10 @@ function thread_reply() {
 
 function post_reply(post_id) {
     if (!replyOpen) {
-        $('.post-reply-form-' + post_id).slideDown();
+        $('#post-reply-form-' + post_id).slideDown();
+        $('html, body').animate({
+            scrollTop: $('#post-reply-form-' + post_id).offset().top
+        }, 1000);
         replyOpen = true;
     }
 }
@@ -98,7 +101,7 @@ function cancel_thread_reply() {
 }
 
 function cancel_post_reply(post_id) {
-    $('.post-reply-form-' + post_id).slideUp(function () {
+    $('#post-reply-form-' + post_id).slideUp(function () {
         replyOpen = false;
     });
 }

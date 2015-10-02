@@ -1,3 +1,4 @@
+<div class="mobile-meta-buttons-container">
 @if (Auth::check())
 	<div class="mobile-meta-buttons">
 			<a href="/votes/vote/?post_id={{ $post->id }}&vote=insightful" class="disabled-link" onclick="vote({{ $post->id }}, 'insightful')">
@@ -36,3 +37,4 @@
 		<span class="mobile-drawer drawer-button drawer-buttons-{{ $post->id }} pull-right" style="display: none; padding-left: 5px; padding-top: 3px;"><i onClick="drawer_close({{ $post->id }})" class="fa fa-caret-square-o-up"></i></span>
 	@endif
 @endif
+</div>

@@ -26,6 +26,11 @@ body {
 
 .mobile-meta-buttons {
 	padding-bottom: 5px;
+	display: inline-block;
+}
+
+.mobile-meta-buttons-container {
+	text-align: right;
 }
 
 .post-indent {
@@ -38,6 +43,10 @@ body {
 
 .drawer {
 	padding: 0;
+}
+
+.mobile-drawer {
+	cursor: poiner;
 }
 
 .trunk {
@@ -542,6 +551,14 @@ a.meta-permalink {
 	padding: 0 !important;
 }
 
+.post p {
+	word-wrap: break-word;
+}
+
+.overflow-x {
+    overflow-x: hidden;
+}
+
 /* Reports */
 
 .report-post {
@@ -555,10 +572,6 @@ a.meta-permalink {
 }
 
 .mobile-post-meta {
-	display: none;
-}
-
-.mobile-meta-buttons {
 	display: none;
 }
 
@@ -680,7 +693,8 @@ a.meta-permalink {
 	}
 	
 	.mobile-meta-buttons {
-		display: block;
+	    display: inline-block;
+	    float: left;
 	}
 	
 	.post-indent {
