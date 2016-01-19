@@ -32,6 +32,20 @@ function bamwar_filter($text)
 	}
 }
 
+function bisbury_filter($text)
+{
+	preg_match("/(?si)(bisbury)/", $text, $matches);
+
+	if($matches)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function akismet_post ($post, $user) {
 
 	$comment['blog'] = "https://forum.getmonero.org/";

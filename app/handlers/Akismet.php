@@ -47,17 +47,19 @@ Thread::saved(function($thread) {
 			$thread->save();
 		}
 
-		//check bamwar
+		//check bamwar and bisbury
 
 		$bamwar = bamwar_filter($thread->name);
+		$bisbury = bisbury_filter($thread->name);
 
-		if ($bamwar && $head) {
+		if (($bamwar || $bisbury) && $head) {
 			$head->is_queued = true;
 			$thread->is_queued = true;
 
 			$head->save();
 			$thread->save();
 		}
+
 	}
 
 });
