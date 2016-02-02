@@ -8,8 +8,8 @@
 			<ol>
 				<li>Have a <strong>valid Monero address</strong>. If you don't have one, you can read on <a href="http://getmonero.org/getting-started/">getting started</a>!</li><br>
 				<li>Send the amount of XMR that you wish to contribute to the address:<br> <strong>{{ Config::get('monero::address') }}</strong></li><br>
-				<li>Make sure that you enter the payment ID to be <strong>{{ $thread->funding->payment_id }}</strong>!
-					Otherwise, we will not be able to assign your contribution to this specific project!</li><br>
+				<li>Make sure that you enter a payment ID of <strong>{{ $thread->funding->payment_id }}</strong> 
+					in order for us to be able to assign your contribution to this specific project!</li><br>
 			</ol>
 			<p class="text-danger">Your contribution should be visible within 5 minutes of you sending your contribution. If for some reason it is not there, please contact <a href="http://getmonero.org/knowledge-base/people">a member of the Core Team</a>!</p>
 		</div>
