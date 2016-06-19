@@ -23,7 +23,7 @@
 				<img class="profile-picture-sm" src="/uploads/profile/small_{{ $post->user->profile_picture }}">
 					<a class="user-post-{{$post->id}}" href="/user/{{ $post->user->username }}" target="_blank">{{ $post->user->username }}</a>
 						<span class="mobile-hide-text">@if($post->updated_at > $post->created_at)edited @else posted @endif</span>
-						<span class="date" data-toggle="tooltip" data-placement="top" title="@if($post->updated_at > $post->created_at) {{ $post->updated_at }} @else {{ $post->created_at }} @endif">{{ $post->created_at->diffForHumans() }}</span>
+						<span class="date" data-toggle="tooltip" data-placement="top" title="@if($post->updated_at > $post->created_at) {{ $post->updated_at }} @else {{ $post->created_at }} @endif">@if($post->updated_at > $post->created_at) {{$post->updated_at->diffForHumans() }} @else {{ $post->created_at->diffForHumans() }} @endif</span>
 				<small>
 					@if ($post->children()->count())
 						Replies: {{ $post->children()->count() }} |
