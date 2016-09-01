@@ -1,9 +1,10 @@
 <?php
 
 use Eddieh\Monero\Monero;
+use Helge\SpamProtection\SpamProtection;
 
 class PostsController extends \BaseController {
-	
+
 	public function getProxyImage() {
 		if (Input::has('link'))
 		{
@@ -28,7 +29,7 @@ class PostsController extends \BaseController {
 			return false;
 		}
 	}
-	
+
 	public function submit() {
 
 		$thread = Thread::findOrFail(Input::get('thread_id'));
@@ -48,7 +49,11 @@ class PostsController extends \BaseController {
 			$forum_slug = $thread->forum->slug();
 			$posts = $thread->posts();
 
-			if (!$validator->fails())
+			//Check if current request's IP is spam blacklisted
+			$spamProtector = new SpamProtection();
+			$checkSpam = $spamProtector->checkIP(Request::getClientIp());
+
+			if (!$validator->fails() && !$checkSpam)
 			{
 				$post = new Post();
 				$post->user_id = Auth::user()->id;
@@ -147,14 +152,14 @@ class PostsController extends \BaseController {
 		if(is_string(Input::get('submit')))
 		{
 			$validator = Post::validate(Input::all());
-	
+
 			$thread = Thread::findOrFail(Input::get('thread_id'));
 			$thread_id = $thread->id;
 			$thread_slug = $thread->slug();
 			$forum_id = $thread->forum->id;
 			$forum_slug = $thread->forum->slug();
 			$posts = $thread->posts();
-	
+
 			if (!$validator->fails())
 			{
 				$post = Post::findOrFail(Input::get('post_id'));
@@ -162,7 +167,7 @@ class PostsController extends \BaseController {
 				$post->body = Markdown::string(Input::get('body'));
 				$post->body_original = Input::get('body');
 				$post->parsed = 1;
-	
+
 				$post->save();
 
 				$rules = [
@@ -194,10 +199,10 @@ class PostsController extends \BaseController {
 				{
 					return Redirect::back()->withInput()->with('errors', $funding_validator->messages()->all());
 				}
-	
+
 				return Redirect::to($thread->permalink());
 			}
-	
+
 			else
 				return View::make('threads.show', array('errors' => $validator->messages()->all(), 'posts' => $posts, 'forum_id' => $forum_id, 'forum_slug' => $forum_slug, 'thread_id' => $thread_id, 'thread_slug' => $thread_slug));
 		}
@@ -234,13 +239,13 @@ class PostsController extends \BaseController {
 	}
 
 	public function getReplyPage($post_id) {
-		
+
 		$post = Post::findOrFail($post_id);
 		$forum = $post->thread->forum;
-		
+
 		if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
 				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
-			
+
 		return View::make('posts.reply', array('post' => $post));
 	}
 
@@ -259,7 +264,7 @@ class PostsController extends \BaseController {
 		$post = Post::findOrFail($post_id);
 		return View::make('posts.report', array('post' => $post, 'page_number' => $page_number));
 	}
-	
+
 	public function postReport() {
 		$validator = Flag::validate(Input::all());
 		if (!$validator->fails())
@@ -267,7 +272,7 @@ class PostsController extends \BaseController {
 			$report = new Flag();
 			$report->user_id = Auth::user()->id;
 			$report->post_id = Input::get('post_id');
-			$report->link 	 = Post::findOrFail(Input::get('post_id'))->thread->permalink()."?page=".Input::get('page')."&noscroll=1#post-".Input::get('post_id'); 
+			$report->link 	 = Post::findOrFail(Input::get('post_id'))->thread->permalink()."?page=".Input::get('page')."&noscroll=1#post-".Input::get('post_id');
 			$report->comment = Input::get('comment');
 			$report->save();
 
@@ -292,12 +297,12 @@ class PostsController extends \BaseController {
 
 	public function listPosts($thread_id, $posts_num) {
 		$thread = Thread::find($thread_id);
-		
+
 		$posts_list = '';
 
 		if(!$thread) //check if thread exists.
 			return 'false';
-			
+
 		else if ($posts_num == 'all')
 			$posts_list .= display_posts(NULL, $thread_id, 0);
 

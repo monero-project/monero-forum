@@ -1,5 +1,7 @@
 <?php
 
+use Helge\SpamProtection\SpamProtection;
+
 class UsersController extends BaseController
 {
 	/*
@@ -35,26 +37,37 @@ class UsersController extends BaseController
 
 		$remember = false;
 
+		//Check if current request's IP is spam blacklisted
+		$spamProtector = new SpamProtection();
+		$checkSpam = $spamProtector->checkIP(Request::getClientIp());
+
+
 		if (Input::get('remember_me') == 'on') $remember = true;
 
-		if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), $remember)) {
-			$user = Auth::user();
-			$user->last_login = new DateTime();
+		//do not log in if blacklisted
+		if (!$checkSpam) {
+			if (Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), $remember)) {
+				$user = Auth::user();
+				$user->last_login = new DateTime();
 
-			if (!$user->confirmed) {
-				Auth::logout();
-				return View::make('user.login', array('errors' => array('Your account is inactive.')));
+				if (!$user->confirmed) {
+					Auth::logout();
+					return View::make('user.login', array('errors' => array('Your account is inactive.')));
+				}
+
+				if (Input::get('remember_for') != NULL && Input::get('remember_for') != '')
+					$user->remember_for = Input::get('remember_for');
+
+				$user->save();
+
+				return Redirect::to(URL::previous());
+			} else {
+				return View::make('user.login', array('errors' => array('Wrong username or password')));
 			}
-
-			if (Input::get('remember_for') != NULL && Input::get('remember_for') != '')
-				$user->remember_for = Input::get('remember_for');
-
-			$user->save();
-
-			return Redirect::to(URL::previous());
 		} else {
-			return View::make('user.login', array('errors' => array('Wrong username or password')));
+			return View::make('user.login', array('errors' => array('Your IP address has been blacklisted as spam.')));
 		}
+
 	}
 
 	public function register()
@@ -104,7 +117,7 @@ class UsersController extends BaseController
 					} else
 						return View::make('user.register', array('errors' => array('Looks like you forgot to input the Key ID.')));
 
-					//get public key and deal with errors.	
+					//get public key and deal with errors.
 					$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
 					if ($pubkey == -1)
 						return View::make('user.register', array('errors' => array('The key you have provided does not exist!')));
@@ -438,7 +451,7 @@ class UsersController extends BaseController
 			if ($key_exists)
 				return Redirect::to(URL::previous())->with('errors', array('The key already exists.'));
 
-			//get public key and deal with errors.	
+			//get public key and deal with errors.
 			$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
 			if ($pubkey == -1)
 				return Redirect::to(URL::previous())->with('errors', array('The key you have provided does not exist!'));
