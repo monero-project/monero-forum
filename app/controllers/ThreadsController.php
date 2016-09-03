@@ -1,6 +1,7 @@
 <?php
 
 use Eddieh\Monero\Monero;
+use Helge\SpamProtection\SpamProtection;
 
 class ThreadsController extends \BaseController
 {
@@ -163,83 +164,94 @@ class ThreadsController extends \BaseController
 				'name' => Input::get('name'),
 				'body' => Input::get('body')
 			);
+
+			//Check if current request's IP is spam blacklisted
+ 			$spamProtector = new SpamProtection(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
+  			$checkSpam = $spamProtector->checkIP(Request::getClientIp());
+
 			$validator = Thread::validate($data);
-			if (!$validator->fails() && Input::get('body') != '') {
 
-				$thread = Thread::create([
-					'name' => Input::get('name'),
-					'user_id' => Auth::user()->id,
-					'forum_id' => Input::get('forum_id'),
-					'post_id' => 0
-				]);
+			//do not log in if blacklisted
+			if (!$checkSpam) {
+				if (!$validator->fails() && Input::get('body') != '') {
 
-				$data = array(
-					'thread_id' => $thread->id,
-					'body' => Input::get('body'),
-					'user_id'   => Auth::user()->id
-				);
+					$thread = Thread::create([
+						'name' => Input::get('name'),
+						'user_id' => Auth::user()->id,
+						'forum_id' => Input::get('forum_id'),
+						'post_id' => 0
+					]);
 
-				$post_validator = Post::validate($data);
+					$data = array(
+						'thread_id' => $thread->id,
+						'body' => Input::get('body'),
+						'user_id'   => Auth::user()->id
+					);
 
-				if (!$post_validator->fails()) {
+					$post_validator = Post::validate($data);
 
-					$data['parsed']         = 1;
-					$data['body_original']  = $data['body'];
-					$data['body']           = Markdown::string($data['body']);
+					if (!$post_validator->fails()) {
 
-					$post = Post::create($data);
+						$data['parsed']         = 1;
+						$data['body_original']  = $data['body'];
+						$data['body']           = Markdown::string($data['body']);
 
-				} else {
-					Thread::find($thread->id)->forceDelete(); //delete the created thread if something somewhere goes terribly wrong.
-					Session::put('errors', $post_validator->messages()->all());
-					return Redirect::to(URL::previous())->withInput();
-				}
-				$thread->post_id = $post->id;
+						$post = Post::create($data);
 
-				$thread->save();
-
-				//nuke the cached item if a thread is posted. Or create one.
-				$key = 'forum_latest_thread_' . $thread->forum_id;
-				if (Cache::has($key)) {
-					Cache::forget($key);
-				} else {
-					Cache::remember($key, Config::get('app.cache_latest_details_for'), function () use ($forum) {
-						return DB::table('forums')
-							->where('forums.id', '=', $forum->id)
-							->join('threads', 'forums.id', '=', 'threads.forum_id')
-							->whereNull('threads.deleted_at')
-							->orderBy('threads.updated_at', 'DESC')
-							->first();
-					});
-				}
-
-				//Create the funding entry if the topic is being created at a funding forum.
-
-				if(in_array($thread->forum_id, Config::get('app.funding_forums')))
-				{
-					$rules = [
-						'target' => 'required|numeric',
-						'currency'  => 'required|string',
-					];
-					$funding_validator = Validator::make(Input::all(), $rules);
-					if(!$funding_validator->fails())
-					{
-						Funding::create([
-							'target'        => Input::get('target'),
-							'currency'      => Input::get('currency'),
-							'thread_id'     => $thread->id,
-							'payment_id'    => Monero::generatePaymentID($thread->id),
-						]);
+					} else {
+						Thread::find($thread->id)->forceDelete(); //delete the created thread if something somewhere goes terribly wrong.
+						Session::put('errors', $post_validator->messages()->all());
+						return Redirect::to(URL::previous())->withInput();
 					}
-					else
-					{
-						return Redirect::route('thread.create', [Input::get('forum_id')])->withInput()->with('errors', $funding_validator->messages()->all());
-					}
-				}
+					$thread->post_id = $post->id;
 
-				return Redirect::to($thread->permalink());
-			} else {
-				return Redirect::route('thread.create', [Input::get('forum_id')])->withInput()->with('errors', $validator->messages()->all());
+					$thread->save();
+
+					//nuke the cached item if a thread is posted. Or create one.
+					$key = 'forum_latest_thread_' . $thread->forum_id;
+					if (Cache::has($key)) {
+						Cache::forget($key);
+					} else {
+						Cache::remember($key, Config::get('app.cache_latest_details_for'), function () use ($forum) {
+							return DB::table('forums')
+								->where('forums.id', '=', $forum->id)
+								->join('threads', 'forums.id', '=', 'threads.forum_id')
+								->whereNull('threads.deleted_at')
+								->orderBy('threads.updated_at', 'DESC')
+								->first();
+						});
+					}
+
+					//Create the funding entry if the topic is being created at a funding forum.
+
+					if(in_array($thread->forum_id, Config::get('app.funding_forums')))
+					{
+						$rules = [
+							'target' => 'required|numeric',
+							'currency'  => 'required|string',
+						];
+						$funding_validator = Validator::make(Input::all(), $rules);
+						if(!$funding_validator->fails())
+						{
+							Funding::create([
+								'target'        => Input::get('target'),
+								'currency'      => Input::get('currency'),
+								'thread_id'     => $thread->id,
+								'payment_id'    => Monero::generatePaymentID($thread->id),
+							]);
+						}
+						else
+						{
+							return Redirect::route('thread.create', [Input::get('forum_id')])->withInput()->with('errors', $funding_validator->messages()->all());
+						}
+					}
+
+					return Redirect::to($thread->permalink());
+				} else {
+					return Redirect::route('thread.create', [Input::get('forum_id')])->withInput()->with('errors', $validator->messages()->all());
+				}
+		    } else {
+				return Redirect::route('thread.create', [Input::get('forum_id')])->with('errors', ['msg', 'Your IP address has been blacklisted as spam.']);
 			}
 		} else {
 			return Redirect::to(URL::previous())->withInput()->with('preview', Markdown::string(Input::get('body')));
