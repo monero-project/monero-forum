@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class Thread extends \Eloquent
 {
 	protected $fillable = [
@@ -166,6 +168,27 @@ class Thread extends \Eloquent
 		});
 
 		return $average;
+	}
+
+	public static function userCanSubmitThread($user) {
+
+		//get no. of users' threads created today if he registered in the past app.thread_total_days_limit days
+		if (User::isNew(Auth::user())) {
+
+			$threadNumber = Thread::where('user_id', '=', $user->id)
+			                   ->whereDate('created_at', '=', Carbon::today()->toDateString())
+						       ->count();
+
+			//check if daily limit reached
+			if ($threadNumber < Config::get('app.thread_daily_limit')) return true; else return false;
+
+	    } else {
+
+			//if user not new then he is allowed to post new thread
+			return true;
+
+		}
+
 	}
 
 }
