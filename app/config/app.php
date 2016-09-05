@@ -196,7 +196,7 @@ return array(
 		'Creitive\Breadcrumbs\BreadcrumbsServiceProvider',
 		'Roumen\Feed\FeedServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-		//'Eddieh\Monero\MoneroServiceProvider',
+		'Eddieh\Monero\MoneroServiceProvider',
 		//'App\Libraries\Extensions\SpamProtectionCache',
 
 	),
