@@ -75,83 +75,53 @@ class UsersController extends BaseController
 
 		$validator = User::validate(Input::all());
 
-		if (!$validator->fails()) {
+		//Check if current request's IP is spam blacklisted
+		$spamProtector = new SpamProtection(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
+		$checkSpam = $spamProtector->checkIP(Request::getClientIp());
+		$checkSpamEmail = $spamProtector->checkEmail(Input::get('email'));
 
-			if (Input::get('wot_register') || GPG::find(Input::get('username'))) {
-				if (!Input::get('otcp')) {
+		if (!$checkSpam && !$checkSpamEmail) {
+			if (!$validator->fails()) {
 
-					$key = GPG::find(Input::get('username'));
-					$otcp = "forum.monero:" . str_random(40) . "\n"; //generate a random password of 40 chars.
+				if (Input::get('wot_register') || GPG::find(Input::get('username'))) {
+					if (!Input::get('otcp')) {
 
-					if ($key && $key->keyid) {
-						$key_id = $key->keyid;
-					} else if ($key && !$key->keyid) {
-						//if the user is in the WoT OTC and has no key_id, then he is probably using BTC auth. Still allow for him to register.
-						$user = new User();
-						$user->password = Hash::make(Input::get('password'));
-						$user->username = Input::get('username');
-						$user->email = Input::get('email');
-						$user->in_wot = 1;
-						$user->confirmation_code = str_random(20);
-						$user->save();
+						$key = GPG::find(Input::get('username'));
+						$otcp = "forum.monero:" . str_random(40) . "\n"; //generate a random password of 40 chars.
 
-						$member = \Role::where('name', 'Member')->get()->first();
-						$user->roles()->attach($member);
-						$data = array('user' => $user);
-						Mail::send('emails.auth.welcome', $data, function ($message) use ($user) {
-							$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
-							$message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
-						});
-						foreach (Config::get('app.admins') as $config_admin) {
-							if ($user->username == $config_admin) {
-								$admin = \Role::where('name', 'Admin')->get()->first();
-								$user->roles()->attach($admin);
+						if ($key && $key->keyid) {
+							$key_id = $key->keyid;
+						} else if ($key && !$key->keyid) {
+							//if the user is in the WoT OTC and has no key_id, then he is probably using BTC auth. Still allow for him to register.
+							$user = new User();
+							$user->password = Hash::make(Input::get('password'));
+							$user->username = Input::get('username');
+							$user->email = Input::get('email');
+							$user->in_wot = 1;
+							$user->confirmation_code = str_random(20);
+							$user->save();
+
+							$member = \Role::where('name', 'Member')->get()->first();
+							$user->roles()->attach($member);
+							$data = array('user' => $user);
+							Mail::send('emails.auth.welcome', $data, function ($message) use ($user) {
+								$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
+								$message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
+							});
+							foreach (Config::get('app.admins') as $config_admin) {
+								if ($user->username == $config_admin) {
+									$admin = \Role::where('name', 'Admin')->get()->first();
+									$user->roles()->attach($admin);
+								}
 							}
-						}
-						Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
-						KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
-						Auth::logout();
-						return Redirect::to('/?regSuccess')->with('messages', array('Registration complete. Please check your email and activate your account.'));
-					} else if (Input::get('key')) {
-						$key_id = Input::get('key');
-					} else
-						return View::make('user.register', array('errors' => array('Looks like you forgot to input the Key ID.')));
-
-					//get public key and deal with errors.
-					$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
-					if ($pubkey == -1)
-						return View::make('user.register', array('errors' => array('The key you have provided does not exist!')));
-					else if ($pubkey == -2)
-						return View::make('user.register', array('errors' => array('The key format you have provided is wrong!')));
-					else if ($pubkey == -3)
-						return View::make('user.register', array('errors' => array('Looks like something went wrong with retrieving your key. Please try again later.')));
-
-					putenv("GNUPGHOME=/tmp");
-					$gpg = new gnupg();
-					$gpg->addencryptkey($gpg->import($pubkey)['fingerprint']);
-					$message = $gpg->encrypt($otcp);
-
-					Key::where('key_id', '=', Input::get('key'))->delete();
-					Key::create([
-						'key_id' => $key_id,
-						'password' => Hash::make($otcp),
-						'message' => $message
-					]);
-
-					return View::make('user.auth', array('input' => Input::all(), 'keyid' => $key_id, 'message' => $message));
-				} else if (Input::get('otcp')) {
-					$key = GPG::find(Input::get('username'));
-
-					if ($key && $key->keyid) {
-						$key_id = $key->keyid;
-					} else if (Input::get('key')) {
-						$key_id = Input::get('key');
-					}
-
-					$key = Key::where('key_id', '=', $key_id)->orderBy('created_at', 'DESC')->first();
-
-					$hash = $key->password;
-					if (Hash::check(Input::get('otcp') . "\n", $hash)) {
+							Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
+							KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
+							Auth::logout();
+							return Redirect::to('/?regSuccess')->with('messages', array('Registration complete. Please check your email and activate your account.'));
+						} else if (Input::get('key')) {
+							$key_id = Input::get('key');
+						} else
+							return View::make('user.register', array('errors' => array('Looks like you forgot to input the Key ID.')));
 
 						//get public key and deal with errors.
 						$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
@@ -164,71 +134,109 @@ class UsersController extends BaseController
 
 						putenv("GNUPGHOME=/tmp");
 						$gpg = new gnupg();
+						$gpg->addencryptkey($gpg->import($pubkey)['fingerprint']);
+						$message = $gpg->encrypt($otcp);
 
-						$key->delete();
-						$user = new User();
-						$user->password = Hash::make(Input::get('password'));
-						$user->username = Input::get('username');
-						$user->email = Input::get('email');
-						$user->in_wot = 1;
-						$user->key_id = $key_id;
-						$user->fingerprint = $gpg->import($pubkey)['fingerprint'];
-						$user->confirmation_code = str_random(20);
-						$user->save();
-						$member = \Role::where('name', 'Member')->get()->first();
-						$user->roles()->attach($member);
-						$data = array('user' => $user);
-						Mail::send('emails.auth.welcome', $data, function ($message) use ($user) {
-							$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
-							$message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
-						});
-						foreach (Config::get('app.admins') as $config_admin) {
-							if ($user->username == $config_admin) {
-								$admin = \Role::where('name', 'Admin')->get()->first();
-								$user->roles()->attach($admin);
-							}
+						Key::where('key_id', '=', Input::get('key'))->delete();
+						Key::create([
+							'key_id' => $key_id,
+							'password' => Hash::make($otcp),
+							'message' => $message
+						]);
+
+						return View::make('user.auth', array('input' => Input::all(), 'keyid' => $key_id, 'message' => $message));
+					} else if (Input::get('otcp')) {
+						$key = GPG::find(Input::get('username'));
+
+						if ($key && $key->keyid) {
+							$key_id = $key->keyid;
+						} else if (Input::get('key')) {
+							$key_id = Input::get('key');
 						}
-						Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
-						KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
-						Auth::logout();
-						return Redirect::to('/?regSuccess')->with('messages', array('Registration complete. Please check your email and activate your account.'));
-					} else
-						return View::make('user.auth', array('input' => Input::all(), 'message' => $key->message, 'keyid' => $key_id, 'errors' => array('Wrong decrypted message.')));
-				}
 
-			} else if (!GPG::find(Input::get('username'))) {
-				$user = new User();
-				$user->password = Hash::make(Input::get('password'));
-				$user->username = Input::get('username');
-				$user->email = Input::get('email');
-				$user->in_wot = 0;
-				$user->confirmation_code = str_random(20);
-				$user->save();
-				$data = array('user' => $user);
-				$member = \Role::where('name', 'Member')->get()->first();
-				Mail::send('emails.auth.welcome', $data, function ($message) use ($user) {
-					$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
-					$message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
-				});
+						$key = Key::where('key_id', '=', $key_id)->orderBy('created_at', 'DESC')->first();
 
-				$user->roles()->attach($member);
-				foreach (Config::get('app.admins') as $config_admin) {
-					if ($user->username == $config_admin) {
-						$admin = \Role::where('name', 'Admin')->get()->first();
-						$user->roles()->attach($admin);
+						$hash = $key->password;
+						if (Hash::check(Input::get('otcp') . "\n", $hash)) {
+
+							//get public key and deal with errors.
+							$pubkey = get_pubkey($key_id); //app/libraries/lib.gpg.php
+							if ($pubkey == -1)
+								return View::make('user.register', array('errors' => array('The key you have provided does not exist!')));
+							else if ($pubkey == -2)
+								return View::make('user.register', array('errors' => array('The key format you have provided is wrong!')));
+							else if ($pubkey == -3)
+								return View::make('user.register', array('errors' => array('Looks like something went wrong with retrieving your key. Please try again later.')));
+
+							putenv("GNUPGHOME=/tmp");
+							$gpg = new gnupg();
+
+							$key->delete();
+							$user = new User();
+							$user->password = Hash::make(Input::get('password'));
+							$user->username = Input::get('username');
+							$user->email = Input::get('email');
+							$user->in_wot = 1;
+							$user->key_id = $key_id;
+							$user->fingerprint = $gpg->import($pubkey)['fingerprint'];
+							$user->confirmation_code = str_random(20);
+							$user->save();
+							$member = \Role::where('name', 'Member')->get()->first();
+							$user->roles()->attach($member);
+							$data = array('user' => $user);
+							Mail::send('emails.auth.welcome', $data, function ($message) use ($user) {
+								$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
+								$message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
+							});
+							foreach (Config::get('app.admins') as $config_admin) {
+								if ($user->username == $config_admin) {
+									$admin = \Role::where('name', 'Admin')->get()->first();
+									$user->roles()->attach($admin);
+								}
+							}
+							Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
+							KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
+							Auth::logout();
+							return Redirect::to('/?regSuccess')->with('messages', array('Registration complete. Please check your email and activate your account.'));
+						} else
+							return View::make('user.auth', array('input' => Input::all(), 'message' => $key->message, 'keyid' => $key_id, 'errors' => array('Wrong decrypted message.')));
 					}
+
+				} else if (!GPG::find(Input::get('username'))) {
+					$user = new User();
+					$user->password = Hash::make(Input::get('password'));
+					$user->username = Input::get('username');
+					$user->email = Input::get('email');
+					$user->in_wot = 0;
+					$user->confirmation_code = str_random(20);
+					$user->save();
+					$data = array('user' => $user);
+					$member = \Role::where('name', 'Member')->get()->first();
+					Mail::send('emails.auth.welcome', $data, function ($message) use ($user) {
+						$message->from(Config::get('app.from_email'), Config::get('app.from_name'));
+						$message->to($user->email)->subject(Config::get('app.welcome_email_subject'));
+					});
+
+					$user->roles()->attach($member);
+					foreach (Config::get('app.admins') as $config_admin) {
+						if ($user->username == $config_admin) {
+							$admin = \Role::where('name', 'Admin')->get()->first();
+							$user->roles()->attach($admin);
+						}
+					}
+					Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
+					KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
+					Auth::logout();
+					return Redirect::to('/')->with('messages', array('Registration complete. Please check your email and activate your account.'));
+				} else {
+					return View::make('user.register', array('errors' => array('The person with this username is already registered in the Web of Trust. Please try a different username.')));
 				}
-				Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')), true);
-				KeychainController::pullRatings(); //Pulls ratings from the OTC database on registering.
-				Auth::logout();
-				return Redirect::to('/')->with('messages', array('Registration complete. Please check your email and activate your account.'));
 			} else {
-				return View::make('user.register', array('errors' => array('The person with this username is already registered in the Web of Trust. Please try a different username.')));
+				return View::make('user.register', array('errors' => $validator->messages()->all()));
 			}
 		} else {
-			return View::make('user.register', array('errors' => $validator->messages()->all()));
+			return View::make('user.register', array('errors' => array('Your IP address has been blacklisted as spam.')));
 		}
-
 	}
 
 	public function showLogin()

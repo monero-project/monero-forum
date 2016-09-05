@@ -33,7 +33,7 @@ return array(
 	'reply_weight'						=> 	2, //amount of weight to add if the post just had a new reply.
 
 	'insightful_weight'					=> 	1, //amount of weight to add if the post is voted as insightful.
-	'irrelevant_weight'					=> -1, //amount of weight to take away if the post is voted as irrelevant.					
+	'irrelevant_weight'					=> -1, //amount of weight to take away if the post is voted as irrelevant.
 
 	'l1_post_weight'					=> 	250, //amount of weight to add if poster is in L1 of trust.
 	'l2_post_weight'					=> 	150, //amount of weight to add if poster is in L2 of trust.
@@ -44,6 +44,13 @@ return array(
 	'l3_vote_weight'					=> 	2, //amount of weight to add if voter is in L3 of trust.
 
 	'decay_weight'						=> 	1, //amount of weight for a post to decay during each iteration of the decay.
+
+	/* Posting Settings */
+
+	'thread_daily_limit'			    =>  1,  //how many threads per day for new users
+	'thread_total_days_limit'			=>  30, //for how many days new users have daily new thread limits
+	'posts_daily_limit_minutes'			=>  10, //minimum interval in minutes for new users to post
+	'posts_total_days_limit' 			=>  7,  //for how many days new users have daily new post limits per posts_daily_limit_minutes
 
 	/* Other Settings */
 
@@ -189,7 +196,8 @@ return array(
 		'Creitive\Breadcrumbs\BreadcrumbsServiceProvider',
 		'Roumen\Feed\FeedServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-		'Eddieh\Monero\MoneroServiceProvider',
+		//'Eddieh\Monero\MoneroServiceProvider',
+		//'App\Libraries\Extensions\SpamProtectionCache',
 
 	),
 

@@ -143,6 +143,9 @@ class ThreadsController extends \BaseController
 		if ($forum->lock != 0 && !Auth::user()->hasRole('Admin'))
 			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
 
+		//if user hasn't reached thread creation limit then proceed
+		if (!Thread::userCanSubmitThread(Auth::user())) return Redirect::to(URL::previous())->with('messages', array('You have reached your daily thread limit of ' . Config::get('app.thread_daily_limit')));
+
 		return View::make('threads.create', array('forum' => $forum, 'title' => 'Monero | Creating a thread in ' . $forum->name));
 	}
 
@@ -154,7 +157,6 @@ class ThreadsController extends \BaseController
 		//check the lock
 		if ($forum->lock != 0 && !Auth::user()->hasRole('Admin'))
 			return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
-
 
 		if (is_string(Input::get('submit'))) {
 
