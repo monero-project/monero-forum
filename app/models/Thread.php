@@ -81,7 +81,9 @@ class Thread extends \Eloquent
 			'forum_id' => 'required|exists:forums,id',
 			'user_id' => 'required|exists:users,id',
 			'name' => 'required',
-			'body' => 'required'
+			'body' => 'required',
+			'my_name'  => 'honeypot',
+			'my_time'  => 'required|honeytime:5'
 		);
 
 		$messages = array(

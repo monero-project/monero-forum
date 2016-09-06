@@ -50,7 +50,7 @@ class PostsController extends \BaseController {
 			$posts = $thread->posts();
 
 			//Check if current request's IP is spam blacklisted
-			$spamProtector = new SpamProtection();
+			$spamProtector = new SpamProtection(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
 			$checkSpam = $spamProtector->checkIP(Request::getClientIp());
 
 			if (!$validator->fails() && !$checkSpam)
