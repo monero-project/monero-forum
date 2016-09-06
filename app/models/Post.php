@@ -42,6 +42,8 @@ class Post extends \Eloquent {
 		'thread_id'		=> 'required|exists:threads,id',
 		'body'			=> 'required',
 		'parent_id'   	=> 'exists:posts,id',
+		'my_name'  => 'honeypot',
+		'my_time'  => 'required|honeytime:5'
 		);
 		return Validator::make($input, $rules);
 	}

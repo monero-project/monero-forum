@@ -8,6 +8,7 @@
 			<h1>Create a Thread</h1>
 			{{ Form::open(array('url' => '/thread/create')) }}
 			 <input type="hidden" value="{{ $forum->id }}" name="forum_id">
+			 {{ Honeypot::generate('my_name', 'my_time') }}
 				@if(in_array($forum->id, Config::get('app.funding_forums')))
 				<h2>Funding Options</h2>
 				<div class="form-group">
@@ -32,7 +33,7 @@
 			  <button name="submit" type="submit" class="btn btn-success">Create Thread</button>
 			  <button name="preview" class="btn btn-success preview-button non-js">Preview</button>
 			  <a href="{{ $forum->permalink() }}"><button type="button" class="btn btn-danger">Back</button></a>
-			  
+
 			{{ Form::close() }}
 		</div>
 	</div>

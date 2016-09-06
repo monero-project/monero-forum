@@ -9,7 +9,7 @@
 {{ Breadcrumbs::addCrumb(e($thread->forum->category->name), '/#category-'.$thread->forum->category->id) }}
 {{ Breadcrumbs::addCrumb(e($thread->forum->name), $thread->forum->permalink()) }}
 {{ Breadcrumbs::addCrumb(e($thread->name), $thread->permalink()) }}
-	<div class="row category-block">    
+	<div class="row category-block">
 		<div class="panel panel-default thread-block">
 		  <div class="panel-heading">
 		    <h3 class="panel-title"><i class="fa fa-comment"></i> {{{ str_limit($thread->name, 60, '[...]') }}} <p class="post-meta pull-right"><img class="profile-picture-sm" src="/uploads/profile/small_{{ $thread->head()->user->profile_picture }}"><a href="/user/{{ $thread->head()->user->username }}" class="poster-name" target="_blank">{{{ $thread->head()->user->username }}}</a> <span class="post-date" data-toggle="tooltip" data-placement="top" data-original-title="{{{ $thread->head()->created_at }}}">posted this {{ $thread->head()->created_at->diffForHumans() }}</span></p></h3>
@@ -37,6 +37,7 @@
 					<div class="media-body">
 						<form role="form" action="/posts/submit" method="POST">
 							<input type="hidden" name="thread_id" value="{{ $thread->id }}">
+							{{ Honeypot::generate('my_name', 'my_time') }}
 							<div class="form-group">
 								<textarea class="form-control markdown-editor" id="content-body" name="body" rows="2" placeholder="Your insightful masterpiece goes here...">{{{ Input::old('body') }}}</textarea>
 							</div>

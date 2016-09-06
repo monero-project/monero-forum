@@ -11,7 +11,6 @@ class ThreadsController extends \BaseController
 		$posts_per_page = Config::get('app.thread_posts_per_page');
 
 		$thread = Thread::findOrFail($thread_id);
-
 		//get current user role
 		if (Auth::check()) {
 			$roles = Auth::user()->roles;
@@ -162,9 +161,11 @@ class ThreadsController extends \BaseController
 
 			$data = array(
 				'forum_id' => Input::get('forum_id'),
-				'user_id' => Auth::user()->id,
-				'name' => Input::get('name'),
-				'body' => Input::get('body')
+				'user_id'  => Auth::user()->id,
+				'name'     => Input::get('name'),
+				'body'     => Input::get('body'),
+				'my_name'  => Input::get('my_name'),
+				'my_time'  => Input::get('my_time')
 			);
 
 			//Check if current request's IP is spam blacklisted
@@ -187,7 +188,9 @@ class ThreadsController extends \BaseController
 					$data = array(
 						'thread_id' => $thread->id,
 						'body' => Input::get('body'),
-						'user_id'   => Auth::user()->id
+						'user_id'   => Auth::user()->id,
+						'my_name'  => Input::get('my_name'),
+						'my_time'  => Input::get('my_time')
 					);
 
 					$post_validator = Post::validate($data);

@@ -26,7 +26,8 @@
 		"michelf/php-markdown": "dev-lib",
 		"barryvdh/laravel-ide-helper": "~1.11",
         "doctrine/dbal": "~2.3",
-        "helgesverre/spamprotection": "^1.0"
+        "helgesverre/spamprotection": "^1.0",
+		"msurguy/honeypot": "^1.0"
     },
 	"autoload": {
 		"classmap": [

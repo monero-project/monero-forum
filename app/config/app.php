@@ -198,6 +198,7 @@ return array(
 		'Roumen\Feed\FeedServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Eddieh\Monero\MoneroServiceProvider',
+		'Msurguy\Honeypot\HoneypotServiceProvider',
 		//'App\Libraries\Extensions\SpamProtectionCache',
 
 	),
@@ -272,6 +273,7 @@ return array(
 		'Breadcrumbs'	  => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
 		'Feed'   		  => 'Roumen\Feed\Facades\Feed',
 		'Monero'          => 'Eddieh\Monero\Facades\Monero',
+		'Honeypot' 		  => 'Msurguy\Honeypot\HoneypotFacade'
 	),
 
 );
