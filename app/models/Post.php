@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class Post extends \Eloquent {
 
 	protected $fillable = [
@@ -251,6 +253,27 @@ class Post extends \Eloquent {
 		$average = $post->thread->average_weight;
 		$hidden = $post->weight < $average;
 		return $hidden;
+	}
+
+	public static function userCanSubmit($user) {
+
+		//get no. of users' posts created in the past app.posts_daily_limit_minutes if he registered in the past app.posts_total_days_limit days
+		if (User::isNew(Auth::user(), Config::get('app.posts_total_days_limit'))) {
+
+			$postNumber = Post::where('user_id', '=', $user->id)
+			                   ->where('created_at', '>', Carbon::now()->subMinutes(Config::get('app.posts_daily_limit_minutes'))->toDateTimeString())
+						       ->count();
+
+			//check if posted within posts_daily_limit_minutes
+			if ($postNumber == 0) return true; else return false;
+
+	    } else {
+
+			//if user not new then he is allowed to post
+			return true;
+
+		}
+
 	}
 
 }
