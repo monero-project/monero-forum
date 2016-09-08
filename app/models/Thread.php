@@ -81,7 +81,9 @@ class Thread extends \Eloquent
 			'forum_id' => 'required|exists:forums,id',
 			'user_id' => 'required|exists:users,id',
 			'name' => 'required',
-			'body' => 'required'
+			'body' => 'required',
+			'my_name'  => 'honeypot',
+			'my_time'  => 'required|honeytime:5'
 		);
 
 		$messages = array(
@@ -173,7 +175,7 @@ class Thread extends \Eloquent
 	public static function userCanSubmitThread($user) {
 
 		//get no. of users' threads created today if he registered in the past app.thread_total_days_limit days
-		if (User::isNew(Auth::user())) {
+		if (User::isNew(Auth::user(), Config::get('app.thread_total_days_limit'))) {
 
 			$threadNumber = Thread::where('user_id', '=', $user->id)
 			                   ->whereDate('created_at', '=', Carbon::today()->toDateString())

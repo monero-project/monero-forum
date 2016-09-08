@@ -38,7 +38,8 @@ class Decay extends Command {
 	public function fire()
 	{
 		$this->info("Decaying the posts.");
-		DB::table('posts')->decrement('weight', Config::get('app.decay_weight'));
+		//decay weight if greated than minimum weight
+		DB::table('posts')->where('weight', '>', Config::get('app.minimum_weight'))->decrement('weight', Config::get('app.decay_weight'));
 		$this->info("Done!");
 	}
 

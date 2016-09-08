@@ -13,6 +13,7 @@
 		<form role="form" method="POST" action="/posts/submit">
 			<input type="hidden" name="post_id" value="{{ $post->id }}">
 			<input type="hidden" name="thread_id" value="{{ $post->thread->id }}">
+			{{ Honeypot::generate('my_name', 'my_time') }}
 			<div class="row">
 				<p class="col-lg-12">
 					For post formatting please use Markdown, <a href="http://kramdown.gettalong.org/syntax.html">click here</a> for a syntax guide.

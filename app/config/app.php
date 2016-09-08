@@ -29,6 +29,7 @@ return array(
 
 	'base_weight'						=> 500, //the base weight of every post.
 	'hidden_weight'						=> 400, //hide posts under this weight.
+	'minimum_weight'					=> 	0, //do not set weight below this value.
 
 	'reply_weight'						=> 	2, //amount of weight to add if the post just had a new reply.
 
@@ -197,6 +198,7 @@ return array(
 		'Roumen\Feed\FeedServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Eddieh\Monero\MoneroServiceProvider',
+		'Msurguy\Honeypot\HoneypotServiceProvider',
 		//'App\Libraries\Extensions\SpamProtectionCache',
 
 	),
@@ -271,6 +273,7 @@ return array(
 		'Breadcrumbs'	  => 'Creitive\Breadcrumbs\Facades\Breadcrumbs',
 		'Feed'   		  => 'Roumen\Feed\Facades\Feed',
 		'Monero'          => 'Eddieh\Monero\Facades\Monero',
+		'Honeypot' 		  => 'Msurguy\Honeypot\HoneypotFacade'
 	),
 
 );

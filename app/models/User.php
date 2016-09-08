@@ -140,10 +140,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		];
 	}
 
-	public static function isNew($user) {
+	public static function isNew($user, $days) {
 
+		//check if user registered within $days
 		$isNew = User::where('id', '=', $user->id)
-				     ->where('created_at', '>=', Carbon::now()->subDays(Config::get('app.thread_total_days_limit')))
+				     ->where('created_at', '>=', Carbon::now()->subDays($days))
 					 ->count();
 
 		//check if user created in the past app.thread_total_days_limit days

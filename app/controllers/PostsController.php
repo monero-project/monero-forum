@@ -38,6 +38,10 @@ class PostsController extends \BaseController {
 		if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
 				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
 
+		//check if user is is within limitations
+		if (!Post::userCanSubmit(Auth::user())) return Redirect::to(URL::previous())->with('messages', array('You have reached your limit of one post per ' . Config::get('app.posts_daily_limit_minutes') . ' minutes'));
+
+
 		if(is_string(Input::get('submit')))
 		{
 			$validator = Post::validate(Input::all());
@@ -245,6 +249,9 @@ class PostsController extends \BaseController {
 
 		if($forum->lock == 2 && (!Auth::user()->hasRole('Admin')))
 				return Redirect::to(URL::previous())->with('messages', array('You do not have permission to do this'));
+
+		//check if user is is within limitations
+		if (!Post::userCanSubmit(Auth::user())) return Redirect::to(URL::previous())->with('messages', array('You have reached your limit of one post per ' . Config::get('app.posts_daily_limit_minutes') . ' minutes'));
 
 		return View::make('posts.reply', array('post' => $post));
 	}
