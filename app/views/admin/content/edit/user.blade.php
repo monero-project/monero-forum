@@ -22,6 +22,15 @@
 					  @endif
 					</label>
 				 </div>
+				 <div class="checkbox">
+					<label>
+					  @if ($user->exempt_limitations)
+					  <input type="checkbox" name="exempt_limitations" checked>User exempt from posting limitations if new
+					  @else
+					  <input type="checkbox" name="exempt_limitations">User exempt from posting limitations if new
+					  @endif
+					</label>
+				 </div>
 			  	 <div class="form-group">
 				    <label>Username</label>
 				    <input type="text" class="form-control" name="username" value="{{ $user->username }}">
