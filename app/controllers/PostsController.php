@@ -2,6 +2,8 @@
 
 use Eddieh\Monero\Monero;
 use Helge\SpamProtection\SpamProtection;
+use Helge\SpamProtection\Types;
+use App\Providers\SpamProtectionCacheServiceProvider;
 
 class PostsController extends \BaseController {
 
@@ -54,8 +56,8 @@ class PostsController extends \BaseController {
 			$posts = $thread->posts();
 
 			//Check if current request's IP is spam blacklisted
-			$spamProtector = new SpamProtection(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
-			$checkSpam = $spamProtector->checkIP(Request::getClientIp());
+			$spamProtectorCache = new SpamProtectionCacheServiceProvider(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
+			$checkSpam = $spamProtectorCache->checkSaveRequest(Types::IP, Request::getClientIp());
 
 			if (!$validator->fails() && !$checkSpam)
 			{

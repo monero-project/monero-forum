@@ -199,7 +199,7 @@ return array(
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Eddieh\Monero\MoneroServiceProvider',
 		'Msurguy\Honeypot\HoneypotServiceProvider',
-		//'App\Libraries\Extensions\SpamProtectionCache',
+		'App\Providers\SpamProtectionCacheServiceProvider',
 
 	),
 
