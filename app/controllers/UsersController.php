@@ -2,6 +2,7 @@
 
 use Helge\SpamProtection\SpamProtection;
 use Helge\SpamProtection\Types;
+use App\Providers\SpamProtectionCacheServiceProvider;
 
 class UsersController extends BaseController
 {

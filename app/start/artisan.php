@@ -15,3 +15,4 @@ Artisan::add(new Decay);
 Artisan::add(new OTCUpdate);
 Artisan::add(new UsersClean);
 Artisan::add(new FundingUpdate);
+Artisan::add(new SpamProtectionRequestsClean);

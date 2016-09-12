@@ -3,6 +3,7 @@
 use Eddieh\Monero\Monero;
 use Helge\SpamProtection\SpamProtection;
 use Helge\SpamProtection\Types;
+use App\Providers\SpamProtectionCacheServiceProvider;
 
 class ThreadsController extends \BaseController
 {
