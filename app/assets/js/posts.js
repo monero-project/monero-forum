@@ -40,8 +40,8 @@ function init() {
     $('.drawer-button').show();
     $('.reply-cancel').show();
     $('.hide').hide();
-    //hide pagination on all pages except user post history
-    if (!$('.pagination-user-posts').length) $('.pagination').hide();
+    //hide pagination on all pages except user post history and forum thread view
+    if (!$('.pagination-user-posts').length && !$('.pagination-forum').length) $('.pagination').hide();
     $('.replies-list b').show();
     $('.content-control').show();
     $('.hidden-post-content').hide();
