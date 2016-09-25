@@ -14,11 +14,11 @@
         },
         {
             "type": "git",
-            "url": "https://github.com/jadz/laravel-framework-4.2.18-php7"
+            "url": "https://github.com/shibby/laravel-framework"
         }
     ],
 	"require": {
-		"laravel/framework": "dev-master",
+		"laravel/framework": "dev-4.2",
 		"way/generators": "2.*",
 		"fzaninotto/faker": "v1.3.0",
 		"zizaco/entrust": "1.2.*@dev",
