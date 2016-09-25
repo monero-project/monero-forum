@@ -257,8 +257,8 @@ class Post extends \Eloquent {
 
 	public static function userCanSubmit($user) {
 
-		//get no. of users' posts created in the past app.posts_daily_limit_minutes if he registered in the past app.posts_total_days_limit days
-		if (User::isNew(Auth::user(), Config::get('app.posts_total_days_limit'))) {
+		//get no. of users' posts created in the past app.posts_daily_limit_minutes if he registered in the past app.posts_total_days_limit days. Also check if he is exempt from these limitations
+		if (!$user->exempt_limitations && User::isNew($user, Config::get('app.posts_total_days_limit'))) {
 
 			$postNumber = Post::where('user_id', '=', $user->id)
 			                   ->where('created_at', '>', Carbon::now()->subMinutes(Config::get('app.posts_daily_limit_minutes'))->toDateTimeString())

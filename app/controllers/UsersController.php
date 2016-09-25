@@ -1,6 +1,8 @@
 <?php
 
 use Helge\SpamProtection\SpamProtection;
+use Helge\SpamProtection\Types;
+use App\Providers\SpamProtectionCacheServiceProvider;
 
 class UsersController extends BaseController
 {
@@ -38,9 +40,8 @@ class UsersController extends BaseController
 		$remember = false;
 
 		//Check if current request's IP is spam blacklisted
-		$spamProtector = new SpamProtection(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
-		$checkSpam = $spamProtector->checkIP(Request::getClientIp());
-
+		$spamProtectorCache = new SpamProtectionCacheServiceProvider(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
+		$checkSpam = $spamProtectorCache->checkSaveRequest(Types::IP, Request::getClientIp());
 
 		if (Input::get('remember_me') == 'on') $remember = true;
 
@@ -76,9 +77,9 @@ class UsersController extends BaseController
 		$validator = User::validate(Input::all());
 
 		//Check if current request's IP is spam blacklisted
-		$spamProtector = new SpamProtection(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
-		$checkSpam = $spamProtector->checkIP(Request::getClientIp());
-		$checkSpamEmail = $spamProtector->checkEmail(Input::get('email'));
+		$spamProtectorCache = new SpamProtectionCacheServiceProvider(SpamProtection::THRESHOLD_MEDIUM, SpamProtection::TOR_ALLOW);
+		$checkSpam = $spamProtectorCache->checkSaveRequest(Types::IP, Request::getClientIp());
+		$checkSpamEmail = $spamProtectorCache->checkSaveRequest(Types::EMAIL, Input::get('email'));
 
 		if (!$checkSpam && !$checkSpamEmail) {
 			if (!$validator->fails()) {

@@ -98,15 +98,13 @@ class Thread extends \Eloquent
 	{
 		$thread = $this;
 		if (Auth::check()) {
-			$threadView = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first();
-			$threadPost = $thread->posts()->orderBy('created_at', 'DESC')->first();
-			if (
-				($threadView
-					&& $threadPost
-					&& $threadPost->updated_at > $threadView->updated_at)
-				||
-				!$threadView
-			) {
+			$threadView = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first();
+			//check if new posts exist only if thread not viewed already
+			if ($threadView) $threadPost = $thread->posts()->orderBy('created_at', 'DESC')->first();
+
+			if (!$threadView) {
+				return true;
+		    } elseif ($threadPost && ($threadPost->updated_at > $threadView->updated_at)) {
 				return true;
 			} else {
 				return false;
@@ -120,11 +118,18 @@ class Thread extends \Eloquent
 	public function getUnreadPostsAttribute()
 	{
 		$thread = $this;
-		if (Auth::check() && ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->orderBy('updated_at', 'DESC')->first()) {
-			$lastView = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first();
-			$lastView = $lastView->updated_at;
-			$postCount = $thread->posts()->where('updated_at', '>', $lastView)->count();
-			return $postCount;
+
+		//get last thread view updated_at
+		$lastView = ThreadView::where('user_id', Auth::user()->id)->where('thread_id', $thread->id)->first();
+
+		if (Auth::check()) {
+			if ($lastView) {
+				$postCount = $thread->posts()->where('updated_at', '>', $lastView->updated_at)->count();
+				return $postCount;
+			} else {
+				$postCount = $thread->posts()->count();
+				return $postCount;
+			}
 		} else {
 			return 0;
 		}
@@ -174,8 +179,8 @@ class Thread extends \Eloquent
 
 	public static function userCanSubmitThread($user) {
 
-		//get no. of users' threads created today if he registered in the past app.thread_total_days_limit days
-		if (User::isNew(Auth::user(), Config::get('app.thread_total_days_limit'))) {
+		//get no. of users' threads created today if he registered in the past app.thread_total_days_limit days. Also check if he is exempt from these limitations
+		if (!$user->exempt_limitations && User::isNew($user, Config::get('app.thread_total_days_limit'))) {
 
 			$threadNumber = Thread::where('user_id', '=', $user->id)
 			                   ->whereDate('created_at', '=', Carbon::today()->toDateString())

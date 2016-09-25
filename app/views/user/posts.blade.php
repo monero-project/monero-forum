@@ -25,5 +25,7 @@
       </tbody>
     </table>
 	</div>
-	{{ $posts->links() }}
+	<span class="pagination-user-posts">
+	 {{ $posts->links() }}
+    </span>
 @stop

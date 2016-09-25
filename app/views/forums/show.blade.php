@@ -9,7 +9,7 @@
 {{ Breadcrumbs::addCrumb(e($forum->category->name), '/#category-'.$forum->category->id) }}
 {{ Breadcrumbs::addCrumb(e($forum->name), $forum->permalink()) }}
 @if (Visibility::check('forum', $forum->id))
-<div class="row category-block">   
+<div class="row category-block">
 <div class="panel panel-default">
   <div class="panel-heading">
     <h1 class="panel-title"><i class="fa fa-th-list"></i> {{ $forum->name }} <a class="pull-right normal-create" href="/thread/create/{{ $forum->id }}"><button class="btn btn-xs create-thread btn-primary pull-right"><i class="fa fa-plus"></i>Create a Thread</button></a>
@@ -36,7 +36,7 @@
   </div>
 </div>
 </div>
-<div class="post-links">
+<div class="post-links pagination-forum">
 	{{ $threads->links() }}
 </div>
 @else

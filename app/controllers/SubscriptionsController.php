@@ -3,10 +3,14 @@
 class SubscriptionsController extends \BaseController {
 
 	public function getIndex() {
-		$user = Auth::user();
-		$subscriptions = $user->subscriptions()->orderBy('created_at', 'DESC')->paginate(20);
+		if (Auth::check()) {
+			$user = Auth::user();
+			$subscriptions = $user->subscriptions()->orderBy('created_at', 'DESC')->paginate(20);
 
-		return View::make('subscriptions.index', compact('subscriptions'));
+			return View::make('subscriptions.index', compact('subscriptions'));
+		} else {
+			return Redirect::to('/login');
+		}
 	}
 
 	//delete subscription
