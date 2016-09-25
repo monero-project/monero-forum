@@ -18,7 +18,7 @@
         }
     ],
 	"require": {
-		"laravel/framework": "4.2.*",
+		"laravel/framework": "dev-master",
 		"way/generators": "2.*",
 		"fzaninotto/faker": "v1.3.0",
 		"zizaco/entrust": "1.2.*@dev",
