@@ -11,6 +11,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/SkepticalHippo/php-markdown"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/jadz/laravel-framework-4.2.18-php7"
         }
     ],
 	"require": {
