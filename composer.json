@@ -6,19 +6,15 @@
 	"repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/SkepticalHippo/markdown"
+            "url": "https://github.com/monero-project/markdown"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/SkepticalHippo/php-markdown"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/shibby/laravel-framework"
+            "url": "https://github.com/monero-project/php-markdown"
         }
     ],
 	"require": {
-		"laravel/framework": "dev-4.2",
+		"laravel/framework": "4.2/*",
 		"way/generators": "2.*",
 		"fzaninotto/faker": "v1.3.0",
 		"zizaco/entrust": "1.2.*@dev",
