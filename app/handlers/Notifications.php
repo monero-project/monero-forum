@@ -133,7 +133,7 @@ Event::listen('message.sent', function($pm)
 
 		Mail::send('emails.pm', $data, function ($message) use ($receiver, $pm, $sender, $conversation_id) {
 			$message->from('conversation-' . $conversation_id . '@getmonero.org', Config::get('app.from_name'));
-			$message->to($receiver->email)->subject('New message from ' . $sender->username . ' - ' . str_limit($pm->conversation->title, 30, '[...]'));
+			$message->to($receiver->email)->subject('New private message on the Monero Forum');
 		});
 	}
 });
