@@ -22,12 +22,12 @@ img {
 }
 
 /* Fix fragment jumps being ruined by the floating navbar */
-// *[id]:before { 
-//   display: block; 
-//   content: " "; 
-//   margin-top: -75px; 
-//   height: 75px; 
-//   visibility: hidden; 
+// *[id]:before {
+//   display: block;
+//   content: " ";
+//   margin-top: -75px;
+//   height: 75px;
+//   visibility: hidden;
 // }
 
 * {
@@ -109,10 +109,6 @@ p code {
 
 .instruction-list {
 	margin-right: 5px;
-}
-
-.moneropedia {
-	color: #505050;
 }
 
 .long-term {
@@ -209,8 +205,8 @@ text {
 	background-image: url('../images/li.svg');
 	background-size: 12px;
 	background-repeat: no-repeat;
-	background-position: 0px 5px; 
-	padding-left: 22px; 
+	background-position: 0px 5px;
+	padding-left: 22px;
 	margin-bottom: 12px;
 }
 
@@ -356,7 +352,7 @@ body {
 }
 
 .code-message {
-		
+
 }
 
 .body-language {
@@ -882,7 +878,7 @@ body:before {
 }
 
 @media (min-width: 991px) and (max-width: 1200px) {
-	
+
 	.box-green .inside {
 		height: 300px;
 		margin-bottom: 0;
@@ -968,7 +964,7 @@ body:before {
 	.navbar-default .navbar-nav > li > a {
 		text-align: left;
 	}
-	
+
 	.navbar-wrapper {
 		width: 100%;
 	}
