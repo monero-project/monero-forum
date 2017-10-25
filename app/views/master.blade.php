@@ -61,9 +61,8 @@
       <div class="container">
           <div class="footer-links">
 	          <ul class="fa-ul">
-		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="//getmonero.org/legal/terms">Terms</a></li>
-		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="//getmonero.org/legal/privacy">Privacy</a></li>
-		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="//getmonero.org/legal/copyright">Copyright</a></li>
+		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="//getmonero.org/legal">Legal</a></li>
+		          <li><i class="fa-li fa fa-dot-circle-o"></i><a href="https://github.com/monero-project/monero-forum">Source Code</a></li>
 	          </ul>
       </div>
           <a class="footer-icon" href="https://getmonero.org/feed.xml"><i class="fa fa-2x fa-rss-square"></i></a>
